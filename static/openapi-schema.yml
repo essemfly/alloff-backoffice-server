@@ -1,0 +1,247 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /orders/:
+    get:
+      operationId: listOrders
+      description: ''
+      parameters:
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - orders
+    post:
+      operationId: createOrder
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - orders
+  /orders/{id}/:
+    get:
+      operationId: retrieveOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - orders
+    put:
+      operationId: updateOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - orders
+    patch:
+      operationId: partialUpdateOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - orders
+    delete:
+      operationId: destroyOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - orders
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        iamport:
+          type: string
+          readOnly: true
+        payment:
+          type: string
+          readOnly: true
+        orderstatus:
+          enum:
+          - PAYMENT_FINISHED
+          - PRODUCT_PREPARING
+          - DELIVERY_PREPARING
+          - DELIVERY_STARTED
+          - DELIVERY_FINISHED
+          - CONFIRM_PAYMENT
+          - CANCEL_REQUESTED
+          - CANCEL_PENDING
+          - CANCEL_FINISHED
+          type: string
+        ordertype:
+          enum:
+          - NORMAL_ORDER
+          - TIMEDEAL_ORDER
+          type: string
+        totalprice:
+          type: integer
+        productprice:
+          type: integer
+        deliveryprice:
+          type: integer
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        memo:
+          type: string
+          nullable: true
+        deliverytrackingnumber:
+          type: string
+          nullable: true
+        deliverytrackingurl:
+          type: string
+          nullable: true
+        user:
+          type: object
+          properties:
+            _id:
+              type: string
+              readOnly: true
+            name:
+              type: string
+            uuid:
+              type: string
+            email:
+              type: string
+            created:
+              type: string
+              format: date-time
+            mobile:
+              type: string
+            baseaddress:
+              type: string
+            detailaddress:
+              type: string
+            postcode:
+              type: string
+          required:
+          - mobile
