@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from tagger.views import test
 from django import urls
-from tagger.drf.order import OrderViewSet
+from tagger.viewsets.order import OrderViewSet
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
