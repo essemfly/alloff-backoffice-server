@@ -22,9 +22,12 @@ class Inventory(EmbeddedDocument):
 class Instruction(EmbeddedDocument):
     title = StringField(required=True)
     description = ListField(StringField(), required=True)
+    images = ListField(StringField(), required=False)
+    thumbnail = StringField(required=False)
 
 
 class _AlloffProduct:
+    _id = StringField(required=True)
     name = StringField(required=True)
     productgroupid = StringField(required=True)
     description = ListField(StringField(), required=True)

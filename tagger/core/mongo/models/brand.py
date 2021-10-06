@@ -7,6 +7,7 @@ from mongoengine import (
 )
 from mongoengine.document import Document, EmbeddedDocument
 from mongoengine.fields import BooleanField, EmbeddedDocumentListField, ListField
+from tagger.core.mongo.models.category import EmbeddedCategory
 
 
 class SizeGuide(EmbeddedDocument):
@@ -27,6 +28,7 @@ class _Brand:
     maxdiscountrate = IntField(required=True)
     numnewproducts = IntField(required=True)
     sizeguide = EmbeddedDocumentListField(SizeGuide)
+    category = EmbeddedDocumentListField(EmbeddedCategory)
 
 
 class Brand(_Brand, Document):

@@ -15,6 +15,10 @@ iamport-rest-client = "^0.8.2"
 django-cors-headers = "^3.8.0"
 drf-yasg = "^1.20.0"
 django-rest-framework-mongoengine = {git = "git@github.com:lessbutter/django-rest-framework-mongoengine.git"}
+djangorestframework-simplejwt = "^4.8.0"
+httpx = "^0.19.0"
+simplejson = "^3.17.5"
+arrow = "^1.2.0"
 
 
 [tool.poetry.dev-dependencies]
@@ -22,6 +26,7 @@ autopep8 = "^1.5.7"
 black = "^21.9b0"
 PyYAML = "^5.4.1"
 uritemplate = "^3.0.1"
+ipython = "^7.28.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

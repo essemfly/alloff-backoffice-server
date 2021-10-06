@@ -1,3 +1,4 @@
+from typing import Optional
 from django.db import models
 from mongoengine import (
     DateTimeField,
@@ -5,20 +6,11 @@ from mongoengine import (
     EmbeddedDocumentField,
     IntField,
     StringField,
-    connect,
     Document,
 )
-from mongoengine.fields import EmbeddedDocumentListField, ListField
+from mongoengine.fields import EmbeddedDocumentListField
 from tagger.core.mongo.models.order_item import OrderItem
-from tagger.core.mongo.models.user import User
-
-connect(
-    "outlet_dev",
-    username="root",
-    password="2morebutter",
-    authentication_source="admin",
-    host="mongodb://db.lessbutter.co",
-)
+from tagger.core.mongo.models.user import AlloffUser
 
 
 class OrderStatus(models.TextChoices):
@@ -48,8 +40,6 @@ class Payment(DynamicDocument):
     merchantuid = StringField(required=True)
     amount = IntField(required=True)
     buyername = StringField(required=True)
-    deliverytrackingnumber = StringField(required=True)
-    deliverytrackingurl = StringField(required=True)
     buyermobile = StringField(required=True)
     buyeraddress = StringField(required=True)
     buyerpostcode = StringField(required=True)
@@ -63,21 +53,27 @@ class Refund(Document):
     refunddeliveryprice = IntField(required=True)
     refundprice = IntField(required=True)
     refundamount = IntField(required=True)
-    created: DateTimeField(required=True)
-    updated: DateTimeField(required=True)
+    created = DateTimeField(required=True)
+    updated = DateTimeField(required=True)
 
 
 class Order(DynamicDocument):
     meta = {"collection": "orders"}
-    orderstatus = StringField(choices=OrderStatus.choices)
-    ordertype = StringField(choices=OrderType.choices)
+    orderstatus = StringField(choices=OrderStatus.choices, required=True)
+    ordertype = StringField(choices=OrderType.choices, required=True)
     totalprice = IntField(required=True)
     productprice = IntField(required=True)
     deliveryprice = IntField(required=True)
     created = DateTimeField(required=True)
     updated = DateTimeField(required=True)
     memo = StringField(empty=True, required=True)
-    deliverytrackingnumber = StringField(empty=True, required=True)
-    deliverytrackingurl = StringField(empty=True, required=True)
-    user = EmbeddedDocumentField(User, required=True)
+    deliverytrackingnumber = StringField(empty=True)
+    deliverytrackingurl = StringField(empty=True)
+    user = EmbeddedDocumentField(AlloffUser, required=True)
     orders = EmbeddedDocumentListField(OrderItem, required=True)
+
+    def get_payment(self) -> Optional[Payment]:
+        query = Payment.objects(merchantuid=str(self.id)).order_by("-id")
+        if len(query) == 0:
+            return None
+        return query.first()

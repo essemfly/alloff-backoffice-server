@@ -4,6 +4,9 @@ from mongoengine.document import EmbeddedDocument
 
 class _Category:
     name = StringField(required=True)
+    keyname = StringField(required=True)
+    catidentifier = StringField(required=True)
+    brandkeyname = StringField(required=True)
 
 
 class Category(_Category, DynamicDocument):

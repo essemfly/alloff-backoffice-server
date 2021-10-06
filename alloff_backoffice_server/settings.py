@@ -1,4 +1,7 @@
 from django.contrib.staticfiles import handlers
+from datetime import timedelta
+
+from mongoengine.connection import connect
 
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
 class CORSStaticFilesHandler(handlers.StaticFilesHandler):
@@ -147,6 +150,33 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SERVICE_ENV_IS_DEV = True
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "tagger.core.drf.jwt_auth.CookieJWTAuthentication",
+    ),
+    "DEFAULT_PAGINATION_CLASS": "tagger.core.drf.pagination.CustomPageNumberPagination",
+    "PAGE_SIZE": 20,
 }
 STATIC_ROOT = "./static"
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
+    "ACCESS_TOKEN_NAME": "Access-Token",
+    "REFRESH_TOKEN_NAME": "Refresh-Token",
+    "ROTATE_REFRESH_TOKENS": True,
+}
+ALIMTALK = {
+    "APP_KEY": "sj4UJFouCcvOHajL",
+    "SECRET": "oE07IvyX",
+    "SENDER_KEY": "63949416400523d6fbe6fa9112644ab359710b74",
+    "URL": "https://api-alimtalk.cloud.toast.com/alimtalk/v2.1/appkeys/{}/messages",
+}
+
+connect(
+    "outlet_dev" if SERVICE_ENV_IS_DEV else "outlet",
+    username="root",
+    password="2morebutter",
+    authentication_source="admin",
+    host="mongodb://db.lessbutter.co",
+)

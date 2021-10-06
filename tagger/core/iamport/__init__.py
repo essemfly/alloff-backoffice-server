@@ -35,6 +35,12 @@ class IMP(_Singleton):
             imp_secret="oR8RlO2aSV7Uzj86wK8FbGl8ZPeTmscLjlCEaFP2AXWag5gNPos15N94CoXZRaKavnPF3EIECFOTK4GA",
         )
 
+    def cancel_payment(self, uid: str, amount: int, checksum: int, reason: str):
+        res = self.__iamport.cancel_by_imp_uid(
+            uid, reason, amount=amount, checksum=checksum
+        )
+        return res
+
     def get_payment_details(self, uids: List[str]):
         split_uids = chunks(uids, 100)  # Per Iamport REST API spec
         result = []

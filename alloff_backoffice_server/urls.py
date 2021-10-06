@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from tagger.views import test
 from django import urls
+from tagger.viewsets.admin_user import AdminUserViewSet
+from tagger.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
 from tagger.viewsets.order import OrderViewSet
 from django.contrib import admin
 from django.urls import path
@@ -28,6 +30,7 @@ from drf_yasg import openapi
 
 router = routers.DefaultRouter()
 router.register(r"orders", OrderViewSet, basename="orders")
+router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,7 +45,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),
+    # path("api-auth/", include("rest_framework.urls")),
+    path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     path("test/", test),
     url(
         r"^swagger(?P<format>\.json|\.yaml)$",

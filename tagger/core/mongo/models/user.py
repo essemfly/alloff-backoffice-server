@@ -1,7 +1,7 @@
 from mongoengine import EmbeddedDocument, StringField, DateTimeField
 
 
-class User(EmbeddedDocument):
+class AlloffUser(EmbeddedDocument):
     _id = StringField()
     name = StringField()
     uuid = StringField()
