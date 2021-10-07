@@ -1,3 +1,8 @@
+from dotenv import load_dotenv, dotenv_values
+
+load_dotenv()  # take environment variables from .env.
+env = dotenv_values(".env")
+
 from django.contrib.staticfiles import handlers
 from datetime import timedelta
 
@@ -36,7 +41,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_*10%j5@a2i%)wx-*(6^a!wpar$e5jqce&hus=4dr_^(b9&2(q"
+SECRET_KEY = (
+    "django-insecure-_*10%j5@a2i%)wx-*(6^a!wpar$e5jqce&hus=4dr_^(b9&2(q"
+    if env.get("DJANGO_SECRET") is None
+    else env.get("DJANGO_SECRET")
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,7 +156,8 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SERVICE_ENV_IS_DEV = True
+SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
+
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -161,23 +171,27 @@ STATIC_ROOT = "./static"
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        days=int(env.get("ACCESS_TOKEN_LIFETIME_IN_DAYS"))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=int(env.get("REFRESH_TOKEN_LIFETIME_IN_DAYS"))
+    ),
     "ACCESS_TOKEN_NAME": "Access-Token",
     "REFRESH_TOKEN_NAME": "Refresh-Token",
     "ROTATE_REFRESH_TOKENS": True,
 }
 ALIMTALK = {
-    "APP_KEY": "sj4UJFouCcvOHajL",
-    "SECRET": "oE07IvyX",
-    "SENDER_KEY": "63949416400523d6fbe6fa9112644ab359710b74",
+    "APP_KEY": env.get("ALIMTALK_APP_KEY"),
+    "SECRET": env.get("ALIMTALK_SECRET"),
+    "SENDER_KEY": env.get("ALIMTALK_SENDER_KEY"),
     "URL": "https://api-alimtalk.cloud.toast.com/alimtalk/v2.1/appkeys/{}/messages",
 }
 
 connect(
     "outlet_dev" if SERVICE_ENV_IS_DEV else "outlet",
-    username="root",
-    password="2morebutter",
-    authentication_source="admin",
     host="mongodb://db.lessbutter.co",
+    username=env.get("SERVICE_DB_USERNAME"),
+    password=env.get("SERVICE_DB_PASSWORD"),
+    authentication_source="admin",
 )

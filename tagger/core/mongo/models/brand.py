@@ -36,4 +36,5 @@ class Brand(_Brand, Document):
 
 
 class EmbeddedBrand(_Brand, EmbeddedDocument):
+    meta = {"strict": False}
     _id = StringField(required=True)
