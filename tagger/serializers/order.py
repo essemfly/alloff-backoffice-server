@@ -1,4 +1,5 @@
-from rest_framework.fields import CharField, DictField
+from datetime import datetime
+from rest_framework.fields import CharField, DateTimeField, DictField
 from rest_framework.serializers import SerializerMethodField
 from rest_framework_mongoengine.serializers import DynamicDocumentSerializer
 from tagger.core.iamport import IMP
@@ -20,6 +21,54 @@ class _OrderSerializer(DynamicDocumentSerializer):
     payment = SerializerMethodField()
     user = UserSerializer(many=False)
     refund = SerializerMethodField()
+
+    orderedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_orderedAt(self, obj: Order):
+        if obj.orderedAt is None:
+            return None
+        return None if obj.orderedAt.year <= 1 else obj.orderedAt
+
+    deliveryStartedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_deliveryStartedAt(self, obj: Order):
+        if obj.deliveryStartedAt is None:
+            return None
+        return None if obj.deliveryStartedAt.year <= 1 else obj.deliveryStartedAt
+
+    deliveryFinishedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_deliveryFinishedAt(self, obj: Order):
+        if obj.deliveryFinishedAt is None:
+            return None
+        return None if obj.deliveryFinishedAt.year <= 1 else obj.deliveryFinishedAt
+
+    cancelRequestedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_cancelRequestedAt(self, obj: Order):
+        if obj.cancelRequestedAt is None:
+            return None
+        return None if obj.cancelRequestedAt.year <= 1 else obj.cancelRequestedAt
+
+    cancelFinishedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_cancelFinishedAt(self, obj: Order):
+        if obj.cancelFinishedAt is None:
+            return None
+        return None if obj.cancelFinishedAt.year <= 1 else obj.cancelFinishedAt
+
+    confirmedAt = SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    def get_confirmedAt(self, obj: Order):
+        if obj.confirmedAt is None:
+            return None
+        return None if obj.confirmedAt.year <= 1 else obj.confirmedAt
 
     @swagger_serializer_method(serializer_or_field=PaymentSerializer)
     def get_payment(self, obj):
@@ -54,7 +103,9 @@ class OrderRetrieveSerializer(_OrderSerializer):
     @swagger_serializer_method(serializer_or_field=OrderMemoSerializer(many=True))
     def get_memos(self, obj):
         return OrderMemoSerializer(
-            OrderMemo.objects.filter(order_id=obj.id).order_by("-created_at").all(),
+            OrderMemo.objects.filter(order_id=obj.id, deleted_at=None)
+            .order_by("-created_at")
+            .all(),
             many=True,
         ).data
 

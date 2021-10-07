@@ -13,20 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from tagger.views import test
 from django import urls
-from tagger.viewsets.admin_user import AdminUserViewSet
-from tagger.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
-from tagger.viewsets.order import OrderViewSet
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from rest_framework import routers
-
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions, routers
+from tagger.views import test
+from tagger.viewsets.admin_user import AdminUserViewSet
+from tagger.viewsets.auth import (
+    DecoratedLogoutView,
+    DecoratedTokenObtainPairView,
+    DecoratedTokenRefreshView,
+)
+from tagger.viewsets.order import OrderViewSet
 
 router = routers.DefaultRouter()
 router.register(r"orders", OrderViewSet, basename="orders")
@@ -48,6 +50,7 @@ urlpatterns = [
     # path("api-auth/", include("rest_framework.urls")),
     path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
+    path("token/logout/", DecoratedLogoutView.as_view(), name="token_logout"),
     path("test/", test),
     url(
         r"^swagger(?P<format>\.json|\.yaml)$",

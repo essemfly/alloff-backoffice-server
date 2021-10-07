@@ -2,12 +2,31 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from alloff_backoffice_server.settings import SIMPLE_JWT
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import response, serializers, status
+from rest_framework import response, serializers, status, views, mixins
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
+
+
+class LogoutResponseSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+
+class DecoratedLogoutView(views.APIView):
+    @swagger_auto_schema(
+        responses={status.HTTP_200_OK: LogoutResponseSerializer},
+    )
+    def post(self, request):
+        return response.Response(status=status.HTTP_200_OK)
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        print("adsmaksdasd")
+        response.delete_cookie(SIMPLE_JWT["ACCESS_TOKEN_NAME"])
+        response.delete_cookie(SIMPLE_JWT["REFRESH_TOKEN_NAME"])
+        return super().finalize_response(request, response, *args, **kwargs)
 
 
 class TokenObtainPairResponseSerializer(serializers.Serializer):
@@ -75,7 +94,6 @@ class DecoratedTokenRefreshView(TokenRefreshView):
         return response.Response(serializer.validated_data, status=status.HTTP_200_OK)
 
     def finalize_response(self, request, response, *args, **kwargs):
-        print(response.data)
         if response.data.get("access"):
             response.set_cookie(
                 SIMPLE_JWT["ACCESS_TOKEN_NAME"],

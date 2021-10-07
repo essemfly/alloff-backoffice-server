@@ -19,6 +19,7 @@ class OrderAlimtalkType(models.TextChoices):
 class OrderActionLog(models.Model):
     order_id = models.CharField(max_length=24, db_index=True)
     admin = models.ForeignKey(to=User, on_delete=models.PROTECT)
+    detail = models.TextField(null=True)
     action_type = models.CharField(max_length=100, choices=OrderActionType.choices)
     performed_at = models.DateTimeField(auto_now_add=True)
 

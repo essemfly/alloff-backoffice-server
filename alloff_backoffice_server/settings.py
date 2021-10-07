@@ -152,6 +152,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "tagger.core.drf.jwt_auth.CookieJWTAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "tagger.core.drf.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 20,
@@ -160,7 +161,7 @@ STATIC_ROOT = "./static"
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(seconds=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
     "ACCESS_TOKEN_NAME": "Access-Token",
     "REFRESH_TOKEN_NAME": "Refresh-Token",
