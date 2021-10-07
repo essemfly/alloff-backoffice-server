@@ -23,7 +23,6 @@ class DecoratedLogoutView(views.APIView):
         return response.Response(status=status.HTTP_200_OK)
 
     def finalize_response(self, request, response, *args, **kwargs):
-        print("adsmaksdasd")
         response.delete_cookie(SIMPLE_JWT["ACCESS_TOKEN_NAME"])
         response.delete_cookie(SIMPLE_JWT["REFRESH_TOKEN_NAME"])
         return super().finalize_response(request, response, *args, **kwargs)
