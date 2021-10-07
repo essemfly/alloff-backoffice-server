@@ -14,7 +14,7 @@ mongoengine = "^0.23.1"
 iamport-rest-client = "^0.8.2"
 django-cors-headers = "^3.8.0"
 drf-yasg = "^1.20.0"
-django-rest-framework-mongoengine = {git = "git@github.com:lessbutter/django-rest-framework-mongoengine.git"}
+django-rest-framework-mongoengine = {git = "https://github.com/lessbutter/django-rest-framework-mongoengine.git"}
 djangorestframework-simplejwt = "^4.8.0"
 httpx = "^0.19.0"
 simplejson = "^3.17.5"

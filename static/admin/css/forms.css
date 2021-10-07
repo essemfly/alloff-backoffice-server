@@ -345,7 +345,7 @@ body.popup .submit-row {
     height: 40.2em;
 }
 
-.module table .vPositiveSmallIntField {
+.module table .vPositiveSmallIntegerField {
     width: 2.2em;
 }
 
@@ -353,11 +353,11 @@ body.popup .submit-row {
     width: 20em;
 }
 
-.vIntField {
+.vIntegerField {
     width: 5em;
 }
 
-.vBigIntField {
+.vBigIntegerField {
     width: 10em;
 }
 
