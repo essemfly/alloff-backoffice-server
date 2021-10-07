@@ -53,14 +53,14 @@ class DecoratedTokenObtainPairView(TokenObtainPairView):
                 response.data.get("access"),
                 max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
                 httponly=True,
-                samesite="lax",
+                samesite="none",
             )
             response.set_cookie(
                 SIMPLE_JWT["REFRESH_TOKEN_NAME"],
                 response.data.get("refresh"),
                 max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
                 httponly=True,
-                samesite="lax",
+                samesite="none",
             )
             del response.data["refresh"]
             del response.data["access"]
