@@ -53,14 +53,16 @@ class DecoratedTokenObtainPairView(TokenObtainPairView):
                 response.data.get("access"),
                 max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
                 httponly=True,
-                samesite="none",
+                samesite="lax",
+                domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
             )
             response.set_cookie(
                 SIMPLE_JWT["REFRESH_TOKEN_NAME"],
                 response.data.get("refresh"),
                 max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
                 httponly=True,
-                samesite="none",
+                samesite="lax",
+                domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
             )
             del response.data["refresh"]
             del response.data["access"]
