@@ -578,15 +578,15 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pyjwt"
-version = "2.2.0"
+version = "2.1.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-crypto = ["cryptography (>=3.3.1)"]
-dev = ["sphinx", "sphinx-rtd-theme", "zope.interface", "cryptography (>=3.3.1)", "pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)", "mypy", "pre-commit"]
+crypto = ["cryptography (>=3.3.1,<4.0.0)"]
+dev = ["sphinx", "sphinx-rtd-theme", "zope.interface", "cryptography (>=3.3.1,<4.0.0)", "pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)", "mypy", "pre-commit"]
 docs = ["sphinx", "sphinx-rtd-theme", "zope.interface"]
 tests = ["pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)"]
 
@@ -844,7 +844,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "614d6267dc421f535d4bae6ef196875f0f498de9cb64c72b5565ce1c59b5a49e"
+content-hash = "917409788bb75ed99548cdacc58380c4a2517b2d1045045a2e350b72a7be222f"
 
 [metadata.files]
 anyio = [
@@ -1116,8 +1116,8 @@ pygments = [
     {file = "Pygments-2.10.0.tar.gz", hash = "sha256:f398865f7eb6874156579fdf36bc840a03cab64d1cde9e93d68f46a425ec52c6"},
 ]
 pyjwt = [
-    {file = "PyJWT-2.2.0-py3-none-any.whl", hash = "sha256:b0ed5824c8ecc5362e540c65dc6247567db130c4226670bf7699aec92fb4dae1"},
-    {file = "PyJWT-2.2.0.tar.gz", hash = "sha256:a0b9a3b4e5ca5517cac9f1a6e9cd30bf1aa80be74fcdf4e28eded582ecfcfbae"},
+    {file = "PyJWT-2.1.0-py3-none-any.whl", hash = "sha256:934d73fbba91b0483d3857d1aff50e96b2a892384ee2c17417ed3203f173fca1"},
+    {file = "PyJWT-2.1.0.tar.gz", hash = "sha256:fba44e7898bbca160a2b2b501f492824fc8382485d3a6f11ba5d0c1937ce6130"},
 ]
 pymongo = [
     {file = "pymongo-3.12.0-cp27-cp27m-macosx_10_14_intel.whl", hash = "sha256:072ba7cb65c8aa4d5c5659bf6722ee85781c9d7816dc00679b8b6f3dff1ddafc"},
