@@ -24,6 +24,15 @@ class OrderActionLog(models.Model):
     performed_at = models.DateTimeField(auto_now_add=True)
 
 
+class OrderRefundUpdateLog(models.Model):
+    order_id = models.CharField(max_length=24, db_index=True)
+    action_log = models.OneToOneField(OrderActionLog, on_delete=models.CASCADE)
+    refund_delivery_price = models.IntegerField()
+    refund_price = models.IntegerField()
+    refund_amount = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class OrderStatusChangeLog(models.Model):
     order_id = models.CharField(max_length=24, db_index=True)
     action_log = models.OneToOneField(OrderActionLog, on_delete=models.CASCADE)

@@ -1,8 +1,11 @@
 from datetime import datetime
+
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
-from tagger.core.mongo.models.order import Order, OrderStatus
+from tagger.core.alimtalk.cancel_finished import CancelFinishedAlimtalk
+from tagger.core.alimtalk.delivery_started import DeliveryStartedAlimtalk
+from tagger.core.mongo.models.order import Order, OrderStatus, Refund
 from tagger.models.order_action_log import (
     OrderActionLog,
     OrderActionType,
@@ -11,7 +14,6 @@ from tagger.models.order_action_log import (
     OrderStatusChangeLog,
 )
 from tagger.serializers.order import OrderRetrieveSerializer
-from tagger.core.alimtalk.delivery_started import DeliveryStartedAlimtalk
 
 
 class ChangeStatusSerializer(serializers.Serializer):
@@ -51,40 +53,16 @@ def get_timestamp_field_with_status(status: OrderStatus):
 
 
 def is_allowed_transition(status_from: OrderStatus, status_to: OrderStatus):
-    if status_from == OrderStatus.PAYMENT_FINISHED:
-        return status_to in [
-            OrderStatus.PRODUCT_PREPARING,
-            OrderStatus.DELIVERY_PREPARING,
-            OrderStatus.DELIVERY_STARTED,
-            OrderStatus.CANCEL_PENDING,
+    return (
+        status_to
+        not in [
+            OrderStatus.CANCEL_REQUESTED,
+            OrderStatus.CONFIRM_PAYMENT,
+            OrderStatus.PAYMENT_FINISHED,
         ]
-
-    elif status_from == OrderStatus.PRODUCT_PREPARING:
-        return status_to in [
-            OrderStatus.DELIVERY_PREPARING,
-            OrderStatus.DELIVERY_STARTED,
-            OrderStatus.CANCEL_PENDING,
-        ]
-
-    elif status_from == OrderStatus.DELIVERY_PREPARING:
-        return status_to in [OrderStatus.DELIVERY_STARTED, OrderStatus.CANCEL_PENDING]
-
-    elif status_from == OrderStatus.DELIVERY_STARTED:
-        return status_to in [OrderStatus.DELIVERY_FINISHED, OrderStatus.CANCEL_PENDING]
-
-    elif status_from == OrderStatus.DELIVERY_FINISHED:
-        return status_to in [OrderStatus.CONFIRM_PAYMENT, OrderStatus.CANCEL_PENDING]
-
-    elif status_from == OrderStatus.CONFIRM_PAYMENT:
-        return status_to == OrderStatus.CANCEL_PENDING
-
-    elif status_from == OrderStatus.CANCEL_REQUESTED:
-        return status_to == OrderStatus.CANCEL_PENDING
-
-    elif status_from == OrderStatus.CANCEL_FINISHED:
-        return False
-
-    return False
+        # and status_from
+        # not in [OrderStatus.CANCEL_FINISHED, OrderStatus.CONFIRM_PAYMENT]
+    )
 
 
 def change_status(self, request: Request, id: str = None):
@@ -167,6 +145,27 @@ def change_status(self, request: Request, id: str = None):
                 request_id=request_id,
                 alimtalk_type=OrderAlimtalkType.DELIVERY_STARTED,
             )
+    elif status_to == OrderStatus.CANCEL_FINISHED:
+        refunds = Refund.objects(orderid=str(order.id)).order_by("-id").all()
+        refund = None if len(refunds) == 0 else refunds[0]
+        refund_amount = refund.refundamount if refund is not None else order.totalprice
+        # Send alimtalk
+        request_id = (
+            CancelFinishedAlimtalk(str(order.id))
+            .add(
+                mobile=order.user.mobile,
+                grouping_key=order.user._id,
+                productName=payment.name,
+                amount=refund_amount,
+            )
+            .send()
+        )
+        OrderAlimtalkLog.objects.create(
+            order_id=id,
+            action_log=log,
+            request_id=request_id,
+            alimtalk_type=OrderAlimtalkType.CANCEL_FINISHED,
+        )
 
     return Response(
         OrderRetrieveSerializer(self.get_object().reload()).data,

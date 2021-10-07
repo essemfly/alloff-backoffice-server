@@ -4,6 +4,7 @@ from rest_framework import serializers
 from tagger.serializers.admin import AdminSerializer
 from tagger.models.order_action_log import (
     OrderActionLog,
+    OrderRefundUpdateLog,
     OrderStatusChangeLog,
     OrderAlimtalkLog,
 )
@@ -12,6 +13,12 @@ from tagger.models.order_action_log import (
 class OrderAlimtalkLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderAlimtalkLog
+        exclude = ["action_log", "created_at"]
+
+
+class OrderRefundUpdateLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderRefundUpdateLog
         exclude = ["action_log", "created_at"]
 
 
@@ -25,6 +32,14 @@ class OrderActionLogSerializer(serializers.ModelSerializer):
     admin = AdminSerializer()
     alimtalk = serializers.SerializerMethodField()
     status_change = serializers.SerializerMethodField()
+    refund_update = serializers.SerializerMethodField()
+
+    @swagger_serializer_method(serializer_or_field=OrderRefundUpdateLogSerializer)
+    def get_refund_update(self, obj: OrderActionLog):
+        try:
+            return OrderRefundUpdateLogSerializer(obj.orderrefundupdatelog).data
+        except:
+            return None
 
     @swagger_serializer_method(serializer_or_field=OrderAlimtalkLogSerializer)
     def get_alimtalk(self, obj: OrderActionLog):

@@ -2,14 +2,11 @@ from iamport.client import Iamport
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
-from tagger.core.alimtalk.cancel_finished import CancelFinishedAlimtalk
 from tagger.core.iamport import IMP
 from tagger.core.mongo.models.order import Order, Payment
 from tagger.models.order_action_log import (
     OrderActionLog,
     OrderActionType,
-    OrderAlimtalkLog,
-    OrderAlimtalkType,
 )
 from tagger.models.order_payment_adjustment import (
     OrderPaymentAdjustementType,
@@ -98,30 +95,11 @@ def add_payment_adjustment(self, request: Request, id=None):
         reason=serializer.validated_data.get("reason"),
     )
 
-    request_id = (
-        CancelFinishedAlimtalk(str(order.id))
-        .add(
-            mobile=order.user.mobile,
-            grouping_key=order.user._id,
-            productName=payment.name,
-            amount=serializer.validated_data.get("amount"),
-        )
-        .send()
-    )
-
     # Log
-    log = OrderActionLog.objects.create(
+    OrderActionLog.objects.create(
         order_id=id,
         admin=request.user,
         action_type=OrderActionType.PAYMENT_ADJUSTMENT,
-    )
-
-    # Send alimtalk
-    OrderAlimtalkLog.objects.create(
-        order_id=id,
-        action_log=log,
-        request_id=request_id,
-        alimtalk_type=OrderAlimtalkType.CANCEL_FINISHED,
     )
 
     return Response(
