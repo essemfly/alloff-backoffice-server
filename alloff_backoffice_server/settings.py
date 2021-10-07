@@ -2,6 +2,7 @@ from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
+SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
 
 from django.contrib.staticfiles import handlers
 from datetime import timedelta
@@ -105,10 +106,20 @@ WSGI_APPLICATION = "alloff_backoffice_server.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DB_ENV_IS_LOCAL = env.get("DB_ENV") == "local"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    }
+    if DB_ENV_IS_LOCAL
+    else {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": f"backoffice_{'dev' if SERVICE_ENV_IS_DEV else 'prod'}",
+        "PASSWORD": env.get("DB_PASSWORD"),
+        "USER": env.get("DB_USER"),
+        "PORT": 5432,
     }
 }
 
@@ -156,7 +167,6 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
