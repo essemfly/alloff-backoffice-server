@@ -29,8 +29,8 @@ class DecoratedLogoutView(views.APIView):
 
 
 class TokenObtainPairResponseSerializer(serializers.Serializer):
-    # access = serializers.CharField()
-    # refresh = serializers.CharField()
+    access = serializers.CharField()
+    refresh = serializers.CharField()
 
     def create(self, validated_data):
         raise NotImplementedError()
@@ -46,31 +46,33 @@ class DecoratedTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
-    def finalize_response(self, request, response: response.Response, *args, **kwargs):
-        if response.data.get("refresh"):
-            response.set_cookie(
-                SIMPLE_JWT["ACCESS_TOKEN_NAME"],
-                response.data.get("access"),
-                max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
-                httponly=True,
-                samesite="lax",
-                domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
-            )
-            response.set_cookie(
-                SIMPLE_JWT["REFRESH_TOKEN_NAME"],
-                response.data.get("refresh"),
-                max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
-                httponly=True,
-                samesite="lax",
-                domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
-            )
-            del response.data["refresh"]
-            del response.data["access"]
-        return super().finalize_response(request, response, *args, **kwargs)
+    # def finalize_response(self, request, response: response.Response, *args, **kwargs):
+    # if response.data.get("refresh"):
+    #     response.set_cookie(
+    #         SIMPLE_JWT["ACCESS_TOKEN_NAME"],
+    #         response.data.get("access"),
+    #         max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
+    #         httponly=True,
+    #         samesite="lax",
+    #         domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
+    #     )
+    #     response.set_cookie(
+    #         SIMPLE_JWT["REFRESH_TOKEN_NAME"],
+    #         response.data.get("refresh"),
+    #         max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
+    #         httponly=True,
+    #         samesite="lax",
+    #         domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
+    #     )
+    # del response.data["refresh"]
+    # del response.data["access"]
+    # return super().finalize_response(request, response, *args, **kwargs)
 
 
 class TokenRefreshResponseSerializer(serializers.Serializer):
-    # access = serializers.CharField()
+    access = serializers.CharField()
+    refresh = serializers.CharField()
+
     def create(self, validated_data):
         raise NotImplementedError()
 
@@ -80,7 +82,6 @@ class TokenRefreshResponseSerializer(serializers.Serializer):
 
 class DecoratedTokenRefreshView(TokenRefreshView):
     @swagger_auto_schema(
-        request_body=TokenRefreshResponseSerializer,
         responses={status.HTTP_200_OK: TokenRefreshResponseSerializer},
     )
     def post(self, request, *args, **kwargs):
@@ -96,23 +97,23 @@ class DecoratedTokenRefreshView(TokenRefreshView):
             raise InvalidToken(e.args[0])
         return response.Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-    def finalize_response(self, request, response, *args, **kwargs):
-        if response.data.get("access"):
-            response.set_cookie(
-                SIMPLE_JWT["ACCESS_TOKEN_NAME"],
-                response.data.get("access"),
-                max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
-                httponly=True,
-            )
-            response.set_cookie(
-                SIMPLE_JWT["REFRESH_TOKEN_NAME"],
-                response.data.get("refresh"),
-                max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
-                httponly=True,
-            )
-            del response.data["refresh"]
-            del response.data["access"]
-        return super().finalize_response(request, response, *args, **kwargs)
+    # def finalize_response(self, request, response, *args, **kwargs):
+    #     if response.data.get("access"):
+    #         response.set_cookie(
+    #             SIMPLE_JWT["ACCESS_TOKEN_NAME"],
+    #             response.data.get("access"),
+    #             max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
+    #             httponly=True,
+    #         )
+    #         response.set_cookie(
+    #             SIMPLE_JWT["REFRESH_TOKEN_NAME"],
+    #             response.data.get("refresh"),
+    #             max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
+    #             httponly=True,
+    #         )
+    #         del response.data["refresh"]
+    #         del response.data["access"]
+    #     return super().finalize_response(request, response, *args, **kwargs)
 
 
 class TokenVerifyResponseSerializer(serializers.Serializer):
