@@ -1,4 +1,4 @@
-from drf_yasg.utils import swagger_serializer_method
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from tagger.serializers.admin import AdminSerializer
@@ -34,21 +34,21 @@ class OrderActionLogSerializer(serializers.ModelSerializer):
     status_change = serializers.SerializerMethodField()
     refund_update = serializers.SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=OrderRefundUpdateLogSerializer)
+    @extend_schema_field(OrderRefundUpdateLogSerializer)
     def get_refund_update(self, obj: OrderActionLog):
         try:
             return OrderRefundUpdateLogSerializer(obj.orderrefundupdatelog).data
         except:
             return None
 
-    @swagger_serializer_method(serializer_or_field=OrderAlimtalkLogSerializer)
+    @extend_schema_field(OrderAlimtalkLogSerializer)
     def get_alimtalk(self, obj: OrderActionLog):
         try:
             return OrderAlimtalkLogSerializer(obj.orderalimtalklog).data
         except:
             return None
 
-    @swagger_serializer_method(serializer_or_field=OrderStatusChangeLogSerializer)
+    @extend_schema_field(OrderStatusChangeLogSerializer)
     def get_status_change(self, obj: OrderActionLog):
         try:
             return OrderStatusChangeLogSerializer(obj.orderstatuschangelog).data

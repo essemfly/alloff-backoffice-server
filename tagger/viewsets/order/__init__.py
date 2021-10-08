@@ -1,3 +1,5 @@
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
 from rest_framework import mixins
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -16,6 +18,11 @@ from tagger.viewsets.order.delete_memo import DeleteOrderMemoSerializer, delete_
 from tagger.viewsets.order.update_refund import UpdateRefundSerializer, update_refund
 
 
+@extend_schema_view(
+    retrieve=extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    ),
+)
 class OrderViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -47,22 +54,37 @@ class OrderViewSet(
             return DeleteOrderMemoSerializer
         return OrderListSerializer
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
     @action(detail=True, methods=["POST"])
     def add_memo(self, request: Request, id=None):
         return add_memo(self, request, id)
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
     @action(detail=True, methods=["POST"])
     def delete_memo(self, request: Request, id=None):
         return delete_memo(self, request, id)
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
     @action(detail=True, methods=["POST"])
     def change_status(self, request: Request, id=None):
         return change_status(self, request, id)
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
     @action(detail=True, methods=["POST"])
     def add_payment_adjustment(self, request: Request, id=None):
         return add_payment_adjustment(self, request, id)
 
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
     @action(detail=True, methods=["POST"])
     def update_refund(self, request: Request, id=None):
         return update_refund(self, request, id)

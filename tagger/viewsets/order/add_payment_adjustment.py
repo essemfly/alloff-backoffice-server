@@ -80,7 +80,7 @@ def add_payment_adjustment(self, request: Request, id=None):
         except Iamport.ResponseError as e:
             return Response(
                 {"message": e.message, "success": False},
-                status=status.HTTP_200_OK,
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
     new_adjustment = OrderPaymentAdjustment.objects.create(

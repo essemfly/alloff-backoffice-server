@@ -1,31 +1,24 @@
+from drf_spectacular.utils import extend_schema
+from rest_framework import response, serializers, status
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from alloff_backoffice_server.settings import SIMPLE_JWT
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework import response, serializers, status, views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
 
+from alloff_backoffice_server.settings import SIMPLE_JWT
 
-class LogoutResponseSerializer(serializers.Serializer):
+
+class TokenObtainPairRequestSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
     def create(self, validated_data):
         raise NotImplementedError()
 
-
-class DecoratedLogoutView(views.APIView):
-    @swagger_auto_schema(
-        responses={status.HTTP_200_OK: LogoutResponseSerializer},
-    )
-    def post(self, request):
-        return response.Response(status=status.HTTP_200_OK)
-
-    def finalize_response(self, request, response, *args, **kwargs):
-        response.delete_cookie(SIMPLE_JWT["ACCESS_TOKEN_NAME"])
-        response.delete_cookie(SIMPLE_JWT["REFRESH_TOKEN_NAME"])
-        return super().finalize_response(request, response, *args, **kwargs)
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
 class TokenObtainPairResponseSerializer(serializers.Serializer):
@@ -40,33 +33,22 @@ class TokenObtainPairResponseSerializer(serializers.Serializer):
 
 
 class DecoratedTokenObtainPairView(TokenObtainPairView):
-    @swagger_auto_schema(
+    @extend_schema(
+        request=TokenObtainPairRequestSerializer,
         responses={status.HTTP_200_OK: TokenObtainPairResponseSerializer},
     )
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
-    # def finalize_response(self, request, response: response.Response, *args, **kwargs):
-    # if response.data.get("refresh"):
-    #     response.set_cookie(
-    #         SIMPLE_JWT["ACCESS_TOKEN_NAME"],
-    #         response.data.get("access"),
-    #         max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
-    #         httponly=True,
-    #         samesite="lax",
-    #         domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
-    #     )
-    #     response.set_cookie(
-    #         SIMPLE_JWT["REFRESH_TOKEN_NAME"],
-    #         response.data.get("refresh"),
-    #         max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
-    #         httponly=True,
-    #         samesite="lax",
-    #         domain="alloff-backoffice-dev.s3-website.ap-northeast-2.amazonaws.com",
-    #     )
-    # del response.data["refresh"]
-    # del response.data["access"]
-    # return super().finalize_response(request, response, *args, **kwargs)
+
+class TokenRefreshRequestSerializer(serializers.Serializer):
+    access = serializers.CharField()
+
+    def create(self, validated_data):
+        raise NotImplementedError()
+
+    def update(self, instance, validated_data):
+        raise NotImplementedError()
 
 
 class TokenRefreshResponseSerializer(serializers.Serializer):
@@ -81,7 +63,8 @@ class TokenRefreshResponseSerializer(serializers.Serializer):
 
 
 class DecoratedTokenRefreshView(TokenRefreshView):
-    @swagger_auto_schema(
+    @extend_schema(
+        request=TokenRefreshRequestSerializer,
         responses={status.HTTP_200_OK: TokenRefreshResponseSerializer},
     )
     def post(self, request, *args, **kwargs):
@@ -97,24 +80,6 @@ class DecoratedTokenRefreshView(TokenRefreshView):
             raise InvalidToken(e.args[0])
         return response.Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-    # def finalize_response(self, request, response, *args, **kwargs):
-    #     if response.data.get("access"):
-    #         response.set_cookie(
-    #             SIMPLE_JWT["ACCESS_TOKEN_NAME"],
-    #             response.data.get("access"),
-    #             max_age=SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds(),
-    #             httponly=True,
-    #         )
-    #         response.set_cookie(
-    #             SIMPLE_JWT["REFRESH_TOKEN_NAME"],
-    #             response.data.get("refresh"),
-    #             max_age=SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds(),
-    #             httponly=True,
-    #         )
-    #         del response.data["refresh"]
-    #         del response.data["access"]
-    #     return super().finalize_response(request, response, *args, **kwargs)
-
 
 class TokenVerifyResponseSerializer(serializers.Serializer):
     def create(self, validated_data):
@@ -125,6 +90,6 @@ class TokenVerifyResponseSerializer(serializers.Serializer):
 
 
 class DecoratedTokenVerifyView(TokenVerifyView):
-    @swagger_auto_schema(responses={status.HTTP_200_OK: TokenVerifyResponseSerializer})
+    # @swagger_auto_schema(responses={status.HTTP_200_OK: TokenVerifyResponseSerializer})
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)

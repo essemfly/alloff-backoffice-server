@@ -1,5 +1,5 @@
 from mongoengine import DateTimeField, Document, EmbeddedDocumentField, StringField
-from mongoengine.document import EmbeddedDocument
+from mongoengine.document import DynamicDocument, EmbeddedDocument
 from mongoengine.fields import (
     BooleanField,
     EmbeddedDocumentListField,
@@ -26,33 +26,40 @@ class Instruction(EmbeddedDocument):
     thumbnail = StringField(required=False)
 
 
-class _AlloffProduct:
-    _id = StringField(required=True)
-    name = StringField(required=True)
-    productgroupid = StringField(required=True)
-    description = ListField(StringField(), required=True)
+class _AlloffProductTemplate:
     brand = EmbeddedDocumentField(EmbeddedBrand, required=True)
-    faults = EmbeddedDocumentListField(Fault, required=True)
-    inventory = EmbeddedDocumentListField(Inventory, required=True)
-    instruction = EmbeddedDocumentField(Instruction, required=True)
-    sizedescription = ListField(StringField(), required=True)
     canceldescription = ListField(StringField(), required=True)
-    producttype = ListField(StringField(), required=True)
     deliverydescription = ListField(StringField(), required=True)
-    images = ListField(StringField(), required=True)
-    removed = BooleanField(required=True)
-    soldout = BooleanField(required=True)
-    originalprice = IntField(required=True)
+    description = ListField(StringField(), required=True)
     discountedprice = IntField(required=True)
     discountrate = IntField(required=True)
-    templateId = StringField()
+    faults = EmbeddedDocumentListField(Fault, required=True)
+    images = ListField(StringField(), required=True)
+    instruction = EmbeddedDocumentField(Instruction, required=True)
+    name = StringField(required=True)
+    originalprice = IntField(required=True)
+    producttype = ListField(StringField(), required=True)
+    sizedescription = ListField(StringField(), required=True)
     created = DateTimeField(required=True)
     updated = DateTimeField(required=True)
+    removed = BooleanField()
 
 
-class AlloffProduct(_AlloffProduct, Document):
+class _AlloffProduct(_AlloffProductTemplate):
+    productgroupid = StringField(required=True)
+    inventory = EmbeddedDocumentListField(Inventory, required=True)
+    soldout = BooleanField(required=True)
+    templateId = StringField()
+
+
+class AlloffProductTemplate(_AlloffProductTemplate, DynamicDocument):
+    meta = {"collection": "alloff_products"}
+
+
+class AlloffProduct(_AlloffProduct, DynamicDocument):
     meta = {"collection": "alloff_products"}
 
 
 class EmbeddedAlloffProduct(_AlloffProduct, EmbeddedDocument):
+    _id = StringField(required=True)
     pass

@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from drf_spectacular.utils import extend_schema_field
 from rest_framework.fields import CharField, DateTimeField, DictField
 from rest_framework.serializers import SerializerMethodField
 from rest_framework_mongoengine.serializers import DynamicDocumentSerializer
@@ -13,7 +15,6 @@ from tagger.serializers.order_payment_adjustment import OrderPaymentAdjustmentSe
 from tagger.serializers.payment import PaymentSerializer
 from tagger.serializers.refund import RefundSerializer
 from tagger.serializers.user import UserSerializer
-from drf_yasg.utils import swagger_serializer_method
 
 
 class _OrderSerializer(DynamicDocumentSerializer):
@@ -24,7 +25,7 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     orderedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_orderedAt(self, obj: Order):
         if obj.orderedAt is None:
             return None
@@ -32,7 +33,7 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     deliveryStartedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_deliveryStartedAt(self, obj: Order):
         if obj.deliveryStartedAt is None:
             return None
@@ -40,7 +41,7 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     deliveryFinishedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_deliveryFinishedAt(self, obj: Order):
         if obj.deliveryFinishedAt is None:
             return None
@@ -48,7 +49,7 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     cancelRequestedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_cancelRequestedAt(self, obj: Order):
         if obj.cancelRequestedAt is None:
             return None
@@ -56,7 +57,7 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     cancelFinishedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_cancelFinishedAt(self, obj: Order):
         if obj.cancelFinishedAt is None:
             return None
@@ -64,18 +65,18 @@ class _OrderSerializer(DynamicDocumentSerializer):
 
     confirmedAt = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=DateTimeField)
+    @extend_schema_field(DateTimeField)
     def get_confirmedAt(self, obj: Order):
         if obj.confirmedAt is None:
             return None
         return None if obj.confirmedAt.year <= 1 else obj.confirmedAt
 
-    @swagger_serializer_method(serializer_or_field=PaymentSerializer)
+    @extend_schema_field(PaymentSerializer)
     def get_payment(self, obj):
         payment = Payment.objects.filter(merchantuid=str(obj.id)).first()
         return PaymentSerializer(payment, many=False).data if payment else None
 
-    @swagger_serializer_method(serializer_or_field=RefundSerializer)
+    @extend_schema_field(RefundSerializer)
     def get_refund(self, obj):
         refund = Refund.objects.filter(orderid=str(obj.id)).first()
         return RefundSerializer(refund, many=False).data if refund else None
@@ -91,7 +92,7 @@ class OrderRetrieveSerializer(_OrderSerializer):
     memos = SerializerMethodField()
     logs = SerializerMethodField()
 
-    @swagger_serializer_method(serializer_or_field=OrderActionLogSerializer(many=True))
+    @extend_schema_field(OrderActionLogSerializer(many=True))
     def get_logs(self, obj):
         return OrderActionLogSerializer(
             OrderActionLog.objects.filter(order_id=obj.id)
@@ -100,7 +101,7 @@ class OrderRetrieveSerializer(_OrderSerializer):
             many=True,
         ).data
 
-    @swagger_serializer_method(serializer_or_field=OrderMemoSerializer(many=True))
+    @extend_schema_field(OrderMemoSerializer(many=True))
     def get_memos(self, obj):
         return OrderMemoSerializer(
             OrderMemo.objects.filter(order_id=obj.id, deleted_at=None)
@@ -109,16 +110,14 @@ class OrderRetrieveSerializer(_OrderSerializer):
             many=True,
         ).data
 
-    @swagger_serializer_method(
-        serializer_or_field=OrderPaymentAdjustmentSerializer(many=True)
-    )
+    @extend_schema_field(OrderPaymentAdjustmentSerializer(many=True))
     def get_payment_adjustments(self, obj):
         return OrderPaymentAdjustmentSerializer(
             OrderPaymentAdjustment.objects.filter(order_id=obj.id).all(),
             many=True,
         ).data
 
-    @swagger_serializer_method(serializer_or_field=DictField)
+    @extend_schema_field(DictField)
     def get_iamport(self, obj):
         return IMP.instance().get_payment_detail(obj.id)
 
