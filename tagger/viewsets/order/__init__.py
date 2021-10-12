@@ -1,13 +1,14 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
-from rest_framework import mixins
+from rest_framework import mixins, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
+from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 
 from tagger.core.drf.search_filter import OrdersSearchFilter
-from tagger.core.mongo.models.order import Order
+from tagger.core.mongo.models.order import Order, OrderStatus
 from tagger.serializers.order import OrderListSerializer, OrderRetrieveSerializer
 from tagger.viewsets.order.add_memo import AddOrderMemoSerializer, add_memo
 from tagger.viewsets.order.add_payment_adjustment import (
@@ -20,25 +21,50 @@ from tagger.viewsets.order.update_refund import UpdateRefundSerializer, update_r
 
 
 @extend_schema_view(
-    retrieve=extend_schema(
-        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
-    ),
+    list=extend_schema(parameters=[
+        OpenApiParameter("orderstatus", OpenApiTypes.STR, OpenApiParameter.QUERY, enum=OrderStatus),
+        OpenApiParameter("created__gte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
+        OpenApiParameter("created__lte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
+    ]),
 )
 class OrderViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = Order.objects(
-        orderstatus__nin=["CREATED", "RECREATED", "PAYMENT_PENDING"]
-    ).order_by("-id")
     filter_backends = [OrdersSearchFilter]
+
     search_fields = [
         "user__mobile",
         "orders__product__name",
         "orders__alloffproduct__name",
     ]
+
     permission_classes = [IsAuthenticated]
+
+    my_filter_fields = ('orderstatus', 'created__gte', 'created__lte')  # specify the fields on which you want to filter
+
+    def get_kwargs_for_filtering(self):
+        filtering_kwargs = {}
+        for field in self.my_filter_fields:  # iterate over the filter fields
+            field_value = self.request.query_params.get(field)  # get the value of a field from request query parameter
+            if field_value:
+                filtering_kwargs[field] = field_value
+        return filtering_kwargs
+
+    def get_queryset(self):
+        queryset = Order.objects(
+            orderstatus__nin=["CREATED", "RECREATED", "PAYMENT_PENDING"],
+        ).order_by("-id")
+
+        filtering_kwargs = self.get_kwargs_for_filtering()  # get the fields with values for filtering
+        if filtering_kwargs:
+            for key, value in filtering_kwargs.items():
+                if key == 'userid':
+                    queryset = queryset.filter(__raw__={'user._id': "611c5c63f500445e98e7faea"})
+                else:
+                    queryset = queryset.filter(**{key: value})  # filter the queryset based on 'filtering_kwargs'
+        return queryset
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -54,6 +80,14 @@ class OrderViewSet(
         elif self.action == "delete_memo":
             return DeleteOrderMemoSerializer
         return OrderListSerializer
+
+    @extend_schema(responses=OrderListSerializer(many=True), parameters=[
+        OpenApiParameter("user_id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+                   )
+    @action(methods=["GET"], detail=False, pagination_class=None, url_path='by_user/(?P<user_id>[^/.]+)')
+    def by_user(self, request: Request, user_id: str):
+        orders = self.get_queryset().filter(__raw__={'user._id': user_id})
+        return Response(OrderListSerializer(orders, many=True).data, status=status.HTTP_200_OK)
 
     @extend_schema(
         parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
