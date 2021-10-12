@@ -8,12 +8,12 @@ from mongoengine.fields import (
 
 class AlloffProductGroup(DynamicDocument):
     meta = {"collection": "alloff_products_group"}
-    title = StringField()
+    title = StringField(required=True)
     shorttitle = StringField()
-    numalarms = IntField(required=True)
-    instruction = ListField(StringField(), required=True)
+    numalarms = IntField(required=False)
+    instruction = ListField(StringField(), required=False)
     imgurl = StringField(required=True)
-    hidden = BooleanField(required=True)
-    created = DateTimeField(required=True)
+    hidden = BooleanField(required=False)
+    created = DateTimeField(required=False)
     starttime = DateTimeField(required=True)
     finishtime = DateTimeField(required=True)

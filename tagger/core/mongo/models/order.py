@@ -68,7 +68,7 @@ class Order(DynamicDocument):
     updated = DateTimeField(required=True)
     orderedAt = DateTimeField(required=False)
     deliveryStartedAt = DateTimeField(required=False)
-    deliveryFinishedAt = DateTimeField(required=False)
+    deliveryFinishedAt = DateTimeField(required=False, default_timezone="utc")
     cancelRequestedAt = DateTimeField(required=False)
     cancelFinishedAt = DateTimeField(required=False)
     confirmedAt = DateTimeField(required=False)

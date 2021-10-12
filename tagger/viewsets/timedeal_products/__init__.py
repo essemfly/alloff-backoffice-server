@@ -12,7 +12,7 @@ from tagger.serializers.timedeal_product import TimedealProductSerializer
 
 
 class TimedealProductViewSet(viewsets.ModelViewSet):
-    queryset = AlloffProduct.objects().order_by("-id")
+    queryset = AlloffProduct.objects(removed=False).order_by("-id")
     filter_backends = [CustomSearchFilter]
     search_fields = [
         "brand__korname",

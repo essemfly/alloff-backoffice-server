@@ -24,6 +24,7 @@ from tagger.viewsets.auth import (
     DecoratedTokenObtainPairView,
     DecoratedTokenRefreshView,
 )
+from tagger.viewsets.image import ImageUploaderViewSet
 from tagger.viewsets.order import OrderViewSet
 from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
 from tagger.viewsets.timedeal_products import TimedealProductViewSet
@@ -35,6 +36,7 @@ router.register(r"timedeals", TimedealViewSet, basename="timedeals")
 router.register(r"timedeal-products", TimedealProductViewSet, basename="timedeal-products")
 router.register(r"timedeal-product-templates", TimedealProductTemplateViewSet, basename="timedeal-product-templates")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
+router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 
 urlpatterns = [
     path("", include(router.urls)),

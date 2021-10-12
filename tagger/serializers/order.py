@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from drf_spectacular.utils import extend_schema_field
 from rest_framework.fields import CharField, DateTimeField, DictField
@@ -29,7 +29,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_orderedAt(self, obj: Order):
         if obj.orderedAt is None:
             return None
-        return None if obj.orderedAt.year <= 1 else obj.orderedAt
+        value = obj.orderedAt  # type: datetime
+        return None if obj.orderedAt.year <= 1 else value.astimezone(timezone.utc)
 
     deliveryStartedAt = SerializerMethodField()
 
@@ -37,7 +38,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_deliveryStartedAt(self, obj: Order):
         if obj.deliveryStartedAt is None:
             return None
-        return None if obj.deliveryStartedAt.year <= 1 else obj.deliveryStartedAt
+        value = obj.deliveryStartedAt  # type: datetime
+        return None if obj.deliveryStartedAt.year <= 1 else value.astimezone(timezone.utc)
 
     deliveryFinishedAt = SerializerMethodField()
 
@@ -45,7 +47,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_deliveryFinishedAt(self, obj: Order):
         if obj.deliveryFinishedAt is None:
             return None
-        return None if obj.deliveryFinishedAt.year <= 1 else obj.deliveryFinishedAt
+        value = obj.deliveryFinishedAt  # type: datetime
+        return None if obj.deliveryFinishedAt.year <= 1 else value.astimezone(timezone.utc)
 
     cancelRequestedAt = SerializerMethodField()
 
@@ -53,7 +56,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_cancelRequestedAt(self, obj: Order):
         if obj.cancelRequestedAt is None:
             return None
-        return None if obj.cancelRequestedAt.year <= 1 else obj.cancelRequestedAt
+        value = obj.cancelRequestedAt  # type: datetime
+        return None if obj.cancelRequestedAt.year <= 1 else value.astimezone(timezone.utc)
 
     cancelFinishedAt = SerializerMethodField()
 
@@ -61,7 +65,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_cancelFinishedAt(self, obj: Order):
         if obj.cancelFinishedAt is None:
             return None
-        return None if obj.cancelFinishedAt.year <= 1 else obj.cancelFinishedAt
+        value = obj.cancelFinishedAt  # type: datetime
+        return None if obj.cancelFinishedAt.year <= 1 else value.astimezone(timezone.utc)
 
     confirmedAt = SerializerMethodField()
 
@@ -69,7 +74,8 @@ class _OrderSerializer(DynamicDocumentSerializer):
     def get_confirmedAt(self, obj: Order):
         if obj.confirmedAt is None:
             return None
-        return None if obj.confirmedAt.year <= 1 else obj.confirmedAt
+        value = obj.confirmedAt  # type: datetime
+        return None if obj.confirmedAt.year <= 1 else value.astimezone(timezone.utc)
 
     @extend_schema_field(PaymentSerializer)
     def get_payment(self, obj):
@@ -96,8 +102,8 @@ class OrderRetrieveSerializer(_OrderSerializer):
     def get_logs(self, obj):
         return OrderActionLogSerializer(
             OrderActionLog.objects.filter(order_id=obj.id)
-            .order_by("-performed_at")
-            .all(),
+                .order_by("-performed_at")
+                .all(),
             many=True,
         ).data
 
@@ -105,8 +111,8 @@ class OrderRetrieveSerializer(_OrderSerializer):
     def get_memos(self, obj):
         return OrderMemoSerializer(
             OrderMemo.objects.filter(order_id=obj.id, deleted_at=None)
-            .order_by("-created_at")
-            .all(),
+                .order_by("-created_at")
+                .all(),
             many=True,
         ).data
 
