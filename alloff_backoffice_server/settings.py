@@ -216,5 +216,8 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "ENUM_NAME_OVERRIDES": {
         "OrderStatusEnum": "tagger.core.mongo.models.order.OrderStatus.choices",
-    }
+    },
+    "SERVERS": [
+        {"url": env.get("API_HOST") if "API_HOST" in env else "http://localhost:8000"}
+    ],
 }
