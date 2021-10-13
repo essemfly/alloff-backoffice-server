@@ -5,19 +5,16 @@ from tagger.core.alimtalk.client import AlimtalkClient
 
 
 class BaseAlimtalk(ABC):
-    __client = AlimtalkClient()
-    sender_grouping_key: str = None
-
     def __init__(self, grouping_key: str) -> None:
+        self.__client = AlimtalkClient()
         self.sender_grouping_key = grouping_key
+        self.recipients = []  # type: List[Tuple[str, str, Dict]]
         super().__init__()
 
     @property
     @abstractmethod
     def TEMPLATE_CODE(self) -> str:
         pass
-
-    recipients = []  # type: List[Tuple[str, str, Dict]]
 
     @abstractmethod
     def add(self, mobile: str = None, grouping_key: str = None) -> "BaseAlimtalk":
