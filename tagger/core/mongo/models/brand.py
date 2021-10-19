@@ -31,7 +31,7 @@ class _Brand:
     category = EmbeddedDocumentListField(EmbeddedCategory)
 
 
-class Brand(_Brand, Document):
+class Brand(_Brand, DynamicDocument):
     meta = {"collection": "brands"}
 
 

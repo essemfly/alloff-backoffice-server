@@ -143,3 +143,4 @@ cython_debug/
 static/
 
 reset_migrations.sh
+*.ipynb
