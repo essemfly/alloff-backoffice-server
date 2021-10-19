@@ -28,10 +28,12 @@ class _Notification:
     title = StringField(required=True)
     message = StringField(required=True)
     deviceids = ListField(StringField())
+    mobiles = StringField()
     navigateto = StringField()
     referenceid = StringField()
     created = DateTimeField(required=True)
     updated = DateTimeField(required=True)
+    sended = DateTimeField()
     scheduleddate = DateTimeField(required=True)
     result = DictField()
 
