@@ -24,15 +24,15 @@ class NotificationType(TextChoices):
 
 class _Notification:
     status = StringField(choices=NotificationStatus.choices)
-    notificationtype = StringField(choices=NotificationType.choices)
+    notificationtype = StringField(choices=NotificationType.choices, required=True)
     title = StringField(required=True)
     message = StringField(required=True)
     deviceids = ListField(StringField())
     mobiles = StringField()
     navigateto = StringField()
     referenceid = StringField()
-    created = DateTimeField(required=True)
-    updated = DateTimeField(required=True)
+    created = DateTimeField()
+    updated = DateTimeField()
     sended = DateTimeField()
     scheduleddate = DateTimeField(required=True)
     result = DictField()
