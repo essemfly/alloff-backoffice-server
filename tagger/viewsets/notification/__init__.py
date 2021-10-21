@@ -18,7 +18,6 @@ from tagger.core.mongo.models.product import Product
 from tagger.core.pushserver.product_diff import ProductDiffPush
 from tagger.core.pushserver.timedeal_open import TimedealOpenPush
 from tagger.serializers.notification import NotificationSerializer
-from tagger.viewsets.notification.send_notification import SendNotificationSerializer
 from datetime import datetime
 
 

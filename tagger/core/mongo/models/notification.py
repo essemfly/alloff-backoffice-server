@@ -24,7 +24,8 @@ class NotificationType(TextChoices):
 
 class _Notification:
     status = StringField(choices=NotificationStatus.choices)
-    notificationtype = StringField(choices=NotificationType.choices, required=True)
+    notificationtype = StringField(
+        choices=NotificationType.choices, required=True)
     title = StringField(required=True)
     message = StringField(required=True)
     deviceids = ListField(StringField())
