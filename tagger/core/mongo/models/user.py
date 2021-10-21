@@ -1,8 +1,10 @@
-from mongoengine import EmbeddedDocument, StringField, DateTimeField
+from mongoengine import EmbeddedDocument, StringField, DateTimeField, Document
 from mongoengine.fields import BooleanField
+from mongoengine.queryset.transform import update
 
 
 class AlloffUser(EmbeddedDocument):
+    meta = {"collection": "users"}
     _id = StringField()
     name = StringField()
     uuid = StringField()
@@ -14,8 +16,10 @@ class AlloffUser(EmbeddedDocument):
     postcode = StringField()
 
 
-class Devices(EmbeddedDocument):
-    _id = StringField()
+class Device(Document):
+    meta = {"collection": "devices"}
     userid = StringField()
     deviceid = StringField()
-    allownotificaion = BooleanField()
+    allownotification = BooleanField()
+    updated = DateTimeField()
+    created = DateTimeField()
