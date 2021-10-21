@@ -1,7 +1,7 @@
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import status, serializers
-from rest_framework import request
+from rest_framework import request, mixins
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
@@ -21,7 +21,45 @@ from tagger.serializers.notification import NotificationSerializer
 from datetime import datetime
 
 
-class NotificationViewSet(viewsets.ModelViewSet):
+class CreateNotificationSerializer(serializers.Serializer):
+    title = serializers.CharField(required=True)
+    message = serializers.CharField(required=True)
+    notificationtype = serializers.ChoiceField(
+        choices=NotificationType.choices, required=True)
+    referenceid = serializers.CharField(required=False)
+    scheduleddate = serializers.DateTimeField()
+
+    class Meta:
+        model = Notification
+        fields = ['title', 'message', 'notificationtype',
+                  'referenceid', 'scheduleddate']
+
+    def create(self, validated_data):
+        notification = Notification.objects.create(**validated_data)
+        return notification
+
+
+class SendNotificationSerializer(serializers.Serializer):
+    ids = serializers.CharField()
+    is_test = serializers.BooleanField(default=True)
+
+    class Meta:
+        model = Notification
+
+    def update(self, instance, validated_data):
+        instance.sended = datetime.now()
+        instance.status = NotificationStatus.SUCCEEDED
+        instance.result = validated_data
+        instance.save()
+        return instance
+
+
+class NotificationViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.CreateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = Notification.objects().order_by("-id")
     search_fields = [
         "notificationtype"
@@ -38,13 +76,16 @@ class NotificationViewSet(viewsets.ModelViewSet):
             return CreateNotificationSerializer
         return NotificationSerializer
 
+    @extend_schema(request=CreateNotificationSerializer(many=False))
     def create(self, request: Request, *args, **kwargs):
         serializer = CreateNotificationSerializer(data=request.data)
+        devices: Device = Device.objects.filter(allownotification=True)
+        deviceIds = [d.deviceid for d in devices]
         if serializer.is_valid():
             serializer.validated_data["created"] = datetime.now()
             serializer.validated_data["updated"] = datetime.now()
             serializer.validated_data["sended"] = None
-            serializer.validated_data["deviceids"] = []
+            serializer.validated_data["deviceids"] = deviceIds
             serializer.validated_data["status"] = NotificationStatus.READY
             if serializer.validated_data["notificationtype"] == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
                 serializer.validated_data["navigateto"] = "/timedeals"
@@ -81,6 +122,14 @@ class NotificationViewSet(viewsets.ModelViewSet):
         serializer = SendNotificationSerializer(data=request.data)
         if serializer.is_valid():
             noti_ids = serializer.validated_data["ids"].split(",")
+            is_test = serializer.validated_data["is_test"]
+            prod_test_devices = [
+                "c0IfW-xzdUx3nu6XmpzXNz:APA91bGYmuaoWsdoNzhp_SqUiaKm_8bPK-MfUgmJpmvprUui6run4qKTEeF8QpPSnrR7f5oK2Suy5BJduO04C2DuKWmYHbYZJCRy_FtI6Rm6kAxEopwiRSGjymiqGzXVpz8i8nffFYV1",
+                "dJ4rSV2L60aLpHxQjxoFz-:APA91bGJR2YXQkmBbv0rELM6caPUeZ3C1MnBkz1wlI68wCzDRhc9Bsma3stSCRXTGip-6mxdtj2GfuMT4c0XV85AWDuLr0lkH33VDNRsuc8nqo24JGOHmDDpYl_wetLh9vYL-3I0A6ID",
+                "cBRNxXqZwEeapVVni8KJcG:APA91bG7UnRCfxWvNR7ngSYNfhTazApx9yAlQXtXqCJDWpn_X-cwVMnnUDLmjLUCso9s7_oiP_xrBkOqoa-1ie3LaRsckENluZTaxWcNAKpdUvVZtV9Pq_TRgRdmwtpA0kE_-Mx-_Nzl",
+                "eEx9IUeGQtGgo__aVsJih4:APA91bG0NaGdVP_2NyfBWAXXXdZ0-iR9J-pRTf6JxjueMowaIg9HQDYiZ5PkGeqTypblQNDg-Fecdask8W6o15lNHOhzCHfHzIzofE63APEZPNQQbRVjaaBCTk6m3kAeIqoBuJl9rmHh",
+            ]
+
             for notification_id in noti_ids:
                 noti: Notification = Notification.objects.get(
                     id=ObjectId(notification_id))
@@ -88,10 +137,10 @@ class NotificationViewSet(viewsets.ModelViewSet):
                     continue
                 if noti.notificationtype == NotificationType.PRODUCT_DIFF_NOTIFICATION:
                     res = ProductDiffPush(reference_id=noti.referenceid).send(
-                        title=noti.title, message=noti.message, devices=[], is_test=serializer.validated_data["is_test"])
+                        title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
                 elif noti.notificationtype == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
                     res = TimedealOpenPush(reference_id=noti.referenceid).send(
-                        title=noti.title, message=noti.message, devices=[], is_test=serializer.validated_data["is_test"])
+                        title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
                 else:
                     pass
 
@@ -106,36 +155,3 @@ class NotificationViewSet(viewsets.ModelViewSet):
 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class CreateNotificationSerializer(serializers.Serializer):
-    title = serializers.CharField(required=True)
-    message = serializers.CharField(required=True)
-    notificationtype = serializers.ChoiceField(
-        choices=NotificationType.choices, required=True)
-    referenceid = serializers.CharField(required=False)
-    scheduleddate = serializers.DateTimeField()
-
-    class Meta:
-        model = Notification
-        fields = ['title', 'message', 'notificationtype',
-                  'referenceid', 'scheduleddate']
-
-    def create(self, validated_data):
-        notification = Notification.objects.create(**validated_data)
-        return notification
-
-
-class SendNotificationSerializer(serializers.Serializer):
-    ids = serializers.CharField()
-    is_test = serializers.BooleanField(default=True)
-
-    class Meta:
-        model = Notification
-
-    def update(self, instance, validated_data):
-        instance.sended = datetime.now()
-        instance.status = NotificationStatus.SUCCEEDED
-        instance.result = validated_data
-        instance.save()
-        return instance
