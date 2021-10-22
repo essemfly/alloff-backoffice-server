@@ -83,10 +83,6 @@ class NotificationViewSet(
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer.validated_data["created"] = datetime.now()
-        serializer.validated_data["updated"] = datetime.now()
-        serializer.validated_data["sended"] = None
-        serializer.validated_data["status"] = NotificationStatus.READY
         if serializer.validated_data["notificationtype"] == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
             serializer.validated_data["navigateto"] = "/timedeals"
             if "referenceid" not in serializer.validated_data:
@@ -117,8 +113,22 @@ class NotificationViewSet(
         device_ids = [d.deviceid for d in devices]
         device_groups = list_chunk(device_ids, 300)
         for device_group in device_groups:
-            serializer.validated_data["deviceids"] = device_group
-            serializer.save()
+            noti = Notification(
+                status=NotificationStatus.READY,
+                notificationtype=serializer.validated_data["notificationtype"],
+                title=serializer.validated_data["title"],
+                message=serializer.validated_data["message"],
+                deviceids= device_group,
+                mobiles="",
+                navigateto=serializer.validated_data["navigateto"],
+                referenceid=serializer.validated_data["referenceid"],
+                created=datetime.now(),
+                updated=datetime.now(),
+                scheduleddate=datetime.now(),
+                sended=None,
+                result=None,
+            )
+            noti.save()
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'])
