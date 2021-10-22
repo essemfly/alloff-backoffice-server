@@ -79,13 +79,18 @@ class NotificationViewSet(
     @extend_schema(request=CreateNotificationSerializer(many=False))
     def create(self, request: Request, *args, **kwargs):
         serializer = CreateNotificationSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         devices: Device = Device.objects.filter(allownotification=True)
-        deviceIds = [d.deviceid for d in devices]
-        if serializer.is_valid():
+        device_ids = [d.deviceid for d in devices]
+        device_groups = list_chunk(device_ids, 300)
+        for device_group in device_groups:
             serializer.validated_data["created"] = datetime.now()
             serializer.validated_data["updated"] = datetime.now()
             serializer.validated_data["sended"] = None
-            serializer.validated_data["deviceids"] = deviceIds
+            serializer.validated_data["deviceids"] = device_group
             serializer.validated_data["status"] = NotificationStatus.READY
             if serializer.validated_data["notificationtype"] == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
                 serializer.validated_data["navigateto"] = "/timedeals"
@@ -114,8 +119,7 @@ class NotificationViewSet(
                 serializer.validated_data["referenceid"] = "/"
 
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data)
 
     @action(detail=False, methods=['post'])
     def send(self, request: Request):
@@ -155,3 +159,7 @@ class NotificationViewSet(
 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def list_chunk(lst, n):
+    return [lst[i:i+n] for i in range(0, len(lst), n)]
