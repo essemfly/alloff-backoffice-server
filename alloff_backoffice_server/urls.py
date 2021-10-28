@@ -25,17 +25,20 @@ from tagger.viewsets.auth import (
     DecoratedTokenRefreshView,
 )
 from tagger.viewsets.brands import BrandViewSet
+from tagger.viewsets.notification import NotificationViewSet
 from tagger.viewsets.image import ImageUploaderViewSet
 from tagger.viewsets.order import OrderViewSet
 from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
 from tagger.viewsets.timedeal_products import TimedealProductViewSet
 from tagger.viewsets.timedeals import TimedealViewSet
 
+
 router = routers.DefaultRouter()
 router.register(r"orders", OrderViewSet, basename="orders")
 router.register(r"timedeals", TimedealViewSet, basename="timedeals")
 router.register(r"timedeal-products", TimedealProductViewSet, basename="timedeal-products")
 router.register(r"timedeal-product-templates", TimedealProductTemplateViewSet, basename="timedeal-product-templates")
+router.register(r"notifications", NotificationViewSet, basename="notifications")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(r"brands", BrandViewSet, basename="brands")

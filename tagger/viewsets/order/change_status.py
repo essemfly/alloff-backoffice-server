@@ -53,6 +53,7 @@ def get_timestamp_field_with_status(status: OrderStatus):
 
 
 def is_allowed_transition(status_from: OrderStatus, status_to: OrderStatus):
+    return True
     return (
         status_to
         not in [

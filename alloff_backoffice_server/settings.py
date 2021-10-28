@@ -1,14 +1,13 @@
+from pathlib import Path
+from mongoengine.connection import connect
+from datetime import timedelta
+from django.contrib.staticfiles import handlers
 import os
 from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
 SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
-
-from django.contrib.staticfiles import handlers
-from datetime import timedelta
-
-from mongoengine.connection import connect
 
 
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
@@ -34,7 +33,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -196,6 +194,11 @@ ALIMTALK = {
     "URL": "https://api-alimtalk.cloud.toast.com/alimtalk/v2.1/appkeys/{}/messages",
 }
 
+PUSHSERVER = {
+    "URL": env.get("PUSH_SERVER_URL"),
+    "NAVIGATE_URL": env.get("PUSH_NAVIGATE_URL"),
+}
+
 connect(
     "outlet_dev" if SERVICE_ENV_IS_DEV else "outlet",
     host="mongodb://db.lessbutter.co",
@@ -216,9 +219,11 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "ENUM_NAME_OVERRIDES": {
+        "NotificationStatusEnum": "tagger.core.mongo.models.notification.NotificationStatus.choices",
         "OrderStatusEnum": "tagger.core.mongo.models.order.OrderStatus.choices",
     },
     "SERVERS": [
-        {"url": env.get("API_HOST") if "API_HOST" in env else "http://localhost:8000"}
+        {"url": env.get("API_HOST")
+         if "API_HOST" in env else "http://localhost:8000"}
     ],
 }

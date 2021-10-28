@@ -144,3 +144,4 @@ static/
 
 reset_migrations.sh
 *.ipynb
+.idea/
