@@ -31,6 +31,7 @@ from tagger.viewsets.order import OrderViewSet
 from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
 from tagger.viewsets.timedeal_products import TimedealProductViewSet
 from tagger.viewsets.timedeals import TimedealViewSet
+from tagger.viewsets.received_items import ReceivedItemViewSet
 
 
 router = routers.DefaultRouter()
@@ -39,6 +40,7 @@ router.register(r"timedeals", TimedealViewSet, basename="timedeals")
 router.register(r"timedeal-products", TimedealProductViewSet, basename="timedeal-products")
 router.register(r"timedeal-product-templates", TimedealProductTemplateViewSet, basename="timedeal-product-templates")
 router.register(r"notifications", NotificationViewSet, basename="notifications")
+router.register(r"received-items", ReceivedItemViewSet, basename="order-item")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(r"brands", BrandViewSet, basename="brands")
