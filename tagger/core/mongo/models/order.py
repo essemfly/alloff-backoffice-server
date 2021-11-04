@@ -1,4 +1,6 @@
 from typing import Optional
+
+
 from django.db import models
 from mongoengine import (
     DateTimeField,
@@ -7,6 +9,7 @@ from mongoengine import (
     IntField,
     StringField,
     Document,
+    ObjectIdField,
 )
 from mongoengine.fields import EmbeddedDocumentListField
 from tagger.core.mongo.models.order_item import OrderItem
@@ -57,6 +60,12 @@ class Refund(Document):
     updated = DateTimeField(required=True)
 
 
+class OrderCodeMap(Document):
+    meta = {"collection": "operator_order_codes"}
+    orderid = ObjectIdField(required=True)
+    code = StringField(required=True)
+
+
 class Order(DynamicDocument):
     meta = {"collection": "orders"}
     orderstatus = StringField(choices=OrderStatus.choices, required=True)
@@ -83,3 +92,8 @@ class Order(DynamicDocument):
         if len(query) == 0:
             return None
         return query.first()
+
+    @property
+    def code(self) -> Optional[str]:
+        mapping = OrderCodeMap.objects(orderid=self.id).first()
+        return mapping.code if mapping is not None else ""

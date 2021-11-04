@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
-from tagger.core.mongo.models.order import OrderType
+
+from tagger.core.mongo.models.alloff_product import AlloffProduct
+from tagger.core.mongo.models.order import OrderType, Order
+from tagger.core.mongo.models.product import Product
 from tagger.models.inventory import Inventory
 
 
@@ -43,3 +46,12 @@ class ReceivedItem(models.Model):
         max_length=30, default=ReceivedItemStatus.CREATED, choices=ReceivedItemStatus.choices)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def product(self):
+        return Product.objects(id=self.product_id).first() if self.order_type == OrderType.NORMAL_ORDER \
+            else AlloffProduct.objects(id=self.product_id).first()
+
+    @property
+    def order(self):
+        return Order.objects(id=self.order_id).first()

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'drf_spectacular',
     "tagger",
+    "django_extensions"
 ]
 
 MIDDLEWARE = [
