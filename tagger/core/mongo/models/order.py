@@ -1,6 +1,5 @@
 from typing import Optional
 
-
 from django.db import models
 from mongoengine import (
     DateTimeField,
@@ -64,6 +63,10 @@ class OrderCodeMap(Document):
     meta = {"collection": "operator_order_codes"}
     orderid = ObjectIdField(required=True)
     code = StringField(required=True)
+
+    @property
+    def order(self):
+        return Order.objects(id=self.orderid).first()
 
 
 class Order(DynamicDocument):

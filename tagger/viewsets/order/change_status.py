@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.contrib.auth.models import User
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -28,11 +28,11 @@ class ChangeStatusSerializer(serializers.Serializer):
         order = self.instance  # type: Order
         if attrs.get("status") == OrderStatus.DELIVERY_STARTED:
             self.tracking_info_given = (
-                "delivery_tracking_number" in attrs and "delivery_tracking_url" in attrs
+                    "delivery_tracking_number" in attrs and "delivery_tracking_url" in attrs
             )
             self.tracking_info_exists = (
-                order.deliverytrackingnumber is not None
-                and order.deliverytrackingurl is not None
+                    order.deliverytrackingnumber is not None
+                    and order.deliverytrackingurl is not None
             )
 
             if not self.tracking_info_given and not self.tracking_info_exists:
@@ -55,12 +55,12 @@ def get_timestamp_field_with_status(status: OrderStatus):
 def is_allowed_transition(status_from: OrderStatus, status_to: OrderStatus):
     return True
     return (
-        status_to
-        not in [
-            OrderStatus.CANCEL_REQUESTED,
-            OrderStatus.CONFIRM_PAYMENT,
-            OrderStatus.PAYMENT_FINISHED,
-        ]
+            status_to
+            not in [
+                OrderStatus.CANCEL_REQUESTED,
+                OrderStatus.CONFIRM_PAYMENT,
+                OrderStatus.PAYMENT_FINISHED,
+            ]
         # and status_from
         # not in [OrderStatus.CANCEL_FINISHED, OrderStatus.CONFIRM_PAYMENT]
     )
@@ -68,11 +68,20 @@ def is_allowed_transition(status_from: OrderStatus, status_to: OrderStatus):
 
 def change_status(self, request: Request, id: str = None):
     order = self.get_object()  # type: Order
-    payment = order.get_payment()
     serializer = self.get_serializer(
         data=request.data, instance=order
     )  # type: ChangeStatusSerializer
     serializer.is_valid(raise_exception=True)
+    _change_status(self, serializer, order, request.user, id)
+
+    return Response(
+        OrderRetrieveSerializer(self.get_object().reload()).data,
+        status=status.HTTP_200_OK,
+    )
+
+
+def _change_status(serializer: ChangeStatusSerializer, order: Order, user: User, id: str = None):
+    payment = order.get_payment()
 
     # Change status
     status_from = order.orderstatus
@@ -98,7 +107,7 @@ def change_status(self, request: Request, id: str = None):
     # Log
     log = OrderActionLog.objects.create(
         order_id=id,
-        admin=request.user,
+        admin=user,
         action_type=OrderActionType.STATUS_CHANGE,
     )
 
@@ -129,7 +138,7 @@ def change_status(self, request: Request, id: str = None):
 
             request_id = (
                 DeliveryStartedAlimtalk(str(order.id))
-                .add(
+                    .add(
                     mobile=order.user.mobile,
                     grouping_key=order.user._id,
                     productName="" if payment is None else payment.name,
@@ -137,7 +146,7 @@ def change_status(self, request: Request, id: str = None):
                         "delivery_tracking_number"
                     ),
                 )
-                .send()
+                    .send()
             )
 
             OrderAlimtalkLog.objects.create(
@@ -153,13 +162,13 @@ def change_status(self, request: Request, id: str = None):
         # Send alimtalk
         request_id = (
             CancelFinishedAlimtalk(str(order.id))
-            .add(
+                .add(
                 mobile=order.user.mobile,
                 grouping_key=order.user._id,
                 productName=payment.name,
                 amount=refund_amount,
             )
-            .send()
+                .send()
         )
         OrderAlimtalkLog.objects.create(
             order_id=id,
@@ -167,8 +176,3 @@ def change_status(self, request: Request, id: str = None):
             request_id=request_id,
             alimtalk_type=OrderAlimtalkType.CANCEL_FINISHED,
         )
-
-    return Response(
-        OrderRetrieveSerializer(self.get_object().reload()).data,
-        status=status.HTTP_200_OK,
-    )
