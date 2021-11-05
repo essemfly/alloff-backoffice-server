@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from rest_framework import routers
 
 from tagger.viewsets.admin_user import AdminUserViewSet
@@ -25,6 +29,7 @@ from tagger.viewsets.auth import (
     DecoratedTokenRefreshView,
 )
 from tagger.viewsets.brands import BrandViewSet
+from tagger.viewsets.inventory import InventoryViewSet
 from tagger.viewsets.notification import NotificationViewSet
 from tagger.viewsets.image import ImageUploaderViewSet
 from tagger.viewsets.order import OrderViewSet
@@ -37,10 +42,17 @@ from tagger.viewsets.received_items import ReceivedItemViewSet
 router = routers.DefaultRouter()
 router.register(r"orders", OrderViewSet, basename="orders")
 router.register(r"timedeals", TimedealViewSet, basename="timedeals")
-router.register(r"timedeal-products", TimedealProductViewSet, basename="timedeal-products")
-router.register(r"timedeal-product-templates", TimedealProductTemplateViewSet, basename="timedeal-product-templates")
+router.register(
+    r"timedeal-products", TimedealProductViewSet, basename="timedeal-products"
+)
+router.register(
+    r"timedeal-product-templates",
+    TimedealProductTemplateViewSet,
+    basename="timedeal-product-templates",
+)
 router.register(r"notifications", NotificationViewSet, basename="notifications")
-router.register(r"received-items", ReceivedItemViewSet, basename="order-item")
+router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
+router.register(r"inventory", InventoryViewSet, basename="inventory")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(r"brands", BrandViewSet, basename="brands")
@@ -51,8 +63,16 @@ urlpatterns = [
     path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     # YOUR PATTERNS
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
-    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]

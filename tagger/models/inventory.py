@@ -19,6 +19,9 @@ class Inventory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     product_id = models.CharField(max_length=50)
+    product_from_order_url = models.CharField(max_length=100, null=True)
+    product_name = models.CharField(max_length=100)
+    product_brand = models.CharField(max_length=30)
     product_type = models.CharField(max_length=50, choices=ProductType.choices)
 
 

@@ -35,22 +35,27 @@ class ReceivedItem(models.Model):
     item_name = models.CharField(max_length=100)
     quantity = models.IntegerField(default=1)
     size = models.CharField(max_length=50)
-    sourcing = models.ForeignKey(
-        to=Sourcing, on_delete=models.PROTECT, null=True)
+    sourcing = models.ForeignKey(to=Sourcing, on_delete=models.PROTECT, null=True)
+    sourcing_code = models.CharField(max_length=100, null=True)
     assignee = models.ForeignKey(to=User, on_delete=models.PROTECT, null=True)
     product_id = models.CharField(max_length=50)
     # 입고 확인후, 입고 완료된 Inventory를 넣어준다.
-    inventory = models.ForeignKey(
-        to=Inventory, null=True, on_delete=models.PROTECT)
+    inventory = models.ForeignKey(to=Inventory, null=True, on_delete=models.PROTECT)
     status = models.CharField(
-        max_length=30, default=ReceivedItemStatus.CREATED, choices=ReceivedItemStatus.choices)
+        max_length=30,
+        default=ReceivedItemStatus.CREATED,
+        choices=ReceivedItemStatus.choices,
+    )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     @property
     def product(self):
-        return Product.objects(id=self.product_id).first() if self.order_type == OrderType.NORMAL_ORDER \
+        return (
+            Product.objects(id=self.product_id).first()
+            if self.order_type == OrderType.NORMAL_ORDER
             else AlloffProduct.objects(id=self.product_id).first()
+        )
 
     @property
     def order(self):
