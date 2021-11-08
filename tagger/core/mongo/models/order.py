@@ -90,7 +90,8 @@ class Order(DynamicDocument):
     user = EmbeddedDocumentField(AlloffUser, required=True)
     orders = EmbeddedDocumentListField(OrderItem, required=True)
 
-    def get_payment(self) -> Optional[Payment]:
+    @property
+    def payment(self) -> Optional[Payment]:
         query = Payment.objects(merchantuid=str(self.id)).order_by("-id")
         if len(query) == 0:
             return None

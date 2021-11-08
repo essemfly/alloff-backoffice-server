@@ -81,7 +81,7 @@ def change_status(self, request: Request, id: str = None):
 
 
 def _change_status(serializer: ChangeStatusSerializer, order: Order, user: User, id: str = None):
-    payment = order.get_payment()
+    payment = order.payment
 
     # Change status
     status_from = order.orderstatus

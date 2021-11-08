@@ -61,7 +61,7 @@ def add_payment_adjustment(self, request: Request, id=None):
     )  # type: AddPaymentAdjustmentSerializer
     serializer.is_valid(raise_exception=True)
 
-    payment = order.get_payment()
+    payment = order.payment
     if payment is None:
         return Response(
             {"message": "Payment does not exist"},

@@ -2,7 +2,7 @@ from tagger.core.mongo.models.order import Order
 
 
 def make_shipping_label(order: Order) -> str:
-    payment = order.get_payment()
+    payment = order.payment
     return _get_shipping_label_xml(
         f"""{payment.buyername.replace("<", "(").replace(">", ")")} ({payment.buyermobile})""",
         payment.name,

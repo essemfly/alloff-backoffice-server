@@ -33,7 +33,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -224,8 +223,10 @@ SPECTACULAR_SETTINGS = {
     },
     "SERVERS": [
         {"url": env.get("API_HOST")
-         if "API_HOST" in env else "http://localhost:8000"}
+        if "API_HOST" in env else "http://localhost:8000"}
     ],
 }
 
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
+ORDER_CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
+ORDER_CODE_LENGTH = 5
