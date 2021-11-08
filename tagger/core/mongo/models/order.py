@@ -96,6 +96,11 @@ class Order(DynamicDocument):
             return None
         return query.first()
 
+    @staticmethod
+    def get_by_code(code: str) -> Optional["Order"]:
+        codemap = OrderCodeMap.objects(code=code.upper() if code[0:4] == "ORD-" else "ORD-" + code.upper()).first()
+        return codemap.order if codemap is not None else None
+
     @property
     def code(self) -> Optional[str]:
         mapping = OrderCodeMap.objects(orderid=self.id).first()

@@ -227,3 +227,5 @@ SPECTACULAR_SETTINGS = {
          if "API_HOST" in env else "http://localhost:8000"}
     ],
 }
+
+LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
