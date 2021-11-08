@@ -2,6 +2,7 @@ from django.db import models
 from tagger.core.mongo.models.order import OrderType, Order
 from bson import ObjectId
 
+
 class InventoryStatus(models.TextChoices):
     IN_STOCK = "IN_STOCK"
     SHIPPED = "SHIPPED"
@@ -25,6 +26,7 @@ class Inventory(models.Model):
     product_brand = models.CharField(max_length=30)
     product_type = models.CharField(max_length=50, choices=ProductType.choices)
     out_order_id = models.CharField(max_length=30, db_index=True, null=True)
+    location = models.CharField(max_length=50, null=False)
 
     def __str__(self):
         return f"Inventory #{self.id} [{self.status}] {self.product_name} ({self.code})"
