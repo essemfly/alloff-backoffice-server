@@ -25,8 +25,8 @@ class Inventory(models.Model):
     product_name = models.CharField(max_length=100)
     product_brand = models.CharField(max_length=30)
     product_type = models.CharField(max_length=50, choices=ProductType.choices)
-    out_order_id = models.CharField(max_length=30, db_index=True, null=True)
-    location = models.CharField(max_length=50, null=False)
+    out_order_id = models.CharField(max_length=30, db_index=True, null=True, blank=True)
+    location = models.CharField(max_length=50, null=False, blank=True)
 
     def __str__(self):
         return f"Inventory #{self.id} [{self.status}] {self.product_name} ({self.code})"

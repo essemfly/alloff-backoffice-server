@@ -1,14 +1,16 @@
-from typing import Union
-
-from tagger.core.mongo.models.alloff_product import AlloffProduct
-from tagger.core.mongo.models.product import Product
+from tagger.core.label.escape_xml import escape_xml
 from tagger.models.inventory import Inventory, ProductType
 
 
 def make_receiving_label(inventory: Inventory) -> str:
     product_type_id_prefix = "A" if inventory.product_type == ProductType.TIMEDEAL_PRODUCT else "P"
-    return _get_receiving_label_xml(inventory.code, f"({inventory.size}) {inventory.product_name}", inventory.product_from_order_url,
-                                    inventory.product_brand, f"{product_type_id_prefix}-{inventory.product_id}")
+    return _get_receiving_label_xml(
+        escape_xml(inventory.code),
+        escape_xml(f"({inventory.size}) {inventory.product_name}"),
+        escape_xml(inventory.product_from_order_url),
+        escape_xml(inventory.product_brand),
+        escape_xml(f"{product_type_id_prefix}-{inventory.product_id}"),
+    )
 
 
 def _get_receiving_label_xml(inventory_code: str, product_name: str, url: str, brand_keyname: str,

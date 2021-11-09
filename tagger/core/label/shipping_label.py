@@ -1,16 +1,18 @@
+from tagger.core.label.escape_xml import escape_xml
 from tagger.core.mongo.models.order import Order
+from tagger.models import Inventory
 
 
-def make_shipping_label(order: Order) -> str:
+def make_shipping_label(order: Order, inventory: Inventory) -> str:
     payment = order.payment
     return _get_shipping_label_xml(
-        f"""{payment.buyername.replace("<", "(").replace(">", ")")} ({payment.buyermobile})""",
-        payment.name,
-        order.code.replace("ORD-", ""),
-        f"https://office.alloff.co/orders/{order.id}",
-        payment.buyeraddress,
-        ",".join([x.size for x in order.orders]),
-        order.memo
+        escape_xml(f"""{payment.buyername.replace("<", "(").replace(">", ")")} ({payment.buyermobile})"""),
+        escape_xml(payment.name),
+        escape_xml(order.code.replace("ORD-", "")),
+        escape_xml(f"https://office.alloff.co/orders/{order.id}"),
+        escape_xml(payment.buyeraddress),
+        escape_xml(",".join([x.size for x in order.orders]) + " @ " + inventory.code),
+        escape_xml(order.memo),
     )
 
 
