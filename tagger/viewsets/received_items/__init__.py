@@ -20,8 +20,11 @@ from tagger.serializers.received_item import ReceivedItemSerializer
 from tagger.viewsets.received_items.receive_item import make_inventory_with_received_item
 
 
-def make_ri(order: Order) -> List[ReceivedItem]:
+def make_ri(order: Order, force=False) -> List[ReceivedItem]:
     result = []
+    if not force and ReceivedItem.objects.filter(order_id=str(order.id)).count() > 0:
+        return
+
     for orderItem in order.orders:
         itemType, itemName, itemId, keyname, images = None, None, None, None, None
         if orderItem.alloffproduct is not None:
@@ -70,15 +73,6 @@ class ReceivedItemViewSet(viewsets.ModelViewSet):
         if self.action == "make_inventory":
             return InventorySerializer
         return ReceivedItemSerializer
-
-    #
-    # @extend_schema(responses=ReceivedItemSerializer(many=True))
-    # def list(self, request):
-    #     # self.insert_all_order_items()
-    #     queryset = ReceivedItem.objects.order_by("-id").all()
-    #     page = self.paginate_queryset(queryset)
-    #     serializer = ReceivedItemSerializer(page, many=True)
-    #     return self.get_paginated_response(serializer.data)
 
     @extend_schema(
         responses=InventorySerializer,
@@ -133,22 +127,4 @@ class ReceivedItemViewSet(viewsets.ModelViewSet):
         if order is None:
             raise BaseException("No order with ref " + id_or_code)
 
-        return Response(ReceivedItemSerializer(make_ri(order), many=True).data, status=status.HTTP_200_OK)
-
-    def insert_all_order_items(self):
-        orders = (
-            Order.objects(
-                orderstatus__in=[
-                    "PAYMENT_FINISHED",
-                    "PRODUCT_PREPARING",
-                    "DELIVERY_PREPARING",
-                    "CANCEL_REQUESTED",
-                    "CANCEL_PENDING",
-                ],
-            )
-                .order_by("id")
-                .all()
-        )
-
-        for order in orders:
-            make_ri(order)
+        return Response(ReceivedItemSerializer(make_ri(order, force=True), many=True).data, status=status.HTTP_200_OK)

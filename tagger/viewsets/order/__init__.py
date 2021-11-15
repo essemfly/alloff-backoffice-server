@@ -18,6 +18,7 @@ from tagger.viewsets.order.add_payment_adjustment import (
 from tagger.viewsets.order.change_status import ChangeStatusSerializer, change_status
 from tagger.viewsets.order.delete_memo import DeleteOrderMemoSerializer, delete_memo
 from tagger.viewsets.order.update_refund import UpdateRefundSerializer, update_refund
+from tagger.viewsets.received_items import make_ri
 
 
 @extend_schema_view(
@@ -71,7 +72,9 @@ class OrderViewSet(
         return queryset
 
     def get_object(self):
-        return Order.get(self.kwargs.get("id"))
+        order = Order.get(self.kwargs.get("id"))
+        make_ri(order)
+        return order
 
     def get_serializer_class(self):
         if self.action == "retrieve":
