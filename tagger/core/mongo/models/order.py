@@ -9,9 +9,9 @@ from mongoengine import (
     IntField,
     StringField,
     Document,
-    ObjectIdField,
 )
 from mongoengine.fields import EmbeddedDocumentListField
+
 from tagger.core.mongo.models.order_item import OrderItem
 from tagger.core.mongo.models.user import AlloffUser
 
@@ -60,16 +60,6 @@ class Refund(Document):
     updated = DateTimeField(required=True)
 
 
-class OrderCodeMap(Document):
-    meta = {"collection": "operator_order_codes"}
-    orderid = ObjectIdField(required=True)
-    code = StringField(required=True)
-
-    @property
-    def order(self):
-        return Order.objects(id=self.orderid).first()
-
-
 class Order(DynamicDocument):
     meta = {"collection": "orders"}
     orderstatus = StringField(choices=OrderStatus.choices, required=True)
@@ -109,10 +99,14 @@ class Order(DynamicDocument):
 
     @staticmethod
     def get_by_code(code: str) -> Optional["Order"]:
-        codemap = OrderCodeMap.objects(code=code.upper() if code[0:4] == "ORD-" else "ORD-" + code.upper()).first()
-        return codemap.order if codemap is not None else None
+        from tagger.models import ExtendedOrder
+        eo = ExtendedOrder.objects.filter(code=code.upper()).first()
+        return eo.order if eo is not None else None
 
     @property
-    def code(self) -> Optional[str]:
-        mapping = OrderCodeMap.objects(orderid=self.id).first()
-        return mapping.code if mapping is not None else ""
+    def code(self) -> str:
+        from tagger.models import ExtendedOrder
+        eo = ExtendedOrder.objects.filter(order_id=str(self.id)).first()
+        if eo is None:
+            eo = ExtendedOrder.make_from(self)
+        return eo.code

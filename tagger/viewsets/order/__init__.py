@@ -66,6 +66,9 @@ class OrderViewSet(
                     queryset = queryset.filter(**{key: value})  # filter the queryset based on 'filtering_kwargs'
         return queryset
 
+    def get_object(self):
+        return Order.get(self.kwargs.get("id"))
+
     def get_serializer_class(self):
         if self.action == "retrieve":
             return OrderRetrieveSerializer

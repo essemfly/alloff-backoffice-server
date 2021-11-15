@@ -3,7 +3,6 @@ from django.db import models
 from shortuuid import ShortUUID
 
 from alloff_backoffice_server.settings import ORDER_CODE_CHARSET, ORDER_CODE_LENGTH
-from tagger.core.mongo.models.order import Order
 
 
 class ExtendedOrder(models.Model):
@@ -15,7 +14,7 @@ class ExtendedOrder(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     @staticmethod
-    def make_from(order: Order, code=None) -> "ExtendedOrder":
+    def make_from(order, code=None) -> "ExtendedOrder":
         order_id = str(order.id)
         if ExtendedOrder.objects.filter(order_id=order_id).count() > 0:
             raise BaseException(f"Order {order_id} is already extended!")
@@ -49,4 +48,5 @@ class ExtendedOrder(models.Model):
 
     @property
     def order(self):
-        return Order.objects(id=ObjectId(self.code))
+        from tagger.core.mongo.models.order import Order
+        return Order.objects(id=ObjectId(self.order_id)).first()

@@ -23,6 +23,12 @@ class _OrderSerializer(DynamicDocumentSerializer):
     user = UserSerializer(many=False)
     refund = SerializerMethodField()
 
+    code = SerializerMethodField()
+
+    @extend_schema_field(CharField)
+    def get_code(self, obj: Order):
+        return obj.code
+
     orderedAt = SerializerMethodField()
 
     @extend_schema_field(DateTimeField)

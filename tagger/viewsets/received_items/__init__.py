@@ -1,8 +1,6 @@
 from typing import List
 
-from bson.objectid import ObjectId
 from django.contrib.auth.models import User
-from django_filters import rest_framework as filters
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import serializers
@@ -15,7 +13,7 @@ from rest_framework.response import Response
 
 from tagger.core.label.print_label import print_label
 from tagger.core.label.receiving_label import make_receiving_label
-from tagger.core.mongo.models.order import Order, OrderType, OrderCodeMap
+from tagger.core.mongo.models.order import Order, OrderType
 from tagger.models.received_item import ReceivedItem, ReceivedItemStatus
 from tagger.serializers.inventory import InventorySerializer
 from tagger.serializers.received_item import ReceivedItemSerializer
@@ -23,7 +21,6 @@ from tagger.viewsets.received_items.receive_item import make_inventory_with_rece
 
 
 def make_ri(order: Order) -> List[ReceivedItem]:
-    ocodemap = OrderCodeMap.objects(orderid=ObjectId(order.id)).first()
     result = []
     for orderItem in order.orders:
         itemType, itemName, itemId, keyname, images = None, None, None, None, None
@@ -47,7 +44,7 @@ def make_ri(order: Order) -> List[ReceivedItem]:
                 item_name=itemName,
                 size=orderItem.size,
                 product_id=itemId,
-                sourcing_code=ocodemap.code.replace("ORD-", "") if ocodemap else None,
+                sourcing_code=order.code,
                 brand_keyname=keyname,
                 is_return="CANCEL" in order.orderstatus,
                 images=images,
