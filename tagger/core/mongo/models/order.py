@@ -1,5 +1,6 @@
 from typing import Optional
 
+from bson import ObjectId
 from django.db import models
 from mongoengine import (
     DateTimeField,
@@ -96,6 +97,15 @@ class Order(DynamicDocument):
         if len(query) == 0:
             return None
         return query.first()
+
+    @staticmethod
+    def get(code_or_id: str) -> Optional["Order"]:
+        if len(code_or_id) == 5:
+            return Order.get_by_code(code_or_id)
+        elif len(code_or_id) == 24:
+            return Order.objects(id=ObjectId(code_or_id)).first()
+        else:
+            raise BaseException(f"Code or ID should be 5 or 24 characters long --- given: {len(code_or_id)}")
 
     @staticmethod
     def get_by_code(code: str) -> Optional["Order"]:

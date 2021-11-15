@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from tagger.core.mongo.models.alloff_product import AlloffProduct
@@ -9,7 +10,7 @@ from tagger.models.inventory import Inventory
 
 class ReceivedItemStatus(models.TextChoices):
     CREATED = "CREATED"
-    ASSGINED = "ASSGINED"
+    ASSIGNED = "ASSIGNED"
     # 마담이 재고가 있다. 확정 받아서 주문 넣어서 입금을 받은 경우
     REQUESTED = "REQUESTED"
     # 마담한테 받은 경우
@@ -23,8 +24,8 @@ class ReceivedItemStatus(models.TextChoices):
 
 
 class Sourcing(models.Model):
-    box_code = models.CharField(max_length=50, null=True, db_index=True)
-    asignee = models.ForeignKey(to=User, on_delete=models.PROTECT)
+    code = models.CharField(max_length=50, null=True, db_index=True)
+    assignee = models.ForeignKey(to=User, on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -33,14 +34,14 @@ class ReceivedItem(models.Model):
     order_id = models.CharField(max_length=50, db_index=True)
     order_type = models.CharField(max_length=50, choices=OrderType.choices)
     item_name = models.CharField(max_length=100)
-    quantity = models.IntegerField(default=1)
+    brand_keyname = models.CharField(max_length=50)
     size = models.CharField(max_length=50)
-    sourcing = models.ForeignKey(to=Sourcing, on_delete=models.PROTECT, null=True)
-    sourcing_code = models.CharField(max_length=100, null=True)
-    assignee = models.ForeignKey(to=User, on_delete=models.PROTECT, null=True)
+    sourcing = models.ForeignKey(to=Sourcing, on_delete=models.PROTECT, null=True, blank=True)
+    sourcing_code = models.CharField(max_length=10, db_index=True)
+    processor = models.ForeignKey(to=User, on_delete=models.PROTECT, null=True, blank=True)
     product_id = models.CharField(max_length=50)
     # 입고 확인후, 입고 완료된 Inventory를 넣어준다.
-    inventory = models.ForeignKey(to=Inventory, null=True, on_delete=models.PROTECT)
+    inventory = models.ForeignKey(to=Inventory, null=True, on_delete=models.PROTECT, blank=True)
     status = models.CharField(
         max_length=30,
         default=ReceivedItemStatus.CREATED,
@@ -48,6 +49,13 @@ class ReceivedItem(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    ordered = models.DateTimeField()
+
+    is_return = models.BooleanField(default=False)
+    needs_processing = models.BooleanField(default=False)
+
+    images = ArrayField(base_field=models.TextField(), default=list)
+    memo = models.TextField(null=False, blank=True, default="")
 
     @property
     def product(self):

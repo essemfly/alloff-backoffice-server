@@ -7,7 +7,7 @@ def make_receiving_label(inventory: Inventory) -> str:
     return _get_receiving_label_xml(
         escape_xml(inventory.code),
         escape_xml(f"({inventory.size}) {inventory.product_name}"),
-        escape_xml(inventory.product_from_order_url),
+        escape_xml(f"https://office.alloff.co/orders/{inventory.in_order_id}"),
         escape_xml(inventory.product_brand),
         escape_xml(f"{product_type_id_prefix}-{inventory.product_id}"),
     )
