@@ -72,7 +72,7 @@ def change_status(self, request: Request, id: str = None):
         data=request.data, instance=order
     )  # type: ChangeStatusSerializer
     serializer.is_valid(raise_exception=True)
-    _change_status(self, serializer, order, request.user, id)
+    _change_status(serializer, order, request.user, id)
 
     return Response(
         OrderRetrieveSerializer(self.get_object().reload()).data,

@@ -306,6 +306,17 @@ python-versions = ">=3.6"
 Django = ">=2.2"
 
 [[package]]
+name = "django-mongoengine-filter"
+version = "0.3.5"
+description = "django-mongoengine-filter is a reusable Django application inspired from django-filter for allowing mongoengine users to filter querysets dynamically."
+category = "main"
+optional = false
+python-versions = ">=2.7"
+
+[package.dependencies]
+six = ">=1.9"
+
+[[package]]
 name = "django-rest-framework-mongoengine"
 version = "3.4.1"
 description = "MongoEngine support for Django Rest Framework."
@@ -1462,7 +1473,7 @@ notebook = ">=4.4.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "f08fd9a8c1d376c44c221dc70aec2251ba5d2507670c9e2e118e3d633657cbe3"
+content-hash = "763717ef444a7e74743f3dab50438e3846cb255846ac1c25a5d4829a1bb0c5f3"
 
 [metadata.files]
 anyio = [
@@ -1640,6 +1651,10 @@ django-extensions = [
 django-filter = [
     {file = "django-filter-21.1.tar.gz", hash = "sha256:632a251fa8f1aadb4b8cceff932bb52fe2f826dd7dfe7f3eac40e5c463d6836e"},
     {file = "django_filter-21.1-py3-none-any.whl", hash = "sha256:f4a6737a30104c98d2e2a5fb93043f36dd7978e0c7ddc92f5998e85433ea5063"},
+]
+django-mongoengine-filter = [
+    {file = "django-mongoengine-filter-0.3.5.tar.gz", hash = "sha256:1bfd03cf7826b1019aff00938694d3374fea3ea038e697867467bca661448b10"},
+    {file = "django_mongoengine_filter-0.3.5-py2.py3-none-any.whl", hash = "sha256:725ac5bf42c8ce458193a128685396f1b5e3994c3ad1a5f2e4417a39e01ac262"},
 ]
 django-rest-framework-mongoengine = []
 django-storages = [
