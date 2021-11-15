@@ -22,8 +22,7 @@ from tagger.viewsets.order.update_refund import UpdateRefundSerializer, update_r
 
 @extend_schema_view(
     list=extend_schema(parameters=[
-        OpenApiParameter("orderstatus", {'type': 'array', 'items': {'type': 'string'}}, OpenApiParameter.QUERY,
-                         enum=OrderStatus),
+        OpenApiParameter("statuses", {'type': 'array', 'items': {'type': 'string'}}, OpenApiParameter.QUERY, explode=False),
         OpenApiParameter("created__gte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
         OpenApiParameter("created__lte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
     ]),
@@ -42,7 +41,7 @@ class OrderViewSet(
         "code"
     ]
 
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     my_filter_fields = ('statuses', 'created__gte', 'created__lte')  # specify the fields on which you want to filter
 
@@ -59,11 +58,14 @@ class OrderViewSet(
             orderstatus__nin=["CREATED", "RECREATED", "PAYMENT_PENDING"],
         ).order_by("-id")
 
+        if "search" in self.request.query_params:
+            return queryset
+
         filtering_kwargs = self.get_kwargs_for_filtering()  # get the fields with values for filtering
         if filtering_kwargs:
             for key, value in filtering_kwargs.items():
                 if key == 'statuses':
-                    queryset = queryset.filter(__raw__={'orderstatus': {"$in": value}})
+                    queryset = queryset.filter(__raw__={'orderstatus': {"$in": value.split(",")}})
                 else:
                     queryset = queryset.filter(**{key: value})  # filter the queryset based on 'filtering_kwargs'
         return queryset
