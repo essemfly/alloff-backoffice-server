@@ -38,6 +38,7 @@ class OrderViewSet(
         "user__mobile",
         "orders__product__name",
         "orders__alloffproduct__name",
+        "code"
     ]
 
     permission_classes = [IsAuthenticated]

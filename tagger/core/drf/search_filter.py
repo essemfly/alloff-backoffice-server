@@ -1,8 +1,10 @@
+from bson import ObjectId
 from rest_framework import filters
 from functools import reduce
 import operator
 from mongoengine import Q
 from tagger.core.mongo.models.order import Payment
+from tagger.models import ExtendedOrder
 
 
 class CustomSearchFilter(filters.SearchFilter):
@@ -39,8 +41,9 @@ class OrdersSearchFilter(filters.SearchFilter):
 
         conditions = []
         payment_conditions = []
+
         for search_term in search_terms:
-            queries = [Q(**{orm_lookup: search_term}) for orm_lookup in orm_lookups]
+            queries = [Q(**{orm_lookup: search_term}) for orm_lookup in orm_lookups if "code" not in orm_lookup]
             conditions.append(reduce(operator.or_, queries))
 
             payment_query = Q(**{"buyername__icontains": search_term})
@@ -50,10 +53,13 @@ class OrdersSearchFilter(filters.SearchFilter):
             reduce(operator.or_, payment_conditions)
         ).all()
 
+        oids_q = Q(**{"id__in": [x.order_id for x in ExtendedOrder.objects.filter(code__icontains=search_terms[0]).all()]})
+
         payment_matched_q = Q(
             **{"id__in": [x.merchantuid for x in payment_queryset.all()]}
         )
-        conditions = [x | payment_matched_q for x in conditions]
+
+        conditions = [x | payment_matched_q | oids_q for x in conditions]
         print(conditions)
         queryset = queryset.filter(reduce(operator.and_, conditions))
         return queryset
