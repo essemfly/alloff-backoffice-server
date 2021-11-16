@@ -79,3 +79,6 @@ class ExtendedOrder(models.Model):
     def order(self):
         from tagger.core.mongo.models.order import Order
         return Order.objects(id=ObjectId(self.order_id)).first()
+
+    def __str__(self):
+        return f"""EO #{self.code}"""

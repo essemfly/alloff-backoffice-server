@@ -15,7 +15,7 @@ class ExtendedOrderItem(models.Model):
     brand_keyname = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.product_code
+        return f"""EOI[{self.extended_order.code}] {self.name}"""
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
