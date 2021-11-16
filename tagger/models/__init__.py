@@ -6,3 +6,4 @@ from .order_payment_adjustment import OrderPaymentAdjustment
 from .received_item import ReceivedItem
 from .supplier import Supplier
 from .extended_order import ExtendedOrder
+from .extended_order_item import ExtendedOrderItem

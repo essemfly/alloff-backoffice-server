@@ -108,5 +108,5 @@ class Order(DynamicDocument):
         from tagger.models import ExtendedOrder
         eo = ExtendedOrder.objects.filter(order_id=str(self.id)).first()
         if eo is None:
-            eo = ExtendedOrder.make_from(self)
+            eo = ExtendedOrder.make(self)
         return eo.code
