@@ -2,7 +2,7 @@ from bson import ObjectId
 from django.db import models
 from shortuuid import ShortUUID
 
-from alloff_backoffice_server.settings import ORDER_CODE_CHARSET, ORDER_CODE_LENGTH
+from alloff_backoffice_server.settings import CODE_CHARSET
 from tagger.models.inventory import ProductType
 
 
@@ -47,7 +47,7 @@ class ExtendedOrder(models.Model):
                     brand_keyname=product.brand.keyname,
                     size=item.size,
                     quantity=item.quantity,
-                    eo=eo
+                    extended_order=eo
                 )
                 print(f"{eo.code} - {eoi.product_code}")
 
@@ -55,7 +55,7 @@ class ExtendedOrder(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        if self.code is None:
+        if self.code is None or self.code == "":
             self.code = ExtendedOrder.generate_usable_code()
         return super().save(force_insert, force_update, using, update_fields)
 
@@ -73,7 +73,7 @@ class ExtendedOrder(models.Model):
 
     @staticmethod
     def _make_code():
-        return ShortUUID(ORDER_CODE_CHARSET).random(length=ORDER_CODE_LENGTH)
+        return ShortUUID(CODE_CHARSET).random(length=5)
 
     @property
     def order(self):

@@ -37,6 +37,10 @@ class Inventory(models.Model):
         return f"Inventory #{self.id} [{self.status}] {self.product_name} ({self.code})"
 
     @property
+    def product_code(self):
+        return f"{self.product_brand}___{''.join(self.product_name.split())}___{''.join(self.size.split())}"
+
+    @property
     def out_order(self):
         if self.out_order_id is None:
             return None

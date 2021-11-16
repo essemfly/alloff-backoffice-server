@@ -7,3 +7,6 @@ from .received_item import ReceivedItem
 from .supplier import Supplier
 from .extended_order import ExtendedOrder
 from .extended_order_item import ExtendedOrderItem
+from .shipping_notice import ShippingNotice, ShippingNoticeItem
+from .courier import Courier
+from .package import Package
