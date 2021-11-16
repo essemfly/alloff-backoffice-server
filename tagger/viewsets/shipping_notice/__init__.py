@@ -22,7 +22,6 @@ def _get_candidate_eois(i: Inventory, exhausted_eoi_ids: set):
                 OrderStatus.PAYMENT_FINISHED,
                 OrderStatus.PRODUCT_PREPARING,
                 OrderStatus.DELIVERY_PREPARING,
-                OrderStatus.CANCEL_FINISHED,
             ]]
 
 
