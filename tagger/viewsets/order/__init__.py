@@ -9,7 +9,7 @@ from rest_framework_mongoengine import viewsets
 
 from tagger.core.drf.search_filter import OrdersSearchFilter
 from tagger.core.mongo.models.order import Order, OrderStatus
-from tagger.serializers.order import OrderListSerializer, OrderRetrieveSerializer
+from tagger.serializers.order import OrderListSerializer, OrderRetrieveSerializer, OrderMinimumSerializer
 from tagger.viewsets.order.add_memo import AddOrderMemoSerializer, add_memo
 from tagger.viewsets.order.add_payment_adjustment import (
     AddPaymentAdjustmentSerializer,
@@ -90,7 +90,18 @@ class OrderViewSet(
             return AddOrderMemoSerializer
         elif self.action == "delete_memo":
             return DeleteOrderMemoSerializer
+        elif "minimum" in self.action:
+            return OrderMinimumSerializer
         return OrderListSerializer
+
+    # Separate logics must be implemented for analytics purposes
+    @extend_schema(responses=OrderMinimumSerializer(many=True))
+    @action(methods=["GET"], detail=False, pagination_class=None, url_path='list-minimum-all')
+    def list_minimum(self, request: Request):
+        return Response(self.get_serializer(Order.objects(
+            orderstatus__nin=["CREATED", "RECREATED", "PAYMENT_PENDING"],
+            user__mobile__nin=["01028861089", "01077591771"]
+        ).all(), many=True).data, status=status.HTTP_200_OK)
 
     @extend_schema(responses=OrderListSerializer(many=True), parameters=[
         OpenApiParameter("user_id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden

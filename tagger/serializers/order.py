@@ -136,3 +136,9 @@ class OrderRetrieveSerializer(_OrderSerializer):
 
 class OrderListSerializer(_OrderSerializer):
     pass
+
+
+class OrderMinimumSerializer(DynamicDocumentSerializer):
+    class Meta:
+        model = Order
+        fields = ["orderstatus", "totalprice", "created"]
