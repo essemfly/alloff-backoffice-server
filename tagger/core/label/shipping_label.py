@@ -1,23 +1,21 @@
 from tagger.core.label.escape_xml import escape_xml
-from tagger.core.mongo.models.order import Order
-from tagger.models import Inventory
+from tagger.models import Package
 
 
-def make_shipping_label(order: Order, inventory: Inventory) -> str:
-    payment = order.payment
+def make_shipping_label(package: Package) -> str:
     return _get_shipping_label_xml(
-        escape_xml(f"""{payment.buyername.replace("<", "(").replace(">", ")")} ({payment.buyermobile})"""),
-        escape_xml(payment.name),
-        escape_xml(order.code.replace("ORD-", "")),
-        escape_xml(f"https://office.alloff.co/orders/{order.id}"),
-        escape_xml(payment.buyeraddress),
-        escape_xml(",".join([x.size for x in order.orders]) + " @ " + inventory.code),
-        escape_xml(order.memo),
+        escape_xml(f"""{package.recipient_name.replace("<", "(").replace(">", ")")} ({package.recipient_mobile})"""),
+        escape_xml(
+            "\n".join(
+                [f"""{x.inventory.code} ({x.item.brand_keyname} [{x.item.size}] {x.item.name})""" for x in
+                 package.shipping_notice_items.all()])),
+        escape_xml(f"https://office.alloff.co/logistics/shipping-notices/{package.notice.id}"),
+        escape_xml(package.address),
+        escape_xml(package.code),
     )
 
 
-def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, url: str, address: str, size: str,
-                            order_memo: str):
+def _get_shipping_label_xml(name_mobile: str, inv_infos: str, url: str, address: str, package_code: str):
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <DesktopLabel Version="1">
   <DYMOLabel Version="3">
@@ -91,7 +89,7 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           <ObjectLayout>
             <DYMOPoint>
               <X>0.23</X>
-              <Y>0.1250747</Y>
+              <Y>0.419073</Y>
             </DYMOPoint>
             <Size>
               <Width>0.6269797</Width>
@@ -159,81 +157,12 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           </FormattedText>
           <ObjectLayout>
             <DYMOPoint>
-              <X>0.8616675</X>
-              <Y>0.6977562</Y>
+              <X>0.8616683</X>
+              <Y>0.3043836</Y>
             </DYMOPoint>
             <Size>
               <Width>2.578332</Width>
-              <Height>0.2095642</Height>
-            </Size>
-          </ObjectLayout>
-        </TextObject>
-        <TextObject>
-          <Name>BrandKeyname4</Name>
-          <Brushes>
-            <BackgroundBrush>
-              <SolidColorBrush>
-                <Color A="0" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </BackgroundBrush>
-            <BorderBrush>
-              <SolidColorBrush>
-                <Color A="1" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </BorderBrush>
-            <StrokeBrush>
-              <SolidColorBrush>
-                <Color A="1" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </StrokeBrush>
-            <FillBrush>
-              <SolidColorBrush>
-                <Color A="0" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </FillBrush>
-          </Brushes>
-          <Rotation>Rotation0</Rotation>
-          <OutlineThickness>1</OutlineThickness>
-          <IsOutlined>False</IsOutlined>
-          <BorderStyle>SolidLine</BorderStyle>
-          <Margin>
-            <DYMOThickness Left="0" Top="0" Right="0" Bottom="0" />
-          </Margin>
-          <HorizontalAlignment>Left</HorizontalAlignment>
-          <VerticalAlignment>Middle</VerticalAlignment>
-          <FitMode>None</FitMode>
-          <IsVertical>False</IsVertical>
-          <FormattedText>
-            <FitMode>None</FitMode>
-            <HorizontalAlignment>Left</HorizontalAlignment>
-            <VerticalAlignment>Middle</VerticalAlignment>
-            <IsVertical>False</IsVertical>
-            <LineTextSpan>
-              <TextSpan>
-                <Text>{size}</Text>
-                <FontInfo>
-                  <FontName>Noto Sans KR</FontName>
-                  <FontSize>8</FontSize>
-                  <IsBold>False</IsBold>
-                  <IsItalic>False</IsItalic>
-                  <IsUnderline>False</IsUnderline>
-                  <FontBrush>
-                    <SolidColorBrush>
-                      <Color A="1" R="0" G="0" B="0"></Color>
-                    </SolidColorBrush>
-                  </FontBrush>
-                </FontInfo>
-              </TextSpan>
-            </LineTextSpan>
-          </FormattedText>
-          <ObjectLayout>
-            <DYMOPoint>
-              <X>0.8616673</X>
-              <Y>0.545</Y>
-            </DYMOPoint>
-            <Size>
-              <Width>2.578333</Width>
-              <Height>0.171832</Height>
+              <Height>0.1695887</Height>
             </Size>
           </ObjectLayout>
         </TextObject>
@@ -274,7 +203,7 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           <VerticalAlignment>Middle</VerticalAlignment>
           <ObjectLayout>
             <DYMOPoint>
-              <X>3.081481</X>
+              <X>0.3742302</X>
               <Y>0.07000001</Y>
             </DYMOPoint>
             <Size>
@@ -325,10 +254,10 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
             <IsVertical>False</IsVertical>
             <LineTextSpan>
               <TextSpan>
-                <Text>{order_code}</Text>
+                <Text>{package_code}</Text>
                 <FontInfo>
                   <FontName>Hack</FontName>
-                  <FontSize>12</FontSize>
+                  <FontSize>8</FontSize>
                   <IsBold>True</IsBold>
                   <IsItalic>False</IsItalic>
                   <IsUnderline>False</IsUnderline>
@@ -343,11 +272,11 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           </FormattedText>
           <ObjectLayout>
             <DYMOPoint>
-              <X>0.23</X>
-              <Y>0.7625059</Y>
+              <X>2.399895</X>
+              <Y>0.07000001</Y>
             </DYMOPoint>
             <Size>
-              <Width>0.6109899</Width>
+              <Width>1.020109</Width>
               <Height>0.289629</Height>
             </Size>
           </ObjectLayout>
@@ -397,7 +326,7 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
                 <Text>{name_mobile}</Text>
                 <FontInfo>
                   <FontName>Noto Sans KR</FontName>
-                  <FontSize>12</FontSize>
+                  <FontSize>10</FontSize>
                   <IsBold>True</IsBold>
                   <IsItalic>False</IsItalic>
                   <IsUnderline>False</IsUnderline>
@@ -412,81 +341,12 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           </FormattedText>
           <ObjectLayout>
             <DYMOPoint>
-              <X>0.8616674</X>
-              <Y>0.0603249</Y>
+              <X>0.8569797</X>
+              <Y>0.07000001</Y>
             </DYMOPoint>
             <Size>
               <Width>2.190481</Width>
               <Height>0.289629</Height>
-            </Size>
-          </ObjectLayout>
-        </TextObject>
-        <TextObject>
-          <Name>ProductTypeId5</Name>
-          <Brushes>
-            <BackgroundBrush>
-              <SolidColorBrush>
-                <Color A="0" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </BackgroundBrush>
-            <BorderBrush>
-              <SolidColorBrush>
-                <Color A="1" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </BorderBrush>
-            <StrokeBrush>
-              <SolidColorBrush>
-                <Color A="1" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </StrokeBrush>
-            <FillBrush>
-              <SolidColorBrush>
-                <Color A="0" R="0" G="0" B="0"></Color>
-              </SolidColorBrush>
-            </FillBrush>
-          </Brushes>
-          <Rotation>Rotation0</Rotation>
-          <OutlineThickness>1</OutlineThickness>
-          <IsOutlined>False</IsOutlined>
-          <BorderStyle>SolidLine</BorderStyle>
-          <Margin>
-            <DYMOThickness Left="0" Top="0" Right="0" Bottom="0" />
-          </Margin>
-          <HorizontalAlignment>Left</HorizontalAlignment>
-          <VerticalAlignment>Middle</VerticalAlignment>
-          <FitMode>None</FitMode>
-          <IsVertical>False</IsVertical>
-          <FormattedText>
-            <FitMode>None</FitMode>
-            <HorizontalAlignment>Left</HorizontalAlignment>
-            <VerticalAlignment>Middle</VerticalAlignment>
-            <IsVertical>False</IsVertical>
-            <LineTextSpan>
-              <TextSpan>
-                <Text>{order_name}</Text>
-                <FontInfo>
-                  <FontName>Noto Sans KR</FontName>
-                  <FontSize>8</FontSize>
-                  <IsBold>False</IsBold>
-                  <IsItalic>False</IsItalic>
-                  <IsUnderline>False</IsUnderline>
-                  <FontBrush>
-                    <SolidColorBrush>
-                      <Color A="1" R="0" G="0" B="0"></Color>
-                    </SolidColorBrush>
-                  </FontBrush>
-                </FontInfo>
-              </TextSpan>
-            </LineTextSpan>
-          </FormattedText>
-          <ObjectLayout>
-            <DYMOPoint>
-              <X>0.8616674</X>
-              <Y>0.3499539</Y>
-            </DYMOPoint>
-            <Size>
-              <Width>2.578333</Width>
-              <Height>0.2095642</Height>
             </Size>
           </ObjectLayout>
         </TextObject>
@@ -532,10 +392,10 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
             <IsVertical>False</IsVertical>
             <LineTextSpan>
               <TextSpan>
-                <Text>{order_memo}</Text>
+                <Text>{inv_infos}</Text>
                 <FontInfo>
-                  <FontName>Noto Sans KR</FontName>
-                  <FontSize>8</FontSize>
+                  <FontName>Spoqa Han Sans Neo</FontName>
+                  <FontSize>7.5</FontSize>
                   <IsBold>False</IsBold>
                   <IsItalic>False</IsItalic>
                   <IsUnderline>False</IsUnderline>
@@ -550,12 +410,12 @@ def _get_shipping_label_xml(name_mobile: str, order_name: str, order_code: str, 
           </FormattedText>
           <ObjectLayout>
             <DYMOPoint>
-              <X>0.8616682</X>
-              <Y>0.8593361</Y>
+              <X>0.8616683</X>
+              <Y>0.486441</Y>
             </DYMOPoint>
             <Size>
-              <Width>2.578332</Width>
-              <Height>0.2095642</Height>
+              <Width>2.558332</Width>
+              <Height>0.550233</Height>
             </Size>
           </ObjectLayout>
         </TextObject>

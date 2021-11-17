@@ -8,6 +8,7 @@ from tagger.models import Inventory, ExtendedOrderItem
 class ShippingNoticeStatus(models.TextChoices):
     CREATED = "CREATED"
     LOCKED = "LOCKED"
+    SEALED = "SEALED"
     SHIPPED = "SHIPPED"
 
 
@@ -15,6 +16,7 @@ class ShippingNotice(models.Model):
     code = models.CharField(max_length=13, unique=True, db_index=True, null=False)
     status = models.CharField(max_length=20, choices=ShippingNoticeStatus.choices, default=ShippingNoticeStatus.CREATED)
     locked_at = models.DateTimeField(null=True, blank=True)
+    sealed_at = models.DateTimeField(null=True, blank=True)
     shipped_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,9 +28,10 @@ class ShippingNotice(models.Model):
 
         if self.status == ShippingNoticeStatus.LOCKED:
             self.locked_at = datetime.now()
-
-        if self.status == ShippingNoticeStatus.SHIPPED:
+        elif self.status == ShippingNoticeStatus.SHIPPED:
             self.shipped_at = datetime.now()
+        elif self.status == ShippingNoticeStatus.SEALED:
+            self.sealed_at = datetime.now()
 
         return super().save(force_insert, force_update, using, update_fields)
 
@@ -56,6 +59,6 @@ class ShippingNotice(models.Model):
 
 
 class ShippingNoticeItem(models.Model):
-    notice = models.ForeignKey(to=ShippingNotice, on_delete=models.CASCADE)
+    notice = models.ForeignKey(to=ShippingNotice, on_delete=models.CASCADE, related_name='items')
     inventory = models.OneToOneField(to=Inventory, on_delete=models.PROTECT)
     item = models.ForeignKey(to=ExtendedOrderItem, on_delete=models.PROTECT)

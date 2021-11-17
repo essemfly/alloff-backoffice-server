@@ -1,3 +1,5 @@
+from typing import Optional
+
 from bson import ObjectId
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -41,10 +43,17 @@ class Inventory(models.Model):
         return f"{self.product_brand}___{''.join(self.product_name.split())}___{''.join(self.size.split())}"
 
     @property
-    def out_order(self):
+    def out_order(self) -> Optional[Order]:
         if self.out_order_id is None:
             return None
 
         return Order.objects(id=ObjectId(self.out_order_id)).first()
+
+    @property
+    def in_order(self) -> Optional[Order]:
+        if self.in_order_id is None:
+            return None
+
+        return Order.objects(id=ObjectId(self.in_order_id)).first()
 
 # 출고 만들기

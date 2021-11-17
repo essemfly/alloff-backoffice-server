@@ -23,7 +23,8 @@ from tagger.viewsets.received_items import make_ri
 
 @extend_schema_view(
     list=extend_schema(parameters=[
-        OpenApiParameter("statuses", {'type': 'array', 'items': {'type': 'string'}}, OpenApiParameter.QUERY, explode=False),
+        OpenApiParameter("statuses", {'type': 'array', 'items': {'type': 'string'}}, OpenApiParameter.QUERY,
+                         explode=False),
         OpenApiParameter("created__gte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
         OpenApiParameter("created__lte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
     ]),
@@ -42,7 +43,7 @@ class OrderViewSet(
         "code"
     ]
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     my_filter_fields = ('statuses', 'created__gte', 'created__lte')  # specify the fields on which you want to filter
 
