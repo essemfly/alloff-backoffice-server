@@ -66,9 +66,13 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
             raise APIException("Package codes do not match!")
 
         for _, row in df.iterrows():
+            tracking_number = row['송장번호']
+            if "." in tracking_number:
+                # DataFrame float -> str issue
+                tracking_number = tracking_number.split(".")[0]
             package = Package.objects.get(code=row["주문번호"])
             package.courier = courier
-            package.tracking_number = row['송장번호']
+            package.tracking_number = tracking_number
             package.status = PackageStatus.SHIPPED
             package.save()
 
