@@ -22,7 +22,7 @@ from tagger.viewsets.shipping_notice.template import make_cj_workbook
 
 
 class ShippingNoticeViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = ShippingNotice.objects.order_by("-id")
 
     def list(self, request, *args, **kwargs):

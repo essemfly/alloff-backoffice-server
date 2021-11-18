@@ -26,5 +26,5 @@ class InventoryViewSet(viewsets.ModelViewSet):
     queryset = Inventory.objects.order_by("-id").all()
     serializer_class = InventorySerializer
     filter_backends = [SearchFilter, DjangoFilterBackend]
-    search_fields = ['code', 'product_name', 'out_order_id', 'in_order_id']
+    search_fields = ['code', 'product_name', 'out_order_id', 'in_order_id', 'product_brand']
     filterset_class = InventoryFilter
