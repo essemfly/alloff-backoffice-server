@@ -1,10 +1,12 @@
 from datetime import date, datetime
-from typing import Optional
+from typing import Optional, Dict, List
 
 from django.db import models
 from shortuuid import ShortUUID
 
 from alloff_backoffice_server.settings import CODE_CHARSET
+from tagger.core.mongo.models.order import OrderStatus
+from tagger.models import ExtendedOrder
 from tagger.models.courier import Courier
 from tagger.models.shipping_notice import ShippingNoticeItem, ShippingNotice
 
@@ -46,8 +48,15 @@ class Package(models.Model):
         return f"{self.courier.tracking_url_base}{self.courier.name} {self.tracking_number}"
 
     @property
-    def extended_orders(self):
-        return list(set([x.item.extended_order for x in self.shipping_notice_items.all()]))
+    def extended_orders(self) -> List[ExtendedOrder]:
+        return list({x.item.extended_order for x in self.shipping_notice_items.all()})
+
+    @property
+    def order_statuses_by_code(self) -> List[Dict[str, str]]:
+        return [
+            {"code": x.code, "status": x.order.orderstatus}
+            for x in self.extended_orders
+        ]
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

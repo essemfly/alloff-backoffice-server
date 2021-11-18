@@ -15,6 +15,7 @@ class ShippingNoticeStatus(models.TextChoices):
 class ShippingNotice(models.Model):
     code = models.CharField(max_length=13, unique=True, db_index=True, null=False)
     status = models.CharField(max_length=20, choices=ShippingNoticeStatus.choices, default=ShippingNoticeStatus.CREATED)
+    template_url = models.URLField(null=True, blank=True)
     locked_at = models.DateTimeField(null=True, blank=True)
     sealed_at = models.DateTimeField(null=True, blank=True)
     shipped_at = models.DateTimeField(null=True, blank=True)

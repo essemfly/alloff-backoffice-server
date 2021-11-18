@@ -144,3 +144,5 @@ static/
 
 reset_migrations.sh
 .idea/
+
+files/*

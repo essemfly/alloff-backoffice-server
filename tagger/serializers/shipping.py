@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from tagger.core.mongo.models.order import OrderStatus
 from tagger.models.courier import Courier
 from tagger.models.package import Package
 from tagger.models.shipping_notice import ShippingNotice, ShippingNoticeItem
@@ -22,10 +23,16 @@ class ShippingNoticeItemSerializer(serializers.ModelSerializer):
         fields = ["inventory", "item"]
 
 
+class PackageOrderStatusesSerializer(serializers.Serializer):
+    code = serializers.CharField()
+    status = serializers.ChoiceField(OrderStatus.choices)
+
+
 class PackageSerializer(serializers.ModelSerializer):
     shipping_notice_items = ShippingNoticeItemSerializer(many=True)
     tracking_url = serializers.CharField()
     courier = CourierSerializer()
+    order_statuses_by_code = PackageOrderStatusesSerializer(many=True)
 
     class Meta:
         model = Package
@@ -39,4 +46,3 @@ class ShippingNoticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShippingNotice
         fields = "__all__"
-

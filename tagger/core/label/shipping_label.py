@@ -1,14 +1,30 @@
 from tagger.core.label.escape_xml import escape_xml
-from tagger.models import Package
+from tagger.models import Package, ShippingNoticeItem
 
 
-def make_shipping_label(package: Package) -> str:
+def make_item_shipping_label(package: Package, item: ShippingNoticeItem, index: int, total: int) -> str:
+    detail_xml = escape_xml(
+        f"""[{index + 1} of {total}] {item.inventory.code}\n[{item.item.brand_keyname}] [{item.item.size}] {item.item.name})""")
+
     return _get_shipping_label_xml(
         escape_xml(f"""{package.recipient_name.replace("<", "(").replace(">", ")")} ({package.recipient_mobile})"""),
-        escape_xml(
-            "\n".join(
-                [f"""{x.inventory.code} ({x.item.brand_keyname} [{x.item.size}] {x.item.name})""" for x in
-                 package.shipping_notice_items.all()])),
+        detail_xml,
+        escape_xml(f"https://office.alloff.co/logistics/shipping-notices/{package.notice.id}"),
+        escape_xml(package.address),
+        escape_xml(f"""{package.code}"""),
+    )
+
+
+def make_box_shipping_label(package: Package) -> str:
+    detail_xml = escape_xml(
+        "\n".join(
+            [f"""{x.inventory.code} ({x.item.brand_keyname} [{x.item.size}] {x.item.name})""" for x in
+             package.shipping_notice_items.all()]
+        ))
+
+    return _get_shipping_label_xml(
+        escape_xml(f"""{package.recipient_name.replace("<", "(").replace(">", ")")} ({package.recipient_mobile})"""),
+        detail_xml,
         escape_xml(f"https://office.alloff.co/logistics/shipping-notices/{package.notice.id}"),
         escape_xml(package.address),
         escape_xml(package.code),

@@ -22,7 +22,7 @@ def make_inventory_with_received_item(ri: ReceivedItem) -> Inventory:
         code += "-NP"
 
     pid = ObjectId(ri.product_id)
-    p = Product.objects(id=pid).first() if i.product_type == ProductType.NORMAL_PRODUCT \
+    p = Product.objects(id=pid).first() if ri.order_type == OrderType.NORMAL_ORDER \
         else AlloffProduct.objects(id=pid).first()
 
     return Inventory.objects.create(

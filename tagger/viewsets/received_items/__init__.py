@@ -65,7 +65,7 @@ class ForceMakeRiSerializer(serializers.Serializer):
 class ReceivedItemViewSet(viewsets.ModelViewSet):
     queryset = ReceivedItem.objects.order_by("-id").all()
     filter_backends = [SearchFilter, ]
-    search_fields = ['sourcing_code', 'order_id', 'item_name']
+    search_fields = ['sourcing_code', 'order_id', 'item_name', 'brand_keyname']
 
     permission_classes = [IsAuthenticated]
 
