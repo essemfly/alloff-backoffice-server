@@ -14,13 +14,14 @@ from rest_framework.response import Response
 from tagger.core.label.print_label import print_label
 from tagger.core.label.receiving_label import make_receiving_label
 from tagger.core.mongo.models.order import Order, OrderType
+from tagger.models.inventory import ProductType
 from tagger.models.received_item import ReceivedItem, ReceivedItemStatus
 from tagger.serializers.inventory import InventorySerializer
 from tagger.serializers.received_item import ReceivedItemSerializer
 from tagger.viewsets.received_items.receive_item import make_inventory_with_received_item
 
 
-def make_ri(order: Order, force=False) -> List[ReceivedItem]:
+def make_ri(order: Order, force=False, product_type=None, product_id=None) -> List[ReceivedItem]:
     result = []
     if not force and ReceivedItem.objects.filter(order_id=str(order.id)).count() > 0:
         return
@@ -40,7 +41,14 @@ def make_ri(order: Order, force=False) -> List[ReceivedItem]:
             keyname = orderItem.product.brand.keyname
             images = orderItem.product.images
 
-        for i in range(orderItem.quantity):
+        if product_type is not None and product_id is not None:
+            type_matches = (product_type == ProductType.TIMEDEAL_PRODUCT and itemType == OrderType.TIMEDEAL_ORDER) or (
+                    product_type == ProductType.NORMAL_PRODUCT and itemType == OrderType.NORMAL_ORDER)
+            id_matches = str(itemId) == product_id
+            if not (type_matches and id_matches):
+                continue
+
+        for i in range(orderItem.quantity if product_type is None or product_id is None else 1):
             ri = ReceivedItem.objects.create(
                 order_id=str(order.id),
                 order_type=itemType,

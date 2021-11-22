@@ -17,6 +17,7 @@ from tagger.viewsets.order.add_payment_adjustment import (
 )
 from tagger.viewsets.order.change_status import ChangeStatusSerializer, change_status
 from tagger.viewsets.order.delete_memo import DeleteOrderMemoSerializer, delete_memo
+from tagger.viewsets.order.remake_ri import remake_ri, RemakeRiSerializer
 from tagger.viewsets.order.update_refund import UpdateRefundSerializer, update_refund
 from tagger.viewsets.received_items import make_ri
 
@@ -90,9 +91,18 @@ class OrderViewSet(
             return AddOrderMemoSerializer
         elif self.action == "delete_memo":
             return DeleteOrderMemoSerializer
+        elif self.action == "remake_ri":
+            return RemakeRiSerializer
         elif "minimum" in self.action:
             return OrderMinimumSerializer
         return OrderListSerializer
+
+    @extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def remake_ri(self, request: Request, id=None):
+        return remake_ri(self, request, id)
 
     # Separate logics must be implemented for analytics purposes
     @extend_schema(responses=OrderMinimumSerializer(many=True))
