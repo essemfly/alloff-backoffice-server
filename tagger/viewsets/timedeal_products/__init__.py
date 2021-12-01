@@ -8,7 +8,7 @@ from rest_framework_mongoengine import viewsets
 
 from tagger.core.drf.search_filter import CustomSearchFilter
 from tagger.core.mongo.models.alloff_product import AlloffProduct
-from tagger.serializers.timedeal_product import TimedealProductSerializer
+from tagger.serializers.timedeal_product import TimedealProductAddSerializer, TimedealProductSerializer
 
 
 class TimedealProductViewSet(viewsets.ModelViewSet):
@@ -21,9 +21,19 @@ class TimedealProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TimedealProductSerializer
 
+    def get_serializer_class(self):
+        if self.action == "create":
+            return TimedealProductAddSerializer
+        return TimedealProductSerializer
+
     def destroy(self, request: Request, id=None):
         product = self.get_object()  # type: AlloffProduct
         product.removed = True
         product.updated = datetime.utcnow()
         product.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def create(self, request, *args, **kwargs):
+        serializer = TimedealProductAddSerializer
+
+        return super().create(request, *args, **kwargs)
