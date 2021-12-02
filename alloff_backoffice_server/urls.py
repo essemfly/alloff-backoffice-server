@@ -33,6 +33,7 @@ from tagger.viewsets.image import ImageUploaderViewSet
 from tagger.viewsets.inventory import InventoryViewSet
 from tagger.viewsets.notification import NotificationViewSet
 from tagger.viewsets.order import OrderViewSet
+from tagger.viewsets.package import PackageViewSet
 from tagger.viewsets.received_items import ReceivedItemViewSet
 from tagger.viewsets.shipping_notice import ShippingNoticeViewSet, ShippingNoticeResultUploaderViewSet
 from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
@@ -58,6 +59,7 @@ router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(r"brands", BrandViewSet, basename="brands")
 router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
+router.register(r"packages", PackageViewSet, basename="packages")
 
 urlpatterns = [
     path("", include(router.urls)),

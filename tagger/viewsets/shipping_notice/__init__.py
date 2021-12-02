@@ -12,17 +12,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from tagger.core.label.print_label import print_label
-from tagger.core.label.shipping_label import make_box_shipping_label, make_item_shipping_label
 from tagger.core.mongo.models.order import OrderStatus
 from tagger.models import ShippingNotice, Package, Courier
-from tagger.models.inventory import InventoryStatus
 from tagger.models.package import PackageStatus
 from tagger.models.shipping_notice import ShippingNoticeStatus
-from tagger.serializers.shipping import ShippingNoticeSerializer, PackageSerializer
+from tagger.serializers.shipping import ShippingNoticeSerializer
 from tagger.viewsets.order import ChangeStatusSerializer
 from tagger.viewsets.order.change_status import _change_status
 from tagger.viewsets.shipping_notice.make_shipping_notice import make_shipping_notice
+from tagger.viewsets.shipping_notice.seal_package import seal_package
 from tagger.viewsets.shipping_notice.template import make_cj_workbook
 
 
@@ -157,19 +155,7 @@ class ShippingNoticeViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, vi
             raise APIException("No packages to seal!")
 
         for package in notice.packages.all():
-            items = package.shipping_notice_items.all()
-            items_count = len(items)
-            for index, item in enumerate(items):
-                print(f"""MARKING SHIPPING PENDING - INV {item.inventory.code}""")
-                item.inventory.status = InventoryStatus.SHIPPING_PENDING
-                item.inventory.save()
-                if items_count > 1:
-                    print(f"""PRINTING ITEM LABEL FOR {package.code} ({package.recipient_name} {package.address})""")
-                    print_label(make_item_shipping_label(package, item, index, items_count))
-
-            print(f"""PRINTING BOX LABEL FOR {package.code} ({package.recipient_name} {package.address})""")
-            print_label(make_box_shipping_label(package))
-            package.status = PackageStatus.CREATED
+            seal_package(package)
 
         # Lock shipping notice so that additional inventories get a new shipping notice
         notice.status = ShippingNoticeStatus.SEALED
@@ -215,6 +201,6 @@ class ShippingNoticeViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, vi
         notice.status = ShippingNoticeStatus.LOCKED
         notice.save()
         return Response(
-            PackageSerializer(package_map.values(), many=True).data,
+            self.get_serializer(notice).data,
             status=status.HTTP_200_OK
         )
