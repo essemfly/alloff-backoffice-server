@@ -29,7 +29,6 @@ class _Notification:
     title = StringField(required=True)
     message = StringField(required=True)
     deviceids = ListField(StringField())
-    mobiles = StringField()
     navigateto = StringField()
     referenceid = StringField()
     created = DateTimeField()
@@ -37,6 +36,7 @@ class _Notification:
     sended = DateTimeField()
     scheduleddate = DateTimeField(required=True)
     result = DictField()
+    notificationid = StringField()
 
 
 class Notification(_Notification, Document):
