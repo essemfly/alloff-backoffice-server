@@ -14,6 +14,7 @@ from rest_framework.response import Response
 
 from tagger.core.mongo.models.order import OrderStatus
 from tagger.models import ShippingNotice, Package, Courier
+from tagger.models.inventory import InventoryStatus
 from tagger.models.package import PackageStatus
 from tagger.models.shipping_notice import ShippingNoticeStatus
 from tagger.serializers.shipping import ShippingNoticeSerializer
@@ -74,6 +75,8 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
             package.status = PackageStatus.SHIPPED
             package.save()
 
+
+
             for eo in package.extended_orders:
                 order = eo.order
                 status_change_data = {
@@ -89,6 +92,8 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
                 for item in package.shipping_notice_items.all():
                     print(f"ㄴ https://office.alloff.co/orders/{item.item.extended_order.order.code}")
                     print(f"""   [INV {item.inventory.code}] {item.item.name}""")
+                    item.inventory.status = InventoryStatus.SHIPPED
+                    item.inventory.save()
 
         notice.status = ShippingNoticeStatus.SHIPPED
         notice.save()
