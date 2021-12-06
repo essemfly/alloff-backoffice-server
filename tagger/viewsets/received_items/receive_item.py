@@ -11,7 +11,7 @@ from tagger.models.inventory import InventoryStatus, ProductType
 
 def make_inventory_with_received_item(ri: ReceivedItem) -> Inventory:
     today = datetime.now().date()
-    today_inventory_count = Inventory.objects.filter(created__gte=today).count()
+    today_inventory_count = Inventory.objects.filter(created__gte=today).count()  # No deleted_at query --- count everything
     code_prefix = today.isoformat()[2:].replace("-", "")
     current_sequence = today_inventory_count + 1  # 0 inventories --> current is #1 (starts with 1)
     code = f"{code_prefix}-{str(current_sequence).zfill(3)}"

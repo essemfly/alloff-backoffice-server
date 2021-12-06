@@ -54,6 +54,7 @@ def make_shipping_notice(force_make=False):
     inventories = Inventory.objects.filter(
         status=InventoryStatus.IN_STOCK,
         shippingnoticeitem__isnull=True,
+        deleted_at__isnull=True,  # Use only non-deleted inventories
     ).order_by("id").all()
 
     candidates = {}
