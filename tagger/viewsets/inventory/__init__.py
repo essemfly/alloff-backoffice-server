@@ -3,6 +3,7 @@ from datetime import datetime
 from django_filters import FilterSet, ChoiceFilter, CharFilter, BaseInFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.exceptions import APIException
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 
@@ -32,6 +33,8 @@ class InventoryViewSet(viewsets.ModelViewSet):
     filterset_class = InventoryFilter
 
     def perform_destroy(self, instance: Inventory):
+        if instance.shippingnoticeitem is not None:
+            raise APIException("Shipping notice item exists!")
         instance.deleted_at = datetime.now()
         instance.product_name = f"[DELETED] {instance.product_name}"
         instance.save()
