@@ -7,6 +7,7 @@ from rest_framework.exceptions import APIException
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 
+from tagger.models import ShippingNoticeItem
 from tagger.models.inventory import Inventory, InventoryStatus
 from tagger.serializers.inventory import InventorySerializer
 
@@ -33,7 +34,7 @@ class InventoryViewSet(viewsets.ModelViewSet):
     filterset_class = InventoryFilter
 
     def perform_destroy(self, instance: Inventory):
-        if instance.shippingnoticeitem is not None:
+        if ShippingNoticeItem.objects.filter(inventory=instance).exists() is not None:
             raise APIException("Shipping notice item exists!")
         instance.deleted_at = datetime.now()
         instance.product_name = f"[DELETED] {instance.product_name}"
