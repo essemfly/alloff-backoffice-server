@@ -34,7 +34,7 @@ class InventoryViewSet(viewsets.ModelViewSet):
     filterset_class = InventoryFilter
 
     def perform_destroy(self, instance: Inventory):
-        if ShippingNoticeItem.objects.filter(inventory=instance).exists() is not None:
+        if ShippingNoticeItem.objects.filter(inventory=instance).exists():
             raise APIException("Shipping notice item exists!")
         instance.deleted_at = datetime.now()
         instance.product_name = f"[DELETED] {instance.product_name}"
