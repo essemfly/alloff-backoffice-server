@@ -33,4 +33,5 @@ class InventoryViewSet(viewsets.ModelViewSet):
 
     def perform_destroy(self, instance: Inventory):
         instance.deleted_at = datetime.now()
+        instance.product_name = f"[DELETED] {instance.product_name}"
         instance.save()
