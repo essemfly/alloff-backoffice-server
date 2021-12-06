@@ -25,6 +25,7 @@ class Inventory(models.Model):
     size = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
     product_id = models.CharField(max_length=50)
     product_name = models.CharField(max_length=100)
     product_brand = models.CharField(max_length=30)

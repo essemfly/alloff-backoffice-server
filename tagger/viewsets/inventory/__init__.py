@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django_filters import FilterSet, ChoiceFilter, CharFilter, BaseInFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
@@ -23,8 +25,12 @@ class InventoryFilter(FilterSet):
 
 class InventoryViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Inventory.objects.order_by("-id").all()
+    queryset = Inventory.objects.filter(deleted_at__isnull=True).order_by("-id").all()
     serializer_class = InventorySerializer
     filter_backends = [SearchFilter, DjangoFilterBackend]
     search_fields = ['code', 'product_name', 'out_order_id', 'in_order_id', 'product_brand']
     filterset_class = InventoryFilter
+
+    def perform_destroy(self, instance: Inventory):
+        instance.deleted_at = datetime.now()
+        instance.save()
