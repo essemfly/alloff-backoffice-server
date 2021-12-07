@@ -36,6 +36,7 @@ class _Notification:
     scheduleddate = DateTimeField(required=True)
     result = DictField()
     notificationid = StringField()
+    mobiles = StringField(required=False)
 
 
 class Notification(_Notification, DynamicDocument):
