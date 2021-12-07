@@ -118,10 +118,11 @@ class NotificationViewSet(
                 notificationtype=serializer.validated_data["notificationtype"],
                 title=serializer.validated_data["title"],
                 message=serializer.validated_data["message"],
-                deviceids= device_group,
-                mobiles="",
+                deviceids=device_group,
                 navigateto=serializer.validated_data["navigateto"],
                 referenceid=serializer.validated_data["referenceid"],
+                notificationid=serializer.validated_data["navigateto"] +
+                serializer.validated_data["referenceid"],
                 created=datetime.now(),
                 updated=datetime.now(),
                 scheduleddate=datetime.now(),
@@ -147,25 +148,32 @@ class NotificationViewSet(
             for notification_id in noti_ids:
                 noti: Notification = Notification.objects.get(
                     id=ObjectId(notification_id))
-                if noti.status != NotificationStatus.READY:
-                    continue
-                if noti.notificationtype == NotificationType.PRODUCT_DIFF_NOTIFICATION:
-                    res = ProductDiffPush(reference_id=noti.referenceid).send(
-                        title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
-                elif noti.notificationtype == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
-                    res = TimedealOpenPush(reference_id=noti.referenceid).send(
-                        title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
-                else:
-                    pass
 
-                noti.result = res
-                noti.updated = datetime.now()
-                if res["success"] == "ok":
-                    noti.status = NotificationStatus.SUCCEEDED
-                    noti.sended = datetime.now()
-                else:
-                    noti.status = NotificationStatus.FAILED
-                noti.save()
+                notis = [noti]
+                if noti.notificationid != "":
+                    notis = Notification.objects(
+                        notificationid=noti.notificationid).all()
+
+                for noti in notis:
+                    if noti.status != NotificationStatus.READY:
+                        continue
+                    if noti.notificationtype == NotificationType.PRODUCT_DIFF_NOTIFICATION:
+                        res = ProductDiffPush(reference_id=noti.referenceid).send(
+                            title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
+                    elif noti.notificationtype == NotificationType.TIMEDEAL_OPEN_NOTIFICATION:
+                        res = TimedealOpenPush(reference_id=noti.referenceid).send(
+                            title=noti.title, message=noti.message, devices=noti.deviceids if not is_test else prod_test_devices)
+                    else:
+                        pass
+
+                    noti.result = res
+                    noti.updated = datetime.now()
+                    if res["success"] == "ok":
+                        noti.status = NotificationStatus.SUCCEEDED
+                        noti.sended = datetime.now()
+                    else:
+                        noti.status = NotificationStatus.FAILED
+                    noti.save()
 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
