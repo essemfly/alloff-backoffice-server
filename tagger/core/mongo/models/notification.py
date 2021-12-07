@@ -1,8 +1,7 @@
-from typing import Text
-from django.db.models.enums import Choices, TextChoices
-from mongoengine import Document, EmbeddedDocumentField, StringField
-from mongoengine.document import EmbeddedDocument
-from mongoengine.fields import BooleanField, DictField, IntField, ListField, DateTimeField
+from django.db.models.enums import TextChoices
+from mongoengine import StringField
+from mongoengine.document import DynamicDocument
+from mongoengine.fields import DictField, ListField, DateTimeField
 
 
 class NotificationStatus(TextChoices):
@@ -39,5 +38,5 @@ class _Notification:
     result = DictField()
 
 
-class Notification(_Notification, Document):
+class Notification(_Notification, DynamicDocument):
     meta = {"collection": "notifications"}
