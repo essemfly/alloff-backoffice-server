@@ -7,8 +7,7 @@ from tagger.serializers.brand import BrandSerializer
 
 
 class BrandViewSet(
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet
+    viewsets.ModelViewSet
 ):
     queryset = Brand.objects().order_by("-keyname")
     permission_classes = [IsAuthenticated]

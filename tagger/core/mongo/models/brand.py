@@ -24,6 +24,7 @@ class _Brand:
     onpopular = BooleanField(required=True)
     description = StringField(required=True)
     isopen = BooleanField(required=True)
+    ishide = BooleanField(required=False)
     modulename = StringField(required=True)
     maxdiscountrate = IntField(required=True)
     numnewproducts = IntField(required=True)
