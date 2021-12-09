@@ -10,6 +10,7 @@ from time import time
 
 class ImageUploaderRequestSerializer(serializers.Serializer):
     file = fields.FileField(required=True)
+    path = fields.CharField(required=False)
 
 
 class ImageUploaderResponseSerializer(serializers.Serializer):
@@ -19,7 +20,8 @@ class ImageUploaderResponseSerializer(serializers.Serializer):
 
 class ImageUploaderViewSet(viewsets.GenericViewSet):
     serializer_class = ImageUploaderRequestSerializer
-    parser_classes = [parsers.MultiPartParser, parsers.FormParser, parsers.FileUploadParser, ]
+    parser_classes = [parsers.MultiPartParser,
+                      parsers.FormParser, parsers.FileUploadParser, ]
 
     @extend_schema(
         responses={status.HTTP_200_OK: ImageUploaderResponseSerializer}
@@ -31,7 +33,12 @@ class ImageUploaderViewSet(viewsets.GenericViewSet):
         file = serializer.validated_data.get("file")  # type: InMemoryUploadedFile
         random_key = shortuuid.random(length=6)
         filename = f"{random_key}_{int(time())}_{file.name}"
-        s3_path = f"images/{filename}"
+        s3_folder = serializer.validated_data.get("path")
+        if  s3_folder == "":
+            s3_path = f"images/{filename}"
+        else:
+            s3_path = f"{s3_folder}/{filename}"
+        
         with default_storage.open(s3_path, 'wb') as f:
             for chunk in file.chunks():
                 f.write(chunk)
