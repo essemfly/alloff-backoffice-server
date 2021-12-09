@@ -8,16 +8,16 @@ from rest_framework_mongoengine import viewsets
 
 from tagger.core.drf.search_filter import CustomSearchFilter
 from tagger.core.mongo.models.alloff_product import AlloffProduct
-from tagger.serializers.timedeal_product import TimedealProductAddSerializer, TimedealProductSerializer
+from tagger.serializers.timedeal_product import (
+    TimedealProductAddSerializer,
+    TimedealProductSerializer,
+)
 
 
 class TimedealProductViewSet(viewsets.ModelViewSet):
     queryset = AlloffProduct.objects(removed=False).order_by("-id")
     filter_backends = [CustomSearchFilter]
-    search_fields = [
-        "brand__korname",
-        "name"
-    ]
+    search_fields = ["brand__korname", "name"]
     permission_classes = [IsAuthenticated]
     serializer_class = TimedealProductSerializer
 
@@ -35,5 +35,4 @@ class TimedealProductViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = TimedealProductAddSerializer
-
         return super().create(request, *args, **kwargs)

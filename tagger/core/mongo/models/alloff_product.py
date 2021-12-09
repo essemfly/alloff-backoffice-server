@@ -49,7 +49,7 @@ class _AlloffProduct(_AlloffProductTemplate):
     productgroupid = StringField(required=True)
     inventory = EmbeddedDocumentListField(Inventory, required=True)
     soldout = BooleanField(required=True)
-    templateId = StringField()
+    templateId = StringField(required=False)
 
 
 class AlloffProductTemplate(_AlloffProductTemplate, DynamicDocument):

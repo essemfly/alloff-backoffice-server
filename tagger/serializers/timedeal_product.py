@@ -21,15 +21,15 @@ class TimedealProductSerializer(DynamicDocumentSerializer):
 
 
 class TimedealProductAddSerializer(DynamicDocumentSerializer):
-    brandid = serializers.CharField()
-
     class Meta:
         model = AlloffProduct
         fields = [
             "canceldescription",
             "deliverydescription",
             "sizedescription",
-            "instruction",
+            "brand",
+            "instruction.description",
+            "instruction.title",
             "faults",
             "description",
             "originalprice",
@@ -41,20 +41,13 @@ class TimedealProductAddSerializer(DynamicDocumentSerializer):
             "images",
             "name",
             "productgroupid",
-            "brandid",
         ]
 
     def create(self, validated_data):
-        brandid = validated_data.get("brandid")
-        brand = Brand.objects.get(id=brandid)
-
-        AlloffProduct(
-            brand=brand,
-            created=datetime.now(),
-            updated=datetime.now(),
-            **validated_data
-        )
-        return super().create(validated_data)
+        prod = AlloffProduct(**validated_data)
+        prod.brand._id = validated_data.get("brandid")
+        prod.save()
+        return prod
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
