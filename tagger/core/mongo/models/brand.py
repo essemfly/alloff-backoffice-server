@@ -17,7 +17,7 @@ class SizeGuide(EmbeddedDocument):
 
 class _Brand:
     keyname = StringField(required=True)
-    created = DateTimeField(required=True)
+    created = DateTimeField(required=False)
     engname = StringField(required=True)
     korname = StringField(required=True)
     logoimgurl = StringField(required=True)
@@ -25,9 +25,9 @@ class _Brand:
     description = StringField(required=True)
     isopen = BooleanField(required=True)
     ishide = BooleanField(required=False)
-    modulename = StringField(required=True)
-    maxdiscountrate = IntField(required=True)
-    numnewproducts = IntField(required=True)
+    modulename = StringField()
+    maxdiscountrate = IntField()
+    numnewproducts = IntField()
     sizeguide = EmbeddedDocumentListField(SizeGuide)
     category = EmbeddedDocumentListField(EmbeddedCategory)
 

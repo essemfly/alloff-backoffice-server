@@ -28,7 +28,7 @@ from tagger.viewsets.auth import (
     DecoratedTokenObtainPairView,
     DecoratedTokenRefreshView,
 )
-from tagger.viewsets.brands import BrandViewSet
+from tagger.viewsets.brand import BrandViewSet
 from tagger.viewsets.image import ImageUploaderViewSet
 from tagger.viewsets.inventory import InventoryViewSet
 from tagger.viewsets.notification import NotificationViewSet
