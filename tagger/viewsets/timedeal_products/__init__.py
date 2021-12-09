@@ -24,6 +24,8 @@ class TimedealProductViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "create":
             return TimedealProductAddSerializer
+        elif self.action == "update":
+            return TimedealProductAddSerializer
         return TimedealProductSerializer
 
     def destroy(self, request: Request, id=None):
@@ -32,7 +34,3 @@ class TimedealProductViewSet(viewsets.ModelViewSet):
         product.updated = datetime.utcnow()
         product.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def create(self, request, *args, **kwargs):
-        serializer = TimedealProductAddSerializer
-        return super().create(request, *args, **kwargs)
