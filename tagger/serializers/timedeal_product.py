@@ -130,7 +130,6 @@ class TimedealProductAddSerializer(DynamicDocumentSerializer):
             productgroupid=validated_data.get("productgroupid"),
             inventory=validated_data.get("inventory"),
             soldout=validated_data.get("soldout"),
-            created=datetime.now(),
             updated=datetime.now(),
             removed=False,
         )
