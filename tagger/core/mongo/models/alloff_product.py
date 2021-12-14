@@ -53,7 +53,7 @@ class _AlloffProduct(_AlloffProductTemplate):
 
 
 class AlloffProductTemplate(_AlloffProductTemplate, DynamicDocument):
-    meta = {"collection": "alloff_products"}
+    meta = {"collection": "alloff_products_templates"}
 
 
 class AlloffProduct(_AlloffProduct, DynamicDocument):
