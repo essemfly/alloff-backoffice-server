@@ -7,7 +7,6 @@ from rest_framework import serializers
 
 from tagger.core.mongo.models.brand import Brand
 from tagger.core.mongo.models.alloff_product import AlloffProduct, AlloffProductTemplate
-from tagger.models import inventory
 
 
 class TimedealProductTemplateSerializer(DynamicDocumentSerializer):
@@ -44,6 +43,7 @@ class TimedealProductAddSerializer(DynamicDocumentSerializer):
             "images",
             "name",
             "productgroupid",
+            "originalproductid",
         ]
 
     def create(self, validated_data):
@@ -87,6 +87,7 @@ class TimedealProductAddSerializer(DynamicDocumentSerializer):
             created=datetime.now(),
             updated=datetime.now(),
             removed=False,
+            originalproductid=validated_data.get("originalproductid")
         )
         # TO BE FIXED: Serializer와 viewset에서의 관계에 대한 공부 필요.
         prod.brandid = validated_data.get("brandid")
@@ -132,6 +133,7 @@ class TimedealProductAddSerializer(DynamicDocumentSerializer):
             soldout=validated_data.get("soldout"),
             updated=datetime.now(),
             removed=False,
+            originalproductid=validated_data.get("originalproductid")
         )
 
         instance.save()
