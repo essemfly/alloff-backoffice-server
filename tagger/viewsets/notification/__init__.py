@@ -1,7 +1,6 @@
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import extend_schema
 from rest_framework import status, serializers
-from rest_framework import request, mixins
+from rest_framework import mixins
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
@@ -9,11 +8,9 @@ from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 from bson.objectid import ObjectId
 
-from tagger.core.drf.search_filter import CustomSearchFilter
 from tagger.core.mongo.models.alloff_product_group import AlloffProductGroup
 from tagger.core.mongo.models.notification import Notification, NotificationStatus, NotificationType, NotificationLog
 from tagger.core.mongo.models.user import Device
-from tagger.core.mongo.models.order import Order
 from tagger.core.mongo.models.product import Product
 from tagger.core.pushserver.product_diff import ProductDiffPush
 from tagger.core.pushserver.timedeal_open import TimedealOpenPush
@@ -166,7 +163,7 @@ class NotificationViewSet(
                         pass
 
                     # TODO: Refactor Notification model (+ refactoring API Server DAO)
-                    
+
                     log = NotificationLog(
                         result=res,
                         notificationid=noti.id,
@@ -181,7 +178,7 @@ class NotificationViewSet(
                         log.sent = noti.sended
                     else:
                         noti.status = NotificationStatus.FAILED
-                    
+
                     noti.save()
                     log.save()
 
