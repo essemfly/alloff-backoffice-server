@@ -1,7 +1,7 @@
 from django.db.models.enums import TextChoices
 from mongoengine import StringField
-from mongoengine.document import DynamicDocument
-from mongoengine.fields import DictField, ListField, DateTimeField
+from mongoengine.document import DynamicDocument, Document
+from mongoengine.fields import DictField, ListField, DateTimeField, ObjectIdField
 
 
 class NotificationStatus(TextChoices):
@@ -27,17 +27,24 @@ class _Notification:
         choices=NotificationType.choices, required=True)
     title = StringField(required=True)
     message = StringField(required=True)
-    deviceids = ListField(StringField())
     navigateto = StringField()
     referenceid = StringField()
     created = DateTimeField()
     updated = DateTimeField()
-    sended = DateTimeField()
+    sended = DateTimeField()  # TODO: Deprecate ---> Remove field OR consider renaming ("sent") (API Server DAO should be updated too)
     scheduleddate = DateTimeField(required=True)
-    result = DictField()
     notificationid = StringField()
     mobiles = StringField(required=False)
+    deviceids = ListField(StringField())
+    result = DictField()  # TODO: Deprecate ---> Remove field (API Server DAO should be updated too)
 
 
 class Notification(_Notification, DynamicDocument):
     meta = {"collection": "notifications"}
+
+
+class NotificationLog(Document):
+    meta = {"collection": "notification_logs"}
+    notificationid = ObjectIdField()
+    result = DictField()
+    sent = DateTimeField()

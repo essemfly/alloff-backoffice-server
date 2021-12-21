@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 
 from tagger.core.drf.search_filter import CustomSearchFilter
 from tagger.core.mongo.models.alloff_product_group import AlloffProductGroup
-from tagger.core.mongo.models.notification import Notification, NotificationStatus, NotificationType
+from tagger.core.mongo.models.notification import Notification, NotificationStatus, NotificationType, NotificationLog
 from tagger.core.mongo.models.user import Device
 from tagger.core.mongo.models.order import Order
 from tagger.core.mongo.models.product import Product
@@ -126,8 +126,6 @@ class NotificationViewSet(
                 created=datetime.now(),
                 updated=datetime.now(),
                 scheduleddate=datetime.now(),
-                sended=None,
-                result=None,
             )
             noti.save()
         return Response(serializer.data)
@@ -147,7 +145,8 @@ class NotificationViewSet(
 
             for notification_id in noti_ids:
                 noti: Notification = Notification.objects.get(
-                    id=ObjectId(notification_id))
+                    id=ObjectId(notification_id)
+                )
 
                 notis = [noti]
                 if noti.notificationid != "":
@@ -166,14 +165,25 @@ class NotificationViewSet(
                     else:
                         pass
 
-                    noti.result = res
+                    # TODO: Refactor Notification model (+ refactoring API Server DAO)
+                    
+                    log = NotificationLog(
+                        result=res,
+                        notificationid=noti.id,
+                    )
+
+                    noti.result = None
                     noti.updated = datetime.now()
+
                     if res["success"] == "ok":
                         noti.status = NotificationStatus.SUCCEEDED
                         noti.sended = datetime.now()
+                        log.sent = noti.sended
                     else:
                         noti.status = NotificationStatus.FAILED
+                    
                     noti.save()
+                    log.save()
 
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
