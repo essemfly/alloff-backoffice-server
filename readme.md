@@ -26,10 +26,14 @@ poetry install
 ```bash
 poetry activate
 poetry shell
+# then
+(some-env) $ python manage.py runserver # default port 8000
 ```
 
-then
+OR
 
 ```bash
-(some-env) $ python manage.py runserver # default port 8000
+poetry run ./manage.py runserver
+# OR
+poetry run ./manage.py runserver_plus # _plus supports interactive debugging
 ```
