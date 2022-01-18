@@ -64,9 +64,10 @@ INSTALLED_APPS = [
     "rest_framework_mongoengine",
     "django_filters",
     "corsheaders",
-    'drf_spectacular',
-    "tagger",
+    "drf_spectacular",
     "django_extensions",
+    "office",
+    "order",
 ]
 
 MIDDLEWARE = [
@@ -156,7 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -164,12 +165,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "DEFAULT_PAGINATION_CLASS": "tagger.core.drf.pagination.CustomPageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "office.drf.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 20,
 }
 STATIC_ROOT = "./static"
@@ -206,24 +207,23 @@ connect(
     authentication_source="admin",
 )
 
-AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_ACCESS_KEY_ID = env.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = env.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_REGION_NAME = env.get("AWS_S3_REGION_NAME")
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
+AWS_DEFAULT_ACL = "public-read"
 AWS_S3_VERIFY = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "ENUM_NAME_OVERRIDES": {
-        "NotificationStatusEnum": "tagger.core.mongo.models.notification.NotificationStatus.choices",
-        "OrderStatusEnum": "tagger.core.mongo.models.order.OrderStatus.choices",
+        "OrderStatusEnum": "order.models.order.OrderStatus.choices",
+        "OrderItemStatusEnum": "order.models.order_item.OrderItemStatus.choices",
     },
     "SERVERS": [
-        {"url": env.get("API_HOST")
-        if "API_HOST" in env else "http://localhost:8000"}
+        {"url": env.get("API_HOST") if "API_HOST" in env else "http://localhost:8000"}
     ],
 }
 

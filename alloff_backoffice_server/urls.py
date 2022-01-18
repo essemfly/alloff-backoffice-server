@@ -23,60 +23,61 @@ from drf_spectacular.views import (
 )
 from rest_framework import routers
 
-from tagger.viewsets.admin_user import AdminUserViewSet
-from tagger.viewsets.auth import (
+from office.viewsets.image import ImageUploaderViewSet
+from office.viewsets.admin_user import AdminUserViewSet
+from office.viewsets.auth import (
     DecoratedTokenObtainPairView,
     DecoratedTokenRefreshView,
 )
-from tagger.viewsets.brand import BrandViewSet
-from tagger.viewsets.image import ImageUploaderViewSet
-from tagger.viewsets.inventory import InventoryViewSet
-from tagger.viewsets.notification import NotificationViewSet
-from tagger.viewsets.order import OrderViewSet
-from tagger.viewsets.package import PackageViewSet
-from tagger.viewsets.received_items import ReceivedItemViewSet
-from tagger.viewsets.shipping_notice import ShippingNoticeViewSet, ShippingNoticeResultUploaderViewSet
-from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
-from tagger.viewsets.timedeal_products import TimedealProductViewSet
-from tagger.viewsets.timedeals import TimedealViewSet
+
+# from tagger.viewsets.brand import BrandViewSet
+# from tagger.viewsets.inventory import InventoryViewSet
+# from tagger.viewsets.notification import NotificationViewSet
+# from tagger.viewsets.order import OrderViewSet
+# from tagger.viewsets.package import PackageViewSet
+# from tagger.viewsets.received_items import ReceivedItemViewSet
+# from tagger.viewsets.shipping_notice import ShippingNoticeViewSet, ShippingNoticeResultUploaderViewSet
+# from tagger.viewsets.timedeal_product_templates import TimedealProductTemplateViewSet
+# from tagger.viewsets.timedeal_products import TimedealProductViewSet
+# from tagger.viewsets.timedeals import TimedealViewSet
 
 router = routers.DefaultRouter()
-router.register(r"orders", OrderViewSet, basename="orders")
-router.register(r"timedeals", TimedealViewSet, basename="timedeals")
-router.register(
-    r"timedeal-products", TimedealProductViewSet, basename="timedeal-products"
-)
-router.register(
-    r"timedeal-product-templates",
-    TimedealProductTemplateViewSet,
-    basename="timedeal-product-templates",
-)
-router.register(r"notifications", NotificationViewSet, basename="notifications")
-router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
-router.register(r"inventories", InventoryViewSet, basename="inventories")
-router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
-router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
-router.register(r"brands", BrandViewSet, basename="brands")
-router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
-router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
-router.register(r"packages", PackageViewSet, basename="packages")
+# router.register(r"orders", OrderViewSet, basename="orders")
+# router.register(r"timedeals", TimedealViewSet, basename="timedeals")
+# router.register(
+#     r"timedeal-products", TimedealProductViewSet, basename="timedeal-products"
+# )
+# router.register(
+#     r"timedeal-product-templates",
+#     TimedealProductTemplateViewSet,
+#     basename="timedeal-product-templates",
+# )
+# router.register(r"notifications", NotificationViewSet, basename="notifications")
+# router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
+# router.register(r"inventories", InventoryViewSet, basename="inventories")
+# router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
+# router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
+# router.register(r"brands", BrandViewSet, basename="brands")
+# router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
+# router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
+# router.register(r"packages", PackageViewSet, basename="packages")
 
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
-    # YOUR PATTERNS
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    # Optional UI:
-    path(
-        "api/schema/swagger-ui/",
-        SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui",
-    ),
-    path(
-        "api/schema/redoc/",
-        SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc",
-    ),
+    # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
+    # # YOUR PATTERNS
+    # path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    # # Optional UI:
+    # path(
+    #     "api/schema/swagger-ui/",
+    #     SpectacularSwaggerView.as_view(url_name="schema"),
+    #     name="swagger-ui",
+    # ),
+    # path(
+    #     "api/schema/redoc/",
+    #     SpectacularRedocView.as_view(url_name="schema"),
+    #     name="redoc",
+    # ),
 ]
