@@ -34,7 +34,7 @@ message Inventory {
     string memo = 11;
     string created_at = 12;
     string updated_at = 13;
-    string deleted_at = 14;
+    optional string deleted_at = 14;
 }
 
 message InventoryListRequest {

@@ -15,6 +15,7 @@ class InventoryStatus(models.TextChoices):
 
 
 class Inventory(models.Model):
+
     code = models.CharField(max_length=30, db_index=True)
     status = models.CharField(
         max_length=30, choices=InventoryStatus.choices, default=InventoryStatus.CREATED

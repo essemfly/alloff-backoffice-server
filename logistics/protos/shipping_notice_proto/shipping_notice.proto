@@ -22,10 +22,10 @@ message ShippingNotice {
         SHIPPED = 3;
     }
     ShippingNoticeStatus status = 3;
-    string template_url = 4;
-    string locked_at = 5;
-    string sealed_at = 6;
-    string shipped_at = 7;
+    optional string template_url = 4;
+    optional string locked_at = 5;
+    optional string sealed_at = 6;
+    optional string shipped_at = 7;
     string created_at = 8;
     string updated_at = 9;
 }

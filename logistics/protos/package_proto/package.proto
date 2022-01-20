@@ -26,20 +26,20 @@ message Package {
         CANCEL_FINISHED = 7;
     }
     PackageStatus status = 3;
-    string related_order_item_ids = 4;
+    repeated string related_order_item_ids = 4;
     string customer_name = 5;
     string customer_contact = 6;
     string base_address = 7;
-    string detail_address = 8;
+    optional string detail_address = 8;
     string postal_code = 9;
-    string delivery_note = 10;
-    string tracking_number = 11;
+    optional string delivery_note = 10;
+    optional string tracking_number = 11;
     string created_at = 12;
     string updated_at = 13;
-    string deleted_at = 14;
-    int64 remark_records = 15;
-    int64 inventories = 16;
-    int64 tracking_courier = 17;
+    optional string deleted_at = 14;
+    optional int64 remark_records = 15;
+    optional int64 inventories = 16;
+    optional int64 tracking_courier = 17;
 }
 
 message PackageListRequest {
