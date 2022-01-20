@@ -115,7 +115,7 @@ DATABASES = {
     else {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": env.get("DB_HOST"),
-        "NAME": f"alloff_{'dev' if SERVICE_ENV_IS_DEV else 'prod'}",
+        "NAME": f"order_{'dev' if SERVICE_ENV_IS_DEV else 'prod'}",
         "PASSWORD": env.get("DB_PASSWORD"),
         "USER": env.get("DB_USER"),
         "PORT": 5432,
