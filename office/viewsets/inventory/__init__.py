@@ -7,8 +7,7 @@ from rest_framework import mixins, response, status, viewsets
 class InventoryViewSet(mixins.ListModelMixin, viewsets.ViewSet):
     def list(self, request, *args, **kwargs):
         inventories = InventoryService.list()
-        serializer = InventorySerializer(data=inventories, many=True)
-        serializer.is_valid(raise_exception=True)
+        serializer = InventorySerializer(inventories, many=True)
         return response.Response(
-            data=serializer.validated_data, status=status.HTTP_200_OK
+            data=serializer.data, status=status.HTTP_200_OK
         )

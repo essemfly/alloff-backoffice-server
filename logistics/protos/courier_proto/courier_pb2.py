@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n,logistics/protos/courier_proto/courier.proto\x12\x07\x63ourier\x1a\x1bgoogle/protobuf/empty.proto\"W\n\x07\x43ourier\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x17\n\x0fsweettracker_id\x18\x03 \x01(\t\x12\x19\n\x11tracking_url_base\x18\x04 \x01(\t\"\x14\n\x12\x43ourierListRequest\"$\n\x16\x43ourierRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11\x43ourierController\x12\x39\n\x04List\x12\x1b.courier.CourierListRequest\x1a\x10.courier.Courier\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.courier.Courier\x1a\x10.courier.Courier\"\x00\x12?\n\x08Retrieve\x12\x1f.courier.CourierRetrieveRequest\x1a\x10.courier.Courier\"\x00\x12.\n\x06Update\x12\x10.courier.Courier\x1a\x10.courier.Courier\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.courier.Courier\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n,logistics/protos/courier_proto/courier.proto\x12\x07\x63ourier\x1a\x1bgoogle/protobuf/empty.proto\"r\n\x07\x43ourier\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x17\n\x0fsweettracker_id\x18\x03 \x01(\t\x12\x1e\n\x11tracking_url_base\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x14\n\x12_tracking_url_base\"\x14\n\x12\x43ourierListRequest\"$\n\x16\x43ourierRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11\x43ourierController\x12\x39\n\x04List\x12\x1b.courier.CourierListRequest\x1a\x10.courier.Courier\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.courier.Courier\x1a\x10.courier.Courier\"\x00\x12?\n\x08Retrieve\x12\x1f.courier.CourierRetrieveRequest\x1a\x10.courier.Courier\"\x00\x12.\n\x06Update\x12\x10.courier.Courier\x1a\x10.courier.Courier\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.courier.Courier\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -74,9 +74,14 @@ _COURIER = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_tracking_url_base', full_name='courier.Courier._tracking_url_base',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=86,
-  serialized_end=173,
+  serialized_end=200,
 )
 
 
@@ -100,8 +105,8 @@ _COURIERLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=175,
-  serialized_end=195,
+  serialized_start=202,
+  serialized_end=222,
 )
 
 
@@ -132,10 +137,13 @@ _COURIERRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=197,
-  serialized_end=233,
+  serialized_start=224,
+  serialized_end=260,
 )
 
+_COURIER.oneofs_by_name['_tracking_url_base'].fields.append(
+  _COURIER.fields_by_name['tracking_url_base'])
+_COURIER.fields_by_name['tracking_url_base'].containing_oneof = _COURIER.oneofs_by_name['_tracking_url_base']
 DESCRIPTOR.message_types_by_name['Courier'] = _COURIER
 DESCRIPTOR.message_types_by_name['CourierListRequest'] = _COURIERLISTREQUEST
 DESCRIPTOR.message_types_by_name['CourierRetrieveRequest'] = _COURIERRETRIEVEREQUEST
@@ -171,8 +179,8 @@ _COURIERCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=236,
-  serialized_end=530,
+  serialized_start=263,
+  serialized_end=557,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

@@ -31,6 +31,7 @@ from office.viewsets.auth import (
 )
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.inventory import InventoryViewSet
+from office.viewsets.package import PackageViewSet
 
 # from tagger.viewsets.brand import BrandViewSet
 # from tagger.viewsets.notification import NotificationViewSet
@@ -57,12 +58,12 @@ router = routers.DefaultRouter()
 # router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
+router.register(r"packages", PackageViewSet, basename="packages")
 # router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"brands", BrandViewSet, basename="brands")
 # router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
-# router.register(r"packages", PackageViewSet, basename="packages")
 
 urlpatterns = [
     path("", include(router.urls)),

@@ -15,15 +15,14 @@ class ShippingNoticeProtoSerializer(proto_serializers.ModelProtoSerializer):
 class ShippingNoticeSerializer(serializers.Serializer):
     code = serializers.CharField(max_length=13, allow_null=False)
     status = serializers.ChoiceField(
-        max_length=20,
         choices=ShippingNoticeStatus.choices,
         default=ShippingNoticeStatus.CREATED,
     )
     template_url = serializers.URLField(allow_null=True, allow_blank=True)
 
     # dates
-    locked_at = serializers.DateTimeField(allow_null=True, allow_blank=True)
-    sealed_at = serializers.DateTimeField(allow_null=True, allow_blank=True)
-    shipped_at = serializers.DateTimeField(allow_null=True, allow_blank=True)
+    locked_at = serializers.DateTimeField(allow_null=True)
+    sealed_at = serializers.DateTimeField(allow_null=True)
+    shipped_at = serializers.DateTimeField(allow_null=True)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)

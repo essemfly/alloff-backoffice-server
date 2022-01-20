@@ -3,6 +3,7 @@ from django_grpc_framework import proto_serializers
 
 from logistics.models import ReceivedItem, ReceivedItemStatus
 from logistics.protos.received_item_proto import received_item_pb2
+from logistics.serializers.inventory import InventorySerializer
 
 
 class ReceivedItemProtoSerializer(proto_serializers.ModelProtoSerializer):
@@ -17,7 +18,6 @@ class ReceivedItemSerializer(serializers.Serializer):
     order_item_id = serializers.CharField(max_length=50)
     code = serializers.CharField(max_length=30)
     status = serializers.ChoiceField(
-        max_length=50,
         choices=ReceivedItemStatus.choices,
         default=ReceivedItemStatus.SOURCING_REQUIRED,
     )
@@ -31,14 +31,8 @@ class ReceivedItemSerializer(serializers.Serializer):
     product_color = serializers.CharField(max_length=20)
 
     # inventory
-    inventory = serializers.ForeignKey(
-        Inventory,
-        on_delete=serializers.PROTECT,
-        related_name="received_item",
-        allow_null=True,
-        allow_blank=True,
-    )
+    inventory = InventorySerializer()
 
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
-    deleted_at = serializers.DateTimeField(allow_null=True, allow_blank=True)
+    deleted_at = serializers.DateTimeField(allow_null=True)
