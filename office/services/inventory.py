@@ -10,7 +10,7 @@ class InventoryService(GrpcService):
 
     @classmethod
     def list(cls) -> List[dict]:
-        request = inventory_pb2.InventoryListRequest()
+        request = inventory_pb2.InventoryListRequest(product_name="asd")
         with cls.channel:
             stub = inventory_pb2_grpc.InventoryControllerStub(cls.channel)
             response = stub.List(request)
