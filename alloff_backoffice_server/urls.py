@@ -23,15 +23,16 @@ from drf_spectacular.views import (
 )
 from rest_framework import routers
 
-from office.viewsets.image import ImageUploaderViewSet
-from office.viewsets.admin_user import AdminUserViewSet
+# from office.viewsets.image import ImageUploaderViewSet
+# from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import (
     DecoratedTokenObtainPairView,
     DecoratedTokenRefreshView,
 )
+from office.viewsets.courier import CourierViewSet
 
 # from tagger.viewsets.brand import BrandViewSet
-# from tagger.viewsets.inventory import InventoryViewSet
+# from office.viewsets.inventory import InventoryViewSet
 # from tagger.viewsets.notification import NotificationViewSet
 # from tagger.viewsets.order import OrderViewSet
 # from tagger.viewsets.package import PackageViewSet
@@ -55,6 +56,7 @@ router = routers.DefaultRouter()
 # router.register(r"notifications", NotificationViewSet, basename="notifications")
 # router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 # router.register(r"inventories", InventoryViewSet, basename="inventories")
+router.register(r"couriers", CourierViewSet, basename="couriers")
 # router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"brands", BrandViewSet, basename="brands")

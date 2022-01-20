@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package courier;
+
+import "google/protobuf/empty.proto";
+
+service CourierController {
+    rpc List(CourierListRequest) returns (stream Courier) {}
+    rpc Create(Courier) returns (Courier) {}
+    rpc Retrieve(CourierRetrieveRequest) returns (Courier) {}
+    rpc Update(Courier) returns (Courier) {}
+    rpc Destroy(Courier) returns (google.protobuf.Empty) {}
+}
+
+message Courier {
+    int64 id = 1;
+    string name = 2;
+    string sweettracker_id = 3;
+    string tracking_url_base = 4;
+}
+
+message CourierListRequest {
+}
+
+message CourierRetrieveRequest {
+    int64 id = 1;
+}

@@ -1,11 +1,12 @@
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema, OpenApiParameter
-from rest_framework import viewsets, parsers, serializers, fields, response, status
-from rest_framework.decorators import action
-from django.core.files.storage import default_storage
-import shortuuid
 from time import time
+
+import shortuuid
+from django.core.files.storage import default_storage
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from rest_framework import (fields, parsers, response, serializers, status,
+                            viewsets)
+from rest_framework.decorators import action
+from drf_spectacular.utils import extend_schema
 
 
 class ImageUploaderRequestSerializer(serializers.Serializer):
