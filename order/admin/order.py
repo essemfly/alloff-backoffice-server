@@ -32,7 +32,7 @@ class OrderAdmin(admin.ModelAdmin):
 
     @admin.display(description="alloff order id")
     def copyable_code(self, obj):
-        return create_copy_button(obj.alloff_order_id)
+        return create_copy_button(obj.id)
 
     @admin.display(description="created")
     def created(self, obj):

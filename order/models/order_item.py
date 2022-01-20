@@ -36,7 +36,7 @@ class OrderItem(models.Model):
         db_table = "order_items"
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    order_item_code = models.CharField(max_length=50)  # (구)사서함 코드
+    order_item_code = models.CharField(max_length=16, db_index=True, unique=True)  # (구)사서함 코드
     order_item_type = models.CharField(
         max_length=50,
         choices=OrderItemType.choices,
@@ -51,10 +51,10 @@ class OrderItem(models.Model):
     brand_korname = models.CharField(max_length=50)
 
     # product
-    product_id = models.CharField(max_length=50)
+    product_id = models.CharField(max_length=24, db_index=True)
     product_url = models.URLField()
     product_img = models.URLField()
-    product_name = models.CharField(max_length=50)
+    product_name = models.CharField(max_length=100)
 
     cancel_description = models.JSONField()
     delivery_description = models.JSONField()
@@ -89,11 +89,11 @@ class OrderItem(models.Model):
         return self.sales_price * self.quantity
 
     def __str__(self):
-        return f"#{self.id} [{self.brand_key_name}] {self.product_name} ({self.product_option})"
+        return f"#{self.id} {self.product_name} ({self.product_option})"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.create_received_item()
+        # self.create_received_item()
 
     # def create_received_item(self):
     #     for _ in range(self.quantity):

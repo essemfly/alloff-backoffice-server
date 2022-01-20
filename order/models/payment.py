@@ -14,22 +14,22 @@ class Payment(models.Model):
     class Meta:
         db_table = "payments"
 
-    imp_uid = models.CharField(max_length=100)
+    imp_uid = models.CharField(max_length=32, db_index=True)
     payment_status = models.CharField(
-        max_length=50,
+        max_length=32,
         choices=PaymentStatus.choices,
     )
-    pg = models.CharField(max_length=20)
-    pay_method = models.CharField(max_length=100)
+    pg = models.CharField(max_length=32)
+    pay_method = models.CharField(max_length=32)
     name = models.CharField(max_length=100)
-    merchant_uid = models.CharField(max_length=100)
+    merchant_uid = models.CharField(max_length=24, db_index=True)
     amount = models.PositiveIntegerField()
     buyer_name = models.CharField(max_length=20)
-    buyer_mobile = models.CharField(max_length=20)
-    buyer_address = models.CharField(max_length=100)
-    buyer_post_code = models.CharField(max_length=20)
-    company = models.CharField(max_length=20)
-    app_scheme = models.CharField(max_length=50)
+    buyer_mobile = models.CharField(max_length=11)
+    buyer_address = models.TextField()
+    buyer_post_code = models.CharField(max_length=6)
+    company = models.CharField(max_length=32)
+    app_scheme = models.CharField(max_length=16)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
