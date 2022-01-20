@@ -11,6 +11,9 @@ class PaymentStatus(models.TextChoices):
 
 
 class Payment(models.Model):
+    class Meta:
+        db_table = "payments"
+
     imp_uid = models.CharField(max_length=100)
     payment_status = models.CharField(
         max_length=50,

@@ -9,16 +9,19 @@ class OrderStatus(models.TextChoices):
 
 
 class Order(models.Model):
-    alloff_order_id = models.CharField(max_length=100)
+    class Meta:
+        db_table = "orders"
+
+    alloff_order_id = models.CharField(max_length=100, db_index=True)
     order_status = models.CharField(
         max_length=50,
         choices=OrderStatus.choices,
     )
 
     # user
-    user_id = models.CharField(max_length=50)
+    user_id = models.CharField(max_length=24, db_index=True)
     user = models.JSONField()
-    user_memo = models.CharField(max_length=50)
+    user_memo = models.TextField()
 
     # price
     product_price = models.IntegerField()
@@ -49,5 +52,4 @@ class Order(models.Model):
     @property
     def order_items(self):
         from .order_item import OrderItem
-
         return OrderItem.objects.filter(order__id=self.id)

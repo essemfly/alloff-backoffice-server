@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 
-
-from .order import Order, OrderStatus
+from .order import Order
 
 
 class OrderItemStatus(models.TextChoices):
@@ -34,6 +32,9 @@ class OrderItemType(models.TextChoices):
 
 
 class OrderItem(models.Model):
+    class Meta:
+        db_table = "order_items"
+
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     order_item_code = models.CharField(max_length=50)  # (구)사서함 코드
     order_item_type = models.CharField(
@@ -82,6 +83,10 @@ class OrderItem(models.Model):
         if self.color is not None:
             return f"{self.size}-{self.color}"
         return self.size
+
+    @property
+    def total_amount(self) -> int:
+        return self.sales_price * self.quantity
 
     def __str__(self):
         return f"#{self.id} [{self.brand_key_name}] {self.product_name} ({self.product_option})"
