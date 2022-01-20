@@ -32,6 +32,8 @@ from office.viewsets.auth import (
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.package import PackageViewSet
+from office.viewsets.received_item import ReceivedItemViewSet
+from office.viewsets.shipping_notice import ShippingNoticeViewSet
 
 # from tagger.viewsets.brand import BrandViewSet
 # from tagger.viewsets.notification import NotificationViewSet
@@ -55,14 +57,14 @@ router = routers.DefaultRouter()
 #     basename="timedeal-product-templates",
 # )
 # router.register(r"notifications", NotificationViewSet, basename="notifications")
-# router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
+router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
 router.register(r"packages", PackageViewSet, basename="packages")
+router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 # router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"brands", BrandViewSet, basename="brands")
-# router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
 
 urlpatterns = [

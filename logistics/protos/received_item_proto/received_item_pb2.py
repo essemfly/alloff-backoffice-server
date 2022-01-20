@@ -12,6 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from logistics.protos.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\"\xb1\x03\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12>\n\x06status\x18\x03 \x01(\x0e\x32..received_item.ReceivedItem.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x18\n\x10product_brand_id\x18\x06 \x01(\t\x12\x1a\n\x12product_brand_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x15\n\rproduct_color\x18\t \x01(\t\x12\x12\n\ncreated_at\x18\n \x01(\t\x12\x12\n\nupdated_at\x18\x0b \x01(\t\x12\x12\n\ndeleted_at\x18\x0c \x01(\t\x12\x11\n\tinventory\x18\r \x01(\x03\"k\n\x12ReceivedItemStatus\x12\x15\n\x11SOURCING_REQUIRED\x10\x00\x12\x10\n\x0cON_RECEIVING\x10\x01\x12\x0c\n\x08RECEIVED\x10\x02\x12\x10\n\x0cOUT_OF_STOCK\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04\"\x19\n\x17ReceivedItemListRequest\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\x8e\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\x1a\x30logistics/protos/inventory_proto/inventory.proto\"\xda\x03\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12>\n\x06status\x18\x03 \x01(\x0e\x32..received_item.ReceivedItem.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x18\n\x10product_brand_id\x18\x06 \x01(\t\x12\x1a\n\x12product_brand_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x15\n\rproduct_color\x18\t \x01(\t\x12\x12\n\ncreated_at\x18\n \x01(\t\x12\x12\n\nupdated_at\x18\x0b \x01(\t\x12\x12\n\ndeleted_at\x18\x0c \x01(\t\x12,\n\tinventory\x18\r \x01(\x0b\x32\x14.inventory.InventoryH\x00\x88\x01\x01\"k\n\x12ReceivedItemStatus\x12\x15\n\x11SOURCING_REQUIRED\x10\x00\x12\x10\n\x0cON_RECEIVING\x10\x01\x12\x0c\n\x08RECEIVED\x10\x02\x12\x10\n\x0cOUT_OF_STOCK\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04\x42\x0c\n\n_inventory\"\x19\n\x17ReceivedItemListRequest\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\x8e\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.DESCRIPTOR,])
 
 
 
@@ -61,8 +62,8 @@ _RECEIVEDITEM_RECEIVEDITEMSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=431,
-  serialized_end=538,
+  serialized_start=508,
+  serialized_end=615,
 )
 _sym_db.RegisterEnumDescriptor(_RECEIVEDITEM_RECEIVEDITEMSTATUS)
 
@@ -161,8 +162,8 @@ _RECEIVEDITEM = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='inventory', full_name='received_item.ReceivedItem.inventory', index=12,
-      number=13, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
+      number=13, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -178,9 +179,14 @@ _RECEIVEDITEM = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_inventory', full_name='received_item.ReceivedItem._inventory',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=105,
-  serialized_end=538,
+  serialized_start=155,
+  serialized_end=629,
 )
 
 
@@ -204,8 +210,8 @@ _RECEIVEDITEMLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=540,
-  serialized_end=565,
+  serialized_start=631,
+  serialized_end=656,
 )
 
 
@@ -236,12 +242,16 @@ _RECEIVEDITEMRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=567,
-  serialized_end=608,
+  serialized_start=658,
+  serialized_end=699,
 )
 
 _RECEIVEDITEM.fields_by_name['status'].enum_type = _RECEIVEDITEM_RECEIVEDITEMSTATUS
+_RECEIVEDITEM.fields_by_name['inventory'].message_type = logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2._INVENTORY
 _RECEIVEDITEM_RECEIVEDITEMSTATUS.containing_type = _RECEIVEDITEM
+_RECEIVEDITEM.oneofs_by_name['_inventory'].fields.append(
+  _RECEIVEDITEM.fields_by_name['inventory'])
+_RECEIVEDITEM.fields_by_name['inventory'].containing_oneof = _RECEIVEDITEM.oneofs_by_name['_inventory']
 DESCRIPTOR.message_types_by_name['ReceivedItem'] = _RECEIVEDITEM
 DESCRIPTOR.message_types_by_name['ReceivedItemListRequest'] = _RECEIVEDITEMLISTREQUEST
 DESCRIPTOR.message_types_by_name['ReceivedItemRetrieveRequest'] = _RECEIVEDITEMRETRIEVEREQUEST
@@ -277,8 +287,8 @@ _RECEIVEDITEMCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=611,
-  serialized_end=1009,
+  serialized_start=702,
+  serialized_end=1100,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

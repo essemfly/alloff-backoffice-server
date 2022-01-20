@@ -33,7 +33,7 @@ message ReceivedItem {
     string created_at = 10;
     string updated_at = 11;
     string deleted_at = 12;
-    optional Inventory inventory = 13;
+    optional inventory.Inventory inventory = 13;
 }
 
 message ReceivedItemListRequest {
