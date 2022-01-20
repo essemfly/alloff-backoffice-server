@@ -30,9 +30,9 @@ from office.viewsets.auth import (
     DecoratedTokenRefreshView,
 )
 from office.viewsets.courier import CourierViewSet
+from office.viewsets.inventory import InventoryViewSet
 
 # from tagger.viewsets.brand import BrandViewSet
-# from office.viewsets.inventory import InventoryViewSet
 # from tagger.viewsets.notification import NotificationViewSet
 # from tagger.viewsets.order import OrderViewSet
 # from tagger.viewsets.package import PackageViewSet
@@ -55,7 +55,7 @@ router = routers.DefaultRouter()
 # )
 # router.register(r"notifications", NotificationViewSet, basename="notifications")
 # router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
-# router.register(r"inventories", InventoryViewSet, basename="inventories")
+router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
 # router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")

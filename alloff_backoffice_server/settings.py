@@ -230,3 +230,5 @@ SPECTACULAR_SETTINGS = {
 
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
 CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
+
+GRPC_LOGISTICS_SERVER_URL = "ec2-13-209-64-30.ap-northeast-2.compute.amazonaws.com:9000"
