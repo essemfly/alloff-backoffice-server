@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "office",
     "order",
+    # "logistics"
 ]
 
 MIDDLEWARE = [

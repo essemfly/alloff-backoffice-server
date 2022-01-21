@@ -16,24 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
-from rest_framework import routers
-
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 # from office.viewsets.image import ImageUploaderViewSet
 # from office.viewsets.admin_user import AdminUserViewSet
-from office.viewsets.auth import (
-    DecoratedTokenObtainPairView,
-    DecoratedTokenRefreshView,
-)
+from office.viewsets.auth import (DecoratedTokenObtainPairView,
+                                  DecoratedTokenRefreshView)
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.inventory import InventoryViewSet
+from office.viewsets.order_items import OrderItemViewSet
 from office.viewsets.package import PackageViewSet
 from office.viewsets.received_item import ReceivedItemViewSet
 from office.viewsets.shipping_notice import ShippingNoticeViewSet
+from rest_framework import routers
 
 # from tagger.viewsets.brand import BrandViewSet
 # from tagger.viewsets.notification import NotificationViewSet
@@ -57,6 +52,7 @@ router = routers.DefaultRouter()
 #     basename="timedeal-product-templates",
 # )
 # router.register(r"notifications", NotificationViewSet, basename="notifications")
+router.register(r"order-items", OrderItemViewSet, basename="order-items")
 router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
@@ -73,16 +69,16 @@ urlpatterns = [
     # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     # # YOUR PATTERNS
-    # path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # # Optional UI:
-    # path(
-    #     "api/schema/swagger-ui/",
-    #     SpectacularSwaggerView.as_view(url_name="schema"),
-    #     name="swagger-ui",
-    # ),
-    # path(
-    #     "api/schema/redoc/",
-    #     SpectacularRedocView.as_view(url_name="schema"),
-    #     name="redoc",
-    # ),
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]

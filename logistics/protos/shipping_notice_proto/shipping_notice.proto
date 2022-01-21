@@ -29,7 +29,7 @@ message ShippingNotice {
     optional string shipped_at = 7;
     string created_at = 8;
     string updated_at = 9;
-    repeated shipping_notice_item.ShippingNoticeItem shipping_notice_item = 10;
+    repeated shipping_notice_item.ShippingNoticeItem items = 10;
 }
 
 message ShippingNoticeListRequest {

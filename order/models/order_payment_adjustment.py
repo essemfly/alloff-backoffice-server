@@ -8,17 +8,19 @@ class PaymentAdjustmentBalanceNotMatchingException(Exception):
     pass
 
 
-class OrderItemPaymentAdjustementType(models.TextChoices):
+class OrderPaymentAdjustementType(models.TextChoices):
     CARD_CANCEL = "CARD_CANCEL"
     CASH = "CASH"
 
 
-class OrderItemPaymentAdjustment(models.Model):
+class OrderPaymentAdjustment(models.Model):
+    class Meta:
+        db_table = "order_payment_adjustments"
     method = models.CharField(
         max_length=20,
-        choices=OrderItemPaymentAdjustementType.choices,
+        choices=OrderPaymentAdjustementType.choices,
     )
-    order = models.ForeignKey(Order, on_delete=models.PROTECT)
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="payment_adjustments")
     admin = models.ForeignKey(User, on_delete=models.PROTECT)
     previous_balance = models.IntegerField()
     amount = models.IntegerField()

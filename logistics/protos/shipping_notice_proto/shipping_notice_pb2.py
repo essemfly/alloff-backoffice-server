@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n<logistics/protos/shipping_notice_proto/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a\x46logistics/protos/shipping_notice_item_proto/shipping_notice_item.proto\"\xca\x03\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x44\n\x06status\x18\x03 \x01(\x0e\x32\x34.shipping_notice.ShippingNotice.ShippingNoticeStatus\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x46\n\x14shipping_notice_item\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\"H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x42\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"\x1b\n\x19ShippingNoticeListRequest\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xb4\x03\n\x18ShippingNoticeController\x12W\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x30\x01\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n<logistics/protos/shipping_notice_proto/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a\x46logistics/protos/shipping_notice_item_proto/shipping_notice_item.proto\"\xbb\x03\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x44\n\x06status\x18\x03 \x01(\x0e\x32\x34.shipping_notice.ShippingNotice.ShippingNoticeStatus\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x37\n\x05items\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\"H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x42\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"\x1b\n\x19ShippingNoticeListRequest\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xb4\x03\n\x18ShippingNoticeController\x12W\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x30\x01\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,logistics_dot_protos_dot_shipping__notice__item__proto_dot_shipping__notice__item__pb2.DESCRIPTOR,])
 
@@ -57,8 +57,8 @@ _SHIPPINGNOTICE_SHIPPINGNOTICESTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=509,
-  serialized_end=581,
+  serialized_start=494,
+  serialized_end=566,
 )
 _sym_db.RegisterEnumDescriptor(_SHIPPINGNOTICE_SHIPPINGNOTICESTATUS)
 
@@ -135,7 +135,7 @@ _SHIPPINGNOTICE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='shipping_notice_item', full_name='shipping_notice.ShippingNotice.shipping_notice_item', index=9,
+      name='items', full_name='shipping_notice.ShippingNotice.items', index=9,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -175,7 +175,7 @@ _SHIPPINGNOTICE = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=183,
-  serialized_end=641,
+  serialized_end=626,
 )
 
 
@@ -199,8 +199,8 @@ _SHIPPINGNOTICELISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=643,
-  serialized_end=670,
+  serialized_start=628,
+  serialized_end=655,
 )
 
 
@@ -231,12 +231,12 @@ _SHIPPINGNOTICERETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=672,
-  serialized_end=715,
+  serialized_start=657,
+  serialized_end=700,
 )
 
 _SHIPPINGNOTICE.fields_by_name['status'].enum_type = _SHIPPINGNOTICE_SHIPPINGNOTICESTATUS
-_SHIPPINGNOTICE.fields_by_name['shipping_notice_item'].message_type = logistics_dot_protos_dot_shipping__notice__item__proto_dot_shipping__notice__item__pb2._SHIPPINGNOTICEITEM
+_SHIPPINGNOTICE.fields_by_name['items'].message_type = logistics_dot_protos_dot_shipping__notice__item__proto_dot_shipping__notice__item__pb2._SHIPPINGNOTICEITEM
 _SHIPPINGNOTICE_SHIPPINGNOTICESTATUS.containing_type = _SHIPPINGNOTICE
 _SHIPPINGNOTICE.oneofs_by_name['_template_url'].fields.append(
   _SHIPPINGNOTICE.fields_by_name['template_url'])
@@ -285,8 +285,8 @@ _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=718,
-  serialized_end=1154,
+  serialized_start=703,
+  serialized_end=1139,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

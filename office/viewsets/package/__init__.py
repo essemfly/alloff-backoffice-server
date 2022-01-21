@@ -3,7 +3,8 @@ from office.services.package import PackageService
 from rest_framework import mixins, response, status, viewsets
 
 
-class PackageViewSet(mixins.ListModelMixin, viewsets.ViewSet):
+class PackageViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = PackageSerializer
     def list(self, request, *args, **kwargs):
         packages = PackageService.list()
         serializer = PackageSerializer(packages, many=True)

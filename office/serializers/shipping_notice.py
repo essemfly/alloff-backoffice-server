@@ -12,7 +12,7 @@ class ShippingNoticeStatus(models.TextChoices):
 
 
 class ShippingNoticeSerializer(serializers.Serializer):
-    shipping_notice_item = ShippingNoticeItemSerializer(many=True)
+    items = ShippingNoticeItemSerializer(many=True)
 
     id = serializers.IntegerField()
     code = serializers.CharField()
