@@ -67,8 +67,10 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "django_extensions",
+    "django_grpc_framework",
     "office",
     "order",
+    "product",
 ]
 
 MIDDLEWARE = [
@@ -230,3 +232,5 @@ SPECTACULAR_SETTINGS = {
 
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
 CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
+
+PRODUCT_SERVER_URL = env.get("PRODUCT_SERVER_HOST")
