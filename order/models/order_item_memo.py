@@ -7,6 +7,8 @@ from order.models.order_item import OrderItem
 class OrderItemMemo(models.Model):
     class Meta:
         db_table = "order_item_memos"
+        ordering = ["-id"]
+        
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT, related_name="memos")
     admin = models.ForeignKey(User, on_delete=models.PROTECT)
     body = models.TextField(null=False)

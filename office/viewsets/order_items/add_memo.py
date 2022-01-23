@@ -1,30 +1,37 @@
+from office.serializers.order_memo import OrderItemMemoSerializer
+from order.models.order_item_action_log import OrderItemActionLog, OrderItemActionType
+from order.models.order_item_memo import OrderItemMemo
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response
-from tagger.models.order_action_log import OrderActionLog, OrderActionType
-from tagger.models.order_memo import OrderMemo
-from tagger.serializers.order_memo import OrderMemoSerializer
 
 
-class AddOrderMemoSerializer(serializers.Serializer):
+class AddOrderItemMemoSerializer(serializers.Serializer):
     body = serializers.CharField(required=True)
 
 
 def add_memo(self, request: Request, id: str = None):
-    serializer = self.get_serializer(data=request.data)  # type: AddOrderMemoSerializer
+    serializer = self.get_serializer(
+        data=request.data
+    )  # type: AddOrderItemMemoSerializer
+    item = self.get_object()
     serializer.is_valid(raise_exception=True)
     body = serializer.validated_data.get("body")
-    memo = OrderMemo.objects.create(admin=request.user, body=body, order_id=id)
+    memo = OrderItemMemo.objects.create(
+        admin=request.user,
+        body=body,
+        order_item=item,
+    )
 
     # Log
-    OrderActionLog.objects.create(
-        order_id=id,
+    OrderItemActionLog.objects.create(
+        order_item=item,
         admin=request.user,
-        action_type=OrderActionType.MEMO_ADD,
+        action_type=OrderItemActionType.MEMO_ADD,
         detail=body,
     )
 
     return Response(
-        OrderMemoSerializer(memo).data,
+        OrderItemMemoSerializer(memo).data,
         status=status.HTTP_200_OK,
     )

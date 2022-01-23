@@ -77,20 +77,22 @@ def _change_status(
     tracking_number = serializer.validated_data.get("tracking_number")
     tracking_url = serializer.validated_data.get("tracking_url")
 
-    OrderItemStatusChangeLog.objects.create(
+    change_log = OrderItemStatusChangeLog.objects.create(
         order_item=item,
         action_log=log,
         status_from=status_from,
         status_to=status_to,
-        tracking_number_from=item.tracking_number,
-        tracking_url_from=item.tracking_url,
-        tracking_number_to=tracking_number,
-        tracking_url_to=tracking_url,
     )
 
     # Update tracking info if needed
     if status_to == OrderItemStatus.ORDER_ITEM_DELIVERY_STARTED:
         if serializer.tracking_info_given:
+            change_log.tracking_number_from = item.tracking_number
+            change_log.tracking_url_from = item.tracking_url
+            change_log.tracking_number_to = tracking_number
+            change_log.tracking_url_to = tracking_url
+            change_log.save()
+
             item.tracking_number = tracking_number
             item.tracking_url = tracking_url
 

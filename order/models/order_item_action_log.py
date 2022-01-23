@@ -20,6 +20,7 @@ class OrderItemAlimtalkType(models.TextChoices):
 class OrderItemActionLog(models.Model):
     class Meta:
         db_table = "order_item_action_logs"
+        ordering = ["-id"]
 
     order_item = models.ForeignKey(
         OrderItem, on_delete=models.PROTECT, related_name="logs"
@@ -35,7 +36,7 @@ class OrderItemRefundUpdateLog(models.Model):
         db_table = "order_item_refund_update_logs"
 
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
-    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
+    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE, related_name="refund_update")
     refund_delivery_price = models.IntegerField()
     refund_amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,7 +47,7 @@ class OrderItemStatusChangeLog(models.Model):
         db_table = "order_item_status_change_logs"
 
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
-    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
+    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE, related_name="status_change")
     status_from = models.CharField(max_length=100, choices=OrderItemStatus.choices)
     status_to = models.CharField(max_length=100, choices=OrderItemStatus.choices)
     tracking_number_from = models.CharField(max_length=100, null=True, blank=True)
@@ -61,7 +62,7 @@ class OrderItemAlimtalkLog(models.Model):
         db_table = "order_item_alimtalk_logs"
 
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
-    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
+    action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE, related_name="alimtalk")
     alimtalk_type = models.CharField(
         max_length=100, choices=OrderItemAlimtalkType.choices
     )

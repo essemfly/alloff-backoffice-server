@@ -2,12 +2,20 @@ import operator
 from functools import reduce
 
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import (OpenApiParameter, extend_schema,
-                                   extend_schema_view)
-from office.serializers.order_item import (OrderItemListSerializer,
-                                           OrderItemRetrieveSerializer)
-from office.viewsets.order_items.change_status import (ChangeStatusSerializer,
-                                                       change_status)
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from office.serializers.order_item import (
+    OrderItemListSerializer,
+    OrderItemRetrieveSerializer,
+)
+from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer, add_memo
+from office.viewsets.order_items.change_status import (
+    ChangeStatusSerializer,
+    change_status,
+)
+from office.viewsets.order_items.delete_memo import (
+    DeleteItemOrderMemoSerializer,
+    delete_memo,
+)
 from order.models.order_item import OrderItem
 from rest_framework import filters, mixins, status
 from rest_framework.decorators import action
@@ -16,6 +24,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
+from django.db.models import Prefetch
+
+from order.models.order_item_action_log import OrderItemActionLog
 
 # class OrdersSearchFilter(filters.SearchFilter):
 #     def filter_queryset(self, request, queryset, view):
@@ -94,11 +105,14 @@ class OrderItemViewSet(
     #         if field_value:
     #             filtering_kwargs[field] = field_value
     #     return filtering_kwargs
-
+    
     def get_queryset(self):
-        queryset = OrderItem.objects.exclude(
-            order_item_status__in=[],
-        ).order_by("-id")
+        queryset = (
+            OrderItem.objects.exclude(
+                order_item_status__in=[],
+            )
+            .order_by("-id")
+        )
 
         # if "search" in self.request.query_params:
         #     return queryset
@@ -137,10 +151,10 @@ class OrderItemViewSet(
         #     return UpdateRefundSerializer
         elif self.action == "change_status":
             return ChangeStatusSerializer
-        # elif self.action == "add_memo":
-        #     return AddOrderMemoSerializer
-        # elif self.action == "delete_memo":
-        #     return DeleteOrderMemoSerializer
+        elif self.action == "add_memo":
+            return AddOrderItemMemoSerializer
+        elif self.action == "delete_memo":
+            return DeleteItemOrderMemoSerializer
         # elif self.action == "remake_ri":
         #     return RemakeRiSerializer
         # elif "minimum" in self.action:
@@ -163,27 +177,41 @@ class OrderItemViewSet(
     #         user__mobile__nin=["01028861089", "01077591771"]
     #     ).all(), many=True).data, status=status.HTTP_200_OK)
 
-    # @extend_schema(responses=OrderListSerializer(many=True), parameters=[
-    #     OpenApiParameter("user_id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
-    #                )
-    # @action(methods=["GET"], detail=False, pagination_class=None, url_path='by_user/(?P<user_id>[^/.]+)')
-    # def by_user(self, request: Request, user_id: str):
-    #     orders = self.get_queryset().filter(__raw__={'user._id': user_id})
-    #     return Response(OrderListSerializer(orders, many=True).data, status=status.HTTP_200_OK)
+    @extend_schema(
+        responses=OrderItemListSerializer(many=True),
+        parameters=[
+            OpenApiParameter("user_id", OpenApiTypes.STR, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(
+        methods=["GET"],
+        detail=False,
+        pagination_class=None,
+        url_path="by_user/(?P<user_id>[^/.]+)",
+    )
+    def by_user(self, request: Request, user_id: str):
+        items = OrderItem.objects.filter(order__user_id=user_id).all()
+        return Response(
+            OrderItemListSerializer(items, many=True).data, status=status.HTTP_200_OK
+        )
 
-    # @extend_schema(
-    #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def add_memo(self, request: Request, id=None):
-    #     return add_memo(self, request, id)
+    @extend_schema(
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def add_memo(self, request: Request, id=None):
+        return add_memo(self, request, id)
 
-    # @extend_schema(
-    #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def delete_memo(self, request: Request, id=None):
-    #     return delete_memo(self, request, id)
+    @extend_schema(
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def delete_memo(self, request: Request, id=None):
+        return delete_memo(self, request, id)
 
     @extend_schema(
         parameters=[

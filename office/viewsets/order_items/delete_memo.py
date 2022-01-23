@@ -1,26 +1,29 @@
 from datetime import datetime
+
+from office.serializers.order_memo import OrderItemMemoSerializer
+from order.models.order_item import OrderItem
+from order.models.order_item_action_log import OrderItemActionLog, OrderItemActionType
+from order.models.order_item_memo import OrderItemMemo
 from rest_framework import serializers, status
 from rest_framework.fields import IntegerField
 from rest_framework.request import Request
 from rest_framework.response import Response
-from tagger.models.order_action_log import OrderActionLog, OrderActionType
-from tagger.models.order_memo import OrderMemo
-from tagger.serializers.order_memo import OrderMemoSerializer
 
 
-class DeleteOrderMemoSerializer(serializers.Serializer):
+class DeleteItemOrderMemoSerializer(serializers.Serializer):
     memo_id = IntegerField(required=True)
 
 
 def delete_memo(self, request: Request, id: str = None):
     serializer = self.get_serializer(
         data=request.data
-    )  # type: DeleteOrderMemoSerializer
+    )  # type: DeleteItemOrderMemoSerializer
+    item = self.get_object()  # type: OrderItem
     serializer.is_valid(raise_exception=True)
     memo_id = serializer.validated_data.get("memo_id")
 
     try:
-        memo = OrderMemo.objects.get(id=memo_id)
+        memo = OrderItemMemo.objects.get(id=memo_id)
 
         if memo.admin != request.user:
             Response(
@@ -32,18 +35,18 @@ def delete_memo(self, request: Request, id: str = None):
         memo.save()
 
         # Log
-        OrderActionLog.objects.create(
-            order_id=id,
+        OrderItemActionLog.objects.create(
+            order_item=item,
             admin=request.user,
-            action_type=OrderActionType.MEMO_DELETE,
+            action_type=OrderItemActionType.MEMO_DELETE,
             detail=memo.body,
         )
 
         return Response(
-            OrderMemoSerializer(memo).data,
+            OrderItemMemoSerializer(memo).data,
             status=status.HTTP_200_OK,
         )
-    except:
+    except Exception:
         return Response(
             {"message": "Cannot find memo with memo_id of {}".format(memo_id)},
             status=status.HTTP_400_BAD_REQUEST,
