@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_mongoengine",
-    "django_grpc_framework",
     "django_filters",
     "corsheaders",
     "drf_spectacular",
@@ -233,4 +232,4 @@ SPECTACULAR_SETTINGS = {
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
 CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
 
-PRODUCT_SERVER_URL = env.get("PRODUCT_SERVER_HOST")
+PRODUCT_SERVER_URL = "127.0.0.1:9000"

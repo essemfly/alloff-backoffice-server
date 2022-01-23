@@ -19,6 +19,11 @@ class BrandStub(object):
                 request_serializer=protos_dot_product_dot_brand__pb2.ListBrandRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_brand__pb2.ListBrandResponse.FromString,
                 )
+        self.EditBrand = channel.unary_unary(
+                '/grpcServer.Brand/EditBrand',
+                request_serializer=protos_dot_product_dot_brand__pb2.EditBrandRequest.SerializeToString,
+                response_deserializer=protos_dot_product_dot_brand__pb2.EditBrandResponse.FromString,
+                )
         self.CreateBrand = channel.unary_unary(
                 '/grpcServer.Brand/CreateBrand',
                 request_serializer=protos_dot_product_dot_brand__pb2.CreateBrandRequest.SerializeToString,
@@ -30,6 +35,12 @@ class BrandServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def ListBrand(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EditBrand(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -48,6 +59,11 @@ def add_BrandServicer_to_server(servicer, server):
                     servicer.ListBrand,
                     request_deserializer=protos_dot_product_dot_brand__pb2.ListBrandRequest.FromString,
                     response_serializer=protos_dot_product_dot_brand__pb2.ListBrandResponse.SerializeToString,
+            ),
+            'EditBrand': grpc.unary_unary_rpc_method_handler(
+                    servicer.EditBrand,
+                    request_deserializer=protos_dot_product_dot_brand__pb2.EditBrandRequest.FromString,
+                    response_serializer=protos_dot_product_dot_brand__pb2.EditBrandResponse.SerializeToString,
             ),
             'CreateBrand': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateBrand,
@@ -78,6 +94,23 @@ class Brand(object):
         return grpc.experimental.unary_unary(request, target, '/grpcServer.Brand/ListBrand',
             protos_dot_product_dot_brand__pb2.ListBrandRequest.SerializeToString,
             protos_dot_product_dot_brand__pb2.ListBrandResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EditBrand(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpcServer.Brand/EditBrand',
+            protos_dot_product_dot_brand__pb2.EditBrandRequest.SerializeToString,
+            protos_dot_product_dot_brand__pb2.EditBrandResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

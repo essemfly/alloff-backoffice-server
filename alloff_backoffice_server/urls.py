@@ -30,8 +30,8 @@ from office.viewsets.auth import (
     DecoratedTokenRefreshView,
 )
 from office.viewsets.courier import CourierViewSet
+from product.views.brand import BrandDetail, BrandList
 
-# from tagger.viewsets.brand import BrandViewSet
 # from office.viewsets.inventory import InventoryViewSet
 # from tagger.viewsets.notification import NotificationViewSet
 # from tagger.viewsets.order import OrderViewSet
@@ -67,6 +67,8 @@ router.register(r"couriers", CourierViewSet, basename="couriers")
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
+    path("brands/", BrandList.as_view()),
+    path("brands/<str:brandID>/", BrandDetail.as_view()),
     # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     # # YOUR PATTERNS
