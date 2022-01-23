@@ -13,9 +13,11 @@ class BrandList(APIView):
         return Response(serializer.data)
 
 
+# (TODO) Check that validity
 class BrandDetail(APIView):
     def post(self, request):
         serializer = BrandSerializer(data=request.data)
         if serializer.is_valid():
-            return Response(serializer.data)
+            new_brand = BrandService.create(serializer.message)
+            return Response(new_brand)
         return Response(serializer.data)

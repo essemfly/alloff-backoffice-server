@@ -12,7 +12,7 @@ class SizeGuideSerializer(proto_serializers.ProtoSerializer):
 
 
 class BrandSerializer(proto_serializers.ProtoSerializer):
-    id = serializers.CharField(max_length=100)
+    brand_id = serializers.CharField(max_length=100)
     keyname = serializers.CharField(max_length=50)
     korname = serializers.CharField(max_length=50)
     engname = serializers.CharField(max_length=50)

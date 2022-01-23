@@ -22,6 +22,7 @@ class ProductGroupSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField
     finish_time = serializers.DateTimeField
     products = ProductInGroupSerializer(many=True)
+    product_group_id = serializers.CharField()
 
     class Meta:
         proto_class = ProductGroupMessage

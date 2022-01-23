@@ -69,26 +69,26 @@ urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
     path("brands/", BrandList.as_view()),
-    path("brands/<str:brandID>/", BrandDetail.as_view()),
+    path("brands/<str:brand_id>/", BrandDetail.as_view()),
     path("timedeals/", ProductGroupList.as_view()),
-    path("timedeals/<str:pgID>/", ProductGroupDetail.as_view()),
+    path("timedeals/<str:pg_id>/", ProductGroupDetail.as_view()),
     path("notifications/", NotificationList.as_view()),
-    path("notifications/<str:notiID>/", NotificationDetail.as_view()),
+    path("notifications/<str:noti_id>/", NotificationDetail.as_view()),
     path("products/", ProductList.as_view()),
-    path("products/<str:productID>/", ProductDetail.as_view()),
+    path("products/<str:product_id>/", ProductDetail.as_view()),
     # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
-    # # YOUR PATTERNS
-    # path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    # # Optional UI:
-    # path(
-    #     "api/schema/swagger-ui/",
-    #     SpectacularSwaggerView.as_view(url_name="schema"),
-    #     name="swagger-ui",
-    # ),
-    # path(
-    #     "api/schema/redoc/",
-    #     SpectacularRedocView.as_view(url_name="schema"),
-    #     name="redoc",
-    # ),
+    # YOUR PATTERNS
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    # Optional UI:
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]

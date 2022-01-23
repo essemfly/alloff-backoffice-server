@@ -65,4 +65,5 @@ message ProductGroupMessage {
     repeated ProductInGroupMessage products = 5;
     string start_time = 6;
     string finish_time = 7;
+    string product_group_id = 8;
 }

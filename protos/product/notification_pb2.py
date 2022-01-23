@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!protos/product/notification.proto\x12\ngrpcServer\"0\n\x0fListNotiRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"a\n\x10ListNotiResponse\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12.\n\x05notis\x18\x03 \x03(\x0b\x32\x1f.grpcServer.NotificationMessage\"W\n\x11\x43reateNotiRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x14\n\x0creference_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\"\'\n\x12\x43reateNotiResponse\x12\x11\n\tsucceeded\x18\x01 \x01(\x08\"*\n\x0fSendNotiRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\t\"#\n\x10SendNotiResponse\x12\x0f\n\x07is_sent\x18\x01 \x01(\x08\"\x95\x01\n\x13NotificationMessage\x12\x17\n\x0fnotification_id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x14\n\x0creference_id\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x11\n\tsended_at\x18\x07 \x01(\t2\xe9\x01\n\x0cNotification\x12\x45\n\x08ListNoti\x12\x1b.grpcServer.ListNotiRequest\x1a\x1c.grpcServer.ListNotiResponse\x12K\n\nCreateNoti\x12\x1d.grpcServer.CreateNotiRequest\x1a\x1e.grpcServer.CreateNotiResponse\x12\x45\n\x08SendNoti\x12\x1b.grpcServer.SendNotiRequest\x1a\x1c.grpcServer.SendNotiResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n!protos/product/notification.proto\x12\ngrpcServer\"0\n\x0fListNotiRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"a\n\x10ListNotiResponse\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12.\n\x05notis\x18\x03 \x03(\x0b\x32\x1f.grpcServer.NotificationMessage\"W\n\x11\x43reateNotiRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x14\n\x0creference_id\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\"\'\n\x12\x43reateNotiResponse\x12\x11\n\tsucceeded\x18\x01 \x01(\x08\"*\n\x0fSendNotiRequest\x12\x17\n\x0fnotification_id\x18\x01 \x01(\t\"#\n\x10SendNotiResponse\x12\x0f\n\x07is_sent\x18\x01 \x01(\x08\"\x9a\x01\n\x13NotificationMessage\x12\x17\n\x0fnotification_id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x11\n\tnoti_type\x18\x03 \x01(\t\x12\x14\n\x0creference_id\x18\x04 \x01(\t\x12\r\n\x05title\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x11\n\tsended_at\x18\x07 \x01(\t2\xe9\x01\n\x0cNotification\x12\x45\n\x08ListNoti\x12\x1b.grpcServer.ListNotiRequest\x1a\x1c.grpcServer.ListNotiResponse\x12K\n\nCreateNoti\x12\x1d.grpcServer.CreateNotiRequest\x1a\x1e.grpcServer.CreateNotiResponse\x12\x45\n\x08SendNoti\x12\x1b.grpcServer.SendNotiRequest\x1a\x1c.grpcServer.SendNotiResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
 )
 
 
@@ -282,7 +282,7 @@ _NOTIFICATIONMESSAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='type', full_name='grpcServer.NotificationMessage.type', index=2,
+      name='noti_type', full_name='grpcServer.NotificationMessage.noti_type', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -329,7 +329,7 @@ _NOTIFICATIONMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=410,
-  serialized_end=559,
+  serialized_end=564,
 )
 
 _LISTNOTIRESPONSE.fields_by_name['notis'].message_type = _NOTIFICATIONMESSAGE
@@ -401,8 +401,8 @@ _NOTIFICATION = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=562,
-  serialized_end=795,
+  serialized_start=567,
+  serialized_end=800,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListNoti',
