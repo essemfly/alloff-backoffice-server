@@ -20,7 +20,10 @@ class OrderItemAlimtalkType(models.TextChoices):
 class OrderItemActionLog(models.Model):
     class Meta:
         db_table = "order_item_action_logs"
-    order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT, related_name="logs")
+
+    order_item = models.ForeignKey(
+        OrderItem, on_delete=models.PROTECT, related_name="logs"
+    )
     admin = models.ForeignKey(User, on_delete=models.PROTECT)
     detail = models.TextField(null=True, blank=True)
     action_type = models.CharField(max_length=100, choices=OrderItemActionType.choices)
@@ -30,6 +33,7 @@ class OrderItemActionLog(models.Model):
 class OrderItemRefundUpdateLog(models.Model):
     class Meta:
         db_table = "order_item_refund_update_logs"
+
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
     action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
     refund_delivery_price = models.IntegerField()
@@ -40,16 +44,22 @@ class OrderItemRefundUpdateLog(models.Model):
 class OrderItemStatusChangeLog(models.Model):
     class Meta:
         db_table = "order_item_status_change_logs"
+
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
     action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
     status_from = models.CharField(max_length=100, choices=OrderItemStatus.choices)
     status_to = models.CharField(max_length=100, choices=OrderItemStatus.choices)
+    tracking_number_from = models.CharField(max_length=100, null=True, blank=True)
+    tracking_number_to = models.CharField(max_length=100, null=True, blank=True)
+    tracking_url_from = models.TextField(null=True, blank=True)
+    tracking_url_to = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 class OrderItemAlimtalkLog(models.Model):
     class Meta:
         db_table = "order_item_alimtalk_logs"
+
     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
     action_log = models.OneToOneField(OrderItemActionLog, on_delete=models.CASCADE)
     alimtalk_type = models.CharField(

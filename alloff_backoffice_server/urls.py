@@ -18,6 +18,7 @@ from django.urls import path
 from django.urls.conf import include
 from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
                                    SpectacularSwaggerView)
+from office.viewsets.admin_user import AdminUserViewSet
 # from office.viewsets.image import ImageUploaderViewSet
 # from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import (DecoratedTokenObtainPairView,
@@ -58,7 +59,7 @@ router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
 router.register(r"packages", PackageViewSet, basename="packages")
 router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
-# router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
+router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"brands", BrandViewSet, basename="brands")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
@@ -66,11 +67,9 @@ router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-n
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
-    # # YOUR PATTERNS
+    path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    # # Optional UI:
     path(
         "api/schema/swagger-ui/",
         SpectacularSwaggerView.as_view(url_name="schema"),

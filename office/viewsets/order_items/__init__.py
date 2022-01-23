@@ -1,20 +1,21 @@
-from functools import reduce
 import operator
+from functools import reduce
+
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
-from rest_framework import mixins, status, filters
+from drf_spectacular.utils import (OpenApiParameter, extend_schema,
+                                   extend_schema_view)
+from office.serializers.order_item import (OrderItemListSerializer,
+                                           OrderItemRetrieveSerializer)
+from office.viewsets.order_items.change_status import (ChangeStatusSerializer,
+                                                       change_status)
+from order.models.order_item import OrderItem
+from rest_framework import filters, mixins, status
 from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
-from office.serializers.order_item import (
-    OrderItemListSerializer,
-    OrderItemRetrieveSerializer,
-)
-
-from order.models.order_item import OrderItem
-
 
 # class OrdersSearchFilter(filters.SearchFilter):
 #     def filter_queryset(self, request, queryset, view):
@@ -111,8 +112,19 @@ class OrderItemViewSet(
         #             queryset = queryset.filter(**{key: value})  # filter the queryset based on 'filtering_kwargs'
         return queryset
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
     def get_object(self):
-        item = OrderItem.objects.get(pk=self.kwargs.get("id"))
+        try:
+            item = OrderItem.get(self.kwargs.get("id"))
+        except Exception as e:
+            raise APIException("Failed fetching order item: " + str(e))
         # make_ri(order)
         return item
 
@@ -123,8 +135,8 @@ class OrderItemViewSet(
         #     return AddPaymentAdjustmentSerializer
         # elif self.action == "update_refund":
         #     return UpdateRefundSerializer
-        # elif self.action == "change_status":
-        #     return ChangeStatusSerializer
+        elif self.action == "change_status":
+            return ChangeStatusSerializer
         # elif self.action == "add_memo":
         #     return AddOrderMemoSerializer
         # elif self.action == "delete_memo":
@@ -173,12 +185,14 @@ class OrderItemViewSet(
     # def delete_memo(self, request: Request, id=None):
     #     return delete_memo(self, request, id)
 
-    # @extend_schema(
-    #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def change_status(self, request: Request, id=None):
-    #     return change_status(self, request, id)
+    @extend_schema(
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def change_status(self, request: Request, id=None):
+        return change_status(self, request, id)
 
     # @extend_schema(
     #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden
