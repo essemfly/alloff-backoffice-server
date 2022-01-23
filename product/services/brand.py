@@ -16,3 +16,11 @@ class BrandService(GrpcService):
             response: brand_pb2.ListBrandResponse = stub.ListBrand(request)
 
             return response.brands
+
+    @classmethod
+    def create(cls, request: brand_pb2.CreateBrandRequest):
+        with cls.channel:
+            stub = brand_pb2_grpc.BrandStub(cls.channel)
+            response: brand_pb2.CreateBrandResponse = stub.CreateBrand(request)
+
+            return response.brand

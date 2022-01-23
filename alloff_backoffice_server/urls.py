@@ -31,6 +31,9 @@ from office.viewsets.auth import (
 )
 from office.viewsets.courier import CourierViewSet
 from product.views.brand import BrandDetail, BrandList
+from product.views.product import ProductDetail, ProductList
+from product.views.product_group import ProductGroupDetail, ProductGroupList
+from product.views.notification import NotificationDetail, NotificationList
 
 # from office.viewsets.inventory import InventoryViewSet
 # from tagger.viewsets.notification import NotificationViewSet
@@ -53,13 +56,11 @@ router = routers.DefaultRouter()
 #     TimedealProductTemplateViewSet,
 #     basename="timedeal-product-templates",
 # )
-# router.register(r"notifications", NotificationViewSet, basename="notifications")
 # router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 # router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
 # router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
-# router.register(r"brands", BrandViewSet, basename="brands")
 # router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
 # router.register(r"packages", PackageViewSet, basename="packages")
@@ -69,6 +70,12 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("brands/", BrandList.as_view()),
     path("brands/<str:brandID>/", BrandDetail.as_view()),
+    path("timedeals/", ProductGroupList.as_view()),
+    path("timedeals/<str:pgID>/", ProductGroupDetail.as_view()),
+    path("notifications/", NotificationList.as_view()),
+    path("notifications/<str:notiID>/", NotificationDetail.as_view()),
+    path("products/", ProductList.as_view()),
+    path("products/<str:productID>/", ProductDetail.as_view()),
     # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
     # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     # # YOUR PATTERNS
