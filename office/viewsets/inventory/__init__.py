@@ -46,7 +46,6 @@ class InventoryViewSet(
         return InventorySerializer
 
     def list(self, request: request.Request):
-        print(request.query_params.getlist("statuses"))
         inventories = InventoryService.list(
             code=request.query_params.get("code"),
             product_name=request.query_params.get("product_name"),
