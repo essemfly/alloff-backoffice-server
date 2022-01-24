@@ -37,7 +37,7 @@ class InventoryControllerStub(object):
                 )
         self.Destroy = channel.unary_unary(
                 '/inventory.InventoryController/Destroy',
-                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -100,7 +100,7 @@ def add_InventoryControllerServicer_to_server(servicer, server):
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -193,7 +193,7 @@ class InventoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/Destroy',
-            logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+            logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

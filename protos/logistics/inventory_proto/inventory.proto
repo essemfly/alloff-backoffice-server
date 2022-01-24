@@ -9,7 +9,7 @@ service InventoryController {
     rpc Create(Inventory) returns (Inventory) {}
     rpc Retrieve(InventoryRetrieveRequest) returns (Inventory) {}
     rpc Update(Inventory) returns (Inventory) {}
-    rpc Destroy(Inventory) returns (google.protobuf.Empty) {}
+    rpc Destroy(InventoryRetrieveRequest) returns (google.protobuf.Empty) {}
 }
 
 enum InventoryStatus {

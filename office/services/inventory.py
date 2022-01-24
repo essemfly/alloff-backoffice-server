@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from office.serializers.inventory import InventoryStatus
 from office.services.base import GrpcService
 from protos.logistics.inventory_proto import inventory_pb2, inventory_pb2_grpc
 
@@ -29,3 +28,15 @@ class InventoryService(GrpcService):
             stub = inventory_pb2_grpc.InventoryControllerStub(cls.channel)
             response = stub.List(request)
             return cls.to_dict(response)
+
+    @classmethod
+    def delete(
+        cls,
+        id: int
+    ):
+        request = inventory_pb2.InventoryRetrieveRequest(
+            id=id
+        )
+        with cls.channel:
+            stub = inventory_pb2_grpc.InventoryControllerStub(cls.channel)
+            stub.Destroy(request)
