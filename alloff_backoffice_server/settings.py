@@ -62,13 +62,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_mongoengine",
-    "django_grpc_framework",
     "django_filters",
     "corsheaders",
     "drf_spectacular",
     "django_extensions",
+    "django_grpc_framework",
     "office",
     "order",
+    "product",
     # "logistics"
 ]
 
@@ -231,6 +232,5 @@ SPECTACULAR_SETTINGS = {
 
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
 CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
-
+PRODUCT_SERVER_URL = "127.0.0.1:9000"
 GRPC_LOGISTICS_SERVER_URL = "localhost:9000"
-# GRPC_LOGISTICS_SERVER_URL = "ec2-13-209-64-30.ap-northeast-2.compute.amazonaws.com:9000"
