@@ -16,7 +16,7 @@ message Courier {
     int64 id = 1;
     string name = 2;
     string sweettracker_id = 3;
-    string tracking_url_base = 4;
+    optional string tracking_url_base = 4;
 }
 
 message CourierListRequest {

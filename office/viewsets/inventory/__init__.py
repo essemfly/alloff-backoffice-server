@@ -7,13 +7,8 @@ from drf_spectacular.utils import extend_schema
 
 
 class InventoryViewSet(mixins.ListModelMixin, viewsets.ViewSet):
-    # permission_classes = [IsAuthenticated]
-    # queryset = Inventory.objects.filter(deleted_at__isnull=True).order_by("-id").all()
     serializer_class = InventorySerializer
-    # filter_backends = [SearchFilter, DjangoFilterBackend]
-    # search_fields = ['code', 'product_name', 'out_order_id', 'in_order_id', 'product_brand']
-    # filterset_class = InventoryFilter
-    # pass
+
     @extend_schema(
         tags=["테스트"],
         description="테스트를 위한 메소드입니다",

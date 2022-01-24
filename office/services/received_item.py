@@ -1,8 +1,10 @@
 from typing import List
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from logistics.protos.received_item_proto import (received_item_pb2,
-                                                  received_item_pb2_grpc)
+from protos.logistics.received_item_proto import (
+    received_item_pb2,
+    received_item_pb2_grpc,
+)
 from office.services.base import GrpcService
 
 

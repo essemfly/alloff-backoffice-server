@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from logistics.protos.inventory_proto import inventory_pb2, inventory_pb2_grpc
+from protos.logistics.inventory_proto import inventory_pb2, inventory_pb2_grpc
 from office.services.base import GrpcService
 
 
