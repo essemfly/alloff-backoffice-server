@@ -1,7 +1,9 @@
-from django.http import Http404
-from rest_framework.views import APIView
+from html5lib import serialize
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
+from product.serializers.product import ProductSerializer
+
 from product.serializers.product import ListProductSerializer, ProductSerializer
 from product.services.product import ProductService
 from protos.product.product_pb2 import (
@@ -14,8 +16,19 @@ from protos.product.product_pb2 import (
 )
 
 
-class ProductList(APIView):
-    def get(self, request, format=None):
+from rest_framework import mixins, status, viewsets
+
+
+class ProductViewSet(
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.CreateModelMixin,
+    viewsets.ViewSet,
+):
+    serializer_class = ProductSerializer
+
+    def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
         limit = request.query_params.get("limit", 100)
         search_query = request.query_params.get("query", "")
@@ -35,31 +48,24 @@ class ProductList(APIView):
 
         res = ProductService.list(req)
         serializer = ProductSerializer(res.products, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class ProductDetail(APIView):
-    def get(self, request, product_id, format=None):
+    def retrieve(self, request, *args, **kwargs):
+        product_id = request.query_params.get("id")
         req = GetProductRequest(alloff_product_id=product_id)
         pd = ProductService.get(req)
         serializer = ProductSerializer(pd)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # (TODO) Make serializer -> request
-    def post(self, request, format=None):
+    # (TODO)
+    def create(self, request, *args, **kwargs):
         req = CreateProductRequest()
         pd = ProductService.create(req)
         serializer = ProductSerializer(pd)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # (TODO) Make serializer -> request
-    def put(self, request, product_id, format=None):
-        req = EditProductRequest(alloff_product_id=product_id)
+    def update(self, request, *args, **kwargs):
+        product_id = request.query_params.get("id")
+        req = EditProductRequest(alloff_product_id=id)
         serializer = ProductSerializer(req)
-        return Response(serializer.data)
-
-    # (TODO) Make serializer -> request
-    def putSpecial(self, request, pk, format=None):
-        pd = ProductService.putSpecial(request)
-        serializer = ProductSerializer(pd)
         return Response(serializer.data)
