@@ -1,5 +1,7 @@
 from django.db import models
 
+from office.iamport import IMP
+
 
 class OrderStatus(models.TextChoices):
     ORDER_CREATED = "ORDER_CREATED"
@@ -21,13 +23,13 @@ class Order(models.Model):
     # user
     user_id = models.CharField(max_length=24, db_index=True)
     user = models.JSONField()
-    user_memo = models.TextField()
+    user_memo = models.TextField(default="")
 
     # price
     product_price = models.IntegerField()
-    delivery_price = models.IntegerField()
+    delivery_price = models.IntegerField(default=0)
     total_price = models.IntegerField()
-    refund_price = models.IntegerField()
+    refund_price = models.IntegerField(default=0)
 
     # timestamp
     created_at = models.DateTimeField(auto_now_add=True)
@@ -50,6 +52,17 @@ class Order(models.Model):
             return None
 
     @property
-    def order_items(self):
+    def items(self):
         from .order_item import OrderItem
+
         return OrderItem.objects.filter(order__id=self.id)
+
+    @property
+    def payment(self):
+        from .payment import Payment
+
+        return Payment.objects.filter(merchant_uid=self.alloff_order_id).first()
+    
+    @property
+    def iamport(self): 
+        return IMP.instance().get_payment_detail(self.id)

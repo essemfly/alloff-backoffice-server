@@ -1,12 +1,12 @@
 from typing import List
+from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
 
 from logistics.protos.courier_proto import courier_pb2, courier_pb2_grpc
 from office.services.base import GrpcService
 
 
-# Create your views here.
 class CourierService(GrpcService):
-    url = "ec2-13-209-64-30.ap-northeast-2.compute.amazonaws.com:9000"
+    url = GRPC_LOGISTICS_SERVER_URL
 
     @classmethod
     def list(cls) -> List[dict]:

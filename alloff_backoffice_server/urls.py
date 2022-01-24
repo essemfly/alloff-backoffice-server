@@ -16,26 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
-from rest_framework import routers
-
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
+from office.viewsets.admin_user import AdminUserViewSet
 # from office.viewsets.image import ImageUploaderViewSet
 # from office.viewsets.admin_user import AdminUserViewSet
-from office.viewsets.auth import (
-    DecoratedTokenObtainPairView,
-    DecoratedTokenRefreshView,
-)
+from office.viewsets.auth import (DecoratedTokenObtainPairView,
+                                  DecoratedTokenRefreshView)
 from office.viewsets.courier import CourierViewSet
 from product.views.brand import BrandDetail, BrandList
 from product.views.product import ProductDetail, ProductList
 from product.views.product_group import ProductGroupDetail, ProductGroupList
 from product.views.notification import NotificationDetail, NotificationList
+from office.viewsets.inventory import InventoryViewSet
+from office.viewsets.order_items import OrderItemViewSet
+from office.viewsets.package import PackageViewSet
+from office.viewsets.received_item import ReceivedItemViewSet
+from office.viewsets.shipping_notice import ShippingNoticeViewSet
+from rest_framework import routers
 
-# from office.viewsets.inventory import InventoryViewSet
 # from tagger.viewsets.notification import NotificationViewSet
 # from tagger.viewsets.order import OrderViewSet
 # from tagger.viewsets.package import PackageViewSet
@@ -56,14 +55,17 @@ router = routers.DefaultRouter()
 #     TimedealProductTemplateViewSet,
 #     basename="timedeal-product-templates",
 # )
-# router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
-# router.register(r"inventories", InventoryViewSet, basename="inventories")
+
+# router.register(r"notifications", NotificationViewSet, basename="notifications")
+router.register(r"order-items", OrderItemViewSet, basename="order-items")
+router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
+router.register(r"inventories", InventoryViewSet, basename="inventories")
 router.register(r"couriers", CourierViewSet, basename="couriers")
-# router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
+router.register(r"packages", PackageViewSet, basename="packages")
+router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
+router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
-# router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
-# router.register(r"packages", PackageViewSet, basename="packages")
 
 urlpatterns = [
     path("", include(router.urls)),
@@ -76,11 +78,9 @@ urlpatterns = [
     path("notifications/<str:noti_id>/", NotificationDetail.as_view()),
     path("products/", ProductList.as_view()),
     path("products/<str:product_id>/", ProductDetail.as_view()),
-    # path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    # path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
-    # YOUR PATTERNS
+    path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    # Optional UI:
     path(
         "api/schema/swagger-ui/",
         SpectacularSwaggerView.as_view(url_name="schema"),

@@ -12,7 +12,9 @@ class GrpcService:
 
     @classmethod
     def to_dict(cls, data) -> dict:
-        return MessageToDict(data, preserving_proto_field_name=True)
+        return MessageToDict(
+            data, preserving_proto_field_name=True, including_default_value_fields=True
+        )
 
     @classmethod
     def to_array(cls, data) -> List[dict]:

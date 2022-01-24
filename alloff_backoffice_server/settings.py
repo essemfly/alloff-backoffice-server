@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "office",
     "order",
     "product",
+    # "logistics"
 ]
 
 MIDDLEWARE = [
@@ -231,5 +232,5 @@ SPECTACULAR_SETTINGS = {
 
 LABEL_SERVER_URL = "https://memoji.jp.ngrok.io/print"
 CODE_CHARSET = "346789ABCDEFGHJKLMNPQRTUVWXY"
-
 PRODUCT_SERVER_URL = "127.0.0.1:9000"
+GRPC_LOGISTICS_SERVER_URL = "localhost:9000"

@@ -5,17 +5,17 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 
-# from tagger.serializers.admin import AdminSerializer
+from office.serializers.admin import AdminSerializer
 
 
-# class AdminUserViewSet(
-#     viewsets.GenericViewSet,
-# ):
-#     permission_classes = [IsAuthenticated]
-#     pagination_class = None
-#     serializer_class = AdminSerializer
+class AdminUserViewSet(
+    viewsets.GenericViewSet,
+):
+    permission_classes = [IsAuthenticated]
+    pagination_class = None
+    serializer_class = AdminSerializer
 
-#     @action(methods=["GET"], detail=False)
-#     def me(self, request: Request):
-#         serializer = AdminSerializer(request.user)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
+    @action(methods=["GET"], detail=False)
+    def me(self, request: Request):
+        serializer = AdminSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

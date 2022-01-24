@@ -3,6 +3,7 @@ syntax = "proto3";
 package received_item;
 
 import "google/protobuf/empty.proto";
+import "logistics/protos/inventory_proto/inventory.proto";
 
 service ReceivedItemController {
     rpc List(ReceivedItemListRequest) returns (stream ReceivedItem) {}
@@ -32,7 +33,7 @@ message ReceivedItem {
     string created_at = 10;
     string updated_at = 11;
     string deleted_at = 12;
-    int64 inventory = 13;
+    optional inventory.Inventory inventory = 13;
 }
 
 message ReceivedItemListRequest {
