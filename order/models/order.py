@@ -23,13 +23,13 @@ class Order(models.Model):
     # user
     user_id = models.CharField(max_length=24, db_index=True)
     user = models.JSONField()
-    user_memo = models.TextField(default="")
+    user_memo = models.TextField(default="", null=True)
 
     # price
     product_price = models.IntegerField()
-    delivery_price = models.IntegerField(default=0)
+    delivery_price = models.IntegerField(default=0, null=True)
     total_price = models.IntegerField()
-    refund_price = models.IntegerField(default=0)
+    refund_price = models.IntegerField(default=0, null=True)
 
     # timestamp
     created_at = models.DateTimeField(auto_now_add=True)

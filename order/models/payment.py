@@ -14,7 +14,7 @@ class Payment(models.Model):
     class Meta:
         db_table = "payments"
 
-    imp_uid = models.CharField(max_length=32, db_index=True)
+    imp_uid = models.CharField(max_length=32, db_index=True, null=True)
     payment_status = models.CharField(
         max_length=32,
         choices=PaymentStatus.choices,

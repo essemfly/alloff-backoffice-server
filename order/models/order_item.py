@@ -96,8 +96,8 @@ class OrderItem(models.Model):
 
     # product
     product_id = models.CharField(max_length=24, db_index=True)
-    product_url = models.URLField()
-    product_img = models.URLField()
+    product_url = models.TextField()
+    product_img = models.TextField()
     product_name = models.CharField(max_length=100)
 
     cancel_description = models.JSONField()
@@ -110,7 +110,7 @@ class OrderItem(models.Model):
     quantity = models.PositiveSmallIntegerField()
 
     # tracking
-    tracking_url = models.URLField(null=True, blank=True)
+    tracking_url = models.TextField(null=True, blank=True)
     tracking_number = models.CharField(max_length=50, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,6 +1,8 @@
 from django.db import models
 from rest_framework import serializers
 
+from office.serializers.pagination import PaginationSerializer
+
 
 class InventoryStatus(models.TextChoices):
     CREATED = "CREATED"
@@ -18,6 +20,7 @@ class InventorySerializer(serializers.Serializer):
     product_name = serializers.CharField()
     product_brand_id = serializers.CharField()
     product_brand_name = serializers.CharField()
+    product_brand_key_name = serializers.CharField()
     product_size = serializers.CharField()
     product_color = serializers.CharField()
     location = serializers.CharField(allow_null=True, allow_blank=True)
@@ -25,3 +28,7 @@ class InventorySerializer(serializers.Serializer):
     created_at = serializers.DateTimeField()
     updated_at = serializers.DateTimeField()
     deleted_at = serializers.DateTimeField(allow_null=True)
+
+
+class PaginatedInventorySerializer(PaginationSerializer):
+    results = InventorySerializer(many=True)

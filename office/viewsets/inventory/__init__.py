@@ -1,23 +1,54 @@
-from office.serializers.inventory import InventorySerializer
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from office.serializers.inventory import (
+    InventorySerializer,
+    InventoryStatus,
+    PaginatedInventorySerializer,
+)
 from office.services.inventory import InventoryService
-from rest_framework import mixins, response, status, viewsets
+from rest_framework import mixins, response, status, viewsets, request
 
-# from logistics.models import Inventory
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.types import OpenApiTypes
 
 
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "statuses",
+                {
+                    "type": "array",
+                    "items": {"type": "string", "enum": InventoryStatus.values},
+                },
+                OpenApiParameter.QUERY,
+                explode=True,
+            ),
+            OpenApiParameter("code", OpenApiTypes.STR, OpenApiParameter.QUERY),
+            OpenApiParameter("product_name", OpenApiTypes.STR, OpenApiParameter.QUERY),
+            OpenApiParameter(
+                "product_brand_name", OpenApiTypes.STR, OpenApiParameter.QUERY
+            ),
+            OpenApiParameter(
+                "product_brand_key_name", OpenApiTypes.STR, OpenApiParameter.QUERY
+            ),
+        ],
+    ),
+)
 class InventoryViewSet(mixins.ListModelMixin, viewsets.ViewSet):
-    serializer_class = InventorySerializer
+    def get_serializer_class(self):
+        if self.action == "list":
+            return PaginatedInventorySerializer
+        return InventorySerializer
 
-    @extend_schema(
-        tags=["테스트"],
-        description="테스트를 위한 메소드입니다",
-    )
-    def list(self, request, *args, **kwargs):
-        product_name = request.query_params.get("product_name")
-        inventories = InventoryService.list(product_name=product_name)
-
-        serializer = InventorySerializer(inventories, many=True)
+    def list(self, request: request.Request):
+        print(request.query_params.getlist("statuses"))
+        inventories = InventoryService.list(
+            code=request.query_params.get("code"),
+            product_name=request.query_params.get("product_name"),
+            product_brand_name=request.query_params.get("product_brand_name"),
+            product_brand_key_name=request.query_params.get("product_brand_key_name"),
+            statuses=request.query_params.getlist("statuses"),
+        )
+        serializer = PaginatedInventorySerializer(inventories)
         return response.Response(data=serializer.data, status=status.HTTP_200_OK)
 
 

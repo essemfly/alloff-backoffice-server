@@ -1,18 +1,31 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from protos.logistics.inventory_proto import inventory_pb2, inventory_pb2_grpc
+from office.serializers.inventory import InventoryStatus
 from office.services.base import GrpcService
+from protos.logistics.inventory_proto import inventory_pb2, inventory_pb2_grpc
 
 
 class InventoryService(GrpcService):
     url = GRPC_LOGISTICS_SERVER_URL
 
     @classmethod
-    def list(cls, product_name: Optional[str]) -> List[dict]:
-        print(product_name)
-        request = inventory_pb2.InventoryListRequest(product_name=product_name)
+    def list(
+        cls,
+        code: Optional[str] = None,
+        product_name: Optional[str] = None,
+        product_brand_name: Optional[str] = None,
+        product_brand_key_name: Optional[str] = None,
+        statuses: Optional[List[str]] = None,
+    ) -> List[dict]:
+        request = inventory_pb2.InventoryListRequest(
+            product_name=product_name,
+            product_brand_name=product_brand_name,
+            code=code,
+            product_brand_key_name=product_brand_key_name,
+            statuses=statuses,
+        )
         with cls.channel:
             stub = inventory_pb2_grpc.InventoryControllerStub(cls.channel)
             response = stub.List(request)
-            return cls.to_array(response)
+            return cls.to_dict(response)

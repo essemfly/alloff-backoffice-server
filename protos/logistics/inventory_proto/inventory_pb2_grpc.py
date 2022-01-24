@@ -3,9 +3,7 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from protos.logistics.inventory_proto import (
-    inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2,
-)
+from protos.logistics.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
 
 
 class InventoryControllerStub(object):
@@ -17,31 +15,31 @@ class InventoryControllerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.List = channel.unary_stream(
-            "/inventory.InventoryController/List",
-            request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListRequest.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-        )
+        self.List = channel.unary_unary(
+                '/inventory.InventoryController/List',
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListRequest.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListResponse.FromString,
+                )
         self.Create = channel.unary_unary(
-            "/inventory.InventoryController/Create",
-            request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-        )
+                '/inventory.InventoryController/Create',
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                )
         self.Retrieve = channel.unary_unary(
-            "/inventory.InventoryController/Retrieve",
-            request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-        )
+                '/inventory.InventoryController/Retrieve',
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                )
         self.Update = channel.unary_unary(
-            "/inventory.InventoryController/Update",
-            request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-        )
+                '/inventory.InventoryController/Update',
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                )
         self.Destroy = channel.unary_unary(
-            "/inventory.InventoryController/Destroy",
-            request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-        )
+                '/inventory.InventoryController/Destroy',
+                request_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
 
 
 class InventoryControllerServicer(object):
@@ -50,213 +48,152 @@ class InventoryControllerServicer(object):
     def List(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Create(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Retrieve(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Update(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def Destroy(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details("Method not implemented!")
-        raise NotImplementedError("Method not implemented!")
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_InventoryControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        "List": grpc.unary_stream_rpc_method_handler(
-            servicer.List,
-            request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListRequest.FromString,
-            response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-        ),
-        "Create": grpc.unary_unary_rpc_method_handler(
-            servicer.Create,
-            request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-        ),
-        "Retrieve": grpc.unary_unary_rpc_method_handler(
-            servicer.Retrieve,
-            request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.FromString,
-            response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-        ),
-        "Update": grpc.unary_unary_rpc_method_handler(
-            servicer.Update,
-            request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
-        ),
-        "Destroy": grpc.unary_unary_rpc_method_handler(
-            servicer.Destroy,
-            request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-        ),
+            'List': grpc.unary_unary_rpc_method_handler(
+                    servicer.List,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListRequest.FromString,
+                    response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListResponse.SerializeToString,
+            ),
+            'Create': grpc.unary_unary_rpc_method_handler(
+                    servicer.Create,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                    response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+            ),
+            'Retrieve': grpc.unary_unary_rpc_method_handler(
+                    servicer.Retrieve,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.FromString,
+                    response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                    response_serializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
+            ),
+            'Destroy': grpc.unary_unary_rpc_method_handler(
+                    servicer.Destroy,
+                    request_deserializer=logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "inventory.InventoryController", rpc_method_handlers
-    )
+            'inventory.InventoryController', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class InventoryController(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def List(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_stream(
-            request,
+    def List(request,
             target,
-            "/inventory.InventoryController/List",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/List',
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListRequest.SerializeToString,
-            logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Create(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_unary(
-            request,
+    def Create(request,
             target,
-            "/inventory.InventoryController/Create",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/Create',
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Retrieve(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_unary(
-            request,
+    def Retrieve(request,
             target,
-            "/inventory.InventoryController/Retrieve",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/Retrieve',
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.InventoryRetrieveRequest.SerializeToString,
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Update(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_unary(
-            request,
+    def Update(request,
             target,
-            "/inventory.InventoryController/Update",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/Update',
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Destroy(
-        request,
-        target,
-        options=(),
-        channel_credentials=None,
-        call_credentials=None,
-        insecure=False,
-        compression=None,
-        wait_for_ready=None,
-        timeout=None,
-        metadata=None,
-    ):
-        return grpc.experimental.unary_unary(
-            request,
+    def Destroy(request,
             target,
-            "/inventory.InventoryController/Destroy",
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/inventory.InventoryController/Destroy',
             logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.Inventory.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-        )
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -13,16 +13,17 @@ service ReceivedItemController {
     rpc Destroy(ReceivedItem) returns (google.protobuf.Empty) {}
 }
 
+enum ReceivedItemStatus {
+    SOURCING_REQUIRED = 0;
+    ON_RECEIVING = 1;
+    RECEIVED = 2;
+    OUT_OF_STOCK = 3;
+    CANCELED = 4;
+}
+
 message ReceivedItem {
     int64 id = 1;
     string code = 2;
-    enum ReceivedItemStatus {
-        SOURCING_REQUIRED = 0;
-        ON_RECEIVING = 1;
-        RECEIVED = 2;
-        OUT_OF_STOCK = 3;
-        CANCELED = 4;
-    }
     ReceivedItemStatus status = 3;
     string product_id = 4;
     string product_name = 5;
@@ -37,6 +38,21 @@ message ReceivedItem {
 }
 
 message ReceivedItemListRequest {
+    optional string order_id = 1;
+    optional string order_item_id = 2;
+    optional string product_name = 3;
+    optional string product_brand_name = 4;
+    optional string product_brand_key_name = 5;
+    optional string code = 6;
+    repeated string statuses = 7;
+    map<string, int64> query_params = 8;
+}
+
+message ReceivedItemListResponse {
+    int64 count = 1;
+    string next = 2;
+    string previous = 3;
+    repeated ReceivedItem results = 4;
 }
 
 message ReceivedItemRetrieveRequest {
