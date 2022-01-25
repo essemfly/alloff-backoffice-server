@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n!protos/product/productGroup.proto\x12\ngrpcServer\x1a\x1cprotos/product/product.proto\"2\n\x16GetProductGroupRequest\x12\x18\n\x10product_group_id\x18\x01 \x01(\t\"F\n\x17GetProductGroupResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"\x90\x01\n\x19\x43reateProductGroupRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bshort_title\x18\x02 \x01(\t\x12\x13\n\x0binstruction\x18\x03 \x03(\t\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\"I\n\x1a\x43reateProductGroupResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"\x1a\n\x18ListProductGroupsRequest\"I\n\x19ListProductGroupsResponse\x12,\n\x03pgs\x18\x01 \x03(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"U\n\x13PushProductsRequest\x12\x18\n\x10product_group_id\x18\x01 \x01(\t\x12\x12\n\nproduct_id\x18\x02 \x03(\t\x12\x10\n\x08priority\x18\x03 \x01(\x05\"C\n\x14PushProductsResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"V\n\x15ProductInGroupMessage\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\x12\x10\n\x08priority\x18\x02 \x01(\x05\"\xd9\x01\n\x13ProductGroupMessage\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bshort_title\x18\x02 \x01(\t\x12\x13\n\x0binstruction\x18\x03 \x03(\t\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x33\n\x08products\x18\x05 \x03(\x0b\x32!.grpcServer.ProductInGroupMessage\x12\x12\n\nstart_time\x18\x06 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x07 \x01(\t\x12\x18\n\x10product_group_id\x18\x08 \x01(\t2\x84\x03\n\x0cProductGroup\x12Z\n\x0fGetProductGroup\x12\".grpcServer.GetProductGroupRequest\x1a#.grpcServer.GetProductGroupResponse\x12\x63\n\x12\x43reateProductGroup\x12%.grpcServer.CreateProductGroupRequest\x1a&.grpcServer.CreateProductGroupResponse\x12`\n\x11ListProductGroups\x12$.grpcServer.ListProductGroupsRequest\x1a%.grpcServer.ListProductGroupsResponse\x12Q\n\x0cPushProducts\x12\x1f.grpcServer.PushProductsRequest\x1a .grpcServer.PushProductsResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n!protos/product/productGroup.proto\x12\ngrpcServer\x1a\x1cprotos/product/product.proto\"2\n\x16GetProductGroupRequest\x12\x18\n\x10product_group_id\x18\x01 \x01(\t\"F\n\x17GetProductGroupResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"\x90\x01\n\x19\x43reateProductGroupRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bshort_title\x18\x02 \x01(\t\x12\x13\n\x0binstruction\x18\x03 \x03(\t\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\"I\n\x1a\x43reateProductGroupResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"\x88\x02\n\x17\x45\x64itProductGroupRequest\x12\x12\n\x05title\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0bshort_title\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x0binstruction\x18\x03 \x03(\t\x12\x16\n\timage_url\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nstart_time\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x06 \x01(\tH\x04\x88\x01\x01\x12\x18\n\x10product_group_id\x18\x07 \x01(\tB\x08\n\x06_titleB\x0e\n\x0c_short_titleB\x0c\n\n_image_urlB\r\n\x0b_start_timeB\x0e\n\x0c_finish_time\"G\n\x18\x45\x64itProductGroupResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"\x1a\n\x18ListProductGroupsRequest\"I\n\x19ListProductGroupsResponse\x12,\n\x03pgs\x18\x01 \x03(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"U\n\x13PushProductsRequest\x12\x18\n\x10product_group_id\x18\x01 \x01(\t\x12\x12\n\nproduct_id\x18\x02 \x03(\t\x12\x10\n\x08priority\x18\x03 \x01(\x05\"C\n\x14PushProductsResponse\x12+\n\x02pg\x18\x01 \x01(\x0b\x32\x1f.grpcServer.ProductGroupMessage\"V\n\x15ProductInGroupMessage\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\x12\x10\n\x08priority\x18\x02 \x01(\x05\"\xd9\x01\n\x13ProductGroupMessage\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0bshort_title\x18\x02 \x01(\t\x12\x13\n\x0binstruction\x18\x03 \x03(\t\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x33\n\x08products\x18\x05 \x03(\x0b\x32!.grpcServer.ProductInGroupMessage\x12\x12\n\nstart_time\x18\x06 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x07 \x01(\t\x12\x18\n\x10product_group_id\x18\x08 \x01(\t2\xe3\x03\n\x0cProductGroup\x12Z\n\x0fGetProductGroup\x12\".grpcServer.GetProductGroupRequest\x1a#.grpcServer.GetProductGroupResponse\x12\x63\n\x12\x43reateProductGroup\x12%.grpcServer.CreateProductGroupRequest\x1a&.grpcServer.CreateProductGroupResponse\x12`\n\x11ListProductGroups\x12$.grpcServer.ListProductGroupsRequest\x1a%.grpcServer.ListProductGroupsResponse\x12]\n\x10\x45\x64itProductGroup\x12#.grpcServer.EditProductGroupRequest\x1a$.grpcServer.EditProductGroupResponse\x12Q\n\x0cPushProducts\x12\x1f.grpcServer.PushProductsRequest\x1a .grpcServer.PushProductsResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
   ,
   dependencies=[protos_dot_product_dot_product__pb2.DESCRIPTOR,])
 
@@ -190,6 +190,137 @@ _CREATEPRODUCTGROUPRESPONSE = _descriptor.Descriptor(
 )
 
 
+_EDITPRODUCTGROUPREQUEST = _descriptor.Descriptor(
+  name='EditProductGroupRequest',
+  full_name='grpcServer.EditProductGroupRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='title', full_name='grpcServer.EditProductGroupRequest.title', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='short_title', full_name='grpcServer.EditProductGroupRequest.short_title', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='instruction', full_name='grpcServer.EditProductGroupRequest.instruction', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='image_url', full_name='grpcServer.EditProductGroupRequest.image_url', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='start_time', full_name='grpcServer.EditProductGroupRequest.start_time', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='finish_time', full_name='grpcServer.EditProductGroupRequest.finish_time', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_group_id', full_name='grpcServer.EditProductGroupRequest.product_group_id', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_title', full_name='grpcServer.EditProductGroupRequest._title',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_short_title', full_name='grpcServer.EditProductGroupRequest._short_title',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_image_url', full_name='grpcServer.EditProductGroupRequest._image_url',
+      index=2, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_start_time', full_name='grpcServer.EditProductGroupRequest._start_time',
+      index=3, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_finish_time', full_name='grpcServer.EditProductGroupRequest._finish_time',
+      index=4, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=426,
+  serialized_end=690,
+)
+
+
+_EDITPRODUCTGROUPRESPONSE = _descriptor.Descriptor(
+  name='EditProductGroupResponse',
+  full_name='grpcServer.EditProductGroupResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pg', full_name='grpcServer.EditProductGroupResponse.pg', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=692,
+  serialized_end=763,
+)
+
+
 _LISTPRODUCTGROUPSREQUEST = _descriptor.Descriptor(
   name='ListProductGroupsRequest',
   full_name='grpcServer.ListProductGroupsRequest',
@@ -210,8 +341,8 @@ _LISTPRODUCTGROUPSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=425,
-  serialized_end=451,
+  serialized_start=765,
+  serialized_end=791,
 )
 
 
@@ -242,8 +373,8 @@ _LISTPRODUCTGROUPSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=453,
-  serialized_end=526,
+  serialized_start=793,
+  serialized_end=866,
 )
 
 
@@ -288,8 +419,8 @@ _PUSHPRODUCTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=528,
-  serialized_end=613,
+  serialized_start=868,
+  serialized_end=953,
 )
 
 
@@ -320,8 +451,8 @@ _PUSHPRODUCTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=615,
-  serialized_end=682,
+  serialized_start=955,
+  serialized_end=1022,
 )
 
 
@@ -359,8 +490,8 @@ _PRODUCTINGROUPMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=684,
-  serialized_end=770,
+  serialized_start=1024,
+  serialized_end=1110,
 )
 
 
@@ -440,12 +571,28 @@ _PRODUCTGROUPMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=773,
-  serialized_end=990,
+  serialized_start=1113,
+  serialized_end=1330,
 )
 
 _GETPRODUCTGROUPRESPONSE.fields_by_name['pg'].message_type = _PRODUCTGROUPMESSAGE
 _CREATEPRODUCTGROUPRESPONSE.fields_by_name['pg'].message_type = _PRODUCTGROUPMESSAGE
+_EDITPRODUCTGROUPREQUEST.oneofs_by_name['_title'].fields.append(
+  _EDITPRODUCTGROUPREQUEST.fields_by_name['title'])
+_EDITPRODUCTGROUPREQUEST.fields_by_name['title'].containing_oneof = _EDITPRODUCTGROUPREQUEST.oneofs_by_name['_title']
+_EDITPRODUCTGROUPREQUEST.oneofs_by_name['_short_title'].fields.append(
+  _EDITPRODUCTGROUPREQUEST.fields_by_name['short_title'])
+_EDITPRODUCTGROUPREQUEST.fields_by_name['short_title'].containing_oneof = _EDITPRODUCTGROUPREQUEST.oneofs_by_name['_short_title']
+_EDITPRODUCTGROUPREQUEST.oneofs_by_name['_image_url'].fields.append(
+  _EDITPRODUCTGROUPREQUEST.fields_by_name['image_url'])
+_EDITPRODUCTGROUPREQUEST.fields_by_name['image_url'].containing_oneof = _EDITPRODUCTGROUPREQUEST.oneofs_by_name['_image_url']
+_EDITPRODUCTGROUPREQUEST.oneofs_by_name['_start_time'].fields.append(
+  _EDITPRODUCTGROUPREQUEST.fields_by_name['start_time'])
+_EDITPRODUCTGROUPREQUEST.fields_by_name['start_time'].containing_oneof = _EDITPRODUCTGROUPREQUEST.oneofs_by_name['_start_time']
+_EDITPRODUCTGROUPREQUEST.oneofs_by_name['_finish_time'].fields.append(
+  _EDITPRODUCTGROUPREQUEST.fields_by_name['finish_time'])
+_EDITPRODUCTGROUPREQUEST.fields_by_name['finish_time'].containing_oneof = _EDITPRODUCTGROUPREQUEST.oneofs_by_name['_finish_time']
+_EDITPRODUCTGROUPRESPONSE.fields_by_name['pg'].message_type = _PRODUCTGROUPMESSAGE
 _LISTPRODUCTGROUPSRESPONSE.fields_by_name['pgs'].message_type = _PRODUCTGROUPMESSAGE
 _PUSHPRODUCTSRESPONSE.fields_by_name['pg'].message_type = _PRODUCTGROUPMESSAGE
 _PRODUCTINGROUPMESSAGE.fields_by_name['product'].message_type = protos_dot_product_dot_product__pb2._PRODUCTMESSAGE
@@ -454,6 +601,8 @@ DESCRIPTOR.message_types_by_name['GetProductGroupRequest'] = _GETPRODUCTGROUPREQ
 DESCRIPTOR.message_types_by_name['GetProductGroupResponse'] = _GETPRODUCTGROUPRESPONSE
 DESCRIPTOR.message_types_by_name['CreateProductGroupRequest'] = _CREATEPRODUCTGROUPREQUEST
 DESCRIPTOR.message_types_by_name['CreateProductGroupResponse'] = _CREATEPRODUCTGROUPRESPONSE
+DESCRIPTOR.message_types_by_name['EditProductGroupRequest'] = _EDITPRODUCTGROUPREQUEST
+DESCRIPTOR.message_types_by_name['EditProductGroupResponse'] = _EDITPRODUCTGROUPRESPONSE
 DESCRIPTOR.message_types_by_name['ListProductGroupsRequest'] = _LISTPRODUCTGROUPSREQUEST
 DESCRIPTOR.message_types_by_name['ListProductGroupsResponse'] = _LISTPRODUCTGROUPSRESPONSE
 DESCRIPTOR.message_types_by_name['PushProductsRequest'] = _PUSHPRODUCTSREQUEST
@@ -489,6 +638,20 @@ CreateProductGroupResponse = _reflection.GeneratedProtocolMessageType('CreatePro
   # @@protoc_insertion_point(class_scope:grpcServer.CreateProductGroupResponse)
   })
 _sym_db.RegisterMessage(CreateProductGroupResponse)
+
+EditProductGroupRequest = _reflection.GeneratedProtocolMessageType('EditProductGroupRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITPRODUCTGROUPREQUEST,
+  '__module__' : 'protos.product.productGroup_pb2'
+  # @@protoc_insertion_point(class_scope:grpcServer.EditProductGroupRequest)
+  })
+_sym_db.RegisterMessage(EditProductGroupRequest)
+
+EditProductGroupResponse = _reflection.GeneratedProtocolMessageType('EditProductGroupResponse', (_message.Message,), {
+  'DESCRIPTOR' : _EDITPRODUCTGROUPRESPONSE,
+  '__module__' : 'protos.product.productGroup_pb2'
+  # @@protoc_insertion_point(class_scope:grpcServer.EditProductGroupResponse)
+  })
+_sym_db.RegisterMessage(EditProductGroupResponse)
 
 ListProductGroupsRequest = _reflection.GeneratedProtocolMessageType('ListProductGroupsRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTPRODUCTGROUPSREQUEST,
@@ -542,8 +705,8 @@ _PRODUCTGROUP = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=993,
-  serialized_end=1381,
+  serialized_start=1333,
+  serialized_end=1816,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetProductGroup',
@@ -576,9 +739,19 @@ _PRODUCTGROUP = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='EditProductGroup',
+    full_name='grpcServer.ProductGroup.EditProductGroup',
+    index=3,
+    containing_service=None,
+    input_type=_EDITPRODUCTGROUPREQUEST,
+    output_type=_EDITPRODUCTGROUPRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='PushProducts',
     full_name='grpcServer.ProductGroup.PushProducts',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_PUSHPRODUCTSREQUEST,
     output_type=_PUSHPRODUCTSRESPONSE,

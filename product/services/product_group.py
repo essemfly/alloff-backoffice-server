@@ -38,6 +38,15 @@ class ProductGroupService(GrpcService):
             return response.pg
 
     @classmethod
+    def edit(cls, request: productGroup_pb2.EditProductGroupRequest):
+        with cls.channel:
+            stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
+            response: productGroup_pb2.EditProductGroupResponse = stub.EditProductGroup(
+                request
+            )
+            return response.pg
+
+    @classmethod
     def push(cls, request: productGroup_pb2.PushProductsRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)

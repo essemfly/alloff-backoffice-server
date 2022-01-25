@@ -19,11 +19,6 @@ class ProductStub(object):
                 request_serializer=protos_dot_product_dot_product__pb2.GetProductRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_product__pb2.GetProductResponse.FromString,
                 )
-        self.PutSpecialPrice = channel.unary_unary(
-                '/grpcServer.Product/PutSpecialPrice',
-                request_serializer=protos_dot_product_dot_product__pb2.PutProductRequest.SerializeToString,
-                response_deserializer=protos_dot_product_dot_product__pb2.PutProductResponse.FromString,
-                )
         self.ListProducts = channel.unary_unary(
                 '/grpcServer.Product/ListProducts',
                 request_serializer=protos_dot_product_dot_product__pb2.ListProductsRequest.SerializeToString,
@@ -45,12 +40,6 @@ class ProductServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetProduct(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def PutSpecialPrice(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -81,11 +70,6 @@ def add_ProductServicer_to_server(servicer, server):
                     servicer.GetProduct,
                     request_deserializer=protos_dot_product_dot_product__pb2.GetProductRequest.FromString,
                     response_serializer=protos_dot_product_dot_product__pb2.GetProductResponse.SerializeToString,
-            ),
-            'PutSpecialPrice': grpc.unary_unary_rpc_method_handler(
-                    servicer.PutSpecialPrice,
-                    request_deserializer=protos_dot_product_dot_product__pb2.PutProductRequest.FromString,
-                    response_serializer=protos_dot_product_dot_product__pb2.PutProductResponse.SerializeToString,
             ),
             'ListProducts': grpc.unary_unary_rpc_method_handler(
                     servicer.ListProducts,
@@ -126,23 +110,6 @@ class Product(object):
         return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/GetProduct',
             protos_dot_product_dot_product__pb2.GetProductRequest.SerializeToString,
             protos_dot_product_dot_product__pb2.GetProductResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def PutSpecialPrice(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/PutSpecialPrice',
-            protos_dot_product_dot_product__pb2.PutProductRequest.SerializeToString,
-            protos_dot_product_dot_product__pb2.PutProductResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

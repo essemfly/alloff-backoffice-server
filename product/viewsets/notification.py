@@ -1,11 +1,12 @@
-from django import http
-from django.http import Http404
-from html5lib import serialize
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
-from product.serializers.notification import ListNotiSerializer, NotiSerializer
+from product.serializers.notification import (
+    CreateNotiSerializer,
+    ListNotiSerializer,
+    NotiSerializer,
+    SendNotiSerializer,
+)
 from product.services.notification import NotificationService
 from protos.product.notification_pb2 import ListNotiRequest
 from rest_framework import mixins, status, viewsets
@@ -25,17 +26,19 @@ class NotificationViewSet(
         serializer = ListNotiSerializer(notis)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # (TODO)
     def create(self, request, *args, **kwargs):
-        noti = NotificationService.create(request)
-        if noti.succeeded:
-            return Response({"succeeded": True}, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_200_OK)
+        serializer = CreateNotiSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = NotificationService.create(serializer.message)
+        if res:
+            return Response(res, status=status.HTTP_201_CREATED)
+        return Response(res, status=status.HTTP_400_BAD_REQUEST)
 
-    # (TODO)
     @action(detail=True, methods=["post"])
     def send(self, request, *args, **kwargs):
-        noti = NotificationService.push(request)
-        if noti.is_sent:
-            return Response({"succeeded": True}, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_200_OK)
+        serializer = SendNotiSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = NotificationService.create(serializer.message)
+        if res:
+            return Response(res, status=status.HTTP_200_OK)
+        return Response(res, status=status.HTTP_200_OK)

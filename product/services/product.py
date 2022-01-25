@@ -36,10 +36,3 @@ class ProductService(GrpcService):
             stub = product_pb2_grpc.ProductStub(cls.channel)
             response: product_pb2.EditProductResponse = stub.EditProduct(request)
             return response.product
-
-    @classmethod
-    def putSpecial(cls, request: product_pb2.PutProductRequest):
-        with cls.channel:
-            stub = product_pb2_grpc.ProductStub(cls.channel)
-            response: product_pb2.PutProductRequest = stub.PutSpecialPrice(request)
-            return response.product

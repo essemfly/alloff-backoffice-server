@@ -29,6 +29,11 @@ class ProductGroupStub(object):
                 request_serializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsResponse.FromString,
                 )
+        self.EditProductGroup = channel.unary_unary(
+                '/grpcServer.ProductGroup/EditProductGroup',
+                request_serializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.SerializeToString,
+                response_deserializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.FromString,
+                )
         self.PushProducts = channel.unary_unary(
                 '/grpcServer.ProductGroup/PushProducts',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsRequest.SerializeToString,
@@ -57,6 +62,12 @@ class ProductGroupServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def EditProductGroup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def PushProducts(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -80,6 +91,11 @@ def add_ProductGroupServicer_to_server(servicer, server):
                     servicer.ListProductGroups,
                     request_deserializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsRequest.FromString,
                     response_serializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsResponse.SerializeToString,
+            ),
+            'EditProductGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.EditProductGroup,
+                    request_deserializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.FromString,
+                    response_serializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.SerializeToString,
             ),
             'PushProducts': grpc.unary_unary_rpc_method_handler(
                     servicer.PushProducts,
@@ -144,6 +160,23 @@ class ProductGroup(object):
         return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/ListProductGroups',
             protos_dot_product_dot_productGroup__pb2.ListProductGroupsRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.ListProductGroupsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EditProductGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/EditProductGroup',
+            protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.SerializeToString,
+            protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

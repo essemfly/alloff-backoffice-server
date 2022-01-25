@@ -33,6 +33,7 @@ from product.viewsets.brand import BrandViewSet
 from product.viewsets.notification import NotificationViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
+
 # from office.viewsets.package import PackageViewSet
 # from office.viewsets.received_item import ReceivedItemViewSet
 # from office.viewsets.shipping_notice import ShippingNoticeViewSet
@@ -67,10 +68,10 @@ router.register(r"inventories", InventoryViewSet, basename="inventories")
 # router.register(r"packages", PackageViewSet, basename="packages")
 # router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
-# router.register(r"brands", BrandViewSet, basename="brands")
-# router.register(r"products", ProductViewSet, basename="products")
-# router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
-# router.register(r"notifications", NotificationViewSet, basename="notifiactions")
+router.register(r"brands", BrandViewSet, basename="brands")
+router.register(r"products", ProductViewSet, basename="products")
+router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
+router.register(r"notifications", NotificationViewSet, basename="notifiactions")
 # router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
 

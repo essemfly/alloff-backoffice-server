@@ -1,10 +1,12 @@
-from html5lib import serialize
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
-from product.serializers.product import ProductSerializer
-
-from product.serializers.product import ListProductSerializer, ProductSerializer
+from product.serializers.product import (
+    CreateProductRequestSerializer,
+    EditProductRequestSerializer,
+    ProductSerializer,
+    ListProductSerializer,
+)
 from product.services.product import ProductService
 from protos.product.product_pb2 import (
     CreateProductRequest,
@@ -57,15 +59,16 @@ class ProductViewSet(
         serializer = ProductSerializer(pd)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # (TODO)
     def create(self, request, *args, **kwargs):
-        req = CreateProductRequest()
-        pd = ProductService.create(req)
-        serializer = ProductSerializer(pd)
+        serializer = CreateProductRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = ProductService.create(serializer.message)
+        serializer = ProductSerializer(res)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    def update(self, request, *args, **kwargs):
-        product_id = request.query_params.get("id")
-        req = EditProductRequest(alloff_product_id=id)
-        serializer = ProductSerializer(req)
-        return Response(serializer.data)
+    def update(self, request, alloff_product_id, *args, **kwargs):
+        serializer = EditProductRequestSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = ProductService.edit(serializer.message)
+        serializer = ProductSerializer(res)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -24,3 +24,11 @@ class BrandService(GrpcService):
             response: brand_pb2.CreateBrandResponse = stub.CreateBrand(request)
 
             return response.brand
+
+    @classmethod
+    def edit(cls, request: brand_pb2.EditBrandRequest):
+        with cls.channel:
+            stub = brand_pb2_grpc.BrandStub(cls.channel)
+            response: brand_pb2.EditBrandResponse = stub.EditBrand(request)
+
+            return response.brand
