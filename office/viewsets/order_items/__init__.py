@@ -16,7 +16,7 @@ from office.viewsets.order_items.delete_memo import (
     DeleteItemOrderMemoSerializer,
     delete_memo,
 )
-from order.models.order_item import OrderItem
+from order.models.order_item import OrderItem, OrderItemStatus
 from rest_framework import filters, mixins, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import APIException
@@ -105,14 +105,15 @@ class OrderItemViewSet(
     #         if field_value:
     #             filtering_kwargs[field] = field_value
     #     return filtering_kwargs
-    
+
     def get_queryset(self):
-        queryset = (
-            OrderItem.objects.exclude(
-                order_item_status__in=[],
-            )
-            .order_by("-id")
-        )
+        queryset = OrderItem.objects.exclude(
+            order_item_status__in=[
+                OrderItemStatus.ORDER_ITEM_CREATED,
+                OrderItemStatus.ORDER_ITEM_RECREATED,
+                OrderItemStatus.ORDER_ITEM_PAYMENT_PENDING,
+            ],
+        ).order_by("-id")
 
         # if "search" in self.request.query_params:
         #     return queryset
