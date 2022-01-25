@@ -157,7 +157,7 @@ class OrderItemViewSet(
         elif self.action == "delete_memo":
             return DeleteItemOrderMemoSerializer
         # elif self.action == "remake_ri":
-        #     return RemakeRiSerializer
+            # return ReceivedItemSerializer
         # elif "minimum" in self.action:
         #     return OrderMinimumSerializer
         return OrderItemListSerializer

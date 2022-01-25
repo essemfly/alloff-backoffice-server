@@ -57,12 +57,6 @@ class ReceivedItemViewSet(mixins.ListModelMixin, viewsets.ViewSet):
         # print_label(make_receiving_label(inventory))
         # return Response(InventorySerializer(inventory).data, status=status.HTTP_200_OK)
 
-    @extend_schema(
-        request=None,
-        parameters=[
-            OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)
-        ],  # path variable was overridden
-    )
     @action(detail=True, url_path="revert-inventory", methods=["POST"])
     def revert_inventory(self, request: Request, pk=None):
         return response.Response({""})

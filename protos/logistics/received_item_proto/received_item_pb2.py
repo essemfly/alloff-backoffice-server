@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from protos.logistics.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
+from logistics.protos.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\x1a\x30logistics/protos/inventory_proto/inventory.proto\"\xe0\x02\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x31\n\x06status\x18\x03 \x01(\x0e\x32!.received_item.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x18\n\x10product_brand_id\x18\x06 \x01(\t\x12\x1a\n\x12product_brand_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x15\n\rproduct_color\x18\t \x01(\t\x12\x12\n\ncreated_at\x18\n \x01(\t\x12\x12\n\nupdated_at\x18\x0b \x01(\t\x12\x12\n\ndeleted_at\x18\x0c \x01(\t\x12,\n\tinventory\x18\r \x01(\x0b\x32\x14.inventory.InventoryH\x00\x88\x01\x01\x42\x0c\n\n_inventory\"\xc0\x03\n\x17ReceivedItemListRequest\x12\x15\n\x08order_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\rorder_item_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x19\n\x0cproduct_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1f\n\x12product_brand_name\x18\x04 \x01(\tH\x03\x88\x01\x01\x12#\n\x16product_brand_key_name\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x10\n\x08statuses\x18\x07 \x03(\t\x12M\n\x0cquery_params\x18\x08 \x03(\x0b\x32\x37.received_item.ReceivedItemListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0b\n\t_order_idB\x10\n\x0e_order_item_idB\x0f\n\r_product_nameB\x15\n\x13_product_brand_nameB\x19\n\x17_product_brand_key_nameB\x07\n\x05_code\"w\n\x18ReceivedItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x0c\n\x04next\x18\x02 \x01(\t\x12\x10\n\x08previous\x18\x03 \x01(\t\x12,\n\x07results\x18\x04 \x03(\x0b\x32\x1b.received_item.ReceivedItem\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03*k\n\x12ReceivedItemStatus\x12\x15\n\x11SOURCING_REQUIRED\x10\x00\x12\x10\n\x0cON_RECEIVING\x10\x01\x12\x0c\n\x08RECEIVED\x10\x02\x12\x10\n\x0cOUT_OF_STOCK\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04\x32\x8e\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\x1a\x30logistics/protos/inventory_proto/inventory.proto\"\xe0\x02\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x31\n\x06status\x18\x03 \x01(\x0e\x32!.received_item.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x18\n\x10product_brand_id\x18\x06 \x01(\t\x12\x1a\n\x12product_brand_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x15\n\rproduct_color\x18\t \x01(\t\x12\x12\n\ncreated_at\x18\n \x01(\t\x12\x12\n\nupdated_at\x18\x0b \x01(\t\x12\x12\n\ndeleted_at\x18\x0c \x01(\t\x12,\n\tinventory\x18\r \x01(\x0b\x32\x14.inventory.InventoryH\x00\x88\x01\x01\x42\x0c\n\n_inventory\"\xc0\x03\n\x17ReceivedItemListRequest\x12\x15\n\x08order_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\rorder_item_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x19\n\x0cproduct_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1f\n\x12product_brand_name\x18\x04 \x01(\tH\x03\x88\x01\x01\x12#\n\x16product_brand_key_name\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x10\n\x08statuses\x18\x07 \x03(\t\x12M\n\x0cquery_params\x18\x08 \x03(\x0b\x32\x37.received_item.ReceivedItemListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0b\n\t_order_idB\x10\n\x0e_order_item_idB\x0f\n\r_product_nameB\x15\n\x13_product_brand_nameB\x19\n\x17_product_brand_key_nameB\x07\n\x05_code\"w\n\x18ReceivedItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x0c\n\x04next\x18\x02 \x01(\t\x12\x10\n\x08previous\x18\x03 \x01(\t\x12,\n\x07results\x18\x04 \x03(\x0b\x32\x1b.received_item.ReceivedItem\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xc0\x02\n\x17MakeReceivedItemRequest\x12\x10\n\x08order_id\x18\x01 \x01(\x03\x12\x15\n\rorder_item_id\x18\x02 \x01(\x03\x12\x17\n\x0forder_item_code\x18\x03 \x01(\t\x12\x18\n\x10product_brand_id\x18\x04 \x01(\x03\x12\x1a\n\x12product_brand_name\x18\x05 \x01(\t\x12\x12\n\nproduct_id\x18\x06 \x01(\x03\x12\x14\n\x0cproduct_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x1a\n\rproduct_color\x18\t \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08quantity\x18\n \x01(\x03\x12\x1e\n\x16product_brand_key_name\x18\x0b \x01(\t\x12\r\n\x05\x66orce\x18\x0c \x01(\x08\x42\x10\n\x0e_product_color*k\n\x12ReceivedItemStatus\x12\x15\n\x11SOURCING_REQUIRED\x10\x00\x12\x10\n\x0cON_RECEIVING\x10\x01\x12\x0c\n\x08RECEIVED\x10\x02\x12\x10\n\x0cOUT_OF_STOCK\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04\x32\xdf\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x12O\n\x04Make\x12&.received_item.MakeReceivedItemRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.DESCRIPTOR,])
 
@@ -61,8 +61,8 @@ _RECEIVEDITEMSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1124,
-  serialized_end=1231,
+  serialized_start=1447,
+  serialized_end=1554,
 )
 _sym_db.RegisterEnumDescriptor(_RECEIVEDITEMSTATUS)
 
@@ -429,6 +429,120 @@ _RECEIVEDITEMRETRIEVEREQUEST = _descriptor.Descriptor(
   serialized_end=1122,
 )
 
+
+_MAKERECEIVEDITEMREQUEST = _descriptor.Descriptor(
+  name='MakeReceivedItemRequest',
+  full_name='received_item.MakeReceivedItemRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='order_id', full_name='received_item.MakeReceivedItemRequest.order_id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_item_id', full_name='received_item.MakeReceivedItemRequest.order_item_id', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_item_code', full_name='received_item.MakeReceivedItemRequest.order_item_code', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_brand_id', full_name='received_item.MakeReceivedItemRequest.product_brand_id', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_brand_name', full_name='received_item.MakeReceivedItemRequest.product_brand_name', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_id', full_name='received_item.MakeReceivedItemRequest.product_id', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_name', full_name='received_item.MakeReceivedItemRequest.product_name', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_size', full_name='received_item.MakeReceivedItemRequest.product_size', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_color', full_name='received_item.MakeReceivedItemRequest.product_color', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='quantity', full_name='received_item.MakeReceivedItemRequest.quantity', index=9,
+      number=10, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='product_brand_key_name', full_name='received_item.MakeReceivedItemRequest.product_brand_key_name', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='force', full_name='received_item.MakeReceivedItemRequest.force', index=11,
+      number=12, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_product_color', full_name='received_item.MakeReceivedItemRequest._product_color',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+  ],
+  serialized_start=1125,
+  serialized_end=1445,
+)
+
 _RECEIVEDITEM.fields_by_name['status'].enum_type = _RECEIVEDITEMSTATUS
 _RECEIVEDITEM.fields_by_name['inventory'].message_type = logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2._INVENTORY
 _RECEIVEDITEM.oneofs_by_name['_inventory'].fields.append(
@@ -455,10 +569,14 @@ _RECEIVEDITEMLISTREQUEST.oneofs_by_name['_code'].fields.append(
   _RECEIVEDITEMLISTREQUEST.fields_by_name['code'])
 _RECEIVEDITEMLISTREQUEST.fields_by_name['code'].containing_oneof = _RECEIVEDITEMLISTREQUEST.oneofs_by_name['_code']
 _RECEIVEDITEMLISTRESPONSE.fields_by_name['results'].message_type = _RECEIVEDITEM
+_MAKERECEIVEDITEMREQUEST.oneofs_by_name['_product_color'].fields.append(
+  _MAKERECEIVEDITEMREQUEST.fields_by_name['product_color'])
+_MAKERECEIVEDITEMREQUEST.fields_by_name['product_color'].containing_oneof = _MAKERECEIVEDITEMREQUEST.oneofs_by_name['_product_color']
 DESCRIPTOR.message_types_by_name['ReceivedItem'] = _RECEIVEDITEM
 DESCRIPTOR.message_types_by_name['ReceivedItemListRequest'] = _RECEIVEDITEMLISTREQUEST
 DESCRIPTOR.message_types_by_name['ReceivedItemListResponse'] = _RECEIVEDITEMLISTRESPONSE
 DESCRIPTOR.message_types_by_name['ReceivedItemRetrieveRequest'] = _RECEIVEDITEMRETRIEVEREQUEST
+DESCRIPTOR.message_types_by_name['MakeReceivedItemRequest'] = _MAKERECEIVEDITEMREQUEST
 DESCRIPTOR.enum_types_by_name['ReceivedItemStatus'] = _RECEIVEDITEMSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -498,6 +616,13 @@ ReceivedItemRetrieveRequest = _reflection.GeneratedProtocolMessageType('Received
   })
 _sym_db.RegisterMessage(ReceivedItemRetrieveRequest)
 
+MakeReceivedItemRequest = _reflection.GeneratedProtocolMessageType('MakeReceivedItemRequest', (_message.Message,), {
+  'DESCRIPTOR' : _MAKERECEIVEDITEMREQUEST,
+  '__module__' : 'logistics.protos.received_item_proto.received_item_pb2'
+  # @@protoc_insertion_point(class_scope:received_item.MakeReceivedItemRequest)
+  })
+_sym_db.RegisterMessage(MakeReceivedItemRequest)
+
 
 _RECEIVEDITEMLISTREQUEST_QUERYPARAMSENTRY._options = None
 
@@ -508,8 +633,8 @@ _RECEIVEDITEMCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1234,
-  serialized_end=1632,
+  serialized_start=1557,
+  serialized_end=2036,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',
@@ -558,6 +683,16 @@ _RECEIVEDITEMCONTROLLER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_RECEIVEDITEM,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Make',
+    full_name='received_item.ReceivedItemController.Make',
+    index=5,
+    containing_service=None,
+    input_type=_MAKERECEIVEDITEMREQUEST,
+    output_type=_RECEIVEDITEM,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

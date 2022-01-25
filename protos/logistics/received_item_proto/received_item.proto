@@ -11,6 +11,8 @@ service ReceivedItemController {
     rpc Retrieve(ReceivedItemRetrieveRequest) returns (ReceivedItem) {}
     rpc Update(ReceivedItem) returns (ReceivedItem) {}
     rpc Destroy(ReceivedItem) returns (google.protobuf.Empty) {}
+
+    rpc Make(MakeReceivedItemRequest) returns (stream ReceivedItem) {}
 }
 
 enum ReceivedItemStatus {
@@ -57,4 +59,19 @@ message ReceivedItemListResponse {
 
 message ReceivedItemRetrieveRequest {
     int64 id = 1;
+}
+
+message MakeReceivedItemRequest {
+    int64 order_id = 1;
+    int64 order_item_id = 2;
+    string order_item_code = 3;
+    int64 product_brand_id = 4;
+    string product_brand_name = 5;
+    int64 product_id = 6;
+    string product_name = 7;
+    string product_size = 8;
+    optional string product_color = 9;
+    int64 quantity = 10;
+    string product_brand_key_name = 11;
+    bool force = 12;
 }

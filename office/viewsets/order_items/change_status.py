@@ -18,8 +18,8 @@ from rest_framework.response import Response
 
 class ChangeStatusSerializer(serializers.Serializer):
     status = serializers.ChoiceField(OrderItemStatus.choices, required=True)
-    delivery_tracking_number = serializers.CharField(required=False)
-    delivery_tracking_url = serializers.CharField(required=False)
+    tracking_number = serializers.CharField(required=False)
+    tracking_url = serializers.CharField(required=False)
 
     tracking_info_given = None
     tracking_info_exists = None
@@ -28,7 +28,7 @@ class ChangeStatusSerializer(serializers.Serializer):
         item = self.instance  # type: OrderItem
         if attrs.get("status") == OrderItemStatus.ORDER_ITEM_DELIVERY_STARTED:
             self.tracking_info_given = (
-                "delivery_tracking_number" in attrs and "delivery_tracking_url" in attrs
+                "tracking_number" in attrs and "tracking_url" in attrs
             )
             self.tracking_info_exists = (
                 item.tracking_number is not None and item.tracking_url is not None
