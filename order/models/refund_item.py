@@ -15,7 +15,7 @@ class RefundItem(models.Model):
         
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     order_item = models.OneToOneField(OrderItem, on_delete=models.PROTECT)
-    refund_fee = models.IntegerField()
+    refund_fee = models.IntegerField(null=True, blank=True, default=0)
     refund_amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

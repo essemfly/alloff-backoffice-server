@@ -36,6 +36,9 @@ class Migration(migrations.Migration):
         migrations.RunSQL("alter table orders alter column user_memo set default '';"),
         migrations.RunSQL("alter table orders alter column delivery_price set default 0;"),
         migrations.RunSQL("alter table orders alter column refund_price set default 0;"),
+        migrations.RunSQL("alter table orders alter column user_memo drop not null;"),
+        migrations.RunSQL("alter table orders alter column delivery_price drop not null;"),
+        migrations.RunSQL("alter table orders alter column refund_price drop not null;"),
 
         migrations.CreateModel(
             name='OrderItem',
