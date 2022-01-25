@@ -16,11 +16,10 @@ service ReceivedItemController {
 }
 
 enum ReceivedItemStatus {
-    SOURCING_REQUIRED = 0;
-    ON_RECEIVING = 1;
-    RECEIVED = 2;
-    OUT_OF_STOCK = 3;
-    CANCELED = 4;
+    ON_RECEIVING = 0;
+    RECEIVED = 1;
+    OUT_OF_STOCK = 2;
+    CANCELED = 3;
 }
 
 message ReceivedItem {

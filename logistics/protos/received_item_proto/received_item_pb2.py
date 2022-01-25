@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\x1a\x30logistics/protos/inventory_proto/inventory.proto\"\xa9\x03\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x10\n\x08order_id\x18\x02 \x01(\x03\x12\x15\n\rorder_item_id\x18\x03 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x04 \x01(\t\x12\x31\n\x06status\x18\x05 \x01(\x0e\x32!.received_item.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x06 \x01(\t\x12\x14\n\x0cproduct_name\x18\x07 \x01(\t\x12\x13\n\x0bproduct_img\x18\x08 \x01(\t\x12\x15\n\rbrand_korname\x18\t \x01(\t\x12\x15\n\rbrand_keyname\x18\n \x01(\t\x12\x0c\n\x04size\x18\x0b \x01(\t\x12\x12\n\x05\x63olor\x18\x0c \x01(\tH\x00\x88\x01\x01\x12\x12\n\ncreated_at\x18\r \x01(\t\x12\x12\n\nupdated_at\x18\x0e \x01(\t\x12\x17\n\ndeleted_at\x18\x0f \x01(\tH\x01\x88\x01\x01\x12,\n\tinventory\x18\x10 \x01(\x0b\x32\x14.inventory.InventoryH\x02\x88\x01\x01\x42\x08\n\x06_colorB\r\n\x0b_deleted_atB\x0c\n\n_inventory\"\xa4\x03\n\x17ReceivedItemListRequest\x12\x15\n\x08order_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\rorder_item_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x19\n\x0cproduct_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1a\n\rbrand_korname\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1a\n\rbrand_keyname\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x10\n\x08statuses\x18\x07 \x03(\t\x12M\n\x0cquery_params\x18\x08 \x03(\x0b\x32\x37.received_item.ReceivedItemListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0b\n\t_order_idB\x10\n\x0e_order_item_idB\x0f\n\r_product_nameB\x10\n\x0e_brand_kornameB\x10\n\x0e_brand_keynameB\x07\n\x05_code\"w\n\x18ReceivedItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x0c\n\x04next\x18\x02 \x01(\t\x12\x10\n\x08previous\x18\x03 \x01(\t\x12,\n\x07results\x18\x04 \x03(\x0b\x32\x1b.received_item.ReceivedItem\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xb4\x02\n\x17MakeReceivedItemRequest\x12\x10\n\x08order_id\x18\x01 \x01(\x03\x12\x15\n\rorder_item_id\x18\x02 \x01(\x03\x12\x17\n\x0forder_item_code\x18\x03 \x01(\t\x12\x15\n\rbrand_korname\x18\x04 \x01(\t\x12\x15\n\rbrand_keyname\x18\x05 \x01(\t\x12\x12\n\nproduct_id\x18\x06 \x01(\t\x12\x13\n\x0bproduct_img\x18\x07 \x01(\t\x12\x14\n\x0cproduct_name\x18\x08 \x01(\t\x12\x0c\n\x04size\x18\t \x01(\t\x12\x12\n\x05\x63olor\x18\n \x01(\tH\x00\x88\x01\x01\x12\x15\n\ritem_quantity\x18\x0b \x01(\x03\x12\x18\n\x10request_quantity\x18\x0c \x01(\x03\x12\r\n\x05\x66orce\x18\r \x01(\x08\x42\x08\n\x06_color*k\n\x12ReceivedItemStatus\x12\x15\n\x11SOURCING_REQUIRED\x10\x00\x12\x10\n\x0cON_RECEIVING\x10\x01\x12\x0c\n\x08RECEIVED\x10\x02\x12\x10\n\x0cOUT_OF_STOCK\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04\x32\xdf\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x12O\n\x04Make\x12&.received_item.MakeReceivedItemRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n8logistics/protos/received_item_proto/received_item.proto\x12\rreceived_item\x1a\x1bgoogle/protobuf/empty.proto\x1a\x30logistics/protos/inventory_proto/inventory.proto\"\xa9\x03\n\x0cReceivedItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x10\n\x08order_id\x18\x02 \x01(\x03\x12\x15\n\rorder_item_id\x18\x03 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x04 \x01(\t\x12\x31\n\x06status\x18\x05 \x01(\x0e\x32!.received_item.ReceivedItemStatus\x12\x12\n\nproduct_id\x18\x06 \x01(\t\x12\x14\n\x0cproduct_name\x18\x07 \x01(\t\x12\x13\n\x0bproduct_img\x18\x08 \x01(\t\x12\x15\n\rbrand_korname\x18\t \x01(\t\x12\x15\n\rbrand_keyname\x18\n \x01(\t\x12\x0c\n\x04size\x18\x0b \x01(\t\x12\x12\n\x05\x63olor\x18\x0c \x01(\tH\x00\x88\x01\x01\x12\x12\n\ncreated_at\x18\r \x01(\t\x12\x12\n\nupdated_at\x18\x0e \x01(\t\x12\x17\n\ndeleted_at\x18\x0f \x01(\tH\x01\x88\x01\x01\x12,\n\tinventory\x18\x10 \x01(\x0b\x32\x14.inventory.InventoryH\x02\x88\x01\x01\x42\x08\n\x06_colorB\r\n\x0b_deleted_atB\x0c\n\n_inventory\"\xa4\x03\n\x17ReceivedItemListRequest\x12\x15\n\x08order_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\rorder_item_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x19\n\x0cproduct_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1a\n\rbrand_korname\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1a\n\rbrand_keyname\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x10\n\x08statuses\x18\x07 \x03(\t\x12M\n\x0cquery_params\x18\x08 \x03(\x0b\x32\x37.received_item.ReceivedItemListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0b\n\t_order_idB\x10\n\x0e_order_item_idB\x0f\n\r_product_nameB\x10\n\x0e_brand_kornameB\x10\n\x0e_brand_keynameB\x07\n\x05_code\"w\n\x18ReceivedItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x0c\n\x04next\x18\x02 \x01(\t\x12\x10\n\x08previous\x18\x03 \x01(\t\x12,\n\x07results\x18\x04 \x03(\x0b\x32\x1b.received_item.ReceivedItem\")\n\x1bReceivedItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xb4\x02\n\x17MakeReceivedItemRequest\x12\x10\n\x08order_id\x18\x01 \x01(\x03\x12\x15\n\rorder_item_id\x18\x02 \x01(\x03\x12\x17\n\x0forder_item_code\x18\x03 \x01(\t\x12\x15\n\rbrand_korname\x18\x04 \x01(\t\x12\x15\n\rbrand_keyname\x18\x05 \x01(\t\x12\x12\n\nproduct_id\x18\x06 \x01(\t\x12\x13\n\x0bproduct_img\x18\x07 \x01(\t\x12\x14\n\x0cproduct_name\x18\x08 \x01(\t\x12\x0c\n\x04size\x18\t \x01(\t\x12\x12\n\x05\x63olor\x18\n \x01(\tH\x00\x88\x01\x01\x12\x15\n\ritem_quantity\x18\x0b \x01(\x03\x12\x18\n\x10request_quantity\x18\x0c \x01(\x03\x12\r\n\x05\x66orce\x18\r \x01(\x08\x42\x08\n\x06_color*T\n\x12ReceivedItemStatus\x12\x10\n\x0cON_RECEIVING\x10\x00\x12\x0c\n\x08RECEIVED\x10\x01\x12\x10\n\x0cOUT_OF_STOCK\x10\x02\x12\x0c\n\x08\x43\x41NCELED\x10\x03\x32\xdf\x03\n\x16ReceivedItemController\x12O\n\x04List\x12&.received_item.ReceivedItemListRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x12\x44\n\x06\x43reate\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12U\n\x08Retrieve\x12*.received_item.ReceivedItemRetrieveRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x12\x44\n\x06Update\x12\x1b.received_item.ReceivedItem\x1a\x1b.received_item.ReceivedItem\"\x00\x12@\n\x07\x44\x65stroy\x12\x1b.received_item.ReceivedItem\x1a\x16.google.protobuf.Empty\"\x00\x12O\n\x04Make\x12&.received_item.MakeReceivedItemRequest\x1a\x1b.received_item.ReceivedItem\"\x00\x30\x01\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2.DESCRIPTOR,])
 
@@ -34,27 +34,22 @@ _RECEIVEDITEMSTATUS = _descriptor.EnumDescriptor(
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='SOURCING_REQUIRED', index=0, number=0,
+      name='ON_RECEIVING', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='ON_RECEIVING', index=1, number=1,
+      name='RECEIVED', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='RECEIVED', index=2, number=2,
+      name='OUT_OF_STOCK', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='OUT_OF_STOCK', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CANCELED', index=4, number=4,
+      name='CANCELED', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -62,16 +57,15 @@ _RECEIVEDITEMSTATUS = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=1480,
-  serialized_end=1587,
+  serialized_end=1564,
 )
 _sym_db.RegisterEnumDescriptor(_RECEIVEDITEMSTATUS)
 
 ReceivedItemStatus = enum_type_wrapper.EnumTypeWrapper(_RECEIVEDITEMSTATUS)
-SOURCING_REQUIRED = 0
-ON_RECEIVING = 1
-RECEIVED = 2
-OUT_OF_STOCK = 3
-CANCELED = 4
+ON_RECEIVING = 0
+RECEIVED = 1
+OUT_OF_STOCK = 2
+CANCELED = 3
 
 
 
@@ -677,8 +671,8 @@ _RECEIVEDITEMCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1590,
-  serialized_end=2069,
+  serialized_start=1567,
+  serialized_end=2046,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',
