@@ -7,8 +7,7 @@ class NotificationService(GrpcService):
     url = PRODUCT_SERVER_URL
 
     @classmethod
-    def list(cls):
-        request = notification_pb2.ListNotiRequest()
+    def list(cls, request: notification_pb2.ListNotiRequest):
         with cls.channel:
             stub = notification_pb2_grpc.NotificationStub(cls.channel)
             response: notification_pb2_grpc.ListProductGroupsResponse = stub.ListNoti(
@@ -25,7 +24,7 @@ class NotificationService(GrpcService):
                 request
             )
 
-            return response
+            return response.succeeded
 
     @classmethod
     def send(cls, request: notification_pb2.SendNotiRequest):
@@ -33,4 +32,4 @@ class NotificationService(GrpcService):
             stub = notification_pb2_grpc.NotificationStub(cls.channel)
             response: notification_pb2.SendNotiResponse = stub.SendNoti(request)
 
-            return response
+            return response.is_sent
