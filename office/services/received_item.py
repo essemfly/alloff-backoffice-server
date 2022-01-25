@@ -13,7 +13,7 @@ class ReceivedItemService(GrpcService):
     url = GRPC_LOGISTICS_SERVER_URL
 
     @classmethod
-    def list(cls) -> List[received_item_pb2.ReceivedItem]:
+    def list(cls) -> List[dict]:
         request = received_item_pb2.ReceivedItemListRequest()
         with cls.channel:
             stub = received_item_pb2_grpc.ReceivedItemControllerStub(cls.channel)
@@ -23,7 +23,7 @@ class ReceivedItemService(GrpcService):
     @classmethod
     def force_make(
         cls, item: OrderItem, quantity: int
-    ) -> List[received_item_pb2.ReceivedItem]:
+    ) -> List[dict]:
         request = received_item_pb2.MakeReceivedItemRequest(
             order_id=item.order_id,
             order_item_id=item.id,
@@ -46,7 +46,7 @@ class ReceivedItemService(GrpcService):
             return cls.to_array(response)
 
     @classmethod
-    def make(cls, item: OrderItem) -> List[received_item_pb2.ReceivedItem]:
+    def make(cls, item: OrderItem) -> List[dict]:
         request = received_item_pb2.MakeReceivedItemRequest(
             order_id=item.order_id,
             order_item_id=item.id,

@@ -26,7 +26,7 @@ from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 from django.db.models import Prefetch
 
-from order.models.order_item_action_log import OrderItemActionLog
+from order.models.order_item_action_log import OrderItemActionLog, OrderItemActionType
 from office.viewsets.order_items.serializers import ForceMakeRiSerializer
 from office.serializers.received_item import ReceivedItemSerializer, ReceivedItemStatus
 from office.services.received_item import ReceivedItemService
@@ -81,6 +81,9 @@ from office.services.received_item import ReceivedItemService
             OpenApiParameter("created__gte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
             OpenApiParameter("created__lte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
         ]
+    ),
+    force_make_ri=extend_schema(
+        responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
     ),
 )
 class OrderItemViewSet(
@@ -226,17 +229,20 @@ class OrderItemViewSet(
     def change_status(self, request: Request, id=None):
         return change_status(self, request, id)
 
-    @extend_schema(
-        request=ForceMakeRiSerializer,
-        responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
-    )
-    @action(detail=True, url_path="force-make-ri", methods=["POST"])
+    @action(detail=True, methods=["POST"], pagination_class=None)
     def force_make_ri(self, request: Request, id=None):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         received_items = ReceivedItemService.force_make(
             self.get_object(), serializer.data.get("quantity")
         )
+        for ri in received_items:
+            OrderItemActionLog.objects.create(
+                order_item=self.get_object(),
+                admin=request.user,
+                action_type=OrderItemActionType.FORCE_RECEIVED_ITEM,
+                detail=ri["code"],
+            )
         return Response(
             ReceivedItemSerializer(received_items, many=True).data,
             status=status.HTTP_200_OK,
