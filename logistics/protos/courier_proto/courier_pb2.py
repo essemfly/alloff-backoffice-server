@@ -212,7 +212,7 @@ Courier = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _COURIER,
-        "__module__": "protos.logistics.courier_proto.courier_pb2"
+        "__module__": "logistics.protos.courier_proto.courier_pb2"
         # @@protoc_insertion_point(class_scope:courier.Courier)
     },
 )
@@ -223,7 +223,7 @@ CourierListRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _COURIERLISTREQUEST,
-        "__module__": "protos.logistics.courier_proto.courier_pb2"
+        "__module__": "logistics.protos.courier_proto.courier_pb2"
         # @@protoc_insertion_point(class_scope:courier.CourierListRequest)
     },
 )
@@ -234,7 +234,7 @@ CourierRetrieveRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _COURIERRETRIEVEREQUEST,
-        "__module__": "protos.logistics.courier_proto.courier_pb2"
+        "__module__": "logistics.protos.courier_proto.courier_pb2"
         # @@protoc_insertion_point(class_scope:courier.CourierRetrieveRequest)
     },
 )

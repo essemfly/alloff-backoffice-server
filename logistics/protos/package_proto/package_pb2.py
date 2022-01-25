@@ -627,7 +627,7 @@ Package = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _PACKAGE,
-        "__module__": "protos.logistics.package_proto.package_pb2"
+        "__module__": "logistics.protos.package_proto.package_pb2"
         # @@protoc_insertion_point(class_scope:package.Package)
     },
 )
@@ -638,7 +638,7 @@ PackageListRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _PACKAGELISTREQUEST,
-        "__module__": "protos.logistics.package_proto.package_pb2"
+        "__module__": "logistics.protos.package_proto.package_pb2"
         # @@protoc_insertion_point(class_scope:package.PackageListRequest)
     },
 )
@@ -649,7 +649,7 @@ PackageRetrieveRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _PACKAGERETRIEVEREQUEST,
-        "__module__": "protos.logistics.package_proto.package_pb2"
+        "__module__": "logistics.protos.package_proto.package_pb2"
         # @@protoc_insertion_point(class_scope:package.PackageRetrieveRequest)
     },
 )

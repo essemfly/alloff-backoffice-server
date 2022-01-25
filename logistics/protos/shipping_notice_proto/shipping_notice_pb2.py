@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from protos.logistics.shipping_notice_item_proto import (
+from logistics.protos.shipping_notice_item_proto import (
     shipping_notice_item_pb2 as logistics_dot_protos_dot_shipping__notice__item__proto_dot_shipping__notice__item__pb2,
 )
 
@@ -435,7 +435,7 @@ ShippingNotice = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _SHIPPINGNOTICE,
-        "__module__": "protos.logistics.shipping_notice_proto.shipping_notice_pb2"
+        "__module__": "logistics.protos.shipping_notice_proto.shipping_notice_pb2"
         # @@protoc_insertion_point(class_scope:shipping_notice.ShippingNotice)
     },
 )
@@ -446,7 +446,7 @@ ShippingNoticeListRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _SHIPPINGNOTICELISTREQUEST,
-        "__module__": "protos.logistics.shipping_notice_proto.shipping_notice_pb2"
+        "__module__": "logistics.protos.shipping_notice_proto.shipping_notice_pb2"
         # @@protoc_insertion_point(class_scope:shipping_notice.ShippingNoticeListRequest)
     },
 )
@@ -457,7 +457,7 @@ ShippingNoticeRetrieveRequest = _reflection.GeneratedProtocolMessageType(
     (_message.Message,),
     {
         "DESCRIPTOR": _SHIPPINGNOTICERETRIEVEREQUEST,
-        "__module__": "protos.logistics.shipping_notice_proto.shipping_notice_pb2"
+        "__module__": "logistics.protos.shipping_notice_proto.shipping_notice_pb2"
         # @@protoc_insertion_point(class_scope:shipping_notice.ShippingNoticeRetrieveRequest)
     },
 )

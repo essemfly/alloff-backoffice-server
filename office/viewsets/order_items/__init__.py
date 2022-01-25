@@ -27,6 +27,9 @@ from rest_framework_mongoengine import viewsets
 from django.db.models import Prefetch
 
 from order.models.order_item_action_log import OrderItemActionLog
+from office.viewsets.order_items.serializers import ForceMakeRiSerializer
+from office.serializers.received_item import ReceivedItemSerializer, ReceivedItemStatus
+from office.services.received_item import ReceivedItemService
 
 # class OrdersSearchFilter(filters.SearchFilter):
 #     def filter_queryset(self, request, queryset, view):
@@ -156,8 +159,8 @@ class OrderItemViewSet(
             return AddOrderItemMemoSerializer
         elif self.action == "delete_memo":
             return DeleteItemOrderMemoSerializer
-        # elif self.action == "remake_ri":
-            # return ReceivedItemSerializer
+        elif self.action == "force_make_ri":
+            return ForceMakeRiSerializer
         # elif "minimum" in self.action:
         #     return OrderMinimumSerializer
         return OrderItemListSerializer
@@ -222,6 +225,22 @@ class OrderItemViewSet(
     @action(detail=True, methods=["POST"])
     def change_status(self, request: Request, id=None):
         return change_status(self, request, id)
+
+    @extend_schema(
+        request=ForceMakeRiSerializer,
+        responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
+    )
+    @action(detail=True, url_path="force-make-ri", methods=["POST"])
+    def force_make_ri(self, request: Request, id=None):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        received_items = ReceivedItemService.force_make(
+            self.get_object(), serializer.data.get("quantity")
+        )
+        return Response(
+            ReceivedItemSerializer(received_items, many=True).data,
+            status=status.HTTP_200_OK,
+        )
 
     # @extend_schema(
     #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],  # path variable was overridden

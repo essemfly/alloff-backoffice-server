@@ -3,12 +3,12 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from protos.logistics.package_proto import (
-    package_pb2 as logistics_dot_protos_dot_package__proto_dot_package__pb2,
+from logistics.protos.courier_proto import (
+    courier_pb2 as logistics_dot_protos_dot_courier__proto_dot_courier__pb2,
 )
 
 
-class PackageControllerStub(object):
+class CourierControllerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -18,33 +18,33 @@ class PackageControllerStub(object):
             channel: A grpc.Channel.
         """
         self.List = channel.unary_stream(
-            "/package.PackageController/List",
-            request_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageListRequest.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/List",
+            request_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierListRequest.SerializeToString,
+            response_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
         )
         self.Create = channel.unary_unary(
-            "/package.PackageController/Create",
-            request_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Create",
+            request_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
+            response_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
         )
         self.Retrieve = channel.unary_unary(
-            "/package.PackageController/Retrieve",
-            request_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageRetrieveRequest.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Retrieve",
+            request_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierRetrieveRequest.SerializeToString,
+            response_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
         )
         self.Update = channel.unary_unary(
-            "/package.PackageController/Update",
-            request_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
-            response_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Update",
+            request_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
+            response_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
         )
         self.Destroy = channel.unary_unary(
-            "/package.PackageController/Destroy",
-            request_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            "/courier.CourierController/Destroy",
+            request_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
             response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
         )
 
 
-class PackageControllerServicer(object):
+class CourierControllerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def List(self, request, context):
@@ -78,42 +78,42 @@ class PackageControllerServicer(object):
         raise NotImplementedError("Method not implemented!")
 
 
-def add_PackageControllerServicer_to_server(servicer, server):
+def add_CourierControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
         "List": grpc.unary_stream_rpc_method_handler(
             servicer.List,
-            request_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageListRequest.FromString,
-            response_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            request_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierListRequest.FromString,
+            response_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
         ),
         "Create": grpc.unary_unary_rpc_method_handler(
             servicer.Create,
-            request_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
-            response_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            request_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
+            response_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
         ),
         "Retrieve": grpc.unary_unary_rpc_method_handler(
             servicer.Retrieve,
-            request_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageRetrieveRequest.FromString,
-            response_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            request_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierRetrieveRequest.FromString,
+            response_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
         ),
         "Update": grpc.unary_unary_rpc_method_handler(
             servicer.Update,
-            request_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
-            response_serializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            request_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
+            response_serializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
         ),
         "Destroy": grpc.unary_unary_rpc_method_handler(
             servicer.Destroy,
-            request_deserializer=logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            request_deserializer=logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
             response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        "package.PackageController", rpc_method_handlers
+        "courier.CourierController", rpc_method_handlers
     )
     server.add_generic_rpc_handlers((generic_handler,))
 
 
 # This class is part of an EXPERIMENTAL API.
-class PackageController(object):
+class CourierController(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -132,9 +132,9 @@ class PackageController(object):
         return grpc.experimental.unary_stream(
             request,
             target,
-            "/package.PackageController/List",
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageListRequest.SerializeToString,
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/List",
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierListRequest.SerializeToString,
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
             options,
             channel_credentials,
             insecure,
@@ -161,9 +161,9 @@ class PackageController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/package.PackageController/Create",
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Create",
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
             options,
             channel_credentials,
             insecure,
@@ -190,9 +190,9 @@ class PackageController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/package.PackageController/Retrieve",
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.PackageRetrieveRequest.SerializeToString,
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Retrieve",
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.CourierRetrieveRequest.SerializeToString,
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
             options,
             channel_credentials,
             insecure,
@@ -219,9 +219,9 @@ class PackageController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/package.PackageController/Update",
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.FromString,
+            "/courier.CourierController/Update",
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.FromString,
             options,
             channel_credentials,
             insecure,
@@ -248,8 +248,8 @@ class PackageController(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            "/package.PackageController/Destroy",
-            logistics_dot_protos_dot_package__proto_dot_package__pb2.Package.SerializeToString,
+            "/courier.CourierController/Destroy",
+            logistics_dot_protos_dot_courier__proto_dot_courier__pb2.Courier.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options,
             channel_credentials,

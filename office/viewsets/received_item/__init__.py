@@ -1,13 +1,10 @@
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from office.serializers.received_item import ReceivedItemSerializer, ReceivedItemStatus
 from office.services.received_item import ReceivedItemService
 from rest_framework import mixins, response, status, viewsets
-from rest_framework.request import Request
 from rest_framework.decorators import action
-
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
-
-from office.viewsets.received_item.serializers import ForceMakeRiSerializer
+from rest_framework.request import Request
 
 
 @extend_schema_view(
@@ -72,20 +69,3 @@ class ReceivedItemViewSet(mixins.ListModelMixin, viewsets.ViewSet):
         # ri.save()
 
         # return Response(ReceivedItemSerializer(ri).data, status=status.HTTP_200_OK)
-
-    @extend_schema(
-        request=ForceMakeRiSerializer,
-        responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
-    )
-    @action(detail=False, url_path="force-make", methods=["POST"])
-    def force_make(self, request: Request):
-        return response.Response({""})
-        # id_or_code = request.data.get("order_ref")
-        # if id_or_code is None:
-        #     raise BaseException("No order ref given")
-
-        # order = Order.get(id_or_code)
-        # if order is None:
-        #     raise BaseException("No order with ref " + id_or_code)
-
-        # return Response(ReceivedItemSerializer(make_ri(order, force=True), many=True).data, status=status.HTTP_200_OK)
