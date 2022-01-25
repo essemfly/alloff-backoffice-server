@@ -3,7 +3,7 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from protos.logistics.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
+from logistics.protos.inventory_proto import inventory_pb2 as logistics_dot_protos_dot_inventory__proto_dot_inventory__pb2
 
 
 class InventoryControllerStub(object):

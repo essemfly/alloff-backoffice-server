@@ -1,7 +1,7 @@
 from typing import List
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from protos.logistics.shipping_notice_proto import (
+from logistics.protos.shipping_notice_proto import (
     shipping_notice_pb2,
     shipping_notice_pb2_grpc,
 )

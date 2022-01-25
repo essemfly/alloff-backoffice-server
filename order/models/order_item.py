@@ -106,7 +106,7 @@ class OrderItem(models.Model):
     is_removed = models.BooleanField(default=False)
     sales_price = models.IntegerField()
     size = models.CharField(max_length=50)
-    color = models.CharField(max_length=20, blank=True, null=True)
+    color = models.CharField(max_length=50, blank=True, null=True)
     quantity = models.PositiveSmallIntegerField()
 
     # tracking

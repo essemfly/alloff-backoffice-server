@@ -10,6 +10,8 @@ class OrderItemActionType(models.TextChoices):
     MEMO_DELETE = "MEMO_DELETE"
     PAYMENT_ADJUSTMENT = "PAYMENT_ADJUSTMENT"
     REFUND_UPDATE = "REFUND_UPDATE"
+    RECEIVED_ITEM = "RECEIVED_ITEM"
+    FORCE_RECEIVED_ITEM = "FORCE_RECEIVED_ITEM"
 
 
 class OrderItemAlimtalkType(models.TextChoices):

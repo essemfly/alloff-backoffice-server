@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from office.alimtalk.cancel_finished import CancelFinishedAlimtalk
 from office.alimtalk.delivery_started import DeliveryStartedAlimtalk
 from office.serializers.order_item import OrderItemRetrieveSerializer
+from office.services.received_item import ReceivedItemService
 from order.models.order_item import OrderItem, OrderItemStatus
 from order.models.order_item_action_log import (
     OrderItemActionLog,
@@ -47,7 +48,6 @@ def change_status(self, request: Request, id: str = None):
         data=request.data, instance=item
     )  # type: ChangeStatusSerializer
     serializer.is_valid(raise_exception=True)
-
     return Response(
         OrderItemRetrieveSerializer(
             _change_status(serializer, item, request.user, id)
@@ -112,7 +112,18 @@ def _change_status(
                 request_id=request_id,
                 alimtalk_type=OrderItemAlimtalkType.DELIVERY_STARTED,
             )
-
+    elif status_to in [
+        OrderItemStatus.ORDER_ITEM_FOREIGN_PRODUCT_INSPECTING,
+        OrderItemStatus.ORDER_ITEM_DELIVERY_PREPARING,
+    ]:
+        received_items = ReceivedItemService.make(item)
+        for ri in received_items:
+            OrderItemActionLog.objects.create(
+                order_item=item,
+                admin=user,
+                action_type=OrderItemActionType.RECEIVED_ITEM,
+                detail=ri['code'],
+            )
     elif status_to in [
         OrderItemStatus.ORDER_ITEM_CANCEL_FINISHED,
         OrderItemStatus.ORDER_ITEM_RETURN_FINISHED,
