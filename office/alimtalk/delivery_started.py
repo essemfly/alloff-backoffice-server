@@ -1,4 +1,4 @@
-from tagger.core.alimtalk.base import BaseAlimtalk
+from office.alimtalk.base import BaseAlimtalk
 
 
 class DeliveryStartedAlimtalk(BaseAlimtalk):

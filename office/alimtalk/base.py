@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, List, Optional, Tuple
 from alloff_backoffice_server.settings import ALIMTALK
-from tagger.core.alimtalk.client import AlimtalkClient
+from office.alimtalk.client import AlimtalkClient
 
 
 class BaseAlimtalk(ABC):

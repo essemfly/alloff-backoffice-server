@@ -1,5 +1,6 @@
 from django.db import models
 from rest_framework import serializers
+from office.serializers.pagination import PaginationSerializer
 
 from office.serializers.shipping_notice_item import ShippingNoticeItemSerializer
 
@@ -23,3 +24,7 @@ class ShippingNoticeSerializer(serializers.Serializer):
     shipped_at = serializers.CharField(allow_null=True)
     created_at = serializers.CharField()
     updated_at = serializers.CharField()
+
+
+class PaginatedShippingNoticeSerializer(PaginationSerializer):
+    results = ShippingNoticeSerializer(many=True)

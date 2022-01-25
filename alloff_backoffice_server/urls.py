@@ -33,9 +33,9 @@ from product.viewsets.brand import BrandViewSet
 from product.viewsets.notification import NotificationViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
-from office.viewsets.package import PackageViewSet
-from office.viewsets.received_item import ReceivedItemViewSet
-from office.viewsets.shipping_notice import ShippingNoticeViewSet
+# from office.viewsets.package import PackageViewSet
+# from office.viewsets.received_item import ReceivedItemViewSet
+# from office.viewsets.shipping_notice import ShippingNoticeViewSet
 from rest_framework import routers
 
 # from tagger.viewsets.notification import NotificationViewSet

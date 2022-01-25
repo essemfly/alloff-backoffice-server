@@ -25,14 +25,13 @@ class ChangeStatusSerializer(serializers.Serializer):
     tracking_info_exists = None
 
     def validate(self, attrs):
-        order = self.instance  # type: OrderItem
+        item = self.instance  # type: OrderItem
         if attrs.get("status") == OrderItemStatus.ORDER_ITEM_DELIVERY_STARTED:
             self.tracking_info_given = (
                 "delivery_tracking_number" in attrs and "delivery_tracking_url" in attrs
             )
             self.tracking_info_exists = (
-                order.deliverytrackingnumber is not None
-                and order.deliverytrackingurl is not None
+                item.tracking_number is not None and item.tracking_url is not None
             )
 
             if not self.tracking_info_given and not self.tracking_info_exists:
@@ -99,7 +98,7 @@ def _change_status(
             request_id = (
                 DeliveryStartedAlimtalk(item.order_item_code)
                 .add(
-                    mobile=item.order.user.mobile,
+                    mobile=item.order.user["mobile"],
                     grouping_key=item.order.user_id,
                     productName=item.product_name,
                     trackingNumber=tracking_number,
@@ -108,7 +107,7 @@ def _change_status(
             )
 
             OrderItemAlimtalkLog.objects.create(
-                order_id=id,
+                order_item=item,
                 action_log=log,
                 request_id=request_id,
                 alimtalk_type=OrderItemAlimtalkType.DELIVERY_STARTED,
@@ -123,7 +122,7 @@ def _change_status(
         request_id = (
             CancelFinishedAlimtalk(str(item.id))
             .add(
-                mobile=item.order.user.mobile,
+                mobile=item.order.user["mobile"],
                 grouping_key=item.order.user_id,
                 productName=item.product_name,
                 amount=refund.refund_amount,
