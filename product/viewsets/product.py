@@ -52,9 +52,8 @@ class ProductViewSet(
         serializer = ProductSerializer(res.products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def retrieve(self, request, *args, **kwargs):
-        product_id = request.query_params.get("id")
-        req = GetProductRequest(alloff_product_id=product_id)
+    def retrieve(self, request, pk, *args, **kwargs):
+        req = GetProductRequest(alloff_product_id=pk)
         pd = ProductService.get(req)
         serializer = ProductSerializer(pd)
         return Response(serializer.data, status=status.HTTP_200_OK)
