@@ -92,7 +92,7 @@ class OrderItem(models.Model):
 
     # product
     product_id = models.CharField(max_length=24, db_index=True)
-    product_url = models.TextField()
+    product_url = models.TextField(null=True, blank=True)
     product_img = models.TextField()
     product_name = models.CharField(max_length=100)
 
