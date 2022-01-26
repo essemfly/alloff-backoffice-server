@@ -6,13 +6,14 @@ import "google/protobuf/empty.proto";
 import "logistics/protos/inventory_proto/inventory.proto";
 
 service ReceivedItemController {
-    rpc List(ReceivedItemListRequest) returns (stream ReceivedItem) {}
+    rpc List(ReceivedItemListRequest) returns (ReceivedItemListResponse) {}
     rpc Create(ReceivedItem) returns (ReceivedItem) {}
     rpc Retrieve(ReceivedItemRetrieveRequest) returns (ReceivedItem) {}
     rpc Update(ReceivedItem) returns (ReceivedItem) {}
     rpc Destroy(ReceivedItem) returns (google.protobuf.Empty) {}
 
     rpc Make(MakeReceivedItemRequest) returns (stream ReceivedItem) {}
+    rpc Receive(ReceivedItemRetrieveRequest) returns (ReceivedItem) {}
 }
 
 enum ReceivedItemStatus {
@@ -42,20 +43,16 @@ message ReceivedItem {
 }
 
 message ReceivedItemListRequest {
-    optional string order_id = 1;
-    optional string order_item_id = 2;
-    optional string product_name = 3;
-    optional string brand_korname = 4;
-    optional string brand_keyname = 5;
-    optional string code = 6;
-    repeated string statuses = 7;
-    map<string, int64> query_params = 8;
+    int64 page = 1;
+    int64 size = 2;
+    optional string search = 3;
+    repeated string statuses = 4;
 }
 
 message ReceivedItemListResponse {
     int64 count = 1;
-    string next = 2;
-    string previous = 3;
+    optional int64 next = 2;
+    optional int64 previous = 3;
     repeated ReceivedItem results = 4;
 }
 

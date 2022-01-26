@@ -12,6 +12,4 @@ class CourierService(GrpcService):
     def list(cls) -> List[dict]:
         request = courier_pb2.CourierListRequest()
         with cls.channel:
-            stub = courier_pb2_grpc.CourierControllerStub(cls.channel)
-            response = stub.List(request)
-            return cls.to_array(response)
+            return courier_pb2_grpc.CourierControllerStub(cls.channel).List(request)

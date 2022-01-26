@@ -57,14 +57,10 @@ def _record_status_timestamp(instance: "OrderItem") -> str:
         instance.confirmed_at = datetime.now()
     elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_CANCEL_FINISHED:
         instance.cancel_finished_at = datetime.now()
-    elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_EXCHANGE_REQUESTED:
-        instance.exchange_requested_at = datetime.now()
     elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_EXCHANGE_PENDING:
         instance.exchange_started_at = datetime.now()
     elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_EXCHANGE_FINISHED:
         instance.exchange_finished_at = datetime.now()
-    elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_RETURN_REQUESTED:
-        instance.return_requested_at = datetime.now()
     elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_RETURN_PENDING:
         instance.return_started_at = datetime.now()
     elif instance.order_item_status == OrderItemStatus.ORDER_ITEM_RETURN_FINISHED:

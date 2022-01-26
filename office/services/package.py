@@ -12,6 +12,4 @@ class PackageService(GrpcService):
     def list(cls) -> List[dict]:
         request = package_pb2.PackageListRequest()
         with cls.channel:
-            stub = package_pb2_grpc.PackageControllerStub(cls.channel)
-            response = stub.List(request)
-            return cls.to_array(response)
+            return package_pb2_grpc.PackageControllerStub(cls.channel).List(request)

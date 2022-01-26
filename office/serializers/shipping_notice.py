@@ -3,6 +3,7 @@ from rest_framework import serializers
 from office.serializers.pagination import PaginationSerializer
 
 from office.serializers.shipping_notice_item import ShippingNoticeItemSerializer
+from django_grpc_framework import proto_serializers
 
 
 class ShippingNoticeStatus(models.TextChoices):
@@ -12,7 +13,7 @@ class ShippingNoticeStatus(models.TextChoices):
     SHIPPED = "SHIPPED"
 
 
-class ShippingNoticeSerializer(serializers.Serializer):
+class ShippingNoticeSerializer(proto_serializers.ProtoSerializer):
     items = ShippingNoticeItemSerializer(many=True)
 
     id = serializers.IntegerField()

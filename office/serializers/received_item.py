@@ -2,6 +2,9 @@ from django.db import models
 from office.serializers.inventory import InventorySerializer
 from rest_framework import serializers
 
+from office.serializers.pagination import PaginationSerializer
+from django_grpc_framework import proto_serializers
+
 
 class ReceivedItemStatus(models.TextChoices):
     SOURCING_REQUIRED = "SOURCING_REQUIRED"
@@ -11,7 +14,7 @@ class ReceivedItemStatus(models.TextChoices):
     CANCELED = "CANCELED"
 
 
-class ReceivedItemSerializer(serializers.Serializer):
+class ReceivedItemSerializer(proto_serializers.Serializer):
     id = serializers.IntegerField()
     order_id = serializers.IntegerField()
     order_item_id = serializers.IntegerField()
@@ -28,3 +31,7 @@ class ReceivedItemSerializer(serializers.Serializer):
     updated_at = serializers.DateTimeField()
     deleted_at = serializers.DateTimeField(allow_null=True)
     inventory = InventorySerializer(allow_null=True)
+
+
+class PaginatedReceivedItemSerializer(PaginationSerializer):
+    results = ReceivedItemSerializer(many=True)

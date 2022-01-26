@@ -15,6 +15,7 @@ class ShippingNoticeService(GrpcService):
     def list(cls) -> List[dict]:
         request = shipping_notice_pb2.ShippingNoticeListRequest()
         with cls.channel:
-            stub = shipping_notice_pb2_grpc.ShippingNoticeControllerStub(cls.channel)
-            response = stub.List(request)
-            return cls.to_array(response)
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).List(request)
+z

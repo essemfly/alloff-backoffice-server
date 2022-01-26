@@ -10,6 +10,7 @@ from order.models.order_item_action_log import (
     OrderItemAlimtalkLog,
     OrderItemAlimtalkType,
     OrderItemStatusChangeLog,
+    ReceivedItemGenerationLog,
 )
 from order.models.refund_item import RefundItem
 from rest_framework import serializers, status
@@ -77,6 +78,7 @@ def _change_status(
     tracking_url = serializer.validated_data.get("tracking_url")
 
     change_log = OrderItemStatusChangeLog.objects.create(
+        admin=user,
         order_item=item,
         action_log=log,
         status_from=status_from,
@@ -107,6 +109,7 @@ def _change_status(
             )
 
             OrderItemAlimtalkLog.objects.create(
+                admin=user,
                 order_item=item,
                 action_log=log,
                 request_id=request_id,
@@ -119,10 +122,17 @@ def _change_status(
         received_items = ReceivedItemService.make(item)
         for ri in received_items:
             OrderItemActionLog.objects.create(
-                order_item=item,
                 admin=user,
-                action_type=OrderItemActionType.RECEIVED_ITEM,
-                detail=ri['code'],
+                order_item=item,
+                action_type=OrderItemActionType.GENERATED_RECEIVED_ITEM,
+                detail=ri["code"],
+            )
+            ReceivedItemGenerationLog.objects.create(
+                admin=user,
+                order_item=item,
+                received_item_id=ri["id"],
+                received_item_code=ri["code"],
+                is_force=False,
             )
     elif status_to in [
         OrderItemStatus.ORDER_ITEM_CANCEL_FINISHED,
@@ -141,6 +151,7 @@ def _change_status(
             .send()
         )
         OrderItemAlimtalkLog.objects.create(
+            admin=user,
             order_item=item,
             action_log=log,
             request_id=request_id,

@@ -26,7 +26,7 @@ from rest_framework.response import Response
 from rest_framework_mongoengine import viewsets
 from django.db.models import Prefetch
 
-from order.models.order_item_action_log import OrderItemActionLog, OrderItemActionType
+from order.models.order_item_action_log import OrderItemActionLog, OrderItemActionType, ReceivedItemGenerationLog
 from office.viewsets.order_items.serializers import ForceMakeRiSerializer
 from office.serializers.received_item import ReceivedItemSerializer, ReceivedItemStatus
 from office.services.received_item import ReceivedItemService
@@ -236,12 +236,20 @@ class OrderItemViewSet(
         received_items = ReceivedItemService.force_make(
             self.get_object(), serializer.data.get("quantity")
         )
+        item = self.get_object()
         for ri in received_items:
             OrderItemActionLog.objects.create(
-                order_item=self.get_object(),
+                order_item=item,
                 admin=request.user,
-                action_type=OrderItemActionType.FORCE_RECEIVED_ITEM,
+                action_type=OrderItemActionType.FORCE_GENERATED_RECEIVED_ITEM,
                 detail=ri["code"],
+            )
+            ReceivedItemGenerationLog.objects.create(
+                admin=request.user,
+                order_item=item,
+                received_item_id=ri["id"],
+                received_item_code=ri["code"],
+                is_force=True,
             )
         return Response(
             ReceivedItemSerializer(received_items, many=True).data,

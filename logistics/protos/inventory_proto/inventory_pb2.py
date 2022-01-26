@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n0logistics/protos/inventory_proto/inventory.proto\x12\tinventory\x1a\x1bgoogle/protobuf/empty.proto\"\xee\x02\n\tInventory\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12*\n\x06status\x18\x03 \x01(\x0e\x32\x1a.inventory.InventoryStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x18\n\x10product_brand_id\x18\x06 \x01(\t\x12\x1a\n\x12product_brand_name\x18\x07 \x01(\t\x12\x14\n\x0cproduct_size\x18\x08 \x01(\t\x12\x15\n\rproduct_color\x18\t \x01(\t\x12\x10\n\x08location\x18\n \x01(\t\x12\x0c\n\x04memo\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12\x17\n\ndeleted_at\x18\x0e \x01(\tH\x00\x88\x01\x01\x12\x1e\n\x16product_brand_key_name\x18\x0f \x01(\tB\r\n\x0b_deleted_at\"\xe4\x02\n\x14InventoryListRequest\x12\x19\n\x0cproduct_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1f\n\x12product_brand_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12#\n\x16product_brand_key_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x10\n\x08statuses\x18\x05 \x03(\t\x12\x46\n\x0cquery_params\x18\x06 \x03(\x0b\x32\x30.inventory.InventoryListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0f\n\r_product_nameB\x15\n\x13_product_brand_nameB\x19\n\x17_product_brand_key_nameB\x07\n\x05_code\"m\n\x15InventoryListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x0c\n\x04next\x18\x02 \x01(\t\x12\x10\n\x08previous\x18\x03 \x01(\t\x12%\n\x07results\x18\x04 \x03(\x0b\x32\x14.inventory.Inventory\"&\n\x18InventoryRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03*f\n\x0fInventoryStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\x0c\n\x08IN_STOCK\x10\x01\x12\x15\n\x11PROCESSING_NEEDED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x12\x14\n\x10SHIPPING_PENDING\x10\x04\x32\xe5\x02\n\x13InventoryController\x12K\n\x04List\x12\x1f.inventory.InventoryListRequest\x1a .inventory.InventoryListResponse\"\x00\x12\x36\n\x06\x43reate\x12\x14.inventory.Inventory\x1a\x14.inventory.Inventory\"\x00\x12G\n\x08Retrieve\x12#.inventory.InventoryRetrieveRequest\x1a\x14.inventory.Inventory\"\x00\x12\x36\n\x06Update\x12\x14.inventory.Inventory\x1a\x14.inventory.Inventory\"\x00\x12H\n\x07\x44\x65stroy\x12#.inventory.InventoryRetrieveRequest\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n0logistics/protos/inventory_proto/inventory.proto\x12\tinventory\x1a\x1bgoogle/protobuf/empty.proto\"\xcb\x02\n\tInventory\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12*\n\x06status\x18\x03 \x01(\x0e\x32\x1a.inventory.InventoryStatus\x12\x12\n\nproduct_id\x18\x04 \x01(\t\x12\x14\n\x0cproduct_name\x18\x05 \x01(\t\x12\x15\n\rbrand_keyname\x18\x06 \x01(\t\x12\x15\n\rbrand_korname\x18\x07 \x01(\t\x12\x0c\n\x04size\x18\x08 \x01(\t\x12\r\n\x05\x63olor\x18\t \x01(\t\x12\x10\n\x08location\x18\n \x01(\t\x12\x0c\n\x04memo\x18\x0b \x01(\t\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12\x17\n\ndeleted_at\x18\x0e \x01(\tH\x00\x88\x01\x01\x12\x13\n\x0bproduct_img\x18\x0f \x01(\tB\r\n\x0b_deleted_at\"\xe4\x02\n\x14InventoryListRequest\x12\x19\n\x0cproduct_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1f\n\x12product_brand_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12#\n\x16product_brand_key_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x11\n\x04\x63ode\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x10\n\x08statuses\x18\x05 \x03(\t\x12\x46\n\x0cquery_params\x18\x06 \x03(\x0b\x32\x30.inventory.InventoryListRequest.QueryParamsEntry\x1a\x32\n\x10QueryParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x03:\x02\x38\x01\x42\x0f\n\r_product_nameB\x15\n\x13_product_brand_nameB\x19\n\x17_product_brand_key_nameB\x07\n\x05_code\"\x8d\x01\n\x15InventoryListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12%\n\x07results\x18\x04 \x03(\x0b\x32\x14.inventory.InventoryB\x07\n\x05_nextB\x0b\n\t_previous\"&\n\x18InventoryRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03*f\n\x0fInventoryStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\x0c\n\x08IN_STOCK\x10\x01\x12\x15\n\x11PROCESSING_NEEDED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x12\x14\n\x10SHIPPING_PENDING\x10\x04\x32\xe5\x02\n\x13InventoryController\x12K\n\x04List\x12\x1f.inventory.InventoryListRequest\x1a .inventory.InventoryListResponse\"\x00\x12\x36\n\x06\x43reate\x12\x14.inventory.Inventory\x1a\x14.inventory.Inventory\"\x00\x12G\n\x08Retrieve\x12#.inventory.InventoryRetrieveRequest\x1a\x14.inventory.Inventory\"\x00\x12\x36\n\x06Update\x12\x14.inventory.Inventory\x1a\x14.inventory.Inventory\"\x00\x12H\n\x07\x44\x65stroy\x12#.inventory.InventoryRetrieveRequest\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -60,8 +60,8 @@ _INVENTORYSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=971,
-  serialized_end=1073,
+  serialized_start=969,
+  serialized_end=1071,
 )
 _sym_db.RegisterEnumDescriptor(_INVENTORYSTATUS)
 
@@ -118,28 +118,28 @@ _INVENTORY = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='product_brand_id', full_name='inventory.Inventory.product_brand_id', index=5,
+      name='brand_keyname', full_name='inventory.Inventory.brand_keyname', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='product_brand_name', full_name='inventory.Inventory.product_brand_name', index=6,
+      name='brand_korname', full_name='inventory.Inventory.brand_korname', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='product_size', full_name='inventory.Inventory.product_size', index=7,
+      name='size', full_name='inventory.Inventory.size', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='product_color', full_name='inventory.Inventory.product_color', index=8,
+      name='color', full_name='inventory.Inventory.color', index=8,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -181,7 +181,7 @@ _INVENTORY = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='product_brand_key_name', full_name='inventory.Inventory.product_brand_key_name', index=14,
+      name='product_img', full_name='inventory.Inventory.product_img', index=14,
       number=15, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -205,7 +205,7 @@ _INVENTORY = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=93,
-  serialized_end=459,
+  serialized_end=424,
 )
 
 
@@ -243,8 +243,8 @@ _INVENTORYLISTREQUEST_QUERYPARAMSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=692,
-  serialized_end=742,
+  serialized_start=657,
+  serialized_end=707,
 )
 
 _INVENTORYLISTREQUEST = _descriptor.Descriptor(
@@ -329,8 +329,8 @@ _INVENTORYLISTREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=462,
-  serialized_end=818,
+  serialized_start=427,
+  serialized_end=783,
 )
 
 
@@ -351,15 +351,15 @@ _INVENTORYLISTRESPONSE = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='next', full_name='inventory.InventoryListResponse.next', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='previous', full_name='inventory.InventoryListResponse.previous', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -381,9 +381,19 @@ _INVENTORYLISTRESPONSE = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_next', full_name='inventory.InventoryListResponse._next',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_previous', full_name='inventory.InventoryListResponse._previous',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=820,
-  serialized_end=929,
+  serialized_start=786,
+  serialized_end=927,
 )
 
 
@@ -414,8 +424,8 @@ _INVENTORYRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=931,
-  serialized_end=969,
+  serialized_start=929,
+  serialized_end=967,
 )
 
 _INVENTORY.fields_by_name['status'].enum_type = _INVENTORYSTATUS
@@ -437,6 +447,12 @@ _INVENTORYLISTREQUEST.oneofs_by_name['_code'].fields.append(
   _INVENTORYLISTREQUEST.fields_by_name['code'])
 _INVENTORYLISTREQUEST.fields_by_name['code'].containing_oneof = _INVENTORYLISTREQUEST.oneofs_by_name['_code']
 _INVENTORYLISTRESPONSE.fields_by_name['results'].message_type = _INVENTORY
+_INVENTORYLISTRESPONSE.oneofs_by_name['_next'].fields.append(
+  _INVENTORYLISTRESPONSE.fields_by_name['next'])
+_INVENTORYLISTRESPONSE.fields_by_name['next'].containing_oneof = _INVENTORYLISTRESPONSE.oneofs_by_name['_next']
+_INVENTORYLISTRESPONSE.oneofs_by_name['_previous'].fields.append(
+  _INVENTORYLISTRESPONSE.fields_by_name['previous'])
+_INVENTORYLISTRESPONSE.fields_by_name['previous'].containing_oneof = _INVENTORYLISTRESPONSE.oneofs_by_name['_previous']
 DESCRIPTOR.message_types_by_name['Inventory'] = _INVENTORY
 DESCRIPTOR.message_types_by_name['InventoryListRequest'] = _INVENTORYLISTREQUEST
 DESCRIPTOR.message_types_by_name['InventoryListResponse'] = _INVENTORYLISTRESPONSE
@@ -490,8 +506,8 @@ _INVENTORYCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1076,
-  serialized_end=1433,
+  serialized_start=1074,
+  serialized_end=1431,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

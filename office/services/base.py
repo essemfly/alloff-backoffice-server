@@ -10,17 +10,17 @@ class GrpcServiceUrlNotDefinedException(Exception):
 class GrpcService:
     url = ""
 
-    @classmethod
-    def to_dict(cls, data) -> dict:
-        result = MessageToDict(
-            data, preserving_proto_field_name=True, including_default_value_fields=True
-        )
-        print(result)
-        return result
+    # @classmethod
+    # def to_dict(cls, data) -> dict:
+    #     result = MessageToDict(
+    #         data, preserving_proto_field_name=True, including_default_value_fields=True
+    #     )
+    #     print(result)
+    #     return result
 
-    @classmethod
-    def to_array(cls, data) -> List[dict]:
-        return [cls.to_dict(x) for x in data]
+    # @classmethod
+    # def to_array(cls, data) -> List[dict]:
+    #     return [cls.to_dict(x) for x in data]
 
     @classmethod
     @property

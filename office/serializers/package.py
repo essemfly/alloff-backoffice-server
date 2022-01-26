@@ -1,4 +1,6 @@
 from django.db import models
+from django_grpc_framework import proto_serializers
+from office.serializers.courier import CourierSerializer
 from rest_framework import serializers
 
 
@@ -13,10 +15,12 @@ class PackageStatus(models.TextChoices):
     CANCEL_FINISHED = "CANCEL_FINISHED"
 
 
-class PackageSerializer(serializers.Serializer):
+class PackageSerializer(proto_serializers.ProtoSerializer):
     id = serializers.IntegerField()
     key = serializers.CharField()
-    status = serializers.ChoiceField(PackageStatus.choices, )
+    status = serializers.ChoiceField(
+        PackageStatus.choices,
+    )
     related_order_item_ids = serializers.ListField(serializers.CharField())
     customer_name = serializers.CharField()
     customer_contact = serializers.CharField()
@@ -30,4 +34,4 @@ class PackageSerializer(serializers.Serializer):
     deleted_at = serializers.CharField(allow_null=True)
     remark_records = serializers.IntegerField(allow_null=True)
     inventories = serializers.IntegerField(allow_null=True)
-    tracking_courier = serializers.IntegerField(allow_null=True)
+    tracking_courier = CourierSerializer()

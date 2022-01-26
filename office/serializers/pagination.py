@@ -1,7 +1,9 @@
+from django_grpc_framework import proto_serializers
 from rest_framework import serializers
 
-class PaginationSerializer(serializers.Serializer):
+
+class PaginationSerializer(proto_serializers.ProtoSerializer):
     count = serializers.IntegerField()
-    next = serializers.CharField(allow_null=True)
-    previous = serializers.CharField(allow_null=True)
     results = serializers.ListField(serializers.DictField())
+    next = serializers.IntegerField()
+    previous = serializers.IntegerField()

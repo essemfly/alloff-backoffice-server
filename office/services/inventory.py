@@ -25,9 +25,7 @@ class InventoryService(GrpcService):
             statuses=statuses,
         )
         with cls.channel:
-            stub = inventory_pb2_grpc.InventoryControllerStub(cls.channel)
-            response = stub.List(request)
-            return cls.to_dict(response)
+            return inventory_pb2_grpc.InventoryControllerStub(cls.channel).List(request)
 
     @classmethod
     def delete(
