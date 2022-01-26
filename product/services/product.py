@@ -10,7 +10,7 @@ class ProductService(GrpcService):
     def list(cls, request: product_pb2.ListProductsRequest):
         with cls.channel:
             stub = product_pb2_grpc.ProductStub(cls.channel)
-            response: product_pb2.ListProductsRequest = stub.ListProducts(request)
+            response: product_pb2.ListProductsResponse = stub.ListProducts(request)
 
             return response
 
@@ -18,7 +18,7 @@ class ProductService(GrpcService):
     def create(cls, request: product_pb2.CreateProductRequest):
         with cls.channel:
             stub = product_pb2_grpc.ProductStub(cls.channel)
-            response: product_pb2.CreateProductRequest = stub.CreateProduct(request)
+            response: product_pb2.CreateProductResponse = stub.CreateProduct(request)
 
             return response.product
 
