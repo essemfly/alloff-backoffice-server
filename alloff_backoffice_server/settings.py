@@ -237,8 +237,5 @@ GRPC_LOGISTICS_SERVER_URL = env.get("GRPC_LOGISTICS_SERVER_URL")
 
 # PRODUCT_SERVER_URL = "15.165.235.121:9000"
 # GRPC_LOGISTICS_SERVER_URL = "ec2-13-209-64-30.ap-northeast-2.compute.amazonaws.com:9000"
-<<<<<<< Updated upstream
-=======
 
 GRPC_PAGINATION_DEFAULT_PAGE_SIZE = 20
->>>>>>> Stashed changes

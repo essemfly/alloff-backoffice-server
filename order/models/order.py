@@ -14,7 +14,7 @@ class Order(models.Model):
     class Meta:
         db_table = "orders"
 
-    alloff_order_id = models.CharField(max_length=32, db_index=True)
+    alloff_order_id = models.CharField(max_length=32, db_index=True, unique=True)
     order_status = models.CharField(
         max_length=50,
         choices=OrderStatus.choices,
