@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1cprotos/product/product.proto\x12\ngrpcServer\".\n\x11GetProductRequest\x12\x19\n\x11\x61lloff_product_id\x18\x01 \x01(\t\"A\n\x12GetProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"]\n\x13ListProductsRequest\x12\'\n\x05query\x18\x01 \x01(\x0b\x32\x18.grpcServer.ProductQuery\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\"\xa7\x01\n\x14ListProductsResponse\x12,\n\x08products\x18\x01 \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\x12,\n\nlist_query\x18\x05 \x01(\x0b\x32\x18.grpcServer.ProductQuery\"\xe0\x03\n\x14\x43reateProductRequest\x12\x13\n\x0b\x61lloff_name\x18\x01 \x01(\t\x12\x1b\n\x13is_foreign_delivery\x18\x02 \x01(\x08\x12\x17\n\nproduct_id\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x1b\n\x0eoriginal_price\x18\x04 \x01(\x05H\x01\x88\x01\x01\x12\x18\n\x10\x64iscounted_price\x18\x05 \x01(\x05\x12\x1a\n\rspecial_price\x18\x06 \x01(\x05H\x02\x88\x01\x01\x12\x16\n\x0e\x62rand_key_name\x18\x07 \x01(\t\x12/\n\tinventory\x18\x08 \x03(\x0b\x32\x1c.grpcServer.InventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1a\n\x12is_refund_possible\x18\n \x01(\x08\x12\x0e\n\x06images\x18\x0b \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0c \x03(\t\x12\x1e\n\x16\x65\x61rliest_delivery_days\x18\r \x01(\x05\x12\x1c\n\x14latest_delivery_days\x18\x0e \x01(\x05\x12\x12\n\nrefund_fee\x18\x0f \x01(\x05\x42\r\n\x0b_product_idB\x11\n\x0f_original_priceB\x10\n\x0e_special_price\"D\n\x15\x43reateProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"\xf3\x05\n\x12\x45\x64itProductRequest\x12\x18\n\x0b\x61lloff_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12 \n\x13is_foreign_delivery\x18\x02 \x01(\x08H\x01\x88\x01\x01\x12\x17\n\nproduct_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0eoriginal_price\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x1d\n\x10\x64iscounted_price\x18\x05 \x01(\x05H\x04\x88\x01\x01\x12\x1a\n\rspecial_price\x18\x06 \x01(\x05H\x05\x88\x01\x01\x12\x1b\n\x0e\x62rand_key_name\x18\x07 \x01(\tH\x06\x88\x01\x01\x12/\n\tinventory\x18\x08 \x03(\x0b\x32\x1c.grpcServer.InventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1f\n\x12is_refund_possible\x18\n \x01(\x08H\x07\x88\x01\x01\x12\x0e\n\x06images\x18\x0b \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0c \x03(\t\x12\x17\n\nis_removed\x18\r \x01(\x08H\x08\x88\x01\x01\x12#\n\x16\x65\x61rliest_delivery_days\x18\x0e \x01(\x05H\t\x88\x01\x01\x12!\n\x14latest_delivery_days\x18\x0f \x01(\x05H\n\x88\x01\x01\x12\x17\n\nrefund_fee\x18\x10 \x01(\x05H\x0b\x88\x01\x01\x12\x19\n\x11\x61lloff_product_id\x18\x11 \x01(\tB\x0e\n\x0c_alloff_nameB\x16\n\x14_is_foreign_deliveryB\r\n\x0b_product_idB\x11\n\x0f_original_priceB\x13\n\x11_discounted_priceB\x10\n\x0e_special_priceB\x11\n\x0f_brand_key_nameB\x15\n\x13_is_refund_possibleB\r\n\x0b_is_removedB\x19\n\x17_earliest_delivery_daysB\x17\n\x15_latest_delivery_daysB\r\n\x0b_refund_fee\"B\n\x13\x45\x64itProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"\xa4\x04\n\x0eProductMessage\x12\x13\n\x0b\x61lloff_name\x18\x01 \x01(\t\x12\x1b\n\x13is_foreign_delivery\x18\x02 \x01(\x08\x12\x12\n\nproduct_id\x18\x03 \x01(\t\x12\x16\n\x0eoriginal_price\x18\x04 \x01(\x05\x12\x18\n\x10\x64iscounted_price\x18\x05 \x01(\x05\x12\x15\n\rspecial_price\x18\x06 \x01(\x05\x12\x16\n\x0e\x62rand_kor_name\x18\x07 \x01(\t\x12/\n\tinventory\x18\x08 \x03(\x0b\x32\x1c.grpcServer.InventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1e\n\x16\x65\x61rliest_delivery_days\x18\n \x01(\x05\x12\x1c\n\x14latest_delivery_days\x18\x0b \x01(\x05\x12\x12\n\nrefund_fee\x18\x0c \x01(\x05\x12\x1a\n\x12is_refund_possible\x18\r \x01(\x08\x12\x0e\n\x06images\x18\x0e \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0f \x03(\t\x12\x15\n\rcategory_name\x18\x10 \x01(\t\x12\x1c\n\x14\x61lloff_category_name\x18\x11 \x01(\t\x12\x12\n\nis_removed\x18\x12 \x01(\x08\x12\x12\n\nis_soldout\x18\x13 \x01(\x08\x12\x13\n\x0btotal_score\x18\x14 \x01(\x05\x12\x19\n\x11\x61lloff_product_id\x18\x15 \x01(\t\"2\n\x10InventoryMessage\x12\x0c\n\x04size\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\x05\"\xc0\x01\n\x0cProductQuery\x12\x19\n\x0csearch_query\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08\x62rand_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0b\x63\x61tegory_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1f\n\x12\x61lloff_category_id\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_search_queryB\x0b\n\t_brand_idB\x0e\n\x0c_category_idB\x15\n\x13_alloff_category_id2\xcf\x02\n\x07Product\x12K\n\nGetProduct\x12\x1d.grpcServer.GetProductRequest\x1a\x1e.grpcServer.GetProductResponse\x12Q\n\x0cListProducts\x12\x1f.grpcServer.ListProductsRequest\x1a .grpcServer.ListProductsResponse\x12T\n\rCreateProduct\x12 .grpcServer.CreateProductRequest\x1a!.grpcServer.CreateProductResponse\x12N\n\x0b\x45\x64itProduct\x12\x1e.grpcServer.EditProductRequest\x1a\x1f.grpcServer.EditProductResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n\x1cprotos/product/product.proto\x12\ngrpcServer\".\n\x11GetProductRequest\x12\x19\n\x11\x61lloff_product_id\x18\x01 \x01(\t\"A\n\x12GetProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"]\n\x13ListProductsRequest\x12\'\n\x05query\x18\x01 \x01(\x0b\x32\x18.grpcServer.ProductQuery\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\"\xa7\x01\n\x14ListProductsResponse\x12,\n\x08products\x18\x01 \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\x12,\n\nlist_query\x18\x05 \x01(\x0b\x32\x18.grpcServer.ProductQuery\"\xe7\x03\n\x14\x43reateProductRequest\x12\x13\n\x0b\x61lloff_name\x18\x01 \x01(\t\x12\x1b\n\x13is_foreign_delivery\x18\x02 \x01(\x08\x12\x17\n\nproduct_id\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x1b\n\x0eoriginal_price\x18\x04 \x01(\x05H\x01\x88\x01\x01\x12\x18\n\x10\x64iscounted_price\x18\x05 \x01(\x05\x12\x1a\n\rspecial_price\x18\x06 \x01(\x05H\x02\x88\x01\x01\x12\x16\n\x0e\x62rand_key_name\x18\x07 \x01(\t\x12\x36\n\tinventory\x18\x08 \x03(\x0b\x32#.grpcServer.ProductInventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1a\n\x12is_refund_possible\x18\n \x01(\x08\x12\x0e\n\x06images\x18\x0b \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0c \x03(\t\x12\x1e\n\x16\x65\x61rliest_delivery_days\x18\r \x01(\x05\x12\x1c\n\x14latest_delivery_days\x18\x0e \x01(\x05\x12\x12\n\nrefund_fee\x18\x0f \x01(\x05\x42\r\n\x0b_product_idB\x11\n\x0f_original_priceB\x10\n\x0e_special_price\"D\n\x15\x43reateProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"\xfa\x05\n\x12\x45\x64itProductRequest\x12\x18\n\x0b\x61lloff_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12 \n\x13is_foreign_delivery\x18\x02 \x01(\x08H\x01\x88\x01\x01\x12\x17\n\nproduct_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1b\n\x0eoriginal_price\x18\x04 \x01(\x05H\x03\x88\x01\x01\x12\x1d\n\x10\x64iscounted_price\x18\x05 \x01(\x05H\x04\x88\x01\x01\x12\x1a\n\rspecial_price\x18\x06 \x01(\x05H\x05\x88\x01\x01\x12\x1b\n\x0e\x62rand_key_name\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x36\n\tinventory\x18\x08 \x03(\x0b\x32#.grpcServer.ProductInventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1f\n\x12is_refund_possible\x18\n \x01(\x08H\x07\x88\x01\x01\x12\x0e\n\x06images\x18\x0b \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0c \x03(\t\x12\x17\n\nis_removed\x18\r \x01(\x08H\x08\x88\x01\x01\x12#\n\x16\x65\x61rliest_delivery_days\x18\x0e \x01(\x05H\t\x88\x01\x01\x12!\n\x14latest_delivery_days\x18\x0f \x01(\x05H\n\x88\x01\x01\x12\x17\n\nrefund_fee\x18\x10 \x01(\x05H\x0b\x88\x01\x01\x12\x19\n\x11\x61lloff_product_id\x18\x11 \x01(\tB\x0e\n\x0c_alloff_nameB\x16\n\x14_is_foreign_deliveryB\r\n\x0b_product_idB\x11\n\x0f_original_priceB\x13\n\x11_discounted_priceB\x10\n\x0e_special_priceB\x11\n\x0f_brand_key_nameB\x15\n\x13_is_refund_possibleB\r\n\x0b_is_removedB\x19\n\x17_earliest_delivery_daysB\x17\n\x15_latest_delivery_daysB\r\n\x0b_refund_fee\"B\n\x13\x45\x64itProductResponse\x12+\n\x07product\x18\x01 \x01(\x0b\x32\x1a.grpcServer.ProductMessage\"\xab\x04\n\x0eProductMessage\x12\x13\n\x0b\x61lloff_name\x18\x01 \x01(\t\x12\x1b\n\x13is_foreign_delivery\x18\x02 \x01(\x08\x12\x12\n\nproduct_id\x18\x03 \x01(\t\x12\x16\n\x0eoriginal_price\x18\x04 \x01(\x05\x12\x18\n\x10\x64iscounted_price\x18\x05 \x01(\x05\x12\x15\n\rspecial_price\x18\x06 \x01(\x05\x12\x16\n\x0e\x62rand_kor_name\x18\x07 \x01(\t\x12\x36\n\tinventory\x18\x08 \x03(\x0b\x32#.grpcServer.ProductInventoryMessage\x12\x13\n\x0b\x64\x65scription\x18\t \x03(\t\x12\x1e\n\x16\x65\x61rliest_delivery_days\x18\n \x01(\x05\x12\x1c\n\x14latest_delivery_days\x18\x0b \x01(\x05\x12\x12\n\nrefund_fee\x18\x0c \x01(\x05\x12\x1a\n\x12is_refund_possible\x18\r \x01(\x08\x12\x0e\n\x06images\x18\x0e \x03(\t\x12\x1a\n\x12\x64\x65scription_images\x18\x0f \x03(\t\x12\x15\n\rcategory_name\x18\x10 \x01(\t\x12\x1c\n\x14\x61lloff_category_name\x18\x11 \x01(\t\x12\x12\n\nis_removed\x18\x12 \x01(\x08\x12\x12\n\nis_soldout\x18\x13 \x01(\x08\x12\x13\n\x0btotal_score\x18\x14 \x01(\x05\x12\x19\n\x11\x61lloff_product_id\x18\x15 \x01(\t\"9\n\x17ProductInventoryMessage\x12\x0c\n\x04size\x18\x01 \x01(\t\x12\x10\n\x08quantity\x18\x02 \x01(\x05\"\xc0\x01\n\x0cProductQuery\x12\x19\n\x0csearch_query\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08\x62rand_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0b\x63\x61tegory_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1f\n\x12\x61lloff_category_id\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_search_queryB\x0b\n\t_brand_idB\x0e\n\x0c_category_idB\x15\n\x13_alloff_category_id2\xcf\x02\n\x07Product\x12K\n\nGetProduct\x12\x1d.grpcServer.GetProductRequest\x1a\x1e.grpcServer.GetProductResponse\x12Q\n\x0cListProducts\x12\x1f.grpcServer.ListProductsRequest\x1a .grpcServer.ListProductsResponse\x12T\n\rCreateProduct\x12 .grpcServer.CreateProductRequest\x1a!.grpcServer.CreateProductResponse\x12N\n\x0b\x45\x64itProduct\x12\x1e.grpcServer.EditProductRequest\x1a\x1f.grpcServer.EditProductResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
 )
 
 
@@ -336,7 +336,7 @@ _CREATEPRODUCTREQUEST = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=425,
-  serialized_end=905,
+  serialized_end=912,
 )
 
 
@@ -367,8 +367,8 @@ _CREATEPRODUCTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=907,
-  serialized_end=975,
+  serialized_start=914,
+  serialized_end=982,
 )
 
 
@@ -571,8 +571,8 @@ _EDITPRODUCTREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=978,
-  serialized_end=1733,
+  serialized_start=985,
+  serialized_end=1747,
 )
 
 
@@ -603,8 +603,8 @@ _EDITPRODUCTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1735,
-  serialized_end=1801,
+  serialized_start=1749,
+  serialized_end=1815,
 )
 
 
@@ -775,28 +775,28 @@ _PRODUCTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1804,
-  serialized_end=2352,
+  serialized_start=1818,
+  serialized_end=2373,
 )
 
 
-_INVENTORYMESSAGE = _descriptor.Descriptor(
-  name='InventoryMessage',
-  full_name='grpcServer.InventoryMessage',
+_PRODUCTINVENTORYMESSAGE = _descriptor.Descriptor(
+  name='ProductInventoryMessage',
+  full_name='grpcServer.ProductInventoryMessage',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='size', full_name='grpcServer.InventoryMessage.size', index=0,
+      name='size', full_name='grpcServer.ProductInventoryMessage.size', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='quantity', full_name='grpcServer.InventoryMessage.quantity', index=1,
+      name='quantity', full_name='grpcServer.ProductInventoryMessage.quantity', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -814,8 +814,8 @@ _INVENTORYMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2354,
-  serialized_end=2404,
+  serialized_start=2375,
+  serialized_end=2432,
 )
 
 
@@ -887,15 +887,15 @@ _PRODUCTQUERY = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=2407,
-  serialized_end=2599,
+  serialized_start=2435,
+  serialized_end=2627,
 )
 
 _GETPRODUCTRESPONSE.fields_by_name['product'].message_type = _PRODUCTMESSAGE
 _LISTPRODUCTSREQUEST.fields_by_name['query'].message_type = _PRODUCTQUERY
 _LISTPRODUCTSRESPONSE.fields_by_name['products'].message_type = _PRODUCTMESSAGE
 _LISTPRODUCTSRESPONSE.fields_by_name['list_query'].message_type = _PRODUCTQUERY
-_CREATEPRODUCTREQUEST.fields_by_name['inventory'].message_type = _INVENTORYMESSAGE
+_CREATEPRODUCTREQUEST.fields_by_name['inventory'].message_type = _PRODUCTINVENTORYMESSAGE
 _CREATEPRODUCTREQUEST.oneofs_by_name['_product_id'].fields.append(
   _CREATEPRODUCTREQUEST.fields_by_name['product_id'])
 _CREATEPRODUCTREQUEST.fields_by_name['product_id'].containing_oneof = _CREATEPRODUCTREQUEST.oneofs_by_name['_product_id']
@@ -906,7 +906,7 @@ _CREATEPRODUCTREQUEST.oneofs_by_name['_special_price'].fields.append(
   _CREATEPRODUCTREQUEST.fields_by_name['special_price'])
 _CREATEPRODUCTREQUEST.fields_by_name['special_price'].containing_oneof = _CREATEPRODUCTREQUEST.oneofs_by_name['_special_price']
 _CREATEPRODUCTRESPONSE.fields_by_name['product'].message_type = _PRODUCTMESSAGE
-_EDITPRODUCTREQUEST.fields_by_name['inventory'].message_type = _INVENTORYMESSAGE
+_EDITPRODUCTREQUEST.fields_by_name['inventory'].message_type = _PRODUCTINVENTORYMESSAGE
 _EDITPRODUCTREQUEST.oneofs_by_name['_alloff_name'].fields.append(
   _EDITPRODUCTREQUEST.fields_by_name['alloff_name'])
 _EDITPRODUCTREQUEST.fields_by_name['alloff_name'].containing_oneof = _EDITPRODUCTREQUEST.oneofs_by_name['_alloff_name']
@@ -944,7 +944,7 @@ _EDITPRODUCTREQUEST.oneofs_by_name['_refund_fee'].fields.append(
   _EDITPRODUCTREQUEST.fields_by_name['refund_fee'])
 _EDITPRODUCTREQUEST.fields_by_name['refund_fee'].containing_oneof = _EDITPRODUCTREQUEST.oneofs_by_name['_refund_fee']
 _EDITPRODUCTRESPONSE.fields_by_name['product'].message_type = _PRODUCTMESSAGE
-_PRODUCTMESSAGE.fields_by_name['inventory'].message_type = _INVENTORYMESSAGE
+_PRODUCTMESSAGE.fields_by_name['inventory'].message_type = _PRODUCTINVENTORYMESSAGE
 _PRODUCTQUERY.oneofs_by_name['_search_query'].fields.append(
   _PRODUCTQUERY.fields_by_name['search_query'])
 _PRODUCTQUERY.fields_by_name['search_query'].containing_oneof = _PRODUCTQUERY.oneofs_by_name['_search_query']
@@ -966,7 +966,7 @@ DESCRIPTOR.message_types_by_name['CreateProductResponse'] = _CREATEPRODUCTRESPON
 DESCRIPTOR.message_types_by_name['EditProductRequest'] = _EDITPRODUCTREQUEST
 DESCRIPTOR.message_types_by_name['EditProductResponse'] = _EDITPRODUCTRESPONSE
 DESCRIPTOR.message_types_by_name['ProductMessage'] = _PRODUCTMESSAGE
-DESCRIPTOR.message_types_by_name['InventoryMessage'] = _INVENTORYMESSAGE
+DESCRIPTOR.message_types_by_name['ProductInventoryMessage'] = _PRODUCTINVENTORYMESSAGE
 DESCRIPTOR.message_types_by_name['ProductQuery'] = _PRODUCTQUERY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -1033,12 +1033,12 @@ ProductMessage = _reflection.GeneratedProtocolMessageType('ProductMessage', (_me
   })
 _sym_db.RegisterMessage(ProductMessage)
 
-InventoryMessage = _reflection.GeneratedProtocolMessageType('InventoryMessage', (_message.Message,), {
-  'DESCRIPTOR' : _INVENTORYMESSAGE,
+ProductInventoryMessage = _reflection.GeneratedProtocolMessageType('ProductInventoryMessage', (_message.Message,), {
+  'DESCRIPTOR' : _PRODUCTINVENTORYMESSAGE,
   '__module__' : 'protos.product.product_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.InventoryMessage)
+  # @@protoc_insertion_point(class_scope:grpcServer.ProductInventoryMessage)
   })
-_sym_db.RegisterMessage(InventoryMessage)
+_sym_db.RegisterMessage(ProductInventoryMessage)
 
 ProductQuery = _reflection.GeneratedProtocolMessageType('ProductQuery', (_message.Message,), {
   'DESCRIPTOR' : _PRODUCTQUERY,
@@ -1057,8 +1057,8 @@ _PRODUCT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2602,
-  serialized_end=2937,
+  serialized_start=2630,
+  serialized_end=2965,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetProduct',

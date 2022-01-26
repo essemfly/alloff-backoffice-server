@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.product_pb2 import (
     EditProductRequest,
-    InventoryMessage,
+    ProductInventoryMessage,
     ListProductsRequest,
     ProductMessage,
     CreateProductRequest,
@@ -15,7 +15,7 @@ class InventorySerializer(proto_serializers.ProtoSerializer):
     quantity = serializers.IntegerField()
 
     class Meta:
-        proto_class = InventoryMessage
+        proto_class = ProductInventoryMessage
 
 
 class ProductSerializer(proto_serializers.ProtoSerializer):
