@@ -99,7 +99,6 @@ class OrderItem(models.Model):
     cancel_description = models.JSONField()
     delivery_description = models.JSONField()
 
-    is_removed = models.BooleanField(default=False)
     sales_price = models.IntegerField()
     size = models.CharField(max_length=50)
     color = models.CharField(max_length=50, blank=True, null=True)
