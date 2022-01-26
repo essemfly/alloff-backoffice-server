@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
@@ -8,7 +9,7 @@ from product.serializers.notification import (
     SendNotiSerializer,
 )
 from product.services.notification import NotificationService
-from protos.product.notification_pb2 import ListNotiRequest
+from protos.product.notification_pb2 import CreateNotiRequest, ListNotiRequest
 from rest_framework import mixins, status, viewsets
 
 
@@ -26,6 +27,10 @@ class NotificationViewSet(
         serializer = ListNotiSerializer(notis)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        request=CreateNotiSerializer,
+        responses={status.HTTP_201_CREATED: CreateNotiSerializer},
+    )
     def create(self, request, *args, **kwargs):
         serializer = CreateNotiSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -34,6 +39,7 @@ class NotificationViewSet(
             return Response(res, status=status.HTTP_201_CREATED)
         return Response(res, status=status.HTTP_400_BAD_REQUEST)
 
+    @extend_schema(request=SendNotiSerializer, responses={status.HTTP_200_OK})
     @action(detail=True, methods=["post"])
     def send(self, request, *args, **kwargs):
         serializer = SendNotiSerializer(data=request.data)

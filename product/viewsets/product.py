@@ -1,18 +1,14 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import action
 from product.serializers.product import (
     CreateProductRequestSerializer,
     EditProductRequestSerializer,
     ProductSerializer,
-    ListProductSerializer,
 )
 from product.services.product import ProductService
 from protos.product.product_pb2 import (
-    CreateProductRequest,
-    EditProductRequest,
     GetProductRequest,
-    GetProductResponse,
     ListProductsRequest,
     ProductQuery,
 )
@@ -58,6 +54,10 @@ class ProductViewSet(
         serializer = ProductSerializer(pd)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        request=CreateProductRequestSerializer,
+        responses={status.HTTP_201_CREATED: ProductSerializer},
+    )
     def create(self, request, *args, **kwargs):
         serializer = CreateProductRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -65,6 +65,10 @@ class ProductViewSet(
         serializer = ProductSerializer(res)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @extend_schema(
+        request=EditProductRequestSerializer,
+        responses={status.HTTP_200_OK: ProductSerializer},
+    )
     def update(self, request, alloff_product_id, *args, **kwargs):
         serializer = EditProductRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
