@@ -3,6 +3,10 @@ syntax = "proto3";
 package package;
 
 import "google/protobuf/empty.proto";
+import "logistics/protos/courier_proto/courier.proto";
+import "logistics/protos/inventory_proto/inventory.proto";
+import "logistics/protos/package_remark_record_proto/package_remark_record.proto";
+import "logistics/protos/package_log_proto/package_log.proto";
 
 service PackageController {
     rpc List(PackageListRequest) returns (stream Package) {}
@@ -37,9 +41,10 @@ message Package {
     string created_at = 12;
     string updated_at = 13;
     optional string deleted_at = 14;
-    optional int64 remark_records = 15;
-    optional int64 inventories = 16;
-    optional int64 tracking_courier = 17;
+    repeated inventory.Inventory inventories = 15;
+    repeated package_remark_record.PackageRemarkRecord remark_records = 16;
+    optional package_log.PackageLog logs = 17;
+    optional courier.Courier tracking_courier = 18;
 }
 
 message PackageListRequest {

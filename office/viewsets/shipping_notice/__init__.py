@@ -9,6 +9,8 @@ from office.services.shipping_notice import ShippingNoticeService
 from rest_framework import mixins, request, response, status, viewsets
 from rest_framework.decorators import action
 
+from office.viewsets.pagination import PaginationListMixin
+
 
 @extend_schema_view(
     list=extend_schema(
@@ -26,7 +28,7 @@ from rest_framework.decorators import action
         ],
     ),
 )
-class ShippingNoticeViewSet(mixins.ListModelMixin, viewsets.ViewSet):
+class ShippingNoticeViewSet(PaginationListMixin, viewsets.ViewSet):
     def get_serializer_class(self):
         if self.action == "list":
             return PaginatedShippingNoticeSerializer
@@ -34,7 +36,7 @@ class ShippingNoticeViewSet(mixins.ListModelMixin, viewsets.ViewSet):
 
     def list(self, request: request.Request):
         received_items = ShippingNoticeService.list(
-            code=request.query_params.get("code"),
+            **self.get_pagination_params(request),
             statuses=request.query_params.getlist("statuses"),
         )
         serializer = PaginatedShippingNoticeSerializer(received_items)

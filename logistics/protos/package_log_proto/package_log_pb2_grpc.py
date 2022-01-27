@@ -3,10 +3,10 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from logistics.protos.shipping_notice_proto import shipping_notice_pb2 as logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2
+from logistics.protos.package_log_proto import package_log_pb2 as logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2
 
 
-class ShippingNoticeControllerStub(object):
+class PackageLogControllerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,34 +15,34 @@ class ShippingNoticeControllerStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.List = channel.unary_unary(
-                '/shipping_notice.ShippingNoticeController/List',
-                request_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListRequest.SerializeToString,
-                response_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListResponse.FromString,
+        self.List = channel.unary_stream(
+                '/package_log.PackageLogController/List',
+                request_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogListRequest.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
                 )
         self.Create = channel.unary_unary(
-                '/shipping_notice.ShippingNoticeController/Create',
-                request_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
-                response_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                '/package_log.PackageLogController/Create',
+                request_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
                 )
         self.Retrieve = channel.unary_unary(
-                '/shipping_notice.ShippingNoticeController/Retrieve',
-                request_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.SerializeToString,
-                response_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                '/package_log.PackageLogController/Retrieve',
+                request_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogRetrieveRequest.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
                 )
         self.Update = channel.unary_unary(
-                '/shipping_notice.ShippingNoticeController/Update',
-                request_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
-                response_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                '/package_log.PackageLogController/Update',
+                request_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
+                response_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
                 )
         self.Destroy = channel.unary_unary(
-                '/shipping_notice.ShippingNoticeController/Destroy',
-                request_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+                '/package_log.PackageLogController/Destroy',
+                request_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
 
-class ShippingNoticeControllerServicer(object):
+class PackageLogControllerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def List(self, request, context):
@@ -76,41 +76,41 @@ class ShippingNoticeControllerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ShippingNoticeControllerServicer_to_server(servicer, server):
+def add_PackageLogControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'List': grpc.unary_unary_rpc_method_handler(
+            'List': grpc.unary_stream_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListRequest.FromString,
-                    response_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListResponse.SerializeToString,
+                    request_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogListRequest.FromString,
+                    response_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
             ),
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
-                    response_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+                    request_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
+                    response_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.FromString,
-                    response_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+                    request_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogRetrieveRequest.FromString,
+                    response_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
-                    response_serializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+                    request_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
+                    response_serializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                    request_deserializer=logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'shipping_notice.ShippingNoticeController', rpc_method_handlers)
+            'package_log.PackageLogController', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class ShippingNoticeController(object):
+class PackageLogController(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -124,9 +124,9 @@ class ShippingNoticeController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/List',
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListRequest.SerializeToString,
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeListResponse.FromString,
+        return grpc.experimental.unary_stream(request, target, '/package_log.PackageLogController/List',
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogListRequest.SerializeToString,
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -141,9 +141,9 @@ class ShippingNoticeController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/Create',
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+        return grpc.experimental.unary_unary(request, target, '/package_log.PackageLogController/Create',
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -158,9 +158,9 @@ class ShippingNoticeController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/Retrieve',
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.SerializeToString,
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+        return grpc.experimental.unary_unary(request, target, '/package_log.PackageLogController/Retrieve',
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLogRetrieveRequest.SerializeToString,
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -175,9 +175,9 @@ class ShippingNoticeController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/Update',
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.FromString,
+        return grpc.experimental.unary_unary(request, target, '/package_log.PackageLogController/Update',
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -192,8 +192,8 @@ class ShippingNoticeController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/Destroy',
-            logistics_dot_protos_dot_shipping__notice__proto_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/package_log.PackageLogController/Destroy',
+            logistics_dot_protos_dot_package__log__proto_dot_package__log__pb2.PackageLog.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

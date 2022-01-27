@@ -14,6 +14,26 @@ class PackageStatus(models.TextChoices):
     CANCEL_PENDING = "CANCEL_PENDING"
     CANCEL_FINISHED = "CANCEL_FINISHED"
 
+class PackageRemarkRecordType(models.TextChoices):
+    CANCELED = "CANCELED"  # 취소
+    PARTIALLY_CANCELED = "PARTIALLY_CANCELED"  # 부분취소
+    PARTIALLY_SHIPMENT = "PARTIALLY_SHIPMENT"  # 분리 배송
+    COMBINE_SHIPMENT = "COMBINE_SHIPMENT"  # 합배송
+
+class PackageRemarkRecordProtoSerializer(proto_serializers.ProtoSerializer):
+    record_type = serializers.ChoiceField(
+        choices=PackageRemarkRecordType.choices,
+    )
+    description = serializers.CharField(max_length=50)
+    reference = serializers.CharField(max_length=50, null=True, blank=True)
+    created_at = serializers.DateTimeField(auto_now_add=True)
+
+
+class PackageLogProtoSerializer(proto_serializers.ProtoSerializer):
+    class Meta:
+        model = PackageLog
+        proto_class = package_log_pb2.PackageLog
+        fields = "__all__"
 
 class PackageSerializer(proto_serializers.ProtoSerializer):
     id = serializers.IntegerField()

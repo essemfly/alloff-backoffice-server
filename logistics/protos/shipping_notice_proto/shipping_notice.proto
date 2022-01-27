@@ -6,22 +6,23 @@ import "google/protobuf/empty.proto";
 import "logistics/protos/shipping_notice_item_proto/shipping_notice_item.proto";
 
 service ShippingNoticeController {
-    rpc List(ShippingNoticeListRequest) returns (stream ShippingNotice) {}
+    rpc List(ShippingNoticeListRequest) returns (ShippingNoticeListResponse) {}
     rpc Create(ShippingNotice) returns (ShippingNotice) {}
     rpc Retrieve(ShippingNoticeRetrieveRequest) returns (ShippingNotice) {}
     rpc Update(ShippingNotice) returns (ShippingNotice) {}
     rpc Destroy(ShippingNotice) returns (google.protobuf.Empty) {}
 }
 
+enum ShippingNoticeStatus {
+    CREATED = 0;
+    LOCKED = 1;
+    SEALED = 2;
+    SHIPPED = 3;
+}
+
 message ShippingNotice {
     int64 id = 1;
     string code = 2;
-    enum ShippingNoticeStatus {
-        CREATED = 0;
-        LOCKED = 1;
-        SEALED = 2;
-        SHIPPED = 3;
-    }
     ShippingNoticeStatus status = 3;
     optional string template_url = 4;
     optional string locked_at = 5;
@@ -33,6 +34,17 @@ message ShippingNotice {
 }
 
 message ShippingNoticeListRequest {
+    int64 page = 1;
+    int64 size = 2;
+    optional string search = 3;
+    repeated string statuses = 4;
+}
+
+message ShippingNoticeListResponse {
+    int64 count = 1;
+    optional int64 next = 2;
+    optional int64 previous = 3;
+    repeated ShippingNotice results = 4;
 }
 
 message ShippingNoticeRetrieveRequest {

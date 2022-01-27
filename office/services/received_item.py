@@ -15,7 +15,7 @@ class ReceivedItemService(GrpcService):
     @classmethod
     def list(
         cls,
-        page: int,
+        page: int = 1,
         size: int = GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
         search: Optional[str] = None,
         statuses: Optional[List[str]] = None,
