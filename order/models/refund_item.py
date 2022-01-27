@@ -12,7 +12,7 @@ class RefundAmountDoesNotMatchException(Exception):
 class RefundItem(models.Model):
     class Meta:
         db_table = "refund_items"
-        
+
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
     order_item = models.OneToOneField(OrderItem, on_delete=models.PROTECT)
     refund_fee = models.IntegerField(null=True, blank=True, default=0)
@@ -33,10 +33,18 @@ class RefundItem(models.Model):
 
         with transaction.atomic():
             from .refund_item_history import RefundItemHistory
-            current = RefundItem.objects.get(id=self.id)
+
+            try:
+                current = RefundItem.objects.get(id=self.id)
+                amount_from = current.refund_amount
+                fee_from = current.refund_fee
+            except RefundItem.DoesNotExist:
+                amount_from = 0
+                fee_from = 0
+
             RefundItemHistory.objects.create(
-                amount_from=current.refund_amount,
-                fee_from=current.refund_fee,
+                amount_from=amount_from,
+                fee_from=fee_from,
                 amount_to=self.refund_amount,
                 fee_to=self.refund_fee,
                 refund_item=self,
