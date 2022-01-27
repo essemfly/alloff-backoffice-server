@@ -2,7 +2,6 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
-from product.serializers.product import EditProductRequestSerializer
 from product.serializers.product_group import (
     EditProductGroupSerializer,
     ProductGroupSerializer,
@@ -48,7 +47,7 @@ class ProductGroupViewSet(
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
-        request=EditProductRequestSerializer,
+        request=EditProductGroupSerializer,
         responses={status.HTTP_200_OK: ProductGroupSerializer},
     )
     def update(self, request, *args, **kwargs):
