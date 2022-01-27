@@ -42,6 +42,7 @@ class RefundItem(models.Model):
                 amount_from = 0
                 fee_from = 0
 
+            super().save(force_insert, force_update, using, update_fields)
             RefundItemHistory.objects.create(
                 amount_from=amount_from,
                 fee_from=fee_from,
@@ -49,4 +50,3 @@ class RefundItem(models.Model):
                 fee_to=self.refund_fee,
                 refund_item=self,
             )
-            super().save(force_insert, force_update, using, update_fields)
