@@ -20,13 +20,19 @@ class RefundItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self) -> None:
+    def save(
+        self,
+        force_insert: bool = ...,
+        force_update: bool = ...,
+        using: Optional[str] = ...,
+        update_fields: Optional[Iterable[str]] = ...,
+    ) -> None:
         order_item = self.order_item  # type: OrderItem
         if self.refund_amount + self.refund_fee != order_item.total_amount:
             raise RefundAmountDoesNotMatchException
-
+        
         from .refund_item_history import RefundItemHistory
-
+        
         if self.pk is None:
             super().save()
             RefundItemHistory.objects.create(
@@ -40,7 +46,7 @@ class RefundItem(models.Model):
             current = RefundItem.objects.get(id=self.id)
             amount_from = current.refund_amount
             fee_from = current.refund_fee
-
+            
             super().save()
 
             RefundItemHistory.objects.create(
