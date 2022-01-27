@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package orderitemalimtalklog;
+
+import "google/protobuf/empty.proto";
+
+service OrderItemAlimtalkLogController {
+    rpc List(OrderItemAlimtalkLogListRequest) returns (stream OrderItemAlimtalkLog) {}
+    rpc Create(OrderItemAlimtalkLog) returns (OrderItemAlimtalkLog) {}
+    rpc Retrieve(OrderItemAlimtalkLogRetrieveRequest) returns (OrderItemAlimtalkLog) {}
+    rpc Update(OrderItemAlimtalkLog) returns (OrderItemAlimtalkLog) {}
+    rpc Destroy(OrderItemAlimtalkLog) returns (google.protobuf.Empty) {}
+}
+
+message OrderItemAlimtalkLog {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string alimtalk_type = 4;
+    string request_id = 5;
+    string created_at = 6;
+    int64 order_item = 7;
+    int64 action_log = 8;
+}
+
+message OrderItemAlimtalkLogListRequest {
+}
+
+message OrderItemAlimtalkLogRetrieveRequest {
+    int64 id = 1;
+}

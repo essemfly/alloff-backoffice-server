@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE
-from order.models.order_item import OrderItem
+ 
 from logistics.protos.received_item_proto import (
     received_item_pb2,
     received_item_pb2_grpc,
@@ -39,7 +39,7 @@ class ReceivedItemService(GrpcService):
             return stub.Receive(request)
 
     @classmethod
-    def force_make(cls, item: OrderItem, quantity: int) -> List[dict]:
+    def force_make(cls, item, quantity: int) -> List[dict]:
         request = received_item_pb2.MakeReceivedItemRequest(
             order_id=item.order_id,
             order_item_id=item.id,
@@ -62,7 +62,7 @@ class ReceivedItemService(GrpcService):
             return cls.to_array(response)
 
     @classmethod
-    def make(cls, item: OrderItem) -> List[dict]:
+    def make(cls, item) -> List[dict]:
         request = received_item_pb2.MakeReceivedItemRequest(
             order_id=item.order_id,
             order_item_id=item.id,

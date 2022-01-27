@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package orderpaymentadjustment;
+
+import "google/protobuf/empty.proto";
+
+service OrderPaymentAdjustmentController {
+    rpc List(OrderPaymentAdjustmentListRequest) returns (stream OrderPaymentAdjustment) {}
+    rpc Create(OrderPaymentAdjustment) returns (OrderPaymentAdjustment) {}
+    rpc Retrieve(OrderPaymentAdjustmentRetrieveRequest) returns (OrderPaymentAdjustment) {}
+    rpc Update(OrderPaymentAdjustment) returns (OrderPaymentAdjustment) {}
+    rpc Destroy(OrderPaymentAdjustment) returns (google.protobuf.Empty) {}
+}
+
+message OrderPaymentAdjustment {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string method = 4;
+    int32 previous_balance = 5;
+    int32 amount = 6;
+    int32 resulting_balance = 7;
+    string pg_response = 8;
+    string bank_account_info = 9;
+    string reason = 10;
+    string created_at = 11;
+    string updated_at = 12;
+    int64 order = 13;
+}
+
+message OrderPaymentAdjustmentListRequest {
+}
+
+message OrderPaymentAdjustmentRetrieveRequest {
+    int64 id = 1;
+}

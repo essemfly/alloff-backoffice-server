@@ -3,16 +3,6 @@ from office.alimtalk.cancel_finished import CancelFinishedAlimtalk
 from office.alimtalk.delivery_started import DeliveryStartedAlimtalk
 from office.serializers.order_item import OrderItemRetrieveSerializer
 from office.services.received_item import ReceivedItemService
-from order.models.order_item import OrderItem, OrderItemStatus
-from order.models.order_item_action_log import (
-    OrderItemActionLog,
-    OrderItemActionType,
-    OrderItemAlimtalkLog,
-    OrderItemAlimtalkType,
-    OrderItemStatusChangeLog,
-    ReceivedItemGenerationLog,
-)
-from order.models.refund_item import RefundItem
 from rest_framework import serializers, status
 from rest_framework.request import Request
 from rest_framework.response import Response

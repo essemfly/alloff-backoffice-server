@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package orderitem;
+
+import "google/protobuf/empty.proto";
+import "protos/order/order/order.proto";
+
+service OrderItemController {
+    rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
+    rpc Create(OrderItem) returns (OrderItem) {}
+    rpc Retrieve(OrderItemRetrieveRequest) returns (OrderItem) {}
+    rpc Update(OrderItem) returns (OrderItem) {}
+    rpc Destroy(OrderItem) returns (google.protobuf.Empty) {}
+}
+
+message OrderItem {
+    int64 id = 1;
+    string order_item_code = 2;
+    string order_item_type = 3;
+    string order_item_status = 4;
+    string brand_keyname = 5;
+    string brand_korname = 6;
+    string product_id = 7;
+    string product_url = 8;
+    string product_img = 9;
+    string product_name = 10;
+    string cancel_description = 11;
+    string delivery_description = 12;
+    int32 sales_price = 13;
+    string size = 14;
+    string color = 15;
+    int32 quantity = 16;
+    string tracking_url = 17;
+    string tracking_number = 18;
+    string created_at = 19;
+    string updated_at = 20;
+    string ordered_at = 21;
+    string payment_finished_at = 22;
+    string product_preparing_at = 23;
+    string foreign_product_inspecting_at = 24;
+    string delivery_preparing_at = 25;
+    string foreign_delivery_started_at = 26;
+    string delivery_started_at = 27;
+    string delivery_finished_at = 28;
+    string confirmed_at = 29;
+    string cancel_requested_at = 30;
+    string cancel_finished_at = 31;
+    string exchange_requested_at = 32;
+    string exchange_started_at = 33;
+    string exchange_finished_at = 34;
+    string return_requested_at = 35;
+    string return_started_at = 36;
+    string return_finished_at = 37;
+    order.Order order = 38;
+}
+
+message OrderItemListRequest {
+    int64 page = 1;
+    int64 size = 2;
+    optional string search = 3;
+    repeated string statuses = 4;
+}
+
+message OrderItemListResponse {
+    int64 count = 1;
+    optional int64 next = 2;
+    optional int64 previous = 3;
+    repeated OrderItem results = 4;
+}
+
+message OrderItemRetrieveRequest {
+    int64 id = 1;
+}

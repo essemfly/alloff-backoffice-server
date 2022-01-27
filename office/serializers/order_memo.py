@@ -1,12 +1,14 @@
-from office.serializers.admin import AdminSerializer
-from rest_framework import serializers
+from django_grpc_framework import proto_serializers
+from protos.order.order_item_memo import order_item_memo_pb2
+from rest_framework import fields
 
-from order.models.order_item_memo import OrderItemMemo
 
-
-class OrderItemMemoSerializer(serializers.ModelSerializer):
-    admin = AdminSerializer()
+class OrderItemMemoSerializer(proto_serializers.ProtoSerializer):
+    body = fields.CharField(allow_null=False)
+    user_uuid = fields.CharField()
+    user_username = fields.CharField()
+    created_at = fields.DateTimeField()
+    deleted_at = fields.DateTimeField(allow_null=True)
 
     class Meta:
-        model = OrderItemMemo
-        fields = "__all__"
+        proto_class = order_item_memo_pb2.OrderItemMemo

@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_grpc_framework",
     "office",
-    "order",
+    # "order",
     "product",
     # "logistics"
 ]

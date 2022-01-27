@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package orderitemactionlog;
+
+import "google/protobuf/empty.proto";
+
+service OrderItemActionLogController {
+    rpc List(OrderItemActionLogListRequest) returns (stream OrderItemActionLog) {}
+    rpc Create(OrderItemActionLog) returns (OrderItemActionLog) {}
+    rpc Retrieve(OrderItemActionLogRetrieveRequest) returns (OrderItemActionLog) {}
+    rpc Update(OrderItemActionLog) returns (OrderItemActionLog) {}
+    rpc Destroy(OrderItemActionLog) returns (google.protobuf.Empty) {}
+}
+
+message OrderItemActionLog {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string detail = 4;
+    string action_type = 5;
+    string created_at = 6;
+    int64 order_item = 7;
+}
+
+message OrderItemActionLogListRequest {
+}
+
+message OrderItemActionLogRetrieveRequest {
+    int64 id = 1;
+}
