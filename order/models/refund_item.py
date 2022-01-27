@@ -33,7 +33,12 @@ class RefundItem(models.Model):
 
         with transaction.atomic():
             from .refund_item_history import RefundItemHistory
+            current = RefundItem.objects.get(id=self.id)
             RefundItemHistory.objects.create(
-                amount_from=self
+                amount_from=current.refund_amount,
+                fee_from=current.refund_fee,
+                amount_to=self.refund_amount,
+                fee_to=self.refund_fee,
+                refund_item=self,
             )
             super().save(force_insert, force_update, using, update_fields)

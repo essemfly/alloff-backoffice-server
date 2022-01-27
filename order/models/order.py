@@ -55,7 +55,7 @@ class Order(models.Model):
     def items(self):
         from .order_item import OrderItem
 
-        return OrderItem.objects.filter(order__id=self.id)
+        return OrderItem.objects.filter(order__id=self.id).all()
 
     @property
     def payment(self):
