@@ -3,6 +3,7 @@ syntax = "proto3";
 package order;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
 import "protos/order/payment/payment.proto";
 
 service OrderController {
@@ -18,7 +19,7 @@ message Order {
     string alloff_order_id = 2;
     string order_status = 3;
     string user_id = 4;
-    string user = 5;
+    google.protobuf.Struct user = 5;
     string user_memo = 6;
     int32 product_price = 7;
     int32 delivery_price = 8;

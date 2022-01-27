@@ -4,6 +4,7 @@ package orderitem;
 
 import "google/protobuf/empty.proto";
 import "protos/order/order/order.proto";
+import "google/protobuf/struct.proto";
 
 service OrderItemController {
     rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
@@ -24,8 +25,8 @@ message OrderItem {
     string product_url = 8;
     string product_img = 9;
     string product_name = 10;
-    string cancel_description = 11;
-    string delivery_description = 12;
+    google.protobuf.Struct cancel_description = 11;
+    google.protobuf.Struct delivery_description = 12;
     int32 sales_price = 13;
     string size = 14;
     string color = 15;
@@ -52,6 +53,9 @@ message OrderItem {
     string return_started_at = 36;
     string return_finished_at = 37;
     order.Order order = 38;
+    string product_option = 39;
+    int64 total_amount = 40;
+    bool is_foreign = 41;
 }
 
 message OrderItemListRequest {

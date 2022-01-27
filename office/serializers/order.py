@@ -4,9 +4,9 @@ from office.serializers.payment import PaymentSerializer
 from rest_framework import serializers
 
 # from order.models.order import Order
+from django_grpc_framework import proto_serializers
 
-
-class OrderSerializer(serializers.ModelSerializer):
+class OrderSerializer(proto_serializers.ProtoSerializer):
     # items = OrderItemSerializer(many=True)
     payment = PaymentSerializer()
     # iamport = fields.DictField()
