@@ -7,6 +7,7 @@ from product.serializers.product_group import (
     ProductGroupSerializer,
     PushProductsSerializer,
     CreateProductGroupSeriazlier,
+    RemoveProductInProductGroupSerializer,
 )
 from product.services.product_group import ProductGroupService
 from protos.product.productGroup_pb2 import (
@@ -66,5 +67,17 @@ class ProductGroupViewSet(
         serializer = PushProductsSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductGroupService.push(serializer.message)
+        serializer = ProductGroupSerializer(res)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        request=RemoveProductInProductGroupSerializer,
+        responses={status.HTTP_200_OK: ProductGroupSerializer},
+    )
+    @action(detail=True, methods=["POST"])
+    def remove_product(self, request, *args, **kwargs):
+        serializer = RemoveProductInProductGroupSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = ProductGroupService.remove(serializer.message)
         serializer = ProductGroupSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)

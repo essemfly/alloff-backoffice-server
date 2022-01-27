@@ -47,8 +47,19 @@ class ProductGroupService(GrpcService):
             return response.pg
 
     @classmethod
-    def push(cls, request: productGroup_pb2.PushProductsRequest):
+    def push(cls, request: productGroup_pb2.PushProductsInPgRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
-            response: productGroup_pb2.PushProductsResponse = stub.PushProducts(request)
+            response: productGroup_pb2.PushProductsInPgResponse = (
+                stub.PushProductsInProductGroup(request)
+            )
+            return response.pg
+
+    @classmethod
+    def remove(cls, request: productGroup_pb2.RemoveProductInPgRequest):
+        with cls.channel:
+            stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
+            response: productGroup_pb2.RemoveProductInPgResponse = (
+                stub.RemoveProductInProductGroup(request)
+            )
             return response.pg

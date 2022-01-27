@@ -34,10 +34,15 @@ class ProductGroupStub(object):
                 request_serializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.FromString,
                 )
-        self.PushProducts = channel.unary_unary(
-                '/grpcServer.ProductGroup/PushProducts',
-                request_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsRequest.SerializeToString,
-                response_deserializer=protos_dot_product_dot_productGroup__pb2.PushProductsResponse.FromString,
+        self.PushProductsInProductGroup = channel.unary_unary(
+                '/grpcServer.ProductGroup/PushProductsInProductGroup',
+                request_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgRequest.SerializeToString,
+                response_deserializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgResponse.FromString,
+                )
+        self.RemoveProductInProductGroup = channel.unary_unary(
+                '/grpcServer.ProductGroup/RemoveProductInProductGroup',
+                request_serializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgRequest.SerializeToString,
+                response_deserializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgResponse.FromString,
                 )
 
 
@@ -68,7 +73,13 @@ class ProductGroupServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def PushProducts(self, request, context):
+    def PushProductsInProductGroup(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveProductInProductGroup(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -97,10 +108,15 @@ def add_ProductGroupServicer_to_server(servicer, server):
                     request_deserializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.FromString,
                     response_serializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.SerializeToString,
             ),
-            'PushProducts': grpc.unary_unary_rpc_method_handler(
-                    servicer.PushProducts,
-                    request_deserializer=protos_dot_product_dot_productGroup__pb2.PushProductsRequest.FromString,
-                    response_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsResponse.SerializeToString,
+            'PushProductsInProductGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.PushProductsInProductGroup,
+                    request_deserializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgRequest.FromString,
+                    response_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgResponse.SerializeToString,
+            ),
+            'RemoveProductInProductGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveProductInProductGroup,
+                    request_deserializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgRequest.FromString,
+                    response_serializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -181,7 +197,7 @@ class ProductGroup(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def PushProducts(request,
+    def PushProductsInProductGroup(request,
             target,
             options=(),
             channel_credentials=None,
@@ -191,8 +207,25 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/PushProducts',
-            protos_dot_product_dot_productGroup__pb2.PushProductsRequest.SerializeToString,
-            protos_dot_product_dot_productGroup__pb2.PushProductsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/PushProductsInProductGroup',
+            protos_dot_product_dot_productGroup__pb2.PushProductsInPgRequest.SerializeToString,
+            protos_dot_product_dot_productGroup__pb2.PushProductsInPgResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveProductInProductGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/RemoveProductInProductGroup',
+            protos_dot_product_dot_productGroup__pb2.RemoveProductInPgRequest.SerializeToString,
+            protos_dot_product_dot_productGroup__pb2.RemoveProductInPgResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
