@@ -3,6 +3,11 @@ syntax = "proto3";
 package orderitemactionlog;
 
 import "google/protobuf/empty.proto";
+import "protos/order/order_item_status_change_log/order_item_status_change_log.proto";
+import "protos/order/order_item_refund_update_log/order_item_refund_update_log.proto";
+import "protos/order/order_item_alimtalk_log/order_item_alimtalk_log.proto";
+import "protos/order/inventory_receipt_log/inventory_receipt_log.proto";
+import "protos/order/received_item_generation_log/received_item_generation_log.proto";
 
 service OrderItemActionLogController {
     rpc List(OrderItemActionLogListRequest) returns (stream OrderItemActionLog) {}
@@ -20,6 +25,11 @@ message OrderItemActionLog {
     string action_type = 5;
     string created_at = 6;
     int64 order_item = 7;
+    optional orderitemstatuschangelog.OrderItemStatusChangeLog status_change = 8;
+    optional orderitemrefundupdatelog.OrderItemRefundUpdateLog refund_update = 9;
+    optional orderitemalimtalklog.OrderItemAlimtalkLog alimtalk = 10;
+    optional inventoryreceiptlog.InventoryReceiptLog inventory = 11;
+    optional receiveditemgenerationlog.ReceivedItemGenerationLog received_item = 12;
 }
 
 message OrderItemActionLogListRequest {

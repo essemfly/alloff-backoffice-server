@@ -10,27 +10,9 @@ from office.serializers.order_memo import OrderItemMemoSerializer
 from office.serializers.pagination import PaginationSerializer
 from protos.order.order_item import order_item_pb2
 from rest_framework import fields
+from office.serializers.order_item_status import OrderItemStatus
 
 
-class OrderItemStatus(models.TextChoices):
-    ORDER_ITEM_CREATED = "ORDER_ITEM_CREATED"
-    ORDER_ITEM_RECREATED = "ORDER_ITEM_RECREATED"
-    ORDER_ITEM_PAYMENT_PENDING = "ORDER_ITEM_PAYMENT_PENDING"
-    ORDER_ITEM_PAYMENT_FINISHED = "ORDER_ITEM_PAYMENT_FINISHED"
-    ORDER_ITEM_PRODUCT_PREPARING = "ORDER_ITEM_PRODUCT_PREPARING"
-    ORDER_ITEM_FOREIGN_PRODUCT_INSPECTING = "ORDER_ITEM_FOREIGN_PRODUCT_INSPECTING"
-    ORDER_ITEM_DELIVERY_PREPARING = "ORDER_ITEM_DELIVERY_PREPARING"
-    ORDER_ITEM_FOREIGN_DELIVERY_STARTED = "ORDER_ITEM_FOREIGN_DELIVERY_STARTED"
-    ORDER_ITEM_DELIVERY_STARTED = "ORDER_ITEM_DELIVERY_STARTED"
-    ORDER_ITEM_DELIVERY_FINISHED = "ORDER_ITEM_DELIVERY_FINISHED"
-    ORDER_ITEM_CONFIRM_PAYMENT = "ORDER_ITEM_CONFIRM_PAYMENT"
-    ORDER_ITEM_CANCEL_FINISHED = "ORDER_ITEM_CANCEL_FINISHED"
-    ORDER_ITEM_EXCHANGE_REQUESTED = "ORDER_ITEM_EXCHANGE_REQUESTED"
-    ORDER_ITEM_EXCHANGE_PENDING = "ORDER_ITEM_EXCHANGE_PENDING"
-    ORDER_ITEM_EXCHANGE_FINISHED = "ORDER_ITEM_EXCHANGE_FINISHED"
-    ORDER_ITEM_RETURN_REQUESTED = "ORDER_ITEM_RETURN_REQUESTED"
-    ORDER_ITEM_RETURN_PENDING = "ORDER_ITEM_RETURN_PENDING"
-    ORDER_ITEM_RETURN_FINISHED = "ORDER_ITEM_RETURN_FINISHED"
 
 
 class OrderItemType(models.TextChoices):
@@ -42,6 +24,7 @@ class OrderItemType(models.TextChoices):
 
 class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     # ----- Fields -----
+    id = fields.IntegerField()
     order_item_code = fields.CharField()
     order_item_type = fields.ChoiceField(OrderItemType.choices)
     order_item_status = fields.ChoiceField(OrderItemStatus.choices)

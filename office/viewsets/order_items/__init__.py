@@ -3,9 +3,11 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema
 from office.serializers.order_item import (
     OrderItemListSerializer,
     OrderItemRetrieveSerializer,
+    OrderItemStatus,
     PaginatedOrderItemSerializer,
 )
 from office.services.order_item import OrderItemService
+from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer, add_memo
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
@@ -13,25 +15,33 @@ from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from office.viewsets.order_items.change_status import ChangeStatusSerializer
 
 from office.viewsets.pagination import PaginationListMixin
 
 
 @extend_schema_view(
+    retrieve=extend_schema(
+        parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],
+        responses=OrderItemRetrieveSerializer,
+    ),
     list=extend_schema(
-        parameters=[
+        responses={status.HTTP_200_OK: PaginatedOrderItemSerializer},
+        parameters=PROTO_PAGINATION_QUERY_PARAMS
+        + [
             OpenApiParameter(
                 "statuses",
-                {"type": "array", "items": {"type": "string"}},
+                {
+                    "type": "array",
+                    "items": {"type": "string", "enum": OrderItemStatus.values},
+                },
                 OpenApiParameter.QUERY,
-                explode=False,
+                explode=True,
             ),
-            OpenApiParameter("created__gte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
-            OpenApiParameter("created__lte", OpenApiTypes.DATE, OpenApiParameter.QUERY),
-        ]
+        ],
     ),
     # force_make_ri=extend_schema(
-        # responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
+    # responses={status.HTTP_200_OK: ReceivedItemSerializer(many=True)},
     # ),
 )
 class OrderItemViewSet(
@@ -41,8 +51,6 @@ class OrderItemViewSet(
 ):
     # permission_classes = [IsAuthenticated]
 
-
-
     def get_serializer_class(self):
         if self.action == "retrieve":
             return OrderItemRetrieveSerializer
@@ -50,8 +58,8 @@ class OrderItemViewSet(
         #     return AddPaymentAdjustmentSerializer
         # elif self.action == "update_refund":
         #     return UpdateRefundSerializer
-        # elif self.action == "change_status":
-        #     return ChangeStatusSerializer
+        elif self.action == "change_status":
+            return ChangeStatusSerializer
         # elif self.action == "add_memo":
         #     return AddOrderItemMemoSerializer
         # elif self.action == "delete_memo":
@@ -62,6 +70,11 @@ class OrderItemViewSet(
         #     return OrderMinimumSerializer
         return OrderItemListSerializer
 
+    def retrieve(self, request: Request, pk=None):
+        retrieve_response = OrderItemService.retrieve(pk)
+        serializer = OrderItemRetrieveSerializer(retrieve_response)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def list(self, request: Request, *args, **kwargs):
         list_response = OrderItemService.list(
             **self.get_pagination_params(request),
@@ -69,6 +82,7 @@ class OrderItemViewSet(
         )
         serializer = PaginatedOrderItemSerializer(list_response)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     # @extend_schema(
     #     responses=OrderItemListSerializer(many=True),
     #     parameters=[
@@ -105,14 +119,25 @@ class OrderItemViewSet(
     # def delete_memo(self, request: Request, id=None):
     #     return delete_memo(self, request, id)
 
-    # @extend_schema(
-    #     parameters=[
-    #         OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)
-    #     ],  # path variable was overridden
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def change_status(self, request: Request, id=None):
-    #     return change_status(self, request, id)
+    @extend_schema(
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def change_status(self, request: Request, pk=None):
+        serializer = ChangeStatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.change_status(
+            int(pk),
+            serializer.validated_data.get("status"),
+            tracking_number=serializer.validated_data.get("tracking_number"),
+            tracking_url=serializer.validated_data.get("tracking_url"),
+            user=request.user,
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )
 
     # @action(detail=True, methods=["POST"], pagination_class=None)
     # def force_make_ri(self, request: Request, id=None):

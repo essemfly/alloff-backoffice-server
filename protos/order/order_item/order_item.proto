@@ -2,9 +2,11 @@ syntax = "proto3";
 
 package orderitem;
 
-import "google/protobuf/empty.proto";
 import "protos/order/order/order.proto";
+import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
+import "protos/order/order_item_memo/order_item_memo.proto";
+import "protos/order/order_item_action_log/order_item_action_log.proto";
 
 service OrderItemController {
     rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
@@ -12,6 +14,8 @@ service OrderItemController {
     rpc Retrieve(OrderItemRetrieveRequest) returns (OrderItem) {}
     rpc Update(OrderItem) returns (OrderItem) {}
     rpc Destroy(OrderItem) returns (google.protobuf.Empty) {}
+
+    rpc ChangeStatus(OrderItemStatusChangeRequest) returns (OrderItem) {}
 }
 
 message OrderItem {
@@ -56,6 +60,8 @@ message OrderItem {
     string product_option = 39;
     int64 total_amount = 40;
     bool is_foreign = 41;
+    repeated orderitemactionlog.OrderItemActionLog logs = 42;
+    repeated orderitemmemo.OrderItemMemo memos = 43;
 }
 
 message OrderItemListRequest {
@@ -73,5 +79,14 @@ message OrderItemListResponse {
 }
 
 message OrderItemRetrieveRequest {
+    string id = 1;
+}
+
+message OrderItemStatusChangeRequest {
     int64 id = 1;
+    string status = 2;
+    optional string tracking_number = 3;
+    optional string tracking_url = 4;
+    string user_uuid = 5;
+    string user_username = 6;
 }

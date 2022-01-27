@@ -1,10 +1,17 @@
+from django.contrib.auth.models import User
+from django.db import models
+from drf_spectacular.utils import extend_schema_field
+from office.serializers.order_item_status import OrderItemStatus
 from office.serializers.user_recorded_model import UserRecordedSerializer
+from protos.order.inventory_receipt_log import inventory_receipt_log_pb2
 from protos.order.order_item_action_log import order_item_action_log_pb2
 from protos.order.order_item_alimtalk_log import order_item_alimtalk_log_pb2
 from protos.order.order_item_refund_update_log import order_item_refund_update_log_pb2
 from protos.order.order_item_status_change_log import order_item_status_change_log_pb2
+from protos.order.received_item_generation_log import received_item_generation_log_pb2
+from rest_framework import fields
 
-from django.db import models
+from .admin import AdminSerializer
 
 
 class OrderItemActionType(models.TextChoices):
@@ -24,52 +31,111 @@ class OrderItemAlimtalkType(models.TextChoices):
 
 
 class OrderItemAlimtalkLogSerializer(UserRecordedSerializer):
+    id = fields.IntegerField()
+    alimtalk_type = fields.ChoiceField(OrderItemAlimtalkType.choices)
+    request_id = fields.CharField(allow_null=True)
+    created_at = fields.DateTimeField()
+
     class Meta:
         proto_class = order_item_alimtalk_log_pb2.OrderItemAlimtalkLog
 
 
 class OrderItemRefundUpdateLogSerializer(UserRecordedSerializer):
+    id = fields.IntegerField()
+    refund_delivery_price = fields.IntegerField()
+    refund_amount = fields.IntegerField()
+    created_at = fields.DateTimeField()
+
     class Meta:
         proto_class = order_item_refund_update_log_pb2.OrderItemRefundUpdateLog
 
 
 class OrderItemStatusChangeLogSerializer(UserRecordedSerializer):
+    id = fields.IntegerField()
+    status_from = fields.ChoiceField(OrderItemStatus.choices)
+    status_to = fields.ChoiceField(OrderItemStatus.choices)
+    tracking_number_from = fields.CharField(allow_null=True)
+    tracking_number_to = fields.CharField(allow_null=True)
+    tracking_url_from = fields.CharField(allow_null=True)
+    tracking_url_to = fields.CharField(allow_null=True)
+    created_at = fields.DateTimeField()
+
     class Meta:
         proto_class = order_item_status_change_log_pb2.OrderItemStatusChangeLog
 
 
+class ReceivedItemGenerationLogSerializer(UserRecordedSerializer):
+    id = fields.IntegerField()
+    is_force = fields.BooleanField()
+    received_item_id = fields.IntegerField()
+    received_item_code = fields.CharField()
+    created_at = fields.DateTimeField()
+
+    class Meta:
+        proto_class = received_item_generation_log_pb2.ReceivedItemGenerationLog
+
+
+class InventoryReceiptLogSerializer(UserRecordedSerializer):
+    id = fields.IntegerField()
+    received_item_id = fields.IntegerField()
+    received_item_code = fields.CharField()
+    inventory_id = fields.IntegerField()
+    inventory_code = fields.CharField()
+    created_at = fields.DateTimeField()
+
+    class Meta:
+        proto_class = inventory_receipt_log_pb2.InventoryReceiptLog
+
+
 class OrderItemActionLogSerializer(UserRecordedSerializer):
-    alimtalk = OrderItemAlimtalkLogSerializer(allow_null=True)
-    status_change = OrderItemStatusChangeLogSerializer(allow_null=True)
-    refund_update = OrderItemRefundUpdateLogSerializer(allow_null=True)
+    alimtalk = fields.SerializerMethodField()
+
+    @extend_schema_field(OrderItemAlimtalkLogSerializer(allow_null=True))
+    def get_alimtalk(self, obj):
+        if obj.alimtalk.id == 0:
+            return None
+        return OrderItemAlimtalkLogSerializer(obj.alimtalk).data
+
+    status_change = fields.SerializerMethodField()
+
+    @extend_schema_field(OrderItemStatusChangeLogSerializer(allow_null=True))
+    def get_status_change(self, obj):
+        if obj.status_change.id == 0:
+            return None
+        return OrderItemStatusChangeLogSerializer(obj.status_change).data
+
+    refund_update = fields.SerializerMethodField()
+
+    @extend_schema_field(OrderItemRefundUpdateLogSerializer(allow_null=True))
+    def get_refund_update(self, obj):
+        if obj.refund_update.id == 0:
+            return None
+        return OrderItemRefundUpdateLogSerializer(obj.refund_update).data
+
+    received_item = fields.SerializerMethodField()
+
+    @extend_schema_field(ReceivedItemGenerationLogSerializer(allow_null=True))
+    def get_received_item(self, obj):
+        if obj.received_item.id == 0:
+            return None
+        return ReceivedItemGenerationLogSerializer(obj.received_item).data
+
+    inventory = fields.SerializerMethodField()
+
+    @extend_schema_field(InventoryReceiptLogSerializer(allow_null=True))
+    def get_inventory(self, obj):
+        if obj.inventory.id == 0:
+            return None
+        return InventoryReceiptLogSerializer(obj.inventory).data
+
+    detail = fields.CharField(allow_null=True)
+    action_type = fields.ChoiceField(OrderItemActionType.choices)
+    created_at = fields.DateTimeField()
+    admin = fields.SerializerMethodField()
+
+    @extend_schema_field(AdminSerializer)
+    def get_admin(self, obj):
+        return AdminSerializer(User.objects.get(profile__uuid=obj.user_uuid)).data
 
     class Meta:
         proto_class = order_item_action_log_pb2.OrderItemActionLog
-
-# class ReceivedItemGenerationLog(UserRecordedModel):
-#     class Meta:
-#         db_table = "received_item_generation_logs"
-
-#     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
-#     action_log = models.OneToOneField(
-#         OrderItemActionLog, on_delete=models.CASCADE, related_name="received_item"
-#     )
-#     is_force = models.BooleanField()
-#     received_item_id = models.IntegerField(db_index=True)
-#     received_item_code = models.CharField(max_length=30, db_index=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-
-# class InventoryReceiptLog(UserRecordedModel):
-#     class Meta:
-#         db_table = "inventory_receipt_logs"
-
-#     order_item = models.ForeignKey(OrderItem, on_delete=models.PROTECT)
-#     action_log = models.OneToOneField(
-#         OrderItemActionLog, on_delete=models.CASCADE, related_name="inventory"
-#     )
-#     received_item_id = models.IntegerField(db_index=True)
-#     received_item_code = models.CharField(max_length=30, db_index=True)
-#     inventory_id = models.IntegerField(db_index=True)
-#     inventory_code = models.CharField(max_length=30, db_index=True)
-#     created_at = models.DateTimeField(auto_now_add=True)

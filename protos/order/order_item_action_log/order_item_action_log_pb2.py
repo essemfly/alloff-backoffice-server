@@ -12,6 +12,11 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from protos.order.order_item_status_change_log import order_item_status_change_log_pb2 as protos_dot_order_dot_order__item__status__change__log_dot_order__item__status__change__log__pb2
+from protos.order.order_item_refund_update_log import order_item_refund_update_log_pb2 as protos_dot_order_dot_order__item__refund__update__log_dot_order__item__refund__update__log__pb2
+from protos.order.order_item_alimtalk_log import order_item_alimtalk_log_pb2 as protos_dot_order_dot_order__item__alimtalk__log_dot_order__item__alimtalk__log__pb2
+from protos.order.inventory_receipt_log import inventory_receipt_log_pb2 as protos_dot_order_dot_inventory__receipt__log_dot_inventory__receipt__log__pb2
+from protos.order.received_item_generation_log import received_item_generation_log_pb2 as protos_dot_order_dot_received__item__generation__log_dot_received__item__generation__log__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,9 +25,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n>protos/order/order_item_action_log/order_item_action_log.proto\x12\x12orderitemactionlog\x1a\x1bgoogle/protobuf/empty.proto\"\x97\x01\n\x12OrderItemActionLog\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tuser_uuid\x18\x02 \x01(\t\x12\x15\n\ruser_username\x18\x03 \x01(\t\x12\x0e\n\x06\x64\x65tail\x18\x04 \x01(\t\x12\x13\n\x0b\x61\x63tion_type\x18\x05 \x01(\t\x12\x12\n\ncreated_at\x18\x06 \x01(\t\x12\x12\n\norder_item\x18\x07 \x01(\x03\"\x1f\n\x1dOrderItemActionLogListRequest\"/\n!OrderItemActionLogRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xf7\x03\n\x1cOrderItemActionLogController\x12\x65\n\x04List\x12\x31.orderitemactionlog.OrderItemActionLogListRequest\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x30\x01\x12Z\n\x06\x43reate\x12&.orderitemactionlog.OrderItemActionLog\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12k\n\x08Retrieve\x12\x35.orderitemactionlog.OrderItemActionLogRetrieveRequest\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12Z\n\x06Update\x12&.orderitemactionlog.OrderItemActionLog\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12K\n\x07\x44\x65stroy\x12&.orderitemactionlog.OrderItemActionLog\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n>protos/order/order_item_action_log/order_item_action_log.proto\x12\x12orderitemactionlog\x1a\x1bgoogle/protobuf/empty.proto\x1aLprotos/order/order_item_status_change_log/order_item_status_change_log.proto\x1aLprotos/order/order_item_refund_update_log/order_item_refund_update_log.proto\x1a\x42protos/order/order_item_alimtalk_log/order_item_alimtalk_log.proto\x1a>protos/order/inventory_receipt_log/inventory_receipt_log.proto\x1aLprotos/order/received_item_generation_log/received_item_generation_log.proto\"\xdf\x04\n\x12OrderItemActionLog\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tuser_uuid\x18\x02 \x01(\t\x12\x15\n\ruser_username\x18\x03 \x01(\t\x12\x0e\n\x06\x64\x65tail\x18\x04 \x01(\t\x12\x13\n\x0b\x61\x63tion_type\x18\x05 \x01(\t\x12\x12\n\ncreated_at\x18\x06 \x01(\t\x12\x12\n\norder_item\x18\x07 \x01(\x03\x12N\n\rstatus_change\x18\x08 \x01(\x0b\x32\x32.orderitemstatuschangelog.OrderItemStatusChangeLogH\x00\x88\x01\x01\x12N\n\rrefund_update\x18\t \x01(\x0b\x32\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLogH\x01\x88\x01\x01\x12\x41\n\x08\x61limtalk\x18\n \x01(\x0b\x32*.orderitemalimtalklog.OrderItemAlimtalkLogH\x02\x88\x01\x01\x12@\n\tinventory\x18\x0b \x01(\x0b\x32(.inventoryreceiptlog.InventoryReceiptLogH\x03\x88\x01\x01\x12P\n\rreceived_item\x18\x0c \x01(\x0b\x32\x34.receiveditemgenerationlog.ReceivedItemGenerationLogH\x04\x88\x01\x01\x42\x10\n\x0e_status_changeB\x10\n\x0e_refund_updateB\x0b\n\t_alimtalkB\x0c\n\n_inventoryB\x10\n\x0e_received_item\"\x1f\n\x1dOrderItemActionLogListRequest\"/\n!OrderItemActionLogRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xf7\x03\n\x1cOrderItemActionLogController\x12\x65\n\x04List\x12\x31.orderitemactionlog.OrderItemActionLogListRequest\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x30\x01\x12Z\n\x06\x43reate\x12&.orderitemactionlog.OrderItemActionLog\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12k\n\x08Retrieve\x12\x35.orderitemactionlog.OrderItemActionLogRetrieveRequest\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12Z\n\x06Update\x12&.orderitemactionlog.OrderItemActionLog\x1a&.orderitemactionlog.OrderItemActionLog\"\x00\x12K\n\x07\x44\x65stroy\x12&.orderitemactionlog.OrderItemActionLog\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_order_dot_order__item__status__change__log_dot_order__item__status__change__log__pb2.DESCRIPTOR,protos_dot_order_dot_order__item__refund__update__log_dot_order__item__refund__update__log__pb2.DESCRIPTOR,protos_dot_order_dot_order__item__alimtalk__log_dot_order__item__alimtalk__log__pb2.DESCRIPTOR,protos_dot_order_dot_inventory__receipt__log_dot_inventory__receipt__log__pb2.DESCRIPTOR,protos_dot_order_dot_received__item__generation__log_dot_received__item__generation__log__pb2.DESCRIPTOR,])
 
 
 
@@ -84,6 +89,41 @@ _ORDERITEMACTIONLOG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status_change', full_name='orderitemactionlog.OrderItemActionLog.status_change', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='refund_update', full_name='orderitemactionlog.OrderItemActionLog.refund_update', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='alimtalk', full_name='orderitemactionlog.OrderItemActionLog.alimtalk', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='inventory', full_name='orderitemactionlog.OrderItemActionLog.inventory', index=10,
+      number=11, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='received_item', full_name='orderitemactionlog.OrderItemActionLog.received_item', index=11,
+      number=12, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -95,9 +135,34 @@ _ORDERITEMACTIONLOG = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_status_change', full_name='orderitemactionlog.OrderItemActionLog._status_change',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_refund_update', full_name='orderitemactionlog.OrderItemActionLog._refund_update',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_alimtalk', full_name='orderitemactionlog.OrderItemActionLog._alimtalk',
+      index=2, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_inventory', full_name='orderitemactionlog.OrderItemActionLog._inventory',
+      index=3, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_received_item', full_name='orderitemactionlog.OrderItemActionLog._received_item',
+      index=4, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=116,
-  serialized_end=267,
+  serialized_start=482,
+  serialized_end=1089,
 )
 
 
@@ -121,8 +186,8 @@ _ORDERITEMACTIONLOGLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=269,
-  serialized_end=300,
+  serialized_start=1091,
+  serialized_end=1122,
 )
 
 
@@ -153,10 +218,30 @@ _ORDERITEMACTIONLOGRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=302,
-  serialized_end=349,
+  serialized_start=1124,
+  serialized_end=1171,
 )
 
+_ORDERITEMACTIONLOG.fields_by_name['status_change'].message_type = protos_dot_order_dot_order__item__status__change__log_dot_order__item__status__change__log__pb2._ORDERITEMSTATUSCHANGELOG
+_ORDERITEMACTIONLOG.fields_by_name['refund_update'].message_type = protos_dot_order_dot_order__item__refund__update__log_dot_order__item__refund__update__log__pb2._ORDERITEMREFUNDUPDATELOG
+_ORDERITEMACTIONLOG.fields_by_name['alimtalk'].message_type = protos_dot_order_dot_order__item__alimtalk__log_dot_order__item__alimtalk__log__pb2._ORDERITEMALIMTALKLOG
+_ORDERITEMACTIONLOG.fields_by_name['inventory'].message_type = protos_dot_order_dot_inventory__receipt__log_dot_inventory__receipt__log__pb2._INVENTORYRECEIPTLOG
+_ORDERITEMACTIONLOG.fields_by_name['received_item'].message_type = protos_dot_order_dot_received__item__generation__log_dot_received__item__generation__log__pb2._RECEIVEDITEMGENERATIONLOG
+_ORDERITEMACTIONLOG.oneofs_by_name['_status_change'].fields.append(
+  _ORDERITEMACTIONLOG.fields_by_name['status_change'])
+_ORDERITEMACTIONLOG.fields_by_name['status_change'].containing_oneof = _ORDERITEMACTIONLOG.oneofs_by_name['_status_change']
+_ORDERITEMACTIONLOG.oneofs_by_name['_refund_update'].fields.append(
+  _ORDERITEMACTIONLOG.fields_by_name['refund_update'])
+_ORDERITEMACTIONLOG.fields_by_name['refund_update'].containing_oneof = _ORDERITEMACTIONLOG.oneofs_by_name['_refund_update']
+_ORDERITEMACTIONLOG.oneofs_by_name['_alimtalk'].fields.append(
+  _ORDERITEMACTIONLOG.fields_by_name['alimtalk'])
+_ORDERITEMACTIONLOG.fields_by_name['alimtalk'].containing_oneof = _ORDERITEMACTIONLOG.oneofs_by_name['_alimtalk']
+_ORDERITEMACTIONLOG.oneofs_by_name['_inventory'].fields.append(
+  _ORDERITEMACTIONLOG.fields_by_name['inventory'])
+_ORDERITEMACTIONLOG.fields_by_name['inventory'].containing_oneof = _ORDERITEMACTIONLOG.oneofs_by_name['_inventory']
+_ORDERITEMACTIONLOG.oneofs_by_name['_received_item'].fields.append(
+  _ORDERITEMACTIONLOG.fields_by_name['received_item'])
+_ORDERITEMACTIONLOG.fields_by_name['received_item'].containing_oneof = _ORDERITEMACTIONLOG.oneofs_by_name['_received_item']
 DESCRIPTOR.message_types_by_name['OrderItemActionLog'] = _ORDERITEMACTIONLOG
 DESCRIPTOR.message_types_by_name['OrderItemActionLogListRequest'] = _ORDERITEMACTIONLOGLISTREQUEST
 DESCRIPTOR.message_types_by_name['OrderItemActionLogRetrieveRequest'] = _ORDERITEMACTIONLOGRETRIEVEREQUEST
@@ -192,8 +277,8 @@ _ORDERITEMACTIONLOGCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=352,
-  serialized_end=855,
+  serialized_start=1174,
+  serialized_end=1677,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

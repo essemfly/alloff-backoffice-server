@@ -40,6 +40,11 @@ class OrderItemControllerStub(object):
                 request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.ChangeStatus = channel.unary_unary(
+                '/orderitem.OrderItemController/ChangeStatus',
+                request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.SerializeToString,
+                response_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
+                )
 
 
 class OrderItemControllerServicer(object):
@@ -75,6 +80,12 @@ class OrderItemControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ChangeStatus(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OrderItemControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -102,6 +113,11 @@ def add_OrderItemControllerServicer_to_server(servicer, server):
                     servicer.Destroy,
                     request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'ChangeStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChangeStatus,
+                    request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.FromString,
+                    response_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -195,5 +211,22 @@ class OrderItemController(object):
         return grpc.experimental.unary_unary(request, target, '/orderitem.OrderItemController/Destroy',
             protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ChangeStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/orderitem.OrderItemController/ChangeStatus',
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.SerializeToString,
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
