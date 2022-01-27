@@ -30,19 +30,25 @@ class RefundItem(models.Model):
         order_item = self.order_item  # type: OrderItem
         if self.refund_amount + self.refund_fee != order_item.total_amount:
             raise RefundAmountDoesNotMatchException
-
-        with transaction.atomic():
-            from .refund_item_history import RefundItemHistory
-
-            try:
-                current = RefundItem.objects.get(id=self.id)
-                amount_from = current.refund_amount
-                fee_from = current.refund_fee
-            except RefundItem.DoesNotExist:
-                amount_from = 0
-                fee_from = 0
-
+        
+        from .refund_item_history import RefundItemHistory
+        
+        if self.pk is None:
             super().save(force_insert, force_update, using, update_fields)
+            RefundItemHistory.objects.create(
+                amount_from=None,
+                fee_from=None,
+                amount_to=self.refund_amount,
+                fee_to=self.refund_fee,
+                refund_item=self,
+            )
+        else:
+            current = RefundItem.objects.get(id=self.id)
+            amount_from = current.refund_amount
+            fee_from = current.refund_fee
+            
+            super().save(force_insert, force_update, using, update_fields)
+
             RefundItemHistory.objects.create(
                 amount_from=amount_from,
                 fee_from=fee_from,
