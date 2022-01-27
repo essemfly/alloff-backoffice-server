@@ -41,7 +41,7 @@ class ProductViewSet(
             alloff_category_id=alloff_category_id,
         )
         req: ListProductsRequest = ListProductsRequest(
-            offset=offset, limit=limit, query=query
+            offset=int(offset), limit=int(limit), query=query
         )
 
         res = ProductService.list(req)

@@ -6,7 +6,9 @@ from protos.product.productGroup_pb2 import (
     EditProductGroupRequest,
     ProductGroupMessage,
     ProductInGroupMessage,
-    PushProductsRequest,
+    ProductPriorityMessage,
+    PushProductsInPgRequest,
+    RemoveProductInPgRequest,
 )
 from product.serializers.product import ProductSerializer
 
@@ -59,10 +61,25 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
         proto_class = EditProductGroupRequest
 
 
-class PushProductsSerializer(proto_serializers.ProtoSerializer):
-    product_group_id = serializers.CharField()
-    product_id = serializers.ListField(serializers.CharField())
+class ProductPrioritySerializer(proto_serializers.ProtoSerializer):
+    product_id = serializers.CharField()
     priority = serializers.IntegerField()
 
     class Meta:
-        proto_class = PushProductsRequest
+        proto_class = ProductPriorityMessage
+
+
+class PushProductsSerializer(proto_serializers.ProtoSerializer):
+    product_group_id = serializers.CharField()
+    product_priority = ProductPrioritySerializer(many=True)
+
+    class Meta:
+        proto_class = PushProductsInPgRequest
+
+
+class RemoveProductInProductGroupSerializer(proto_serializers.ProtoSerializer):
+    product_id = serializers.CharField()
+    product_group_id = serializers.CharField()
+
+    class Meta:
+        proto_class = RemoveProductInPgRequest

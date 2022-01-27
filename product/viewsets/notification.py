@@ -22,7 +22,7 @@ class NotificationViewSet(
         offset = request.query_params.get("offset", 0)
         limit = request.query_params.get("limit", 100)
 
-        req = ListNotiRequest(offset=offset, limit=limit)
+        req = ListNotiRequest(offset=int(offset), limit=int(limit))
         notis = NotificationService.list(req)
         serializer = ListNotiSerializer(notis)
         return Response(serializer.data, status=status.HTTP_200_OK)
