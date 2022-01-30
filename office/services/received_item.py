@@ -1,8 +1,12 @@
 from typing import List, Optional
+from django.contrib.auth.models import User
 
-from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE
- 
-from logistics.protos.received_item_proto import (
+from alloff_backoffice_server.settings import (
+    GRPC_LOGISTICS_SERVER_URL,
+    GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
+)
+
+from protos.logistics.received_item import (
     received_item_pb2,
     received_item_pb2_grpc,
 )
@@ -32,11 +36,46 @@ class ReceivedItemService(GrpcService):
             )
 
     @classmethod
-    def receive(cls, id: int) -> dict:
-        request = received_item_pb2.ReceivedItemRetrieveRequest(id=id)
+    def receive(
+        cls,
+        id: int,
+        user: User,
+    ) -> dict:
+        request = received_item_pb2.ReceivedItemReceiveRevertRequest(
+            id=id,
+            **cls.get_userinfo(user),
+        )
         with cls.channel:
             stub = received_item_pb2_grpc.ReceivedItemControllerStub(cls.channel)
             return stub.Receive(request)
+
+    @classmethod
+    def cancel(
+        cls,
+        id: int,
+        user: User,
+    ) -> dict:
+        request = received_item_pb2.ReceivedItemReceiveRevertRequest(
+            id=id,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            stub = received_item_pb2_grpc.ReceivedItemControllerStub(cls.channel)
+            return stub.Cancel(request)
+
+    @classmethod
+    def revert(
+        cls,
+        id: int,
+        user: User,
+    ) -> dict:
+        request = received_item_pb2.ReceivedItemReceiveRevertRequest(
+            id=id,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            stub = received_item_pb2_grpc.ReceivedItemControllerStub(cls.channel)
+            return stub.Revert(request)
 
     @classmethod
     def force_make(cls, item, quantity: int) -> List[dict]:

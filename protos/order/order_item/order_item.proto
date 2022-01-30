@@ -18,6 +18,7 @@ service OrderItemController {
     rpc ChangeStatus(OrderItemStatusChangeRequest) returns (OrderItem) {}
     rpc AddMemo(OrderItemAddMemoRequest) returns (OrderItem) {}
     rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
+    rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
 }
 
 message OrderItem {
@@ -71,6 +72,7 @@ message OrderItemListRequest {
     int64 size = 2;
     optional string search = 3;
     repeated string statuses = 4;
+    optional string user_id = 5;
 }
 
 message OrderItemListResponse {
@@ -105,4 +107,10 @@ message OrderItemDeleteMemoRequest {
     int64 memo_id = 2;
     string user_uuid = 3;
     string user_username = 4;
+}
+
+message OrderItemForceReceiveRequest {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
 }

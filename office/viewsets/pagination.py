@@ -1,10 +1,10 @@
 from typing import Optional
-from rest_framework import mixins, request
+from rest_framework import request
 
 from alloff_backoffice_server.settings import GRPC_PAGINATION_DEFAULT_PAGE_SIZE
 
 
-class PaginationListMixin(mixins.ListModelMixin):
+class PaginationListMixin:
     def get_pagination_params(self, request: request.Request) -> dict:
         return {
             "size": self.get_size(request),
@@ -20,7 +20,7 @@ class PaginationListMixin(mixins.ListModelMixin):
 
     def get_page(self, request: request.Request) -> int:
         try:
-            return int(request.query_params.get("size"))
+            return int(request.query_params.get("page"))
         except TypeError:
             return 1
 

@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n(protos/order/order_item/order_item.proto\x12\torderitem\x1a\x1eprotos/order/order/order.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x32protos/order/order_item_memo/order_item_memo.proto\x1a>protos/order/order_item_action_log/order_item_action_log.proto\"\xa1\t\n\tOrderItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x17\n\x0forder_item_code\x18\x02 \x01(\t\x12\x17\n\x0forder_item_type\x18\x03 \x01(\t\x12\x19\n\x11order_item_status\x18\x04 \x01(\t\x12\x15\n\rbrand_keyname\x18\x05 \x01(\t\x12\x15\n\rbrand_korname\x18\x06 \x01(\t\x12\x12\n\nproduct_id\x18\x07 \x01(\t\x12\x13\n\x0bproduct_url\x18\x08 \x01(\t\x12\x13\n\x0bproduct_img\x18\t \x01(\t\x12\x14\n\x0cproduct_name\x18\n \x01(\t\x12\x33\n\x12\x63\x61ncel_description\x18\x0b \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x35\n\x14\x64\x65livery_description\x18\x0c \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x13\n\x0bsales_price\x18\r \x01(\x05\x12\x0c\n\x04size\x18\x0e \x01(\t\x12\r\n\x05\x63olor\x18\x0f \x01(\t\x12\x10\n\x08quantity\x18\x10 \x01(\x05\x12\x14\n\x0ctracking_url\x18\x11 \x01(\t\x12\x17\n\x0ftracking_number\x18\x12 \x01(\t\x12\x12\n\ncreated_at\x18\x13 \x01(\t\x12\x12\n\nupdated_at\x18\x14 \x01(\t\x12\x12\n\nordered_at\x18\x15 \x01(\t\x12\x1b\n\x13payment_finished_at\x18\x16 \x01(\t\x12\x1c\n\x14product_preparing_at\x18\x17 \x01(\t\x12%\n\x1d\x66oreign_product_inspecting_at\x18\x18 \x01(\t\x12\x1d\n\x15\x64\x65livery_preparing_at\x18\x19 \x01(\t\x12#\n\x1b\x66oreign_delivery_started_at\x18\x1a \x01(\t\x12\x1b\n\x13\x64\x65livery_started_at\x18\x1b \x01(\t\x12\x1c\n\x14\x64\x65livery_finished_at\x18\x1c \x01(\t\x12\x14\n\x0c\x63onfirmed_at\x18\x1d \x01(\t\x12\x1b\n\x13\x63\x61ncel_requested_at\x18\x1e \x01(\t\x12\x1a\n\x12\x63\x61ncel_finished_at\x18\x1f \x01(\t\x12\x1d\n\x15\x65xchange_requested_at\x18  \x01(\t\x12\x1b\n\x13\x65xchange_started_at\x18! \x01(\t\x12\x1c\n\x14\x65xchange_finished_at\x18\" \x01(\t\x12\x1b\n\x13return_requested_at\x18# \x01(\t\x12\x19\n\x11return_started_at\x18$ \x01(\t\x12\x1a\n\x12return_finished_at\x18% \x01(\t\x12\x1b\n\x05order\x18& \x01(\x0b\x32\x0c.order.Order\x12\x16\n\x0eproduct_option\x18\' \x01(\t\x12\x14\n\x0ctotal_amount\x18( \x01(\x03\x12\x12\n\nis_foreign\x18) \x01(\x08\x12\x34\n\x04logs\x18* \x03(\x0b\x32&.orderitemactionlog.OrderItemActionLog\x12+\n\x05memos\x18+ \x03(\x0b\x32\x1c.orderitemmemo.OrderItemMemo\"d\n\x14OrderItemListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\tB\t\n\x07_search\"\x8d\x01\n\x15OrderItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12%\n\x07results\x18\x04 \x03(\x0b\x32\x14.orderitem.OrderItemB\x07\n\x05_nextB\x0b\n\t_previous\"&\n\x18OrderItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xc2\x01\n\x1cOrderItemStatusChangeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x1c\n\x0ftracking_number\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x19\n\x0ctracking_url\x18\x04 \x01(\tH\x01\x88\x01\x01\x12\x11\n\tuser_uuid\x18\x05 \x01(\t\x12\x15\n\ruser_username\x18\x06 \x01(\tB\x12\n\x10_tracking_numberB\x0f\n\r_tracking_url\"]\n\x17OrderItemAddMemoRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\x12\x11\n\tuser_uuid\x18\x03 \x01(\t\x12\x15\n\ruser_username\x18\x04 \x01(\t\"c\n\x1aOrderItemDeleteMemoRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07memo_id\x18\x02 \x01(\x03\x12\x11\n\tuser_uuid\x18\x03 \x01(\t\x12\x15\n\ruser_username\x18\x04 \x01(\t2\xbb\x04\n\x13OrderItemController\x12K\n\x04List\x12\x1f.orderitem.OrderItemListRequest\x1a .orderitem.OrderItemListResponse\"\x00\x12\x36\n\x06\x43reate\x12\x14.orderitem.OrderItem\x1a\x14.orderitem.OrderItem\"\x00\x12G\n\x08Retrieve\x12#.orderitem.OrderItemRetrieveRequest\x1a\x14.orderitem.OrderItem\"\x00\x12\x36\n\x06Update\x12\x14.orderitem.OrderItem\x1a\x14.orderitem.OrderItem\"\x00\x12\x39\n\x07\x44\x65stroy\x12\x14.orderitem.OrderItem\x1a\x16.google.protobuf.Empty\"\x00\x12O\n\x0c\x43hangeStatus\x12\'.orderitem.OrderItemStatusChangeRequest\x1a\x14.orderitem.OrderItem\"\x00\x12\x45\n\x07\x41\x64\x64Memo\x12\".orderitem.OrderItemAddMemoRequest\x1a\x14.orderitem.OrderItem\"\x00\x12K\n\nDeleteMemo\x12%.orderitem.OrderItemDeleteMemoRequest\x1a\x14.orderitem.OrderItem\"\x00\x62\x06proto3'
+  serialized_pb=b'\n(protos/order/order_item/order_item.proto\x12\torderitem\x1a\x1eprotos/order/order/order.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x32protos/order/order_item_memo/order_item_memo.proto\x1a>protos/order/order_item_action_log/order_item_action_log.proto\"\xa1\t\n\tOrderItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x17\n\x0forder_item_code\x18\x02 \x01(\t\x12\x17\n\x0forder_item_type\x18\x03 \x01(\t\x12\x19\n\x11order_item_status\x18\x04 \x01(\t\x12\x15\n\rbrand_keyname\x18\x05 \x01(\t\x12\x15\n\rbrand_korname\x18\x06 \x01(\t\x12\x12\n\nproduct_id\x18\x07 \x01(\t\x12\x13\n\x0bproduct_url\x18\x08 \x01(\t\x12\x13\n\x0bproduct_img\x18\t \x01(\t\x12\x14\n\x0cproduct_name\x18\n \x01(\t\x12\x33\n\x12\x63\x61ncel_description\x18\x0b \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x35\n\x14\x64\x65livery_description\x18\x0c \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x13\n\x0bsales_price\x18\r \x01(\x05\x12\x0c\n\x04size\x18\x0e \x01(\t\x12\r\n\x05\x63olor\x18\x0f \x01(\t\x12\x10\n\x08quantity\x18\x10 \x01(\x05\x12\x14\n\x0ctracking_url\x18\x11 \x01(\t\x12\x17\n\x0ftracking_number\x18\x12 \x01(\t\x12\x12\n\ncreated_at\x18\x13 \x01(\t\x12\x12\n\nupdated_at\x18\x14 \x01(\t\x12\x12\n\nordered_at\x18\x15 \x01(\t\x12\x1b\n\x13payment_finished_at\x18\x16 \x01(\t\x12\x1c\n\x14product_preparing_at\x18\x17 \x01(\t\x12%\n\x1d\x66oreign_product_inspecting_at\x18\x18 \x01(\t\x12\x1d\n\x15\x64\x65livery_preparing_at\x18\x19 \x01(\t\x12#\n\x1b\x66oreign_delivery_started_at\x18\x1a \x01(\t\x12\x1b\n\x13\x64\x65livery_started_at\x18\x1b \x01(\t\x12\x1c\n\x14\x64\x65livery_finished_at\x18\x1c \x01(\t\x12\x14\n\x0c\x63onfirmed_at\x18\x1d \x01(\t\x12\x1b\n\x13\x63\x61ncel_requested_at\x18\x1e \x01(\t\x12\x1a\n\x12\x63\x61ncel_finished_at\x18\x1f \x01(\t\x12\x1d\n\x15\x65xchange_requested_at\x18  \x01(\t\x12\x1b\n\x13\x65xchange_started_at\x18! \x01(\t\x12\x1c\n\x14\x65xchange_finished_at\x18\" \x01(\t\x12\x1b\n\x13return_requested_at\x18# \x01(\t\x12\x19\n\x11return_started_at\x18$ \x01(\t\x12\x1a\n\x12return_finished_at\x18% \x01(\t\x12\x1b\n\x05order\x18& \x01(\x0b\x32\x0c.order.Order\x12\x16\n\x0eproduct_option\x18\' \x01(\t\x12\x14\n\x0ctotal_amount\x18( \x01(\x03\x12\x12\n\nis_foreign\x18) \x01(\x08\x12\x34\n\x04logs\x18* \x03(\x0b\x32&.orderitemactionlog.OrderItemActionLog\x12+\n\x05memos\x18+ \x03(\x0b\x32\x1c.orderitemmemo.OrderItemMemo\"\x86\x01\n\x14OrderItemListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\t\x12\x14\n\x07user_id\x18\x05 \x01(\tH\x01\x88\x01\x01\x42\t\n\x07_searchB\n\n\x08_user_id\"\x8d\x01\n\x15OrderItemListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12%\n\x07results\x18\x04 \x03(\x0b\x32\x14.orderitem.OrderItemB\x07\n\x05_nextB\x0b\n\t_previous\"&\n\x18OrderItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xc2\x01\n\x1cOrderItemStatusChangeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x1c\n\x0ftracking_number\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x19\n\x0ctracking_url\x18\x04 \x01(\tH\x01\x88\x01\x01\x12\x11\n\tuser_uuid\x18\x05 \x01(\t\x12\x15\n\ruser_username\x18\x06 \x01(\tB\x12\n\x10_tracking_numberB\x0f\n\r_tracking_url\"]\n\x17OrderItemAddMemoRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x62ody\x18\x02 \x01(\t\x12\x11\n\tuser_uuid\x18\x03 \x01(\t\x12\x15\n\ruser_username\x18\x04 \x01(\t\"c\n\x1aOrderItemDeleteMemoRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07memo_id\x18\x02 \x01(\x03\x12\x11\n\tuser_uuid\x18\x03 \x01(\t\x12\x15\n\ruser_username\x18\x04 \x01(\t\"T\n\x1cOrderItemForceReceiveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tuser_uuid\x18\x02 \x01(\t\x12\x15\n\ruser_username\x18\x03 \x01(\t2\x8c\x05\n\x13OrderItemController\x12K\n\x04List\x12\x1f.orderitem.OrderItemListRequest\x1a .orderitem.OrderItemListResponse\"\x00\x12\x36\n\x06\x43reate\x12\x14.orderitem.OrderItem\x1a\x14.orderitem.OrderItem\"\x00\x12G\n\x08Retrieve\x12#.orderitem.OrderItemRetrieveRequest\x1a\x14.orderitem.OrderItem\"\x00\x12\x36\n\x06Update\x12\x14.orderitem.OrderItem\x1a\x14.orderitem.OrderItem\"\x00\x12\x39\n\x07\x44\x65stroy\x12\x14.orderitem.OrderItem\x1a\x16.google.protobuf.Empty\"\x00\x12O\n\x0c\x43hangeStatus\x12\'.orderitem.OrderItemStatusChangeRequest\x1a\x14.orderitem.OrderItem\"\x00\x12\x45\n\x07\x41\x64\x64Memo\x12\".orderitem.OrderItemAddMemoRequest\x1a\x14.orderitem.OrderItem\"\x00\x12K\n\nDeleteMemo\x12%.orderitem.OrderItemDeleteMemoRequest\x1a\x14.orderitem.OrderItem\"\x00\x12O\n\x0c\x46orceReceive\x12\'.orderitem.OrderItemForceReceiveRequest\x1a\x14.orderitem.OrderItem\"\x00\x62\x06proto3'
   ,
   dependencies=[protos_dot_order_dot_order_dot_order__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,protos_dot_order_dot_order__item__memo_dot_order__item__memo__pb2.DESCRIPTOR,protos_dot_order_dot_order__item__action__log_dot_order__item__action__log__pb2.DESCRIPTOR,])
 
@@ -393,6 +393,13 @@ _ORDERITEMLISTREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='orderitem.OrderItemListRequest.user_id', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -409,9 +416,14 @@ _ORDERITEMLISTREQUEST = _descriptor.Descriptor(
       index=0, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_user_id', full_name='orderitem.OrderItemListRequest._user_id',
+      index=1, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=1450,
-  serialized_end=1550,
+  serialized_start=1451,
+  serialized_end=1585,
 )
 
 
@@ -473,8 +485,8 @@ _ORDERITEMLISTRESPONSE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1553,
-  serialized_end=1694,
+  serialized_start=1588,
+  serialized_end=1729,
 )
 
 
@@ -505,8 +517,8 @@ _ORDERITEMRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1696,
-  serialized_end=1734,
+  serialized_start=1731,
+  serialized_end=1769,
 )
 
 
@@ -582,8 +594,8 @@ _ORDERITEMSTATUSCHANGEREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1737,
-  serialized_end=1931,
+  serialized_start=1772,
+  serialized_end=1966,
 )
 
 
@@ -635,8 +647,8 @@ _ORDERITEMADDMEMOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1933,
-  serialized_end=2026,
+  serialized_start=1968,
+  serialized_end=2061,
 )
 
 
@@ -688,8 +700,54 @@ _ORDERITEMDELETEMEMOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2028,
-  serialized_end=2127,
+  serialized_start=2063,
+  serialized_end=2162,
+)
+
+
+_ORDERITEMFORCERECEIVEREQUEST = _descriptor.Descriptor(
+  name='OrderItemForceReceiveRequest',
+  full_name='orderitem.OrderItemForceReceiveRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='orderitem.OrderItemForceReceiveRequest.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_uuid', full_name='orderitem.OrderItemForceReceiveRequest.user_uuid', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_username', full_name='orderitem.OrderItemForceReceiveRequest.user_username', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2164,
+  serialized_end=2248,
 )
 
 _ORDERITEM.fields_by_name['cancel_description'].message_type = google_dot_protobuf_dot_struct__pb2._STRUCT
@@ -700,6 +758,9 @@ _ORDERITEM.fields_by_name['memos'].message_type = protos_dot_order_dot_order__it
 _ORDERITEMLISTREQUEST.oneofs_by_name['_search'].fields.append(
   _ORDERITEMLISTREQUEST.fields_by_name['search'])
 _ORDERITEMLISTREQUEST.fields_by_name['search'].containing_oneof = _ORDERITEMLISTREQUEST.oneofs_by_name['_search']
+_ORDERITEMLISTREQUEST.oneofs_by_name['_user_id'].fields.append(
+  _ORDERITEMLISTREQUEST.fields_by_name['user_id'])
+_ORDERITEMLISTREQUEST.fields_by_name['user_id'].containing_oneof = _ORDERITEMLISTREQUEST.oneofs_by_name['_user_id']
 _ORDERITEMLISTRESPONSE.fields_by_name['results'].message_type = _ORDERITEM
 _ORDERITEMLISTRESPONSE.oneofs_by_name['_next'].fields.append(
   _ORDERITEMLISTRESPONSE.fields_by_name['next'])
@@ -720,6 +781,7 @@ DESCRIPTOR.message_types_by_name['OrderItemRetrieveRequest'] = _ORDERITEMRETRIEV
 DESCRIPTOR.message_types_by_name['OrderItemStatusChangeRequest'] = _ORDERITEMSTATUSCHANGEREQUEST
 DESCRIPTOR.message_types_by_name['OrderItemAddMemoRequest'] = _ORDERITEMADDMEMOREQUEST
 DESCRIPTOR.message_types_by_name['OrderItemDeleteMemoRequest'] = _ORDERITEMDELETEMEMOREQUEST
+DESCRIPTOR.message_types_by_name['OrderItemForceReceiveRequest'] = _ORDERITEMFORCERECEIVEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 OrderItem = _reflection.GeneratedProtocolMessageType('OrderItem', (_message.Message,), {
@@ -771,6 +833,13 @@ OrderItemDeleteMemoRequest = _reflection.GeneratedProtocolMessageType('OrderItem
   })
 _sym_db.RegisterMessage(OrderItemDeleteMemoRequest)
 
+OrderItemForceReceiveRequest = _reflection.GeneratedProtocolMessageType('OrderItemForceReceiveRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ORDERITEMFORCERECEIVEREQUEST,
+  '__module__' : 'protos.order.order_item.order_item_pb2'
+  # @@protoc_insertion_point(class_scope:orderitem.OrderItemForceReceiveRequest)
+  })
+_sym_db.RegisterMessage(OrderItemForceReceiveRequest)
+
 
 
 _ORDERITEMCONTROLLER = _descriptor.ServiceDescriptor(
@@ -780,8 +849,8 @@ _ORDERITEMCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2130,
-  serialized_end=2701,
+  serialized_start=2251,
+  serialized_end=2903,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',
@@ -859,6 +928,16 @@ _ORDERITEMCONTROLLER = _descriptor.ServiceDescriptor(
     index=7,
     containing_service=None,
     input_type=_ORDERITEMDELETEMEMOREQUEST,
+    output_type=_ORDERITEM,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ForceReceive',
+    full_name='orderitem.OrderItemController.ForceReceive',
+    index=8,
+    containing_service=None,
+    input_type=_ORDERITEMFORCERECEIVEREQUEST,
     output_type=_ORDERITEM,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

@@ -1,23 +1,29 @@
-from tagger.core.label.escape_xml import escape_xml
-from tagger.models.inventory import Inventory, ProductType
+from office.label.escape_xml import escape_xml
 
 
-def make_receiving_label(inventory: Inventory) -> str:
-    product_type_id_prefix = "A" if inventory.product_type == ProductType.TIMEDEAL_PRODUCT else "P"
+def make_receiving_label(received_item) -> str:
+    inventory = received_item.inventory
     xml = _get_receiving_label_xml(
         escape_xml(inventory.code),
-        escape_xml(f"({inventory.size}) {inventory.product_name}"),
-        escape_xml(f"https://office.alloff.co/orders/{inventory.in_order_id}"),
-        escape_xml(inventory.product_brand),
-        escape_xml(f"{product_type_id_prefix}-{inventory.product_id}"),
-        escape_xml(inventory.in_order.code if inventory.in_order is not None else "UNKWN"),
+        escape_xml(
+            f"({inventory.size}{'' if inventory.color is None else f'/ {inventory.color}'}) {inventory.product_name}"
+        ),
+        escape_xml(f"INVENTORY::{inventory.code}"),
+        escape_xml(inventory.brand_keyname),
+        escape_xml(f"{inventory.product_id}"),
+        escape_xml(received_item.order_item.order_item_code),
     )
-    print(xml)
     return xml
 
 
-def _get_receiving_label_xml(inventory_code: str, product_name: str, url: str, brand_keyname: str,
-                             product_type_id: str, order_code: str):
+def _get_receiving_label_xml(
+    inventory_code: str,
+    product_name: str,
+    url: str,
+    brand_keyname: str,
+    product_type_id: str,
+    order_code: str,
+):
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <DesktopLabel Version="1">
   <DYMOLabel Version="3">

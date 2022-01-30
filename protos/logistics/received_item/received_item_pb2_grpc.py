@@ -40,14 +40,19 @@ class ReceivedItemControllerStub(object):
                 request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.Make = channel.unary_stream(
-                '/received_item.ReceivedItemController/Make',
-                request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.MakeReceivedItemRequest.SerializeToString,
-                response_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
-                )
         self.Receive = channel.unary_unary(
                 '/received_item.ReceivedItemController/Receive',
-                request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemRetrieveRequest.SerializeToString,
+                request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
+                )
+        self.Cancel = channel.unary_unary(
+                '/received_item.ReceivedItemController/Cancel',
+                request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
+                )
+        self.Revert = channel.unary_unary(
+                '/received_item.ReceivedItemController/Revert',
+                request_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
                 response_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
                 )
 
@@ -85,13 +90,19 @@ class ReceivedItemControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Make(self, request, context):
+    def Receive(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Receive(self, request, context):
+    def Cancel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Revert(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -125,14 +136,19 @@ def add_ReceivedItemControllerServicer_to_server(servicer, server):
                     request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'Make': grpc.unary_stream_rpc_method_handler(
-                    servicer.Make,
-                    request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.MakeReceivedItemRequest.FromString,
-                    response_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.SerializeToString,
-            ),
             'Receive': grpc.unary_unary_rpc_method_handler(
                     servicer.Receive,
-                    request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemRetrieveRequest.FromString,
+                    request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.SerializeToString,
+            ),
+            'Cancel': grpc.unary_unary_rpc_method_handler(
+                    servicer.Cancel,
+                    request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.SerializeToString,
+            ),
+            'Revert': grpc.unary_unary_rpc_method_handler(
+                    servicer.Revert,
+                    request_deserializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.FromString,
                     response_serializer=protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.SerializeToString,
             ),
     }
@@ -231,23 +247,6 @@ class ReceivedItemController(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Make(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/received_item.ReceivedItemController/Make',
-            protos_dot_logistics_dot_received__item_dot_received__item__pb2.MakeReceivedItemRequest.SerializeToString,
-            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def Receive(request,
             target,
             options=(),
@@ -259,7 +258,41 @@ class ReceivedItemController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/received_item.ReceivedItemController/Receive',
-            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemRetrieveRequest.SerializeToString,
+            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
+            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Cancel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/received_item.ReceivedItemController/Cancel',
+            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
+            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Revert(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/received_item.ReceivedItemController/Revert',
+            protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItemReceiveRevertRequest.SerializeToString,
             protos_dot_logistics_dot_received__item_dot_received__item__pb2.ReceivedItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

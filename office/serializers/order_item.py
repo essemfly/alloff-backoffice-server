@@ -98,5 +98,6 @@ class OrderItemRetrieveSerializer(_OrderItemSerializer):
     logs = OrderItemActionLogSerializer(many=True)
     memos = OrderItemMemoSerializer(many=True)
 
+
 class PaginatedOrderItemSerializer(PaginationSerializer):
     results = OrderItemListSerializer(many=True)

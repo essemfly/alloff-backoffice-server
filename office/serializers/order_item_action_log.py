@@ -12,7 +12,6 @@ from protos.order.order_item_status_change_log import order_item_status_change_l
 from protos.order.received_item_generation_log import received_item_generation_log_pb2
 
 
-
 class OrderItemActionType(models.TextChoices):
     STATUS_CHANGE = "STATUS_CHANGE"
     MEMO_ADD = "MEMO_ADD"
@@ -20,8 +19,9 @@ class OrderItemActionType(models.TextChoices):
     PAYMENT_ADJUSTMENT = "PAYMENT_ADJUSTMENT"
     REFUND_UPDATE = "REFUND_UPDATE"
     GENERATED_RECEIVED_ITEM = "GENERATED_RECEIVED_ITEM"
-    FORCE_GENERATED_RECEIVED_ITEM = "FORCE_GENERATED_RECEIVED_ITEM"
+    CANCELED_RECEIVED_ITEM = "CANCELED_RECEIVED_ITEM"
     RECEIVED_INVENTORY = "RECEIVED_INVENTORY"
+    REVERTED_INVENTORY = "REVERTED_INVENTORY"
 
 
 class OrderItemAlimtalkType(models.TextChoices):
@@ -69,6 +69,7 @@ class ReceivedItemGenerationLogSerializer(WithUserSerializer):
     received_item_id = fields.IntegerField()
     received_item_code = fields.CharField()
     created_at = fields.DateTimeField()
+    is_force = fields.BooleanField()
 
     class Meta:
         proto_class = received_item_generation_log_pb2.ReceivedItemGenerationLog
@@ -130,7 +131,6 @@ class OrderItemActionLogSerializer(WithUserSerializer):
     detail = fields.CharField(allow_null=True)
     action_type = fields.ChoiceField(OrderItemActionType.choices)
     created_at = fields.DateTimeField()
-    
 
     class Meta:
         proto_class = order_item_action_log_pb2.OrderItemActionLog

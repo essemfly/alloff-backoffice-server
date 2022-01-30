@@ -31,12 +31,14 @@ class OrderItemService(GrpcService):
         size: int = GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
         search: Optional[str] = None,
         statuses: Optional[List[str]] = None,
+        user_id: Optional[str] = None,
     ):
         request = order_item_pb2.OrderItemListRequest(
             size=size,
             page=page,
             search=search,
             statuses=statuses,
+            user_id=user_id,
         )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).List(
@@ -92,3 +94,13 @@ class OrderItemService(GrpcService):
             return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).DeleteMemo(
                 request
             )
+
+    @classmethod
+    def force_receive(cls, id, user: User):
+        request = order_item_pb2.OrderItemForceReceiveRequest(
+            id=id, **cls.get_userinfo(user)
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(
+                cls.channel
+            ).ForceReceive(request)

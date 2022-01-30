@@ -36,7 +36,7 @@ from office.viewsets.order_items import OrderItemViewSet
 # from office.viewsets.image import ImageUploaderViewSet
 
 # from office.viewsets.package import PackageViewSet
-# from office.viewsets.received_item import ReceivedItemViewSet
+from office.viewsets.received_item import ReceivedItemViewSet
 
 # from office.viewsets.shipping_notice import ShippingNoticeViewSet
 from rest_framework import routers
@@ -67,7 +67,7 @@ router = routers.DefaultRouter()
 
 # router.register(r"notifications", NotificationViewSet, basename="notifications")
 router.register(r"order-items", OrderItemViewSet, basename="order-items")
-# router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
+router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 # router.register(r"inventories", InventoryViewSet, basename="inventories")
 # router.register(r"couriers", CourierViewSet, basename="couriers")
 # router.register(r"packages", PackageViewSet, basename="packages")
