@@ -16,6 +16,8 @@ service OrderItemController {
     rpc Destroy(OrderItem) returns (google.protobuf.Empty) {}
 
     rpc ChangeStatus(OrderItemStatusChangeRequest) returns (OrderItem) {}
+    rpc AddMemo(OrderItemAddMemoRequest) returns (OrderItem) {}
+    rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
 }
 
 message OrderItem {
@@ -89,4 +91,18 @@ message OrderItemStatusChangeRequest {
     optional string tracking_url = 4;
     string user_uuid = 5;
     string user_username = 6;
+}
+
+message OrderItemAddMemoRequest {
+    int64 id = 1;
+    string body = 2;
+    string user_uuid = 3;
+    string user_username = 4;
+}
+
+message OrderItemDeleteMemoRequest {
+    int64 id = 1;
+    int64 memo_id = 2;
+    string user_uuid = 3;
+    string user_username = 4;
 }

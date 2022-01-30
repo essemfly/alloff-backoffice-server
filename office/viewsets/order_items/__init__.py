@@ -8,14 +8,15 @@ from office.serializers.order_item import (
 )
 from office.services.order_item import OrderItemService
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
-from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer, add_memo
+from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.exceptions import APIException
-from rest_framework.permissions import IsAuthenticated
+
+# from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from office.viewsets.order_items.change_status import ChangeStatusSerializer
+from office.viewsets.order_items.delete_memo import DeleteItemOrderMemoSerializer
 
 from office.viewsets.pagination import PaginationListMixin
 
@@ -60,10 +61,10 @@ class OrderItemViewSet(
         #     return UpdateRefundSerializer
         elif self.action == "change_status":
             return ChangeStatusSerializer
-        # elif self.action == "add_memo":
-        #     return AddOrderItemMemoSerializer
-        # elif self.action == "delete_memo":
-        #     return DeleteItemOrderMemoSerializer
+        elif self.action == "add_memo":
+            return AddOrderItemMemoSerializer
+        elif self.action == "delete_memo":
+            return DeleteItemOrderMemoSerializer
         # elif self.action == "force_make_ri":
         #     return ForceMakeRiSerializer
         # elif "minimum" in self.action:
@@ -101,14 +102,43 @@ class OrderItemViewSet(
     #         OrderItemListSerializer(items, many=True).data, status=status.HTTP_200_OK
     #     )
 
-    # @extend_schema(
-    #     parameters=[
-    #         OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
-    #     ],  # path variable was overridden
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def add_memo(self, request: Request, id=None):
-    #     return add_memo(self, request, id)
+    @extend_schema(
+        responses={status.HTTP_200_OK: OrderItemListSerializer},
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def add_memo(self, request: Request, pk=None):
+        serializer = AddOrderItemMemoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.add_memo(
+            int(pk),
+            serializer.validated_data.get("body"),
+            request.user,
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )
+
+    @extend_schema(
+        responses={status.HTTP_200_OK: OrderItemListSerializer},
+        parameters=[
+            OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)
+        ],  # path variable was overridden
+    )
+    @action(detail=True, methods=["POST"])
+    def delete_memo(self, request: Request, pk=None):
+        serializer = DeleteItemOrderMemoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.delete_memo(
+            int(pk),
+            serializer.validated_data.get("memo_id"),
+            request.user,
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )
 
     # @extend_schema(
     #     parameters=[
@@ -126,7 +156,7 @@ class OrderItemViewSet(
     )
     @action(detail=True, methods=["POST"])
     def change_status(self, request: Request, pk=None):
-        serializer = ChangeStatusSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         item = OrderItemService.change_status(
             int(pk),

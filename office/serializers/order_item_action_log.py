@@ -1,17 +1,16 @@
-from django.contrib.auth.models import User
 from django.db import models
 from drf_spectacular.utils import extend_schema_field
+from rest_framework import fields
 from office.serializers.order_item_status import OrderItemStatus
-from office.serializers.user_recorded_model import UserRecordedSerializer
+from office.serializers.user_recorded_model import WithUserSerializer
+
 from protos.order.inventory_receipt_log import inventory_receipt_log_pb2
 from protos.order.order_item_action_log import order_item_action_log_pb2
 from protos.order.order_item_alimtalk_log import order_item_alimtalk_log_pb2
 from protos.order.order_item_refund_update_log import order_item_refund_update_log_pb2
 from protos.order.order_item_status_change_log import order_item_status_change_log_pb2
 from protos.order.received_item_generation_log import received_item_generation_log_pb2
-from rest_framework import fields
 
-from .admin import AdminSerializer
 
 
 class OrderItemActionType(models.TextChoices):
@@ -30,7 +29,7 @@ class OrderItemAlimtalkType(models.TextChoices):
     CANCEL_FINISHED = "CANCEL_FINISHED"
 
 
-class OrderItemAlimtalkLogSerializer(UserRecordedSerializer):
+class OrderItemAlimtalkLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
     alimtalk_type = fields.ChoiceField(OrderItemAlimtalkType.choices)
     request_id = fields.CharField(allow_null=True)
@@ -40,7 +39,7 @@ class OrderItemAlimtalkLogSerializer(UserRecordedSerializer):
         proto_class = order_item_alimtalk_log_pb2.OrderItemAlimtalkLog
 
 
-class OrderItemRefundUpdateLogSerializer(UserRecordedSerializer):
+class OrderItemRefundUpdateLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
     refund_delivery_price = fields.IntegerField()
     refund_amount = fields.IntegerField()
@@ -50,7 +49,7 @@ class OrderItemRefundUpdateLogSerializer(UserRecordedSerializer):
         proto_class = order_item_refund_update_log_pb2.OrderItemRefundUpdateLog
 
 
-class OrderItemStatusChangeLogSerializer(UserRecordedSerializer):
+class OrderItemStatusChangeLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
     status_from = fields.ChoiceField(OrderItemStatus.choices)
     status_to = fields.ChoiceField(OrderItemStatus.choices)
@@ -64,7 +63,7 @@ class OrderItemStatusChangeLogSerializer(UserRecordedSerializer):
         proto_class = order_item_status_change_log_pb2.OrderItemStatusChangeLog
 
 
-class ReceivedItemGenerationLogSerializer(UserRecordedSerializer):
+class ReceivedItemGenerationLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
     is_force = fields.BooleanField()
     received_item_id = fields.IntegerField()
@@ -75,7 +74,7 @@ class ReceivedItemGenerationLogSerializer(UserRecordedSerializer):
         proto_class = received_item_generation_log_pb2.ReceivedItemGenerationLog
 
 
-class InventoryReceiptLogSerializer(UserRecordedSerializer):
+class InventoryReceiptLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
     received_item_id = fields.IntegerField()
     received_item_code = fields.CharField()
@@ -87,7 +86,7 @@ class InventoryReceiptLogSerializer(UserRecordedSerializer):
         proto_class = inventory_receipt_log_pb2.InventoryReceiptLog
 
 
-class OrderItemActionLogSerializer(UserRecordedSerializer):
+class OrderItemActionLogSerializer(WithUserSerializer):
     alimtalk = fields.SerializerMethodField()
 
     @extend_schema_field(OrderItemAlimtalkLogSerializer(allow_null=True))
@@ -131,11 +130,7 @@ class OrderItemActionLogSerializer(UserRecordedSerializer):
     detail = fields.CharField(allow_null=True)
     action_type = fields.ChoiceField(OrderItemActionType.choices)
     created_at = fields.DateTimeField()
-    admin = fields.SerializerMethodField()
-
-    @extend_schema_field(AdminSerializer)
-    def get_admin(self, obj):
-        return AdminSerializer(User.objects.get(profile__uuid=obj.user_uuid)).data
+    
 
     class Meta:
         proto_class = order_item_action_log_pb2.OrderItemActionLog

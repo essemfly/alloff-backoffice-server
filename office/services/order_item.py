@@ -57,10 +57,38 @@ class OrderItemService(GrpcService):
             status=status,
             tracking_number=tracking_number,
             tracking_url=tracking_url,
-            user_uuid=str(user.profile.uuid),
-            user_username=user.username,
+            **cls.get_userinfo(user),
         )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(
                 cls.channel
             ).ChangeStatus(request)
+
+    @classmethod
+    def add_memo(
+        cls,
+        id: int,
+        body: str,
+        user: User,
+    ) -> dict:
+        request = order_item_pb2.OrderItemAddMemoRequest(
+            id=id,
+            body=body,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).AddMemo(
+                request
+            )
+
+    @classmethod
+    def delete_memo(cls, id: int, memo_id: int, user: User) -> dict:
+        request = order_item_pb2.OrderItemDeleteMemoRequest(
+            id=id,
+            memo_id=memo_id,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).DeleteMemo(
+                request
+            )
