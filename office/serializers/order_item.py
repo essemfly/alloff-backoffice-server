@@ -85,6 +85,8 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     product_option = fields.CharField()
     total_amount = fields.IntegerField()
     is_foreign = fields.BooleanField()
+    shipped_items_count = fields.IntegerField()
+    fulfillable_items_count = fields.IntegerField()
 
     class Meta:
         proto_class = order_item_pb2.OrderItem

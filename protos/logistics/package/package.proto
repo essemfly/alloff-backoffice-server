@@ -5,7 +5,6 @@ package package;
 import "google/protobuf/empty.proto";
 import "protos/logistics/courier/courier.proto";
 import "protos/logistics/inventory/inventory.proto";
-import "protos/logistics/package_remark_record/package_remark_record.proto";
 import "protos/logistics/package_log/package_log.proto";
 
 service PackageController {
@@ -18,33 +17,27 @@ service PackageController {
 
 message Package {
     int64 id = 1;
-    string key = 2;
-    enum PackageStatus {
-        DELIVERY_PREPARING = 0;
-        DELIVERY_STARTED = 1;
-        DELIVERY_FINISHED = 2;
-        OVERSEA_SHIPMENT_PREPARING = 3;
-        OVERSEA_SHIPMENT_STARTED = 4;
-        CANCEL_REQUESTED = 5;
-        CANCEL_PENDING = 6;
-        CANCEL_FINISHED = 7;
-    }
-    PackageStatus status = 3;
-    repeated string related_order_item_ids = 4;
-    string customer_name = 5;
-    string customer_contact = 6;
-    string base_address = 7;
-    optional string detail_address = 8;
-    string postal_code = 9;
-    optional string delivery_note = 10;
-    optional string tracking_number = 11;
+    string code = 2;
+    string status = 3;
+    string customer_name = 4;
+    string customer_mobile = 5;
+    string base_address = 6;
+    optional string detail_address = 7;
+    string postal_code = 8;
+    optional string delivery_note = 9;
+    optional string overseas_tracking_number = 10;
+    optional string domestic_tracking_number = 11;
     string created_at = 12;
     string updated_at = 13;
-    optional string deleted_at = 14;
-    repeated inventory.Inventory inventories = 15;
-    repeated package_remark_record.PackageRemarkRecord remark_records = 16;
-    optional package_log.PackageLog logs = 17;
-    optional courier.Courier tracking_courier = 18;
+    optional string overseas_shipped_at = 14;
+    optional string domestic_shipped_at = 15;
+    optional string delivered_at = 16;
+    optional string canceled_at = 17;
+    optional string deleted_at = 18;
+    repeated inventory.Inventory inventories = 19;
+    optional courier.Courier domestic_courier = 20;
+    optional courier.Courier foreign_courier = 21;
+    string address = 22;
 }
 
 message PackageListRequest {

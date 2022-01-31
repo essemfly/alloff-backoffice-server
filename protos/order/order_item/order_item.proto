@@ -65,6 +65,8 @@ message OrderItem {
     bool is_foreign = 41;
     repeated orderitemactionlog.OrderItemActionLog logs = 42;
     repeated orderitemmemo.OrderItemMemo memos = 43;
+    int64 shipped_items_count = 44;
+    int64 fulfillable_items_count = 45;
 }
 
 message OrderItemListRequest {

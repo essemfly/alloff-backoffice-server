@@ -13,6 +13,8 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from protos.logistics.inventory import inventory_pb2 as protos_dot_logistics_dot_inventory_dot_inventory__pb2
+from protos.logistics.package import package_pb2 as protos_dot_logistics_dot_package_dot_package__pb2
+from protos.order.order_item import order_item_pb2 as protos_dot_order_dot_order__item_dot_order__item__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x12\x14shipping_notice_item\x1a\x1bgoogle/protobuf/empty.proto\x1a*protos/logistics/inventory/inventory.proto\"Y\n\x12ShippingNoticeItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0e\n\x06notice\x18\x02 \x01(\x03\x12\'\n\tinventory\x18\x03 \x01(\x0b\x32\x14.inventory.Inventory\"\x1f\n\x1dShippingNoticeItemListRequest\"/\n!ShippingNoticeItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\x89\x04\n\x1cShippingNoticeItemController\x12i\n\x04List\x12\x33.shipping_notice_item.ShippingNoticeItemListRequest\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x30\x01\x12^\n\x06\x43reate\x12(.shipping_notice_item.ShippingNoticeItem\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12o\n\x08Retrieve\x12\x37.shipping_notice_item.ShippingNoticeItemRetrieveRequest\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12^\n\x06Update\x12(.shipping_notice_item.ShippingNoticeItem\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12M\n\x07\x44\x65stroy\x12(.shipping_notice_item.ShippingNoticeItem\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x12\x14shipping_notice_item\x1a\x1bgoogle/protobuf/empty.proto\x1a*protos/logistics/inventory/inventory.proto\x1a&protos/logistics/package/package.proto\x1a(protos/order/order_item/order_item.proto\"\xba\x01\n\x12ShippingNoticeItem\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tnotice_id\x18\x02 \x01(\x03\x12\'\n\tinventory\x18\x03 \x01(\x0b\x32\x14.inventory.Inventory\x12(\n\norder_item\x18\x04 \x01(\x0b\x32\x14.orderitem.OrderItem\x12&\n\x07package\x18\x05 \x01(\x0b\x32\x10.package.PackageH\x00\x88\x01\x01\x42\n\n\x08_package\"\x1f\n\x1dShippingNoticeItemListRequest\"/\n!ShippingNoticeItemRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\x89\x04\n\x1cShippingNoticeItemController\x12i\n\x04List\x12\x33.shipping_notice_item.ShippingNoticeItemListRequest\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x30\x01\x12^\n\x06\x43reate\x12(.shipping_notice_item.ShippingNoticeItem\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12o\n\x08Retrieve\x12\x37.shipping_notice_item.ShippingNoticeItemRetrieveRequest\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12^\n\x06Update\x12(.shipping_notice_item.ShippingNoticeItem\x1a(.shipping_notice_item.ShippingNoticeItem\"\x00\x12M\n\x07\x44\x65stroy\x12(.shipping_notice_item.ShippingNoticeItem\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_inventory_dot_inventory__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_inventory_dot_inventory__pb2.DESCRIPTOR,protos_dot_logistics_dot_package_dot_package__pb2.DESCRIPTOR,protos_dot_order_dot_order__item_dot_order__item__pb2.DESCRIPTOR,])
 
 
 
@@ -44,7 +46,7 @@ _SHIPPINGNOTICEITEM = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='notice', full_name='shipping_notice_item.ShippingNoticeItem.notice', index=1,
+      name='notice_id', full_name='shipping_notice_item.ShippingNoticeItem.notice_id', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -53,6 +55,20 @@ _SHIPPINGNOTICEITEM = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='inventory', full_name='shipping_notice_item.ShippingNoticeItem.inventory', index=2,
       number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='order_item', full_name='shipping_notice_item.ShippingNoticeItem.order_item', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='package', full_name='shipping_notice_item.ShippingNoticeItem.package', index=4,
+      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -68,9 +84,14 @@ _SHIPPINGNOTICEITEM = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_package', full_name='shipping_notice_item.ShippingNoticeItem._package',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=163,
-  serialized_end=252,
+  serialized_start=246,
+  serialized_end=432,
 )
 
 
@@ -94,8 +115,8 @@ _SHIPPINGNOTICEITEMLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=254,
-  serialized_end=285,
+  serialized_start=434,
+  serialized_end=465,
 )
 
 
@@ -126,11 +147,16 @@ _SHIPPINGNOTICEITEMRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=287,
-  serialized_end=334,
+  serialized_start=467,
+  serialized_end=514,
 )
 
 _SHIPPINGNOTICEITEM.fields_by_name['inventory'].message_type = protos_dot_logistics_dot_inventory_dot_inventory__pb2._INVENTORY
+_SHIPPINGNOTICEITEM.fields_by_name['order_item'].message_type = protos_dot_order_dot_order__item_dot_order__item__pb2._ORDERITEM
+_SHIPPINGNOTICEITEM.fields_by_name['package'].message_type = protos_dot_logistics_dot_package_dot_package__pb2._PACKAGE
+_SHIPPINGNOTICEITEM.oneofs_by_name['_package'].fields.append(
+  _SHIPPINGNOTICEITEM.fields_by_name['package'])
+_SHIPPINGNOTICEITEM.fields_by_name['package'].containing_oneof = _SHIPPINGNOTICEITEM.oneofs_by_name['_package']
 DESCRIPTOR.message_types_by_name['ShippingNoticeItem'] = _SHIPPINGNOTICEITEM
 DESCRIPTOR.message_types_by_name['ShippingNoticeItemListRequest'] = _SHIPPINGNOTICEITEMLISTREQUEST
 DESCRIPTOR.message_types_by_name['ShippingNoticeItemRetrieveRequest'] = _SHIPPINGNOTICEITEMRETRIEVEREQUEST
@@ -166,8 +192,8 @@ _SHIPPINGNOTICEITEMCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=337,
-  serialized_end=858,
+  serialized_start=517,
+  serialized_end=1038,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

@@ -14,7 +14,6 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from protos.logistics.courier import courier_pb2 as protos_dot_logistics_dot_courier_dot_courier__pb2
 from protos.logistics.inventory import inventory_pb2 as protos_dot_logistics_dot_inventory_dot_inventory__pb2
-from protos.logistics.package_remark_record import package_remark_record_pb2 as protos_dot_logistics_dot_package__remark__record_dot_package__remark__record__pb2
 from protos.logistics.package_log import package_log_pb2 as protos_dot_logistics_dot_package__log_dot_package__log__pb2
 
 
@@ -24,66 +23,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&protos/logistics/package/package.proto\x12\x07package\x1a\x1bgoogle/protobuf/empty.proto\x1a&protos/logistics/courier/courier.proto\x1a*protos/logistics/inventory/inventory.proto\x1a\x42protos/logistics/package_remark_record/package_remark_record.proto\x1a.protos/logistics/package_log/package_log.proto\"\xec\x06\n\x07Package\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03key\x18\x02 \x01(\t\x12.\n\x06status\x18\x03 \x01(\x0e\x32\x1e.package.Package.PackageStatus\x12\x1e\n\x16related_order_item_ids\x18\x04 \x03(\t\x12\x15\n\rcustomer_name\x18\x05 \x01(\t\x12\x18\n\x10\x63ustomer_contact\x18\x06 \x01(\t\x12\x14\n\x0c\x62\x61se_address\x18\x07 \x01(\t\x12\x1b\n\x0e\x64\x65tail_address\x18\x08 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x0bpostal_code\x18\t \x01(\t\x12\x1a\n\rdelivery_note\x18\n \x01(\tH\x01\x88\x01\x01\x12\x1c\n\x0ftracking_number\x18\x0b \x01(\tH\x02\x88\x01\x01\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12\x17\n\ndeleted_at\x18\x0e \x01(\tH\x03\x88\x01\x01\x12)\n\x0binventories\x18\x0f \x03(\x0b\x32\x14.inventory.Inventory\x12\x42\n\x0eremark_records\x18\x10 \x03(\x0b\x32*.package_remark_record.PackageRemarkRecord\x12*\n\x04logs\x18\x11 \x01(\x0b\x32\x17.package_log.PackageLogH\x04\x88\x01\x01\x12/\n\x10tracking_courier\x18\x12 \x01(\x0b\x32\x10.courier.CourierH\x05\x88\x01\x01\"\xd1\x01\n\rPackageStatus\x12\x16\n\x12\x44\x45LIVERY_PREPARING\x10\x00\x12\x14\n\x10\x44\x45LIVERY_STARTED\x10\x01\x12\x15\n\x11\x44\x45LIVERY_FINISHED\x10\x02\x12\x1e\n\x1aOVERSEA_SHIPMENT_PREPARING\x10\x03\x12\x1c\n\x18OVERSEA_SHIPMENT_STARTED\x10\x04\x12\x14\n\x10\x43\x41NCEL_REQUESTED\x10\x05\x12\x12\n\x0e\x43\x41NCEL_PENDING\x10\x06\x12\x13\n\x0f\x43\x41NCEL_FINISHED\x10\x07\x42\x11\n\x0f_detail_addressB\x10\n\x0e_delivery_noteB\x12\n\x10_tracking_numberB\r\n\x0b_deleted_atB\x07\n\x05_logsB\x13\n\x11_tracking_courier\"\x14\n\x12PackageListRequest\"$\n\x16PackageRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PackageController\x12\x39\n\x04List\x12\x1b.package.PackageListRequest\x1a\x10.package.Package\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12?\n\x08Retrieve\x12\x1f.package.PackageRetrieveRequest\x1a\x10.package.Package\"\x00\x12.\n\x06Update\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.package.Package\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n&protos/logistics/package/package.proto\x12\x07package\x1a\x1bgoogle/protobuf/empty.proto\x1a&protos/logistics/courier/courier.proto\x1a*protos/logistics/inventory/inventory.proto\x1a.protos/logistics/package_log/package_log.proto\"\xd4\x06\n\x07Package\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x15\n\rcustomer_name\x18\x04 \x01(\t\x12\x17\n\x0f\x63ustomer_mobile\x18\x05 \x01(\t\x12\x14\n\x0c\x62\x61se_address\x18\x06 \x01(\t\x12\x1b\n\x0e\x64\x65tail_address\x18\x07 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x0bpostal_code\x18\x08 \x01(\t\x12\x1a\n\rdelivery_note\x18\t \x01(\tH\x01\x88\x01\x01\x12%\n\x18overseas_tracking_number\x18\n \x01(\tH\x02\x88\x01\x01\x12%\n\x18\x64omestic_tracking_number\x18\x0b \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12 \n\x13overseas_shipped_at\x18\x0e \x01(\tH\x04\x88\x01\x01\x12 \n\x13\x64omestic_shipped_at\x18\x0f \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0c\x64\x65livered_at\x18\x10 \x01(\tH\x06\x88\x01\x01\x12\x18\n\x0b\x63\x61nceled_at\x18\x11 \x01(\tH\x07\x88\x01\x01\x12\x17\n\ndeleted_at\x18\x12 \x01(\tH\x08\x88\x01\x01\x12)\n\x0binventories\x18\x13 \x03(\x0b\x32\x14.inventory.Inventory\x12/\n\x10\x64omestic_courier\x18\x14 \x01(\x0b\x32\x10.courier.CourierH\t\x88\x01\x01\x12.\n\x0f\x66oreign_courier\x18\x15 \x01(\x0b\x32\x10.courier.CourierH\n\x88\x01\x01\x12\x0f\n\x07\x61\x64\x64ress\x18\x16 \x01(\tB\x11\n\x0f_detail_addressB\x10\n\x0e_delivery_noteB\x1b\n\x19_overseas_tracking_numberB\x1b\n\x19_domestic_tracking_numberB\x16\n\x14_overseas_shipped_atB\x16\n\x14_domestic_shipped_atB\x0f\n\r_delivered_atB\x0e\n\x0c_canceled_atB\r\n\x0b_deleted_atB\x13\n\x11_domestic_courierB\x12\n\x10_foreign_courier\"\x14\n\x12PackageListRequest\"$\n\x16PackageRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PackageController\x12\x39\n\x04List\x12\x1b.package.PackageListRequest\x1a\x10.package.Package\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12?\n\x08Retrieve\x12\x1f.package.PackageRetrieveRequest\x1a\x10.package.Package\"\x00\x12.\n\x06Update\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.package.Package\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_courier_dot_courier__pb2.DESCRIPTOR,protos_dot_logistics_dot_inventory_dot_inventory__pb2.DESCRIPTOR,protos_dot_logistics_dot_package__remark__record_dot_package__remark__record__pb2.DESCRIPTOR,protos_dot_logistics_dot_package__log_dot_package__log__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_courier_dot_courier__pb2.DESCRIPTOR,protos_dot_logistics_dot_inventory_dot_inventory__pb2.DESCRIPTOR,protos_dot_logistics_dot_package__log_dot_package__log__pb2.DESCRIPTOR,])
 
 
-
-_PACKAGE_PACKAGESTATUS = _descriptor.EnumDescriptor(
-  name='PackageStatus',
-  full_name='package.Package.PackageStatus',
-  filename=None,
-  file=DESCRIPTOR,
-  create_key=_descriptor._internal_create_key,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='DELIVERY_PREPARING', index=0, number=0,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='DELIVERY_STARTED', index=1, number=1,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='DELIVERY_FINISHED', index=2, number=2,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='OVERSEA_SHIPMENT_PREPARING', index=3, number=3,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='OVERSEA_SHIPMENT_STARTED', index=4, number=4,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CANCEL_REQUESTED', index=5, number=5,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CANCEL_PENDING', index=6, number=6,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-    _descriptor.EnumValueDescriptor(
-      name='CANCEL_FINISHED', index=7, number=7,
-      serialized_options=None,
-      type=None,
-      create_key=_descriptor._internal_create_key),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=846,
-  serialized_end=1055,
-)
-_sym_db.RegisterEnumDescriptor(_PACKAGE_PACKAGESTATUS)
 
 
 _PACKAGE = _descriptor.Descriptor(
@@ -102,7 +46,7 @@ _PACKAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='key', full_name='package.Package.key', index=1,
+      name='code', full_name='package.Package.code', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -110,62 +54,62 @@ _PACKAGE = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='status', full_name='package.Package.status', index=2,
-      number=3, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='related_order_item_ids', full_name='package.Package.related_order_item_ids', index=3,
-      number=4, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='customer_name', full_name='package.Package.customer_name', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='customer_name', full_name='package.Package.customer_name', index=4,
+      name='customer_mobile', full_name='package.Package.customer_mobile', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='customer_contact', full_name='package.Package.customer_contact', index=5,
+      name='base_address', full_name='package.Package.base_address', index=5,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='base_address', full_name='package.Package.base_address', index=6,
+      name='detail_address', full_name='package.Package.detail_address', index=6,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='detail_address', full_name='package.Package.detail_address', index=7,
+      name='postal_code', full_name='package.Package.postal_code', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='postal_code', full_name='package.Package.postal_code', index=8,
+      name='delivery_note', full_name='package.Package.delivery_note', index=8,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='delivery_note', full_name='package.Package.delivery_note', index=9,
+      name='overseas_tracking_number', full_name='package.Package.overseas_tracking_number', index=9,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tracking_number', full_name='package.Package.tracking_number', index=10,
+      name='domestic_tracking_number', full_name='package.Package.domestic_tracking_number', index=10,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -186,37 +130,65 @@ _PACKAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='deleted_at', full_name='package.Package.deleted_at', index=13,
+      name='overseas_shipped_at', full_name='package.Package.overseas_shipped_at', index=13,
       number=14, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='inventories', full_name='package.Package.inventories', index=14,
-      number=15, type=11, cpp_type=10, label=3,
+      name='domestic_shipped_at', full_name='package.Package.domestic_shipped_at', index=14,
+      number=15, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='delivered_at', full_name='package.Package.delivered_at', index=15,
+      number=16, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='canceled_at', full_name='package.Package.canceled_at', index=16,
+      number=17, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='deleted_at', full_name='package.Package.deleted_at', index=17,
+      number=18, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='inventories', full_name='package.Package.inventories', index=18,
+      number=19, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='remark_records', full_name='package.Package.remark_records', index=15,
-      number=16, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='logs', full_name='package.Package.logs', index=16,
-      number=17, type=11, cpp_type=10, label=1,
+      name='domestic_courier', full_name='package.Package.domestic_courier', index=19,
+      number=20, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='tracking_courier', full_name='package.Package.tracking_courier', index=17,
-      number=18, type=11, cpp_type=10, label=1,
+      name='foreign_courier', full_name='package.Package.foreign_courier', index=20,
+      number=21, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='address', full_name='package.Package.address', index=21,
+      number=22, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -225,7 +197,6 @@ _PACKAGE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _PACKAGE_PACKAGESTATUS,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -243,28 +214,53 @@ _PACKAGE = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
     _descriptor.OneofDescriptor(
-      name='_tracking_number', full_name='package.Package._tracking_number',
+      name='_overseas_tracking_number', full_name='package.Package._overseas_tracking_number',
       index=2, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
     _descriptor.OneofDescriptor(
-      name='_deleted_at', full_name='package.Package._deleted_at',
+      name='_domestic_tracking_number', full_name='package.Package._domestic_tracking_number',
       index=3, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
     _descriptor.OneofDescriptor(
-      name='_logs', full_name='package.Package._logs',
+      name='_overseas_shipped_at', full_name='package.Package._overseas_shipped_at',
       index=4, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
     _descriptor.OneofDescriptor(
-      name='_tracking_courier', full_name='package.Package._tracking_courier',
+      name='_domestic_shipped_at', full_name='package.Package._domestic_shipped_at',
       index=5, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_delivered_at', full_name='package.Package._delivered_at',
+      index=6, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_canceled_at', full_name='package.Package._canceled_at',
+      index=7, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_deleted_at', full_name='package.Package._deleted_at',
+      index=8, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_domestic_courier', full_name='package.Package._domestic_courier',
+      index=9, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_foreign_courier', full_name='package.Package._foreign_courier',
+      index=10, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
-  serialized_start=281,
-  serialized_end=1157,
+  serialized_start=213,
+  serialized_end=1065,
 )
 
 
@@ -288,8 +284,8 @@ _PACKAGELISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1159,
-  serialized_end=1179,
+  serialized_start=1067,
+  serialized_end=1087,
 )
 
 
@@ -320,34 +316,46 @@ _PACKAGERETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1181,
-  serialized_end=1217,
+  serialized_start=1089,
+  serialized_end=1125,
 )
 
-_PACKAGE.fields_by_name['status'].enum_type = _PACKAGE_PACKAGESTATUS
 _PACKAGE.fields_by_name['inventories'].message_type = protos_dot_logistics_dot_inventory_dot_inventory__pb2._INVENTORY
-_PACKAGE.fields_by_name['remark_records'].message_type = protos_dot_logistics_dot_package__remark__record_dot_package__remark__record__pb2._PACKAGEREMARKRECORD
-_PACKAGE.fields_by_name['logs'].message_type = protos_dot_logistics_dot_package__log_dot_package__log__pb2._PACKAGELOG
-_PACKAGE.fields_by_name['tracking_courier'].message_type = protos_dot_logistics_dot_courier_dot_courier__pb2._COURIER
-_PACKAGE_PACKAGESTATUS.containing_type = _PACKAGE
+_PACKAGE.fields_by_name['domestic_courier'].message_type = protos_dot_logistics_dot_courier_dot_courier__pb2._COURIER
+_PACKAGE.fields_by_name['foreign_courier'].message_type = protos_dot_logistics_dot_courier_dot_courier__pb2._COURIER
 _PACKAGE.oneofs_by_name['_detail_address'].fields.append(
   _PACKAGE.fields_by_name['detail_address'])
 _PACKAGE.fields_by_name['detail_address'].containing_oneof = _PACKAGE.oneofs_by_name['_detail_address']
 _PACKAGE.oneofs_by_name['_delivery_note'].fields.append(
   _PACKAGE.fields_by_name['delivery_note'])
 _PACKAGE.fields_by_name['delivery_note'].containing_oneof = _PACKAGE.oneofs_by_name['_delivery_note']
-_PACKAGE.oneofs_by_name['_tracking_number'].fields.append(
-  _PACKAGE.fields_by_name['tracking_number'])
-_PACKAGE.fields_by_name['tracking_number'].containing_oneof = _PACKAGE.oneofs_by_name['_tracking_number']
+_PACKAGE.oneofs_by_name['_overseas_tracking_number'].fields.append(
+  _PACKAGE.fields_by_name['overseas_tracking_number'])
+_PACKAGE.fields_by_name['overseas_tracking_number'].containing_oneof = _PACKAGE.oneofs_by_name['_overseas_tracking_number']
+_PACKAGE.oneofs_by_name['_domestic_tracking_number'].fields.append(
+  _PACKAGE.fields_by_name['domestic_tracking_number'])
+_PACKAGE.fields_by_name['domestic_tracking_number'].containing_oneof = _PACKAGE.oneofs_by_name['_domestic_tracking_number']
+_PACKAGE.oneofs_by_name['_overseas_shipped_at'].fields.append(
+  _PACKAGE.fields_by_name['overseas_shipped_at'])
+_PACKAGE.fields_by_name['overseas_shipped_at'].containing_oneof = _PACKAGE.oneofs_by_name['_overseas_shipped_at']
+_PACKAGE.oneofs_by_name['_domestic_shipped_at'].fields.append(
+  _PACKAGE.fields_by_name['domestic_shipped_at'])
+_PACKAGE.fields_by_name['domestic_shipped_at'].containing_oneof = _PACKAGE.oneofs_by_name['_domestic_shipped_at']
+_PACKAGE.oneofs_by_name['_delivered_at'].fields.append(
+  _PACKAGE.fields_by_name['delivered_at'])
+_PACKAGE.fields_by_name['delivered_at'].containing_oneof = _PACKAGE.oneofs_by_name['_delivered_at']
+_PACKAGE.oneofs_by_name['_canceled_at'].fields.append(
+  _PACKAGE.fields_by_name['canceled_at'])
+_PACKAGE.fields_by_name['canceled_at'].containing_oneof = _PACKAGE.oneofs_by_name['_canceled_at']
 _PACKAGE.oneofs_by_name['_deleted_at'].fields.append(
   _PACKAGE.fields_by_name['deleted_at'])
 _PACKAGE.fields_by_name['deleted_at'].containing_oneof = _PACKAGE.oneofs_by_name['_deleted_at']
-_PACKAGE.oneofs_by_name['_logs'].fields.append(
-  _PACKAGE.fields_by_name['logs'])
-_PACKAGE.fields_by_name['logs'].containing_oneof = _PACKAGE.oneofs_by_name['_logs']
-_PACKAGE.oneofs_by_name['_tracking_courier'].fields.append(
-  _PACKAGE.fields_by_name['tracking_courier'])
-_PACKAGE.fields_by_name['tracking_courier'].containing_oneof = _PACKAGE.oneofs_by_name['_tracking_courier']
+_PACKAGE.oneofs_by_name['_domestic_courier'].fields.append(
+  _PACKAGE.fields_by_name['domestic_courier'])
+_PACKAGE.fields_by_name['domestic_courier'].containing_oneof = _PACKAGE.oneofs_by_name['_domestic_courier']
+_PACKAGE.oneofs_by_name['_foreign_courier'].fields.append(
+  _PACKAGE.fields_by_name['foreign_courier'])
+_PACKAGE.fields_by_name['foreign_courier'].containing_oneof = _PACKAGE.oneofs_by_name['_foreign_courier']
 DESCRIPTOR.message_types_by_name['Package'] = _PACKAGE
 DESCRIPTOR.message_types_by_name['PackageListRequest'] = _PACKAGELISTREQUEST
 DESCRIPTOR.message_types_by_name['PackageRetrieveRequest'] = _PACKAGERETRIEVEREQUEST
@@ -383,8 +391,8 @@ _PACKAGECONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1220,
-  serialized_end=1514,
+  serialized_start=1128,
+  serialized_end=1422,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

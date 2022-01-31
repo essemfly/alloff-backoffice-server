@@ -2,9 +2,10 @@ from typing import Optional
 from rest_framework import request
 
 from alloff_backoffice_server.settings import GRPC_PAGINATION_DEFAULT_PAGE_SIZE
+from rest_framework import mixins
 
 
-class PaginationListMixin:
+class PaginationListMixin(mixins.ListModelMixin):
     def get_pagination_params(self, request: request.Request) -> dict:
         return {
             "size": self.get_size(request),

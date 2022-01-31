@@ -35,7 +35,7 @@ class ReceivedItemSerializer(proto_serializers.Serializer):
 
     @extend_schema_field(InventorySerializer(allow_null=True))
     def get_inventory(self, obj):
-        if obj.inventory.id == 0:
+        if obj.inventory.product_id == "":
             return None
         return InventorySerializer(obj.inventory).data
 

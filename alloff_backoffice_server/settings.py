@@ -224,6 +224,7 @@ SPECTACULAR_SETTINGS = {
     "ENUM_NAME_OVERRIDES": {
         "OrderStatusEnum": "office.serializers.order.OrderStatus.choices",
         "OrderItemStatusEnum": "office.serializers.order_item.OrderItemStatus.choices",
+        "ShippingNoticeStatusEnum": "office.serializers.shipping_notice.ShippingNoticeStatus.choices",
     },
     "SERVERS": [
         {"url": env.get("API_HOST") if "API_HOST" in env else "http://localhost:8000"}

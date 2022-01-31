@@ -4,6 +4,8 @@ package shipping_notice_item;
 
 import "google/protobuf/empty.proto";
 import "protos/logistics/inventory/inventory.proto";
+import "protos/logistics/package/package.proto";
+import "protos/order/order_item/order_item.proto";
 
 service ShippingNoticeItemController {
     rpc List(ShippingNoticeItemListRequest) returns (stream ShippingNoticeItem) {}
@@ -15,8 +17,10 @@ service ShippingNoticeItemController {
 
 message ShippingNoticeItem {
     int64 id = 1;
-    int64 notice = 2;
+    int64 notice_id = 2;
     inventory.Inventory inventory = 3;
+    orderitem.OrderItem order_item = 4;
+    optional package.Package package = 5;
 }
 
 message ShippingNoticeItemListRequest {

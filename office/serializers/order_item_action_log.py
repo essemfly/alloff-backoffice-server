@@ -92,7 +92,7 @@ class OrderItemActionLogSerializer(WithUserSerializer):
 
     @extend_schema_field(OrderItemAlimtalkLogSerializer(allow_null=True))
     def get_alimtalk(self, obj):
-        if obj.alimtalk.id == 0:
+        if obj.alimtalk.created_at == "":
             return None
         return OrderItemAlimtalkLogSerializer(obj.alimtalk).data
 
@@ -100,7 +100,7 @@ class OrderItemActionLogSerializer(WithUserSerializer):
 
     @extend_schema_field(OrderItemStatusChangeLogSerializer(allow_null=True))
     def get_status_change(self, obj):
-        if obj.status_change.id == 0:
+        if obj.status_change.created_at == "":
             return None
         return OrderItemStatusChangeLogSerializer(obj.status_change).data
 
@@ -108,7 +108,7 @@ class OrderItemActionLogSerializer(WithUserSerializer):
 
     @extend_schema_field(OrderItemRefundUpdateLogSerializer(allow_null=True))
     def get_refund_update(self, obj):
-        if obj.refund_update.id == 0:
+        if obj.refund_update.created_at == "":
             return None
         return OrderItemRefundUpdateLogSerializer(obj.refund_update).data
 
@@ -116,7 +116,7 @@ class OrderItemActionLogSerializer(WithUserSerializer):
 
     @extend_schema_field(ReceivedItemGenerationLogSerializer(allow_null=True))
     def get_received_item(self, obj):
-        if obj.received_item.id == 0:
+        if obj.received_item.created_at == "":
             return None
         return ReceivedItemGenerationLogSerializer(obj.received_item).data
 
@@ -124,7 +124,7 @@ class OrderItemActionLogSerializer(WithUserSerializer):
 
     @extend_schema_field(InventoryReceiptLogSerializer(allow_null=True))
     def get_inventory(self, obj):
-        if obj.inventory.id == 0:
+        if obj.inventory.created_at == "":
             return None
         return InventoryReceiptLogSerializer(obj.inventory).data
 

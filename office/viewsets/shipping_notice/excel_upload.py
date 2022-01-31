@@ -1,7 +1,7 @@
 import pandas as pd
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from drf_spectacular.utils import extend_schema
-from office.serializers.shipping_notice import ShippingNoticeSerializer
+from office.serializers.shipping_notice import ShippingNoticeListSerializer
 from office.viewsets.image import ImageUploaderRequestSerializer
 from rest_framework import fields, parsers, serializers, status, viewsets
 from rest_framework.decorators import action
@@ -22,7 +22,7 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
         parsers.FileUploadParser,
     ]
 
-    @extend_schema(responses={status.HTTP_200_OK: ShippingNoticeSerializer})
+    @extend_schema(responses={status.HTTP_200_OK: ShippingNoticeListSerializer})
     @action(methods=["POST"], detail=False)
     def upload(self, request):
         serializer = self.get_serializer(

@@ -38,7 +38,7 @@ from office.viewsets.order_items import OrderItemViewSet
 # from office.viewsets.package import PackageViewSet
 from office.viewsets.received_item import ReceivedItemViewSet
 
-# from office.viewsets.shipping_notice import ShippingNoticeViewSet
+from office.viewsets.shipping_notice import ShippingNoticeViewSet
 from rest_framework import routers
 
 # from tagger.viewsets.notification import NotificationViewSet
@@ -71,7 +71,7 @@ router.register(r"received-items", ReceivedItemViewSet, basename="received-items
 # router.register(r"inventories", InventoryViewSet, basename="inventories")
 # router.register(r"couriers", CourierViewSet, basename="couriers")
 # router.register(r"packages", PackageViewSet, basename="packages")
-# router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
+router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
 # router.register(r"brands", BrandViewSet, basename="brands")
 # router.register(r"products", ProductViewSet, basename="products")

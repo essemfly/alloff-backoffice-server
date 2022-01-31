@@ -23,7 +23,7 @@ enum InventoryStatus {
 message Inventory {
     int64 id = 1;
     string code = 2;
-    InventoryStatus status = 3;
+    string status = 3;
     string product_id = 4;
     string product_name = 5;
     string brand_keyname = 6;
