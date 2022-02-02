@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package inventorylog;
+
+import "google/protobuf/empty.proto";
+
+service InventoryLogController {
+    rpc List(InventoryLogListRequest) returns (stream InventoryLog) {}
+    rpc Create(InventoryLog) returns (InventoryLog) {}
+    rpc Retrieve(InventoryLogRetrieveRequest) returns (InventoryLog) {}
+    rpc Update(InventoryLog) returns (InventoryLog) {}
+    rpc Destroy(InventoryLog) returns (google.protobuf.Empty) {}
+}
+
+message InventoryLog {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string description = 4;
+    string created_at = 5;
+    string field_name = 6;
+    string before = 7;
+    string after = 8;
+    int64 inventory = 9;
+}
+
+message InventoryLogListRequest {
+}
+
+message InventoryLogRetrieveRequest {
+    int64 id = 1;
+}

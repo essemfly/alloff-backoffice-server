@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package orderitemmemo;
+
+import "google/protobuf/empty.proto";
+
+service OrderItemMemoController {
+    rpc List(OrderItemMemoListRequest) returns (stream OrderItemMemo) {}
+    rpc Create(OrderItemMemo) returns (OrderItemMemo) {}
+    rpc Retrieve(OrderItemMemoRetrieveRequest) returns (OrderItemMemo) {}
+    rpc Update(OrderItemMemo) returns (OrderItemMemo) {}
+    rpc Destroy(OrderItemMemo) returns (google.protobuf.Empty) {}
+}
+
+message OrderItemMemo {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string body = 4;
+    string created_at = 5;
+    string deleted_at = 6;
+    int64 order_item = 7;
+}
+
+message OrderItemMemoListRequest {
+}
+
+message OrderItemMemoRetrieveRequest {
+    int64 id = 1;
+}

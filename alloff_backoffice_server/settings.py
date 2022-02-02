@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_grpc_framework",
     "office",
-    "order",
+    # "order",
     "product",
     # "logistics"
 ]
@@ -222,8 +222,9 @@ DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "ENUM_NAME_OVERRIDES": {
-        "OrderStatusEnum": "order.models.order.OrderStatus.choices",
-        "OrderItemStatusEnum": "order.models.order_item.OrderItemStatus.choices",
+        "OrderStatusEnum": "office.serializers.order.OrderStatus.choices",
+        "OrderItemStatusEnum": "office.serializers.order_item.OrderItemStatus.choices",
+        "ShippingNoticeStatusEnum": "office.serializers.shipping_notice.ShippingNoticeStatus.choices",
     },
     "SERVERS": [
         {"url": env.get("API_HOST") if "API_HOST" in env else "http://localhost:8000"}

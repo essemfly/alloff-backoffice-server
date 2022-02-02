@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package orderitem;
+
+import "protos/order/order/order.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "protos/order/order_item_memo/order_item_memo.proto";
+import "protos/order/order_item_action_log/order_item_action_log.proto";
+
+service OrderItemController {
+    rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
+    rpc Create(OrderItem) returns (OrderItem) {}
+    rpc Retrieve(OrderItemRetrieveRequest) returns (OrderItem) {}
+    rpc Update(OrderItem) returns (OrderItem) {}
+    rpc Destroy(OrderItem) returns (google.protobuf.Empty) {}
+
+    rpc ChangeStatus(OrderItemStatusChangeRequest) returns (OrderItem) {}
+    rpc AddMemo(OrderItemAddMemoRequest) returns (OrderItem) {}
+    rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
+    rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
+}
+
+message OrderItem {
+    int64 id = 1;
+    string order_item_code = 2;
+    string order_item_type = 3;
+    string order_item_status = 4;
+    string brand_keyname = 5;
+    string brand_korname = 6;
+    string product_id = 7;
+    string product_url = 8;
+    string product_img = 9;
+    string product_name = 10;
+    google.protobuf.Struct cancel_description = 11;
+    google.protobuf.Struct delivery_description = 12;
+    int32 sales_price = 13;
+    string size = 14;
+    string color = 15;
+    int32 quantity = 16;
+    string tracking_url = 17;
+    string tracking_number = 18;
+    string created_at = 19;
+    string updated_at = 20;
+    string ordered_at = 21;
+    string payment_finished_at = 22;
+    string product_preparing_at = 23;
+    string foreign_product_inspecting_at = 24;
+    string delivery_preparing_at = 25;
+    string foreign_delivery_started_at = 26;
+    string delivery_started_at = 27;
+    string delivery_finished_at = 28;
+    string confirmed_at = 29;
+    string cancel_requested_at = 30;
+    string cancel_finished_at = 31;
+    string exchange_requested_at = 32;
+    string exchange_started_at = 33;
+    string exchange_finished_at = 34;
+    string return_requested_at = 35;
+    string return_started_at = 36;
+    string return_finished_at = 37;
+    order.Order order = 38;
+    string product_option = 39;
+    int64 total_amount = 40;
+    bool is_foreign = 41;
+    repeated orderitemactionlog.OrderItemActionLog logs = 42;
+    repeated orderitemmemo.OrderItemMemo memos = 43;
+    int64 shipped_items_count = 44;
+    int64 fulfillable_items_count = 45;
+}
+
+message OrderItemListRequest {
+    int64 page = 1;
+    int64 size = 2;
+    optional string search = 3;
+    repeated string statuses = 4;
+    optional string user_id = 5;
+}
+
+message OrderItemListResponse {
+    int64 count = 1;
+    optional int64 next = 2;
+    optional int64 previous = 3;
+    repeated OrderItem results = 4;
+}
+
+message OrderItemRetrieveRequest {
+    string id = 1;
+}
+
+message OrderItemStatusChangeRequest {
+    int64 id = 1;
+    string status = 2;
+    optional string tracking_number = 3;
+    optional string tracking_url = 4;
+    string user_uuid = 5;
+    string user_username = 6;
+}
+
+message OrderItemAddMemoRequest {
+    int64 id = 1;
+    string body = 2;
+    string user_uuid = 3;
+    string user_username = 4;
+}
+
+message OrderItemDeleteMemoRequest {
+    int64 id = 1;
+    int64 memo_id = 2;
+    string user_uuid = 3;
+    string user_username = 4;
+}
+
+message OrderItemForceReceiveRequest {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+}
