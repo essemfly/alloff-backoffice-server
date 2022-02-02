@@ -23,14 +23,14 @@ from drf_spectacular.views import (
 )
 from office.viewsets.admin_user import AdminUserViewSet
 
-# from office.viewsets.image import ImageUploaderViewSet
+from office.viewsets.image import ImageUploaderViewSet
 # from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
 # from office.viewsets.courier import CourierViewSet
-# from product.viewsets.product_group import ProductGroupViewSet
-# from product.viewsets.product import ProductViewSet
-# from product.viewsets.brand import BrandViewSet
-# from product.viewsets.notification import NotificationViewSet
+from product.viewsets.product_group import ProductGroupViewSet
+from product.viewsets.product import ProductViewSet
+from product.viewsets.brand import BrandViewSet
+from product.viewsets.notification import NotificationViewSet
 # from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
 # from office.viewsets.image import ImageUploaderViewSet
@@ -65,7 +65,7 @@ router = routers.DefaultRouter()
 #     basename="timedeal-product-templates",
 # )
 
-# router.register(r"notifications", NotificationViewSet, basename="notifications")
+router.register(r"notifications", NotificationViewSet, basename="notifications")
 router.register(r"order-items", OrderItemViewSet, basename="order-items")
 router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
 # router.register(r"inventories", InventoryViewSet, basename="inventories")
@@ -73,11 +73,11 @@ router.register(r"received-items", ReceivedItemViewSet, basename="received-items
 # router.register(r"packages", PackageViewSet, basename="packages")
 router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
 router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
-# router.register(r"brands", BrandViewSet, basename="brands")
-# router.register(r"products", ProductViewSet, basename="products")
-# router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
-# router.register(r"notifications", NotificationViewSet, basename="notifiactions")
-# router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
+router.register(r"brands", BrandViewSet, basename="brands")
+router.register(r"products", ProductViewSet, basename="products")
+router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
+router.register(r"notifications", NotificationViewSet, basename="notifiactions")
+router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 # router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
 
 urlpatterns = [
