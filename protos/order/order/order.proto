@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package order;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "protos/order/payment/payment.proto";
+
+service OrderController {
+    rpc List(OrderListRequest) returns (stream Order) {}
+    rpc Create(Order) returns (Order) {}
+    rpc Retrieve(OrderRetrieveRequest) returns (Order) {}
+    rpc Update(Order) returns (Order) {}
+    rpc Destroy(Order) returns (google.protobuf.Empty) {}
+}
+
+message Order {
+    int64 id = 1;
+    string alloff_order_id = 2;
+    string order_status = 3;
+    string user_id = 4;
+    google.protobuf.Struct user = 5;
+    string user_memo = 6;
+    int32 product_price = 7;
+    int32 delivery_price = 8;
+    int32 total_price = 9;
+    int32 refund_price = 10;
+    string created_at = 11;
+    string updated_at = 12;
+    string ordered_at = 13;
+    payment.Payment payment = 14;
+}
+
+message OrderListRequest {
+}
+
+message OrderRetrieveRequest {
+    int64 id = 1;
+}

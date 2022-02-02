@@ -149,3 +149,5 @@ reset_migrations.sh
 files/*
 
 .python-version
+
+.DS_Store

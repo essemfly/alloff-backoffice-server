@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package shippingcandidate;
+
+import "protos/logistics/inventory/inventory.proto";
+import "protos/order/order_item/order_item.proto";
+
+
+message ShippingCandidate {
+    orderitem.OrderItem item = 1;
+    repeated inventory.Inventory inventories = 2;
+    bool is_fulfilled = 3;
+}

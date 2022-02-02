@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package shipping_notice;
+
+import "google/protobuf/empty.proto";
+import "protos/logistics/shipping_notice_item/shipping_notice_item.proto";
+import "protos/logistics/package/package.proto";
+import "protos/logistics/shipping_candidate/shipping_candidate.proto";
+
+service ShippingNoticeController {
+    rpc List(ShippingNoticeListRequest) returns (ShippingNoticeListResponse) {}
+    rpc Create(ShippingNotice) returns (ShippingNotice) {}
+    rpc Retrieve(ShippingNoticeRetrieveRequest) returns (ShippingNotice) {}
+    rpc Update(ShippingNotice) returns (ShippingNotice) {}
+    rpc Destroy(ShippingNotice) returns (google.protobuf.Empty) {}
+    
+    rpc GetCandidates(google.protobuf.Empty) returns (stream shippingcandidate.ShippingCandidate) {}
+    rpc SubmitCandidates(ShippingNoticeCandidateSubmitRequest) returns (ShippingNotice) {}
+}
+
+enum ShippingNoticeStatus {
+    CREATED = 0;
+    LOCKED = 1;
+    SEALED = 2;
+    SHIPPED = 3;
+}
+
+message ShippingNotice {
+    int64 id = 1;
+    string code = 2;
+    string status = 3;
+    optional string template_url = 4;
+    optional string locked_at = 5;
+    optional string sealed_at = 6;
+    optional string shipped_at = 7;
+    string created_at = 8;
+    string updated_at = 9;
+    repeated shipping_notice_item.ShippingNoticeItem items = 10;
+    repeated package.Package packages = 11;
+}
+
+message ShippingNoticeListRequest {
+    int64 page = 1;
+    int64 size = 2;
+    optional string search = 3;
+    repeated string statuses = 4;
+}
+
+message ShippingNoticeListResponse {
+    int64 count = 1;
+    optional int64 next = 2;
+    optional int64 previous = 3;
+    repeated ShippingNotice results = 4;
+}
+
+message ShippingNoticeRetrieveRequest {
+    int64 id = 1;
+}
+
+message ShippingNoticeCandidateSubmitItem {
+    int64 order_item_id = 1;
+    repeated int64 inventory_ids = 2;
+}
+
+message ShippingNoticeCandidateSubmitRequest {
+    repeated ShippingNoticeCandidateSubmitItem candidates = 1;
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package orderitemrefundupdatelog;
+
+import "google/protobuf/empty.proto";
+
+service OrderItemRefundUpdateLogController {
+    rpc List(OrderItemRefundUpdateLogListRequest) returns (stream OrderItemRefundUpdateLog) {}
+    rpc Create(OrderItemRefundUpdateLog) returns (OrderItemRefundUpdateLog) {}
+    rpc Retrieve(OrderItemRefundUpdateLogRetrieveRequest) returns (OrderItemRefundUpdateLog) {}
+    rpc Update(OrderItemRefundUpdateLog) returns (OrderItemRefundUpdateLog) {}
+    rpc Destroy(OrderItemRefundUpdateLog) returns (google.protobuf.Empty) {}
+}
+
+message OrderItemRefundUpdateLog {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    int32 refund_delivery_price = 4;
+    int32 refund_amount = 5;
+    string created_at = 6;
+    int64 order_item = 7;
+    int64 action_log = 8;
+}
+
+message OrderItemRefundUpdateLogListRequest {
+}
+
+message OrderItemRefundUpdateLogRetrieveRequest {
+    int64 id = 1;
+}
