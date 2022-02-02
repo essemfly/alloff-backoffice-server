@@ -64,6 +64,14 @@ class ListProductSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListProductsRequest
 
 
+class ListProductResultSerializer(proto_serializers.ProtoSerializer):
+    products = ProductSerializer(many=True)
+    offset = serializers.IntegerField()
+    limit = serializers.IntegerField()
+    total_counts = serializers.IntegerField()
+    list_query = ProductQuerySerializer()
+
+
 class CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField()
     is_foreign_delivery = serializers.BooleanField()

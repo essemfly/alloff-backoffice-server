@@ -4,6 +4,8 @@ from rest_framework import status
 from product.serializers.product import (
     CreateProductRequestSerializer,
     EditProductRequestSerializer,
+    ListProductResultSerializer,
+    ListProductSerializer,
     ProductSerializer,
 )
 from product.services.product import ProductService
@@ -26,6 +28,10 @@ class ProductViewSet(
 ):
     serializer_class = ProductSerializer
 
+    @extend_schema(
+        request=ListProductSerializer,
+        responses={status.HTTP_200_OK: ListProductResultSerializer},
+    )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
         limit = request.query_params.get("limit", 100)
