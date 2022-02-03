@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\nLprotos/order/order_item_refund_update_log/order_item_refund_update_log.proto\x12\x18orderitemrefundupdatelog\x1a\x1bgoogle/protobuf/empty.proto\"\xc2\x01\n\x18OrderItemRefundUpdateLog\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tuser_uuid\x18\x02 \x01(\t\x12\x15\n\ruser_username\x18\x03 \x01(\t\x12\x1d\n\x15refund_delivery_price\x18\x04 \x01(\x05\x12\x15\n\rrefund_amount\x18\x05 \x01(\x05\x12\x12\n\ncreated_at\x18\x06 \x01(\t\x12\x12\n\norder_item\x18\x07 \x01(\x03\x12\x12\n\naction_log\x18\x08 \x01(\x03\"%\n#OrderItemRefundUpdateLogListRequest\"5\n\'OrderItemRefundUpdateLogRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xea\x04\n\"OrderItemRefundUpdateLogController\x12}\n\x04List\x12=.orderitemrefundupdatelog.OrderItemRefundUpdateLogListRequest\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x30\x01\x12r\n\x06\x43reate\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12\x83\x01\n\x08Retrieve\x12\x41.orderitemrefundupdatelog.OrderItemRefundUpdateLogRetrieveRequest\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12r\n\x06Update\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12W\n\x07\x44\x65stroy\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\nLprotos/order/order_item_refund_update_log/order_item_refund_update_log.proto\x12\x18orderitemrefundupdatelog\x1a\x1bgoogle/protobuf/empty.proto\"\xb7\x01\n\x18OrderItemRefundUpdateLog\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tuser_uuid\x18\x02 \x01(\t\x12\x15\n\ruser_username\x18\x03 \x01(\t\x12\x12\n\nrefund_fee\x18\x04 \x01(\x03\x12\x15\n\rrefund_amount\x18\x05 \x01(\x03\x12\x12\n\ncreated_at\x18\x06 \x01(\t\x12\x12\n\norder_item\x18\x07 \x01(\x03\x12\x12\n\naction_log\x18\x08 \x01(\x03\"%\n#OrderItemRefundUpdateLogListRequest\"5\n\'OrderItemRefundUpdateLogRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xea\x04\n\"OrderItemRefundUpdateLogController\x12}\n\x04List\x12=.orderitemrefundupdatelog.OrderItemRefundUpdateLogListRequest\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x30\x01\x12r\n\x06\x43reate\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12\x83\x01\n\x08Retrieve\x12\x41.orderitemrefundupdatelog.OrderItemRefundUpdateLogRetrieveRequest\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12r\n\x06Update\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\"\x00\x12W\n\x07\x44\x65stroy\x12\x32.orderitemrefundupdatelog.OrderItemRefundUpdateLog\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -57,15 +57,15 @@ _ORDERITEMREFUNDUPDATELOG = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='refund_delivery_price', full_name='orderitemrefundupdatelog.OrderItemRefundUpdateLog.refund_delivery_price', index=3,
-      number=4, type=5, cpp_type=1, label=1,
+      name='refund_fee', full_name='orderitemrefundupdatelog.OrderItemRefundUpdateLog.refund_fee', index=3,
+      number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='refund_amount', full_name='orderitemrefundupdatelog.OrderItemRefundUpdateLog.refund_amount', index=4,
-      number=5, type=5, cpp_type=1, label=1,
+      number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -104,7 +104,7 @@ _ORDERITEMREFUNDUPDATELOG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=136,
-  serialized_end=330,
+  serialized_end=319,
 )
 
 
@@ -128,8 +128,8 @@ _ORDERITEMREFUNDUPDATELOGLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=332,
-  serialized_end=369,
+  serialized_start=321,
+  serialized_end=358,
 )
 
 
@@ -160,8 +160,8 @@ _ORDERITEMREFUNDUPDATELOGRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=371,
-  serialized_end=424,
+  serialized_start=360,
+  serialized_end=413,
 )
 
 DESCRIPTOR.message_types_by_name['OrderItemRefundUpdateLog'] = _ORDERITEMREFUNDUPDATELOG
@@ -199,8 +199,8 @@ _ORDERITEMREFUNDUPDATELOGCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=427,
-  serialized_end=1045,
+  serialized_start=416,
+  serialized_end=1034,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

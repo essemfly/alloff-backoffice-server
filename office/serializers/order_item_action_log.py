@@ -41,7 +41,7 @@ class OrderItemAlimtalkLogSerializer(WithUserSerializer):
 
 class OrderItemRefundUpdateLogSerializer(WithUserSerializer):
     id = fields.IntegerField()
-    refund_delivery_price = fields.IntegerField()
+    refund_fee = fields.IntegerField()
     refund_amount = fields.IntegerField()
     created_at = fields.DateTimeField()
 

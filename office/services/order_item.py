@@ -104,3 +104,22 @@ class OrderItemService(GrpcService):
             return order_item_pb2_grpc.OrderItemControllerStub(
                 cls.channel
             ).ForceReceive(request)
+
+    @classmethod
+    def update_refund(
+        cls,
+        id: int = None,
+        refund_amount: int = None,
+        refund_fee: int = None,
+        user: User = None,
+    ):
+        request = order_item_pb2.UpdateRefundRequest(
+            id=id,
+            refund_amount=refund_amount,
+            refund_fee=refund_fee,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(
+                cls.channel
+            ).UpdateRefund(request)

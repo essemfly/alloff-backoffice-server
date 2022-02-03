@@ -8,11 +8,11 @@ from office.serializers.order import OrderSerializer
 from office.serializers.order_item_action_log import OrderItemActionLogSerializer
 from office.serializers.order_memo import OrderItemMemoSerializer
 from office.serializers.pagination import PaginationSerializer
+from office.serializers.refund_item import RefundItemSerializer
 from protos.order.order_item import order_item_pb2
 from rest_framework import fields
 from office.serializers.order_item_status import OrderItemStatus
-
-
+from drf_spectacular.utils import extend_schema_field
 
 
 class OrderItemType(models.TextChoices):
@@ -87,6 +87,14 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     is_foreign = fields.BooleanField()
     shipped_items_count = fields.IntegerField()
     fulfillable_items_count = fields.IntegerField()
+
+    refund_item = fields.SerializerMethodField()
+
+    @extend_schema_field(RefundItemSerializer(allow_null=True))
+    def get_refund_item(self, obj):
+        if obj.refund_item.refund_amount == 0:
+            return None
+        return RefundItemSerializer(obj.refund_item).data
 
     class Meta:
         proto_class = order_item_pb2.OrderItem

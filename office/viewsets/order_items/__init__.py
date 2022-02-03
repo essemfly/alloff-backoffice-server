@@ -9,7 +9,7 @@ from office.serializers.order_item import (
 from office.services.order_item import OrderItemService
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer
-from rest_framework import mixins, status, viewsets
+from rest_framework import mixins, status, viewsets, serializers
 from rest_framework.decorators import action
 
 # from rest_framework.permissions import IsAuthenticated
@@ -19,6 +19,11 @@ from office.viewsets.order_items.change_status import ChangeStatusSerializer
 from office.viewsets.order_items.delete_memo import DeleteItemOrderMemoSerializer
 
 from office.viewsets.pagination import PaginationListMixin
+
+
+class UpdateRefundSerializer(serializers.Serializer):
+    refund_amount = serializers.IntegerField(min_value=0)
+    refund_fee = serializers.IntegerField(min_value=0)
 
 
 @extend_schema_view(
@@ -174,7 +179,7 @@ class OrderItemViewSet(
         )
 
     @extend_schema(
-        responses={status.HTTP_200_OK: OrderItemListSerializer},
+        responses=OrderItemListSerializer,
         parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
     )
     @action(detail=True, methods=["POST"])
@@ -191,9 +196,20 @@ class OrderItemViewSet(
     # def add_payment_adjustment(self, request: Request, id=None):
     #     return add_payment_adjustment(self, request, id)
 
-    # @extend_schema(
-    #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def update_refund(self, request: Request, id=None):
-    #     return update_refund(self, request, id)
+    @extend_schema(
+        request=UpdateRefundSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def update_refund(self, request: Request, pk=None):
+        serializer = UpdateRefundSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.update_refund(
+            id=int(pk),
+            user=request.user,
+            refund_amount=serializer.validated_data.get("refund_amount"),
+            refund_fee=serializer.validated_data.get("refund_fee"),
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )
