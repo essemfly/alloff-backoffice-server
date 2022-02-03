@@ -8,6 +8,7 @@ import "google/protobuf/struct.proto";
 import "protos/order/order_item_memo/order_item_memo.proto";
 import "protos/order/order_item_action_log/order_item_action_log.proto";
 import "protos/order/refund_item/refund_item.proto";
+import "protos/order/order_item_payment_adjustment/order_item_payment_adjustment.proto";
 
 service OrderItemController {
     rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
@@ -21,6 +22,7 @@ service OrderItemController {
     rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
     rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
     rpc UpdateRefund(UpdateRefundRequest) returns (OrderItem) {}
+    rpc AdjustPayment(OrderItemAdjustPaymentRequest) returns (OrderItem) {}
 }
 
 message OrderItem {
@@ -70,6 +72,7 @@ message OrderItem {
     int64 shipped_items_count = 44;
     int64 fulfillable_items_count = 45;
     optional refunditem.RefundItem refund_item = 46;
+    repeated orderitempaymentadjustment.OrderItemPaymentAdjustment payment_adjustments = 47;
 }
 
 message OrderItemListRequest {
@@ -78,6 +81,7 @@ message OrderItemListRequest {
     optional string search = 3;
     repeated string statuses = 4;
     optional string user_id = 5;
+    optional string alloff_order_id = 6;
 }
 
 message OrderItemListResponse {
@@ -126,4 +130,15 @@ message UpdateRefundRequest {
     string user_username = 3;
     int64 refund_amount = 4;
     int64 refund_fee = 5;
+}
+
+message OrderItemAdjustPaymentRequest {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    string method = 4;
+    int64 amount = 5;
+    optional string bank_account_info = 6;
+    optional string reason = 7;
+    int64 order_item_id = 8;
 }

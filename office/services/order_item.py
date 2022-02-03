@@ -6,6 +6,7 @@ from alloff_backoffice_server.settings import (
 )
 from office.serializers.order_item import OrderItemStatus
 from django.contrib.auth.models import User
+from office.serializers.order_payment_adjustment import PaymentAdjustmentType
 from protos.order.order_item import (
     order_item_pb2,
     order_item_pb2_grpc,
@@ -32,6 +33,7 @@ class OrderItemService(GrpcService):
         search: Optional[str] = None,
         statuses: Optional[List[str]] = None,
         user_id: Optional[str] = None,
+        alloff_order_id: Optional[str] = None,
     ):
         request = order_item_pb2.OrderItemListRequest(
             size=size,
@@ -39,6 +41,7 @@ class OrderItemService(GrpcService):
             search=search,
             statuses=statuses,
             user_id=user_id,
+            alloff_order_id=alloff_order_id,
         )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).List(
@@ -123,3 +126,26 @@ class OrderItemService(GrpcService):
             return order_item_pb2_grpc.OrderItemControllerStub(
                 cls.channel
             ).UpdateRefund(request)
+
+    @classmethod
+    def adjust_payment(
+        cls,
+        id: int = None,
+        user: User = None,
+        method: PaymentAdjustmentType = None,
+        amount: int = None,
+        bank_account_info: Optional[str] = None,
+        reason: Optional[str] = None,
+    ):
+        request = order_item_pb2.OrderItemAdjustPaymentRequest(
+            id=id,
+            method=method,
+            amount=amount,
+            bank_account_info=bank_account_info,
+            reason=reason,
+            **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(
+                cls.channel
+            ).AdjustPayment(request)

@@ -1,5 +1,6 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
+from office.iamport import IMP
 from office.serializers.daos.cancel_description import CancelDescriptionDAOSerializer
 from office.serializers.daos.delivery_description import (
     DeliveryDescriptionDAOSerializer,
@@ -7,6 +8,9 @@ from office.serializers.daos.delivery_description import (
 from office.serializers.order import OrderSerializer
 from office.serializers.order_item_action_log import OrderItemActionLogSerializer
 from office.serializers.order_memo import OrderItemMemoSerializer
+from office.serializers.order_payment_adjustment import (
+    OrderItemPaymentAdjustmentSerializer,
+)
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.refund_item import RefundItemSerializer
 from protos.order.order_item import order_item_pb2
@@ -88,13 +92,6 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     shipped_items_count = fields.IntegerField()
     fulfillable_items_count = fields.IntegerField()
 
-    refund_item = fields.SerializerMethodField()
-
-    @extend_schema_field(RefundItemSerializer(allow_null=True))
-    def get_refund_item(self, obj):
-        if obj.refund_item.refund_amount == 0:
-            return None
-        return RefundItemSerializer(obj.refund_item).data
 
     class Meta:
         proto_class = order_item_pb2.OrderItem
@@ -107,6 +104,19 @@ class OrderItemListSerializer(_OrderItemSerializer):
 class OrderItemRetrieveSerializer(_OrderItemSerializer):
     logs = OrderItemActionLogSerializer(many=True)
     memos = OrderItemMemoSerializer(many=True)
+    payment_adjustments = OrderItemPaymentAdjustmentSerializer(many=True)
+    iamport = fields.SerializerMethodField()
+    refund_item = fields.SerializerMethodField()
+
+    @extend_schema_field(RefundItemSerializer(allow_null=True))
+    def get_refund_item(self, obj):
+        if obj.refund_item.refund_amount == 0:
+            return None
+        return RefundItemSerializer(obj.refund_item).data
+
+    @extend_schema_field(fields.DictField)
+    def get_iamport(self, obj):
+        return IMP.instance().get_payment_detail(obj.order.alloff_order_id)
 
 
 class PaginatedOrderItemSerializer(PaginationSerializer):

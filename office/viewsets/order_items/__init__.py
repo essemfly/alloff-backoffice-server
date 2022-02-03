@@ -6,24 +6,31 @@ from office.serializers.order_item import (
     OrderItemStatus,
     PaginatedOrderItemSerializer,
 )
+from office.serializers.order_payment_adjustment import PaymentAdjustmentType
 from office.services.order_item import OrderItemService
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.order_items.add_memo import AddOrderItemMemoSerializer
-from rest_framework import mixins, status, viewsets, serializers
+from office.viewsets.order_items.change_status import ChangeStatusSerializer
+from office.viewsets.order_items.delete_memo import DeleteItemOrderMemoSerializer
+from office.viewsets.pagination import PaginationListMixin
+from rest_framework import mixins, serializers, status, viewsets
 from rest_framework.decorators import action
 
 # from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from office.viewsets.order_items.change_status import ChangeStatusSerializer
-from office.viewsets.order_items.delete_memo import DeleteItemOrderMemoSerializer
-
-from office.viewsets.pagination import PaginationListMixin
 
 
 class UpdateRefundSerializer(serializers.Serializer):
     refund_amount = serializers.IntegerField(min_value=0)
     refund_fee = serializers.IntegerField(min_value=0)
+
+
+class OrderItemAdjustPaymentSerializer(serializers.Serializer):
+    amount = serializers.IntegerField(min_value=0)
+    method = serializers.ChoiceField(PaymentAdjustmentType.choices)
+    bank_account_info = serializers.CharField(allow_null=True, required=False)
+    reason = serializers.CharField(allow_null=True, required=False)
 
 
 @extend_schema_view(
@@ -50,12 +57,7 @@ class UpdateRefundSerializer(serializers.Serializer):
                 OpenApiParameter.QUERY,
             ),
             OpenApiParameter(
-                "user_id",
-                OpenApiTypes.STR,
-                OpenApiParameter.QUERY,
-            ),
-            OpenApiParameter(
-                "user_id",
+                "alloff_order_id",
                 OpenApiTypes.STR,
                 OpenApiParameter.QUERY,
             ),
@@ -77,7 +79,7 @@ class OrderItemViewSet(
             return OrderItemRetrieveSerializer
         if self.action == "list":
             return PaginatedOrderItemSerializer
-        # elif self.action == "add_payment_adjustment":
+        # elif self.action == "adjust_payment":
         #     return AddPaymentAdjustmentSerializer
         # elif self.action == "update_refund":
         #     return UpdateRefundSerializer
@@ -103,27 +105,10 @@ class OrderItemViewSet(
             **self.get_pagination_params(request),
             statuses=request.query_params.getlist("statuses"),
             user_id=request.query_params.get("user_id"),
+            alloff_order_id=request.query_params.get("alloff_order_id"),
         )
         serializer = PaginatedOrderItemSerializer(list_response)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-
-    # @extend_schema(
-    #     responses=OrderItemListSerializer(many=True),
-    #     parameters=[
-    #         OpenApiParameter("user_id", OpenApiTypes.STR, OpenApiParameter.PATH)
-    #     ],
-    # )
-    # @action(
-    #     methods=["GET"],
-    #     detail=False,
-    #     pagination_class=None,
-    #     url_path="by_user/(?P<user_id>[^/.]+)",
-    # )
-    # def by_user(self, request: Request, user_id: str):
-    #     items = OrderItem.objects.filter(order__user_id=user_id).all()
-    #     return Response(
-    #         OrderItemListSerializer(items, many=True).data, status=status.HTTP_200_OK
-    #     )
 
     @extend_schema(
         responses={status.HTTP_200_OK: OrderItemListSerializer},
@@ -189,12 +174,26 @@ class OrderItemViewSet(
             OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
         )
 
-    # @extend_schema(
-    #     parameters=[OpenApiParameter("id", OpenApiTypes.STR, OpenApiParameter.PATH)],
-    # )
-    # @action(detail=True, methods=["POST"])
-    # def add_payment_adjustment(self, request: Request, id=None):
-    #     return add_payment_adjustment(self, request, id)
+    @extend_schema(
+        request=OrderItemAdjustPaymentSerializer,
+        responses=OrderItemRetrieveSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def adjust_payment(self, request: Request, pk=None):
+        serializer = OrderItemAdjustPaymentSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.adjust_payment(
+            id=int(pk),
+            user=request.user,
+            amount=serializer.validated_data.get("amount"),
+            method=serializer.validated_data.get("method"),
+            bank_account_info=serializer.validated_data.get("bank_account_info"),
+            reason=serializer.validated_data.get("reason"),
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )
 
     @extend_schema(
         request=UpdateRefundSerializer,
