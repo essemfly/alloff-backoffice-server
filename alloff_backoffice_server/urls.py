@@ -24,14 +24,13 @@ from drf_spectacular.views import (
 from office.viewsets.admin_user import AdminUserViewSet
 
 from office.viewsets.image import ImageUploaderViewSet
-# from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
-# from office.viewsets.courier import CourierViewSet
+from office.viewsets.inventory import InventoryViewSet
+from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
 from product.viewsets.product_group import ProductGroupViewSet
 from product.viewsets.product import ProductViewSet
 from product.viewsets.brand import BrandViewSet
 from product.viewsets.notification import NotificationViewSet
-# from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
 
 from office.viewsets.package import PackageViewSet
@@ -67,7 +66,7 @@ router = routers.DefaultRouter()
 router.register(r"notifications", NotificationViewSet, basename="notifications")
 router.register(r"order-items", OrderItemViewSet, basename="order-items")
 router.register(r"received-items", ReceivedItemViewSet, basename="received-items")
-# router.register(r"inventories", InventoryViewSet, basename="inventories")
+router.register(r"inventories", InventoryViewSet, basename="inventories")
 # router.register(r"couriers", CourierViewSet, basename="couriers")
 router.register(r"packages", PackageViewSet, basename="packages")
 router.register(r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices")
@@ -77,7 +76,7 @@ router.register(r"products", ProductViewSet, basename="products")
 router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
 router.register(r"notifications", NotificationViewSet, basename="notifiactions")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
-# router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
+router.register(r"shipping-notices-result-upload", ShippingNoticeResultUploaderViewSet, basename="shipping-notices-result-upload")
 
 urlpatterns = [
     path("", include(router.urls)),
