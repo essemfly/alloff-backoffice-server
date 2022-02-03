@@ -41,6 +41,31 @@ class ShippingNoticeControllerStub(object):
                 request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.RemoveItem = channel.unary_unary(
+                '/shipping_notice.ShippingNoticeController/RemoveItem',
+                request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRemoveItemRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                )
+        self.MoveItem = channel.unary_unary(
+                '/shipping_notice.ShippingNoticeController/MoveItem',
+                request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeMoveItemRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                )
+        self.LockAndPackage = channel.unary_unary(
+                '/shipping_notice.ShippingNoticeController/LockAndPackage',
+                request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                )
+        self.RecordShippingTemplate = channel.unary_unary(
+                '/shipping_notice.ShippingNoticeController/RecordShippingTemplate',
+                request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.RecordShippingTemplateRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                )
+        self.SubmitTrackingExcel = channel.unary_unary(
+                '/shipping_notice.ShippingNoticeController/SubmitTrackingExcel',
+                request_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.SubmitTrackingExcelRequest.SerializeToString,
+                response_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+                )
         self.GetCandidates = channel.unary_stream(
                 '/shipping_notice.ShippingNoticeController/GetCandidates',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
@@ -86,6 +111,36 @@ class ShippingNoticeControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RemoveItem(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def MoveItem(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LockAndPackage(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RecordShippingTemplate(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SubmitTrackingExcel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetCandidates(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -125,6 +180,31 @@ def add_ShippingNoticeControllerServicer_to_server(servicer, server):
                     servicer.Destroy,
                     request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'RemoveItem': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveItem,
+                    request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRemoveItemRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+            ),
+            'MoveItem': grpc.unary_unary_rpc_method_handler(
+                    servicer.MoveItem,
+                    request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeMoveItemRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+            ),
+            'LockAndPackage': grpc.unary_unary_rpc_method_handler(
+                    servicer.LockAndPackage,
+                    request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+            ),
+            'RecordShippingTemplate': grpc.unary_unary_rpc_method_handler(
+                    servicer.RecordShippingTemplate,
+                    request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.RecordShippingTemplateRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
+            ),
+            'SubmitTrackingExcel': grpc.unary_unary_rpc_method_handler(
+                    servicer.SubmitTrackingExcel,
+                    request_deserializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.SubmitTrackingExcelRequest.FromString,
+                    response_serializer=protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
             ),
             'GetCandidates': grpc.unary_stream_rpc_method_handler(
                     servicer.GetCandidates,
@@ -228,6 +308,91 @@ class ShippingNoticeController(object):
         return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/Destroy',
             protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveItem(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/RemoveItem',
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRemoveItemRequest.SerializeToString,
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MoveItem(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/MoveItem',
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeMoveItemRequest.SerializeToString,
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def LockAndPackage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/LockAndPackage',
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNoticeRetrieveRequest.SerializeToString,
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RecordShippingTemplate(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/RecordShippingTemplate',
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.RecordShippingTemplateRequest.SerializeToString,
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SubmitTrackingExcel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/shipping_notice.ShippingNoticeController/SubmitTrackingExcel',
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.SubmitTrackingExcelRequest.SerializeToString,
+            protos_dot_logistics_dot_shipping__notice_dot_shipping__notice__pb2.ShippingNotice.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -1,16 +1,22 @@
-from typing import List, Optional
 import queue
+from typing import List, Optional, TypedDict
 
 from alloff_backoffice_server.settings import (
     GRPC_LOGISTICS_SERVER_URL,
     GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
 )
+from office.serializers.shipping_notice import ShippingNoticeStatus
+from office.serializers.shipping_notice_item import ShippingNoticeItemRemovalType
+from office.services.base import GrpcService
 from protos.logistics.shipping_notice import (
     shipping_notice_pb2,
     shipping_notice_pb2_grpc,
 )
-from office.serializers.shipping_notice import ShippingNoticeStatus
-from office.services.base import GrpcService
+
+
+class PackageTrackingPair(TypedDict):
+    package_code: str
+    tracking_number: str
 
 
 class ShippingNoticeService(GrpcService):
@@ -42,6 +48,65 @@ class ShippingNoticeService(GrpcService):
             return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
                 cls.channel
             ).List(request)
+
+    @classmethod
+    def remove_item(
+        cls, id: int, item_id: int, removal_type: ShippingNoticeItemRemovalType
+    ):
+        request = shipping_notice_pb2.ShippingNoticeRemoveItemRequest(
+            id=id,
+            item_id=item_id,
+            removal_type=removal_type,
+        )
+        with cls.channel:
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).RemoveItem(request)
+
+    @classmethod
+    def move_item(cls, id: int, item_id: int, target_id: int, source_id: int):
+        request = shipping_notice_pb2.ShippingNoticeMoveItemRequest(
+            id=id,
+            item_id=item_id,
+            target_id=target_id,
+            source_id=source_id,
+        )
+        with cls.channel:
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).MoveItem(request)
+
+    @classmethod
+    def lock_and_package(cls, id: int):
+        request = shipping_notice_pb2.ShippingNoticeRetrieveRequest(id=id)
+        with cls.channel:
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).LockAndPackage(request)
+
+    @classmethod
+    def record_shipping_template(cls, id: int, template_url: str):
+        request = shipping_notice_pb2.RecordShippingTemplateRequest(
+            id=id, template_url=template_url
+        )
+        with cls.channel:
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).RecordShippingTemplate(request)
+
+    @classmethod
+    def submit_tracking_excel(cls, tracking_pairs: List[PackageTrackingPair]):
+        request = shipping_notice_pb2.SubmitTrackingExcelRequest(
+            id=id,
+            tracking_pairs=[
+                shipping_notice_pb2.PackageTrackingPair(**pair)
+                for pair in tracking_pairs
+            ],
+        )
+        with cls.channel:
+            return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(
+                cls.channel
+            ).SubmitTrackingExcel(request)
 
     @classmethod
     def get_candidates(cls):

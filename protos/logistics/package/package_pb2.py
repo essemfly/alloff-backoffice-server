@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n&protos/logistics/package/package.proto\x12\x07package\x1a\x1bgoogle/protobuf/empty.proto\x1a&protos/logistics/courier/courier.proto\x1a*protos/logistics/inventory/inventory.proto\x1a.protos/logistics/package_log/package_log.proto\"\xd4\x06\n\x07Package\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x15\n\rcustomer_name\x18\x04 \x01(\t\x12\x17\n\x0f\x63ustomer_mobile\x18\x05 \x01(\t\x12\x14\n\x0c\x62\x61se_address\x18\x06 \x01(\t\x12\x1b\n\x0e\x64\x65tail_address\x18\x07 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x0bpostal_code\x18\x08 \x01(\t\x12\x1a\n\rdelivery_note\x18\t \x01(\tH\x01\x88\x01\x01\x12%\n\x18overseas_tracking_number\x18\n \x01(\tH\x02\x88\x01\x01\x12%\n\x18\x64omestic_tracking_number\x18\x0b \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12 \n\x13overseas_shipped_at\x18\x0e \x01(\tH\x04\x88\x01\x01\x12 \n\x13\x64omestic_shipped_at\x18\x0f \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0c\x64\x65livered_at\x18\x10 \x01(\tH\x06\x88\x01\x01\x12\x18\n\x0b\x63\x61nceled_at\x18\x11 \x01(\tH\x07\x88\x01\x01\x12\x17\n\ndeleted_at\x18\x12 \x01(\tH\x08\x88\x01\x01\x12)\n\x0binventories\x18\x13 \x03(\x0b\x32\x14.inventory.Inventory\x12/\n\x10\x64omestic_courier\x18\x14 \x01(\x0b\x32\x10.courier.CourierH\t\x88\x01\x01\x12.\n\x0f\x66oreign_courier\x18\x15 \x01(\x0b\x32\x10.courier.CourierH\n\x88\x01\x01\x12\x0f\n\x07\x61\x64\x64ress\x18\x16 \x01(\tB\x11\n\x0f_detail_addressB\x10\n\x0e_delivery_noteB\x1b\n\x19_overseas_tracking_numberB\x1b\n\x19_domestic_tracking_numberB\x16\n\x14_overseas_shipped_atB\x16\n\x14_domestic_shipped_atB\x0f\n\r_delivered_atB\x0e\n\x0c_canceled_atB\r\n\x0b_deleted_atB\x13\n\x11_domestic_courierB\x12\n\x10_foreign_courier\"\x14\n\x12PackageListRequest\"$\n\x16PackageRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PackageController\x12\x39\n\x04List\x12\x1b.package.PackageListRequest\x1a\x10.package.Package\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12?\n\x08Retrieve\x12\x1f.package.PackageRetrieveRequest\x1a\x10.package.Package\"\x00\x12.\n\x06Update\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.package.Package\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n&protos/logistics/package/package.proto\x12\x07package\x1a\x1bgoogle/protobuf/empty.proto\x1a&protos/logistics/courier/courier.proto\x1a*protos/logistics/inventory/inventory.proto\x1a.protos/logistics/package_log/package_log.proto\"\xd2\x06\n\x07Package\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x15\n\rcustomer_name\x18\x04 \x01(\t\x12\x17\n\x0f\x63ustomer_mobile\x18\x05 \x01(\t\x12\x14\n\x0c\x62\x61se_address\x18\x06 \x01(\t\x12\x1b\n\x0e\x64\x65tail_address\x18\x07 \x01(\tH\x00\x88\x01\x01\x12\x11\n\tpost_code\x18\x08 \x01(\t\x12\x1a\n\rdelivery_note\x18\t \x01(\tH\x01\x88\x01\x01\x12%\n\x18overseas_tracking_number\x18\n \x01(\tH\x02\x88\x01\x01\x12%\n\x18\x64omestic_tracking_number\x18\x0b \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x0c \x01(\t\x12\x12\n\nupdated_at\x18\r \x01(\t\x12 \n\x13overseas_shipped_at\x18\x0e \x01(\tH\x04\x88\x01\x01\x12 \n\x13\x64omestic_shipped_at\x18\x0f \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0c\x64\x65livered_at\x18\x10 \x01(\tH\x06\x88\x01\x01\x12\x18\n\x0b\x63\x61nceled_at\x18\x11 \x01(\tH\x07\x88\x01\x01\x12\x17\n\ndeleted_at\x18\x12 \x01(\tH\x08\x88\x01\x01\x12)\n\x0binventories\x18\x13 \x03(\x0b\x32\x14.inventory.Inventory\x12/\n\x10\x64omestic_courier\x18\x14 \x01(\x0b\x32\x10.courier.CourierH\t\x88\x01\x01\x12.\n\x0f\x66oreign_courier\x18\x15 \x01(\x0b\x32\x10.courier.CourierH\n\x88\x01\x01\x12\x0f\n\x07\x61\x64\x64ress\x18\x16 \x01(\tB\x11\n\x0f_detail_addressB\x10\n\x0e_delivery_noteB\x1b\n\x19_overseas_tracking_numberB\x1b\n\x19_domestic_tracking_numberB\x16\n\x14_overseas_shipped_atB\x16\n\x14_domestic_shipped_atB\x0f\n\r_delivered_atB\x0e\n\x0c_canceled_atB\r\n\x0b_deleted_atB\x13\n\x11_domestic_courierB\x12\n\x10_foreign_courier\"\x14\n\x12PackageListRequest\"$\n\x16PackageRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PackageController\x12\x39\n\x04List\x12\x1b.package.PackageListRequest\x1a\x10.package.Package\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12?\n\x08Retrieve\x12\x1f.package.PackageRetrieveRequest\x1a\x10.package.Package\"\x00\x12.\n\x06Update\x12\x10.package.Package\x1a\x10.package.Package\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.package.Package\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_courier_dot_courier__pb2.DESCRIPTOR,protos_dot_logistics_dot_inventory_dot_inventory__pb2.DESCRIPTOR,protos_dot_logistics_dot_package__log_dot_package__log__pb2.DESCRIPTOR,])
 
@@ -88,7 +88,7 @@ _PACKAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='postal_code', full_name='package.Package.postal_code', index=7,
+      name='post_code', full_name='package.Package.post_code', index=7,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -260,7 +260,7 @@ _PACKAGE = _descriptor.Descriptor(
     fields=[]),
   ],
   serialized_start=213,
-  serialized_end=1065,
+  serialized_end=1063,
 )
 
 
@@ -284,8 +284,8 @@ _PACKAGELISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1067,
-  serialized_end=1087,
+  serialized_start=1065,
+  serialized_end=1085,
 )
 
 
@@ -316,8 +316,8 @@ _PACKAGERETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1089,
-  serialized_end=1125,
+  serialized_start=1087,
+  serialized_end=1123,
 )
 
 _PACKAGE.fields_by_name['inventories'].message_type = protos_dot_logistics_dot_inventory_dot_inventory__pb2._INVENTORY
@@ -391,8 +391,8 @@ _PACKAGECONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1128,
-  serialized_end=1422,
+  serialized_start=1126,
+  serialized_end=1420,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

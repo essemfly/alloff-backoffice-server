@@ -1,7 +1,7 @@
 from typing import List
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
-from logistics.protos.package_proto import package_pb2, package_pb2_grpc
+from protos.logistics.package import package_pb2, package_pb2_grpc
 from office.services.base import GrpcService
 
 
@@ -13,3 +13,9 @@ class PackageService(GrpcService):
         request = package_pb2.PackageListRequest()
         with cls.channel:
             return package_pb2_grpc.PackageControllerStub(cls.channel).List(request)
+
+    @classmethod
+    def retrieve(cls, id):
+        request = package_pb2.PackageRetrieveRequest(id=id)
+        with cls.channel:
+            return package_pb2_grpc.PackageControllerStub(cls.channel).Retrieve(request)

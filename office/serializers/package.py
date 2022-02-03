@@ -25,7 +25,7 @@ class PackageSerializer(proto_serializers.ProtoSerializer):
     address = serializers.CharField()
     base_address = serializers.CharField()
     detail_address = serializers.CharField(allow_null=True)
-    postal_code = serializers.CharField()
+    post_code = serializers.CharField()
     delivery_note = serializers.CharField(allow_null=True)
     overseas_tracking_number = serializers.CharField(allow_null=True)
     domestic_tracking_number = serializers.CharField(allow_null=True)
@@ -38,10 +38,10 @@ class PackageSerializer(proto_serializers.ProtoSerializer):
     canceled_at = serializers.DateTimeField(allow_null=True)
     deleted_at = serializers.DateTimeField(allow_null=True)
 
-    inventories = InventorySerializer(many=True)
-
     domestic_courier = CourierSerializer(allow_null=True)
     overseas_courier = CourierSerializer(allow_null=True)
+
+    inventories = InventorySerializer(many=True)
 
     class Meta:
         proto_class = package_pb2.Package

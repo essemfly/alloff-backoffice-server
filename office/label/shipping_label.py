@@ -1,15 +1,21 @@
-from tagger.core.label.escape_xml import escape_xml
-from tagger.models import Package, ShippingNoticeItem
+from office.label.escape_xml import escape_xml
+from protos.logistics.inventory.inventory_pb2 import Inventory
+from protos.logistics.package.package_pb2 import Package
 
 
-def make_item_shipping_label(package: Package, item: ShippingNoticeItem, index: int, total: int) -> str:
+def make_item_shipping_label(
+    package: Package, inventory: Inventory, index: int, total: int
+) -> str:
     detail_xml = escape_xml(
-        f"""[{index + 1} of {total}] {item.inventory.code}\n[{item.item.brand_keyname}] [{item.item.size}] {item.item.name})""")
+        f"""[{index + 1} of {total}] {inventory.code}\n[{inventory.brand_keyname}] [{inventory.size}{f' -  {inventory.color}' if inventory.color is not None and inventory.color != "" else  ''}] {inventory.product_name})"""
+    )
 
     return _get_shipping_label_xml(
-        escape_xml(f"""{package.recipient_name.replace("<", "(").replace(">", ")")} ({package.recipient_mobile})"""),
+        escape_xml(
+            f"""{package.customer_name.replace("<", "(").replace(">", ")")} ({package.customer_mobile})"""
+        ),
         detail_xml,
-        escape_xml(f"https://office.alloff.co/logistics/shipping-notices/{package.notice.id}"),
+        escape_xml(f"PACKAGE_ITEM::{package.code}::{index+1}/{total}"),
         escape_xml(package.address),
         escape_xml(f"""{package.code}"""),
     )
@@ -18,20 +24,27 @@ def make_item_shipping_label(package: Package, item: ShippingNoticeItem, index: 
 def make_box_shipping_label(package: Package) -> str:
     detail_xml = escape_xml(
         "\n".join(
-            [f"""{x.inventory.code} ({x.item.brand_keyname} [{x.item.size}] {x.item.name})""" for x in
-             package.shipping_notice_items.all()]
-        ))
+            [
+                f"""{x.code} ({x.brand_keyname} [{x.size}{f' -  {x.color}' if x.color is not None and x.color != "" else  ''}] {x.product_name})"""
+                for x in package.inventories
+            ]
+        )
+    )
 
     return _get_shipping_label_xml(
-        escape_xml(f"""{package.recipient_name.replace("<", "(").replace(">", ")")} ({package.recipient_mobile})"""),
+        escape_xml(
+            f"""{package.customer_name.replace("<", "(").replace(">", ")")} ({package.customer_mobile})"""
+        ),
         detail_xml,
-        escape_xml(f"https://office.alloff.co/logistics/shipping-notices/{package.notice.id}"),
+        escape_xml(f"PACKAGE::{package.code}"),
         escape_xml(package.address),
         escape_xml(package.code),
     )
 
 
-def _get_shipping_label_xml(name_mobile: str, inv_infos: str, url: str, address: str, package_code: str):
+def _get_shipping_label_xml(
+    name_mobile: str, inv_infos: str, url: str, address: str, package_code: str
+):
     return f"""<?xml version="1.0" encoding="utf-8"?>
 <DesktopLabel Version="1">
   <DYMOLabel Version="3">

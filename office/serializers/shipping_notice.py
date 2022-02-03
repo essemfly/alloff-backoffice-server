@@ -10,7 +10,6 @@ from rest_framework import serializers
 class ShippingNoticeStatus(models.TextChoices):
     CREATED = "CREATED"
     LOCKED = "LOCKED"
-    SEALED = "SEALED"
     SHIPPED = "SHIPPED"
 
 

@@ -38,8 +38,8 @@ message OrderItem {
     string size = 14;
     string color = 15;
     int32 quantity = 16;
-    string tracking_url = 17;
-    string tracking_number = 18;
+    repeated string tracking_url = 17;
+    repeated string tracking_number = 18;
     string created_at = 19;
     string updated_at = 20;
     string ordered_at = 21;

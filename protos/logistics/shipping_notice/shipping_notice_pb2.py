@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n6protos/logistics/shipping_notice/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x1a&protos/logistics/package/package.proto\x1a<protos/logistics/shipping_candidate/shipping_candidate.proto\"\xdf\x02\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x37\n\x05items\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\x12\"\n\x08packages\x18\x0b \x03(\x0b\x32\x10.package.PackageB\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"i\n\x19ShippingNoticeListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\tB\t\n\x07_search\"\x9d\x01\n\x1aShippingNoticeListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12\x30\n\x07results\x18\x04 \x03(\x0b\x32\x1f.shipping_notice.ShippingNoticeB\x07\n\x05_nextB\x0b\n\t_previous\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"Q\n!ShippingNoticeCandidateSubmitItem\x12\x15\n\rorder_item_id\x18\x01 \x01(\x03\x12\x15\n\rinventory_ids\x18\x02 \x03(\x03\"n\n$ShippingNoticeCandidateSubmitRequest\x12\x46\n\ncandidates\x18\x01 \x03(\x0b\x32\x32.shipping_notice.ShippingNoticeCandidateSubmitItem*H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03\x32\xff\x04\n\x18ShippingNoticeController\x12\x61\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a+.shipping_notice.ShippingNoticeListResponse\"\x00\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x12Q\n\rGetCandidates\x12\x16.google.protobuf.Empty\x1a$.shippingcandidate.ShippingCandidate\"\x00\x30\x01\x12l\n\x10SubmitCandidates\x12\x35.shipping_notice.ShippingNoticeCandidateSubmitRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x62\x06proto3'
+  serialized_pb=b'\n6protos/logistics/shipping_notice/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x1a&protos/logistics/package/package.proto\x1a<protos/logistics/shipping_candidate/shipping_candidate.proto\"\xdf\x02\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x37\n\x05items\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\x12\"\n\x08packages\x18\x0b \x03(\x0b\x32\x10.package.PackageB\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"i\n\x19ShippingNoticeListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\tB\t\n\x07_search\"\x9d\x01\n\x1aShippingNoticeListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12\x30\n\x07results\x18\x04 \x03(\x0b\x32\x1f.shipping_notice.ShippingNoticeB\x07\n\x05_nextB\x0b\n\t_previous\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"Q\n!ShippingNoticeCandidateSubmitItem\x12\x15\n\rorder_item_id\x18\x01 \x01(\x03\x12\x15\n\rinventory_ids\x18\x02 \x03(\x03\"n\n$ShippingNoticeCandidateSubmitRequest\x12\x46\n\ncandidates\x18\x01 \x03(\x0b\x32\x32.shipping_notice.ShippingNoticeCandidateSubmitItem\"\x84\x01\n\x1fShippingNoticeRemoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x44\n\x0cremoval_type\x18\x03 \x01(\x0e\x32..shipping_notice.ShippingNoticeItemRemovalType\"b\n\x1dShippingNoticeMoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x11\n\tsource_id\x18\x03 \x01(\x03\x12\x11\n\ttarget_id\x18\x04 \x01(\x03\"A\n\x1dRecordShippingTemplateRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x14\n\x0ctemplate_url\x18\x02 \x01(\t\"D\n\x13PackageTrackingPair\x12\x14\n\x0cpackage_code\x18\x01 \x01(\t\x12\x17\n\x0ftracking_number\x18\x02 \x01(\t\"Z\n\x1aSubmitTrackingExcelRequest\x12<\n\x0etracking_pairs\x18\x01 \x03(\x0b\x32$.shipping_notice.PackageTrackingPair*H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03*Z\n\x1dShippingNoticeItemRemovalType\x12\x14\n\x10REMOVE_AND_RESET\x10\x00\x12\x11\n\rSPLIT_PACKAGE\x10\x01\x12\x10\n\x0cSPLIT_NOTICE\x10\x02\x32\xfa\x08\n\x18ShippingNoticeController\x12\x61\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a+.shipping_notice.ShippingNoticeListResponse\"\x00\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x12\x61\n\nRemoveItem\x12\x30.shipping_notice.ShippingNoticeRemoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08MoveItem\x12..shipping_notice.ShippingNoticeMoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x63\n\x0eLockAndPackage\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12k\n\x16RecordShippingTemplate\x12..shipping_notice.RecordShippingTemplateRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x65\n\x13SubmitTrackingExcel\x12+.shipping_notice.SubmitTrackingExcelRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12Q\n\rGetCandidates\x12\x16.google.protobuf.Empty\x1a$.shippingcandidate.ShippingCandidate\"\x00\x30\x01\x12l\n\x10SubmitCandidates\x12\x35.shipping_notice.ShippingNoticeCandidateSubmitRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_shipping__notice__item_dot_shipping__notice__item__pb2.DESCRIPTOR,protos_dot_logistics_dot_package_dot_package__pb2.DESCRIPTOR,protos_dot_logistics_dot_shipping__candidate_dot_shipping__candidate__pb2.DESCRIPTOR,])
 
@@ -58,16 +58,50 @@ _SHIPPINGNOTICESTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1133,
-  serialized_end=1205,
+  serialized_start=1597,
+  serialized_end=1669,
 )
 _sym_db.RegisterEnumDescriptor(_SHIPPINGNOTICESTATUS)
 
 ShippingNoticeStatus = enum_type_wrapper.EnumTypeWrapper(_SHIPPINGNOTICESTATUS)
+_SHIPPINGNOTICEITEMREMOVALTYPE = _descriptor.EnumDescriptor(
+  name='ShippingNoticeItemRemovalType',
+  full_name='shipping_notice.ShippingNoticeItemRemovalType',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='REMOVE_AND_RESET', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='SPLIT_PACKAGE', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='SPLIT_NOTICE', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=1671,
+  serialized_end=1761,
+)
+_sym_db.RegisterEnumDescriptor(_SHIPPINGNOTICEITEMREMOVALTYPE)
+
+ShippingNoticeItemRemovalType = enum_type_wrapper.EnumTypeWrapper(_SHIPPINGNOTICEITEMREMOVALTYPE)
 CREATED = 0
 LOCKED = 1
 SEALED = 2
 SHIPPED = 3
+REMOVE_AND_RESET = 0
+SPLIT_PACKAGE = 1
+SPLIT_NOTICE = 2
 
 
 
@@ -416,6 +450,215 @@ _SHIPPINGNOTICECANDIDATESUBMITREQUEST = _descriptor.Descriptor(
   serialized_end=1131,
 )
 
+
+_SHIPPINGNOTICEREMOVEITEMREQUEST = _descriptor.Descriptor(
+  name='ShippingNoticeRemoveItemRequest',
+  full_name='shipping_notice.ShippingNoticeRemoveItemRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='shipping_notice.ShippingNoticeRemoveItemRequest.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='item_id', full_name='shipping_notice.ShippingNoticeRemoveItemRequest.item_id', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='removal_type', full_name='shipping_notice.ShippingNoticeRemoveItemRequest.removal_type', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1134,
+  serialized_end=1266,
+)
+
+
+_SHIPPINGNOTICEMOVEITEMREQUEST = _descriptor.Descriptor(
+  name='ShippingNoticeMoveItemRequest',
+  full_name='shipping_notice.ShippingNoticeMoveItemRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='shipping_notice.ShippingNoticeMoveItemRequest.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='item_id', full_name='shipping_notice.ShippingNoticeMoveItemRequest.item_id', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='source_id', full_name='shipping_notice.ShippingNoticeMoveItemRequest.source_id', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='target_id', full_name='shipping_notice.ShippingNoticeMoveItemRequest.target_id', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1268,
+  serialized_end=1366,
+)
+
+
+_RECORDSHIPPINGTEMPLATEREQUEST = _descriptor.Descriptor(
+  name='RecordShippingTemplateRequest',
+  full_name='shipping_notice.RecordShippingTemplateRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='shipping_notice.RecordShippingTemplateRequest.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='template_url', full_name='shipping_notice.RecordShippingTemplateRequest.template_url', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1368,
+  serialized_end=1433,
+)
+
+
+_PACKAGETRACKINGPAIR = _descriptor.Descriptor(
+  name='PackageTrackingPair',
+  full_name='shipping_notice.PackageTrackingPair',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='package_code', full_name='shipping_notice.PackageTrackingPair.package_code', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tracking_number', full_name='shipping_notice.PackageTrackingPair.tracking_number', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1435,
+  serialized_end=1503,
+)
+
+
+_SUBMITTRACKINGEXCELREQUEST = _descriptor.Descriptor(
+  name='SubmitTrackingExcelRequest',
+  full_name='shipping_notice.SubmitTrackingExcelRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tracking_pairs', full_name='shipping_notice.SubmitTrackingExcelRequest.tracking_pairs', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1505,
+  serialized_end=1595,
+)
+
 _SHIPPINGNOTICE.fields_by_name['items'].message_type = protos_dot_logistics_dot_shipping__notice__item_dot_shipping__notice__item__pb2._SHIPPINGNOTICEITEM
 _SHIPPINGNOTICE.fields_by_name['packages'].message_type = protos_dot_logistics_dot_package_dot_package__pb2._PACKAGE
 _SHIPPINGNOTICE.oneofs_by_name['_template_url'].fields.append(
@@ -441,13 +684,21 @@ _SHIPPINGNOTICELISTRESPONSE.oneofs_by_name['_previous'].fields.append(
   _SHIPPINGNOTICELISTRESPONSE.fields_by_name['previous'])
 _SHIPPINGNOTICELISTRESPONSE.fields_by_name['previous'].containing_oneof = _SHIPPINGNOTICELISTRESPONSE.oneofs_by_name['_previous']
 _SHIPPINGNOTICECANDIDATESUBMITREQUEST.fields_by_name['candidates'].message_type = _SHIPPINGNOTICECANDIDATESUBMITITEM
+_SHIPPINGNOTICEREMOVEITEMREQUEST.fields_by_name['removal_type'].enum_type = _SHIPPINGNOTICEITEMREMOVALTYPE
+_SUBMITTRACKINGEXCELREQUEST.fields_by_name['tracking_pairs'].message_type = _PACKAGETRACKINGPAIR
 DESCRIPTOR.message_types_by_name['ShippingNotice'] = _SHIPPINGNOTICE
 DESCRIPTOR.message_types_by_name['ShippingNoticeListRequest'] = _SHIPPINGNOTICELISTREQUEST
 DESCRIPTOR.message_types_by_name['ShippingNoticeListResponse'] = _SHIPPINGNOTICELISTRESPONSE
 DESCRIPTOR.message_types_by_name['ShippingNoticeRetrieveRequest'] = _SHIPPINGNOTICERETRIEVEREQUEST
 DESCRIPTOR.message_types_by_name['ShippingNoticeCandidateSubmitItem'] = _SHIPPINGNOTICECANDIDATESUBMITITEM
 DESCRIPTOR.message_types_by_name['ShippingNoticeCandidateSubmitRequest'] = _SHIPPINGNOTICECANDIDATESUBMITREQUEST
+DESCRIPTOR.message_types_by_name['ShippingNoticeRemoveItemRequest'] = _SHIPPINGNOTICEREMOVEITEMREQUEST
+DESCRIPTOR.message_types_by_name['ShippingNoticeMoveItemRequest'] = _SHIPPINGNOTICEMOVEITEMREQUEST
+DESCRIPTOR.message_types_by_name['RecordShippingTemplateRequest'] = _RECORDSHIPPINGTEMPLATEREQUEST
+DESCRIPTOR.message_types_by_name['PackageTrackingPair'] = _PACKAGETRACKINGPAIR
+DESCRIPTOR.message_types_by_name['SubmitTrackingExcelRequest'] = _SUBMITTRACKINGEXCELREQUEST
 DESCRIPTOR.enum_types_by_name['ShippingNoticeStatus'] = _SHIPPINGNOTICESTATUS
+DESCRIPTOR.enum_types_by_name['ShippingNoticeItemRemovalType'] = _SHIPPINGNOTICEITEMREMOVALTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ShippingNotice = _reflection.GeneratedProtocolMessageType('ShippingNotice', (_message.Message,), {
@@ -492,6 +743,41 @@ ShippingNoticeCandidateSubmitRequest = _reflection.GeneratedProtocolMessageType(
   })
 _sym_db.RegisterMessage(ShippingNoticeCandidateSubmitRequest)
 
+ShippingNoticeRemoveItemRequest = _reflection.GeneratedProtocolMessageType('ShippingNoticeRemoveItemRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SHIPPINGNOTICEREMOVEITEMREQUEST,
+  '__module__' : 'protos.logistics.shipping_notice.shipping_notice_pb2'
+  # @@protoc_insertion_point(class_scope:shipping_notice.ShippingNoticeRemoveItemRequest)
+  })
+_sym_db.RegisterMessage(ShippingNoticeRemoveItemRequest)
+
+ShippingNoticeMoveItemRequest = _reflection.GeneratedProtocolMessageType('ShippingNoticeMoveItemRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SHIPPINGNOTICEMOVEITEMREQUEST,
+  '__module__' : 'protos.logistics.shipping_notice.shipping_notice_pb2'
+  # @@protoc_insertion_point(class_scope:shipping_notice.ShippingNoticeMoveItemRequest)
+  })
+_sym_db.RegisterMessage(ShippingNoticeMoveItemRequest)
+
+RecordShippingTemplateRequest = _reflection.GeneratedProtocolMessageType('RecordShippingTemplateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _RECORDSHIPPINGTEMPLATEREQUEST,
+  '__module__' : 'protos.logistics.shipping_notice.shipping_notice_pb2'
+  # @@protoc_insertion_point(class_scope:shipping_notice.RecordShippingTemplateRequest)
+  })
+_sym_db.RegisterMessage(RecordShippingTemplateRequest)
+
+PackageTrackingPair = _reflection.GeneratedProtocolMessageType('PackageTrackingPair', (_message.Message,), {
+  'DESCRIPTOR' : _PACKAGETRACKINGPAIR,
+  '__module__' : 'protos.logistics.shipping_notice.shipping_notice_pb2'
+  # @@protoc_insertion_point(class_scope:shipping_notice.PackageTrackingPair)
+  })
+_sym_db.RegisterMessage(PackageTrackingPair)
+
+SubmitTrackingExcelRequest = _reflection.GeneratedProtocolMessageType('SubmitTrackingExcelRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBMITTRACKINGEXCELREQUEST,
+  '__module__' : 'protos.logistics.shipping_notice.shipping_notice_pb2'
+  # @@protoc_insertion_point(class_scope:shipping_notice.SubmitTrackingExcelRequest)
+  })
+_sym_db.RegisterMessage(SubmitTrackingExcelRequest)
+
 
 
 _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
@@ -501,8 +787,8 @@ _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1208,
-  serialized_end=1847,
+  serialized_start=1764,
+  serialized_end=2910,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',
@@ -555,9 +841,59 @@ _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
+    name='RemoveItem',
+    full_name='shipping_notice.ShippingNoticeController.RemoveItem',
+    index=5,
+    containing_service=None,
+    input_type=_SHIPPINGNOTICEREMOVEITEMREQUEST,
+    output_type=_SHIPPINGNOTICE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='MoveItem',
+    full_name='shipping_notice.ShippingNoticeController.MoveItem',
+    index=6,
+    containing_service=None,
+    input_type=_SHIPPINGNOTICEMOVEITEMREQUEST,
+    output_type=_SHIPPINGNOTICE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='LockAndPackage',
+    full_name='shipping_notice.ShippingNoticeController.LockAndPackage',
+    index=7,
+    containing_service=None,
+    input_type=_SHIPPINGNOTICERETRIEVEREQUEST,
+    output_type=_SHIPPINGNOTICE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RecordShippingTemplate',
+    full_name='shipping_notice.ShippingNoticeController.RecordShippingTemplate',
+    index=8,
+    containing_service=None,
+    input_type=_RECORDSHIPPINGTEMPLATEREQUEST,
+    output_type=_SHIPPINGNOTICE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubmitTrackingExcel',
+    full_name='shipping_notice.ShippingNoticeController.SubmitTrackingExcel',
+    index=9,
+    containing_service=None,
+    input_type=_SUBMITTRACKINGEXCELREQUEST,
+    output_type=_SHIPPINGNOTICE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
     name='GetCandidates',
     full_name='shipping_notice.ShippingNoticeController.GetCandidates',
-    index=5,
+    index=10,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=protos_dot_logistics_dot_shipping__candidate_dot_shipping__candidate__pb2._SHIPPINGCANDIDATE,
@@ -567,7 +903,7 @@ _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubmitCandidates',
     full_name='shipping_notice.ShippingNoticeController.SubmitCandidates',
-    index=6,
+    index=11,
     containing_service=None,
     input_type=_SHIPPINGNOTICECANDIDATESUBMITREQUEST,
     output_type=_SHIPPINGNOTICE,
