@@ -23,7 +23,7 @@ message Package {
     string customer_mobile = 5;
     string base_address = 6;
     optional string detail_address = 7;
-    string postal_code = 8;
+    string post_code = 8;
     optional string delivery_note = 9;
     optional string overseas_tracking_number = 10;
     optional string domestic_tracking_number = 11;

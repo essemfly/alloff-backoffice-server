@@ -1,3 +1,7 @@
+from datetime import datetime
+
+from django.core.files.storage import default_storage
+from django.http import request
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from office.serializers.shipping_candidate import (
@@ -10,15 +14,27 @@ from office.serializers.shipping_notice import (
     ShippingNoticeRetrieveSerializer,
     ShippingNoticeStatus,
 )
+from office.serializers.shipping_notice_item import ShippingNoticeItemRemovalType
 from office.services.shipping_notice import ShippingNoticeService
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.pagination import PaginationListMixin
-from rest_framework import status, viewsets
+from office.viewsets.shipping_notice.make_upload_template import make_cj_workbook
+from office.viewsets.shipping_notice.print_package_labels import print_package_labels
+from rest_framework import fields, serializers, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from protos.logistics.shipping_notice.shipping_notice_pb2 import ShippingNoticeRetrieveRequest
+
+class ShippingNoticeRemoveItemSerializer(serializers.Serializer):
+    item_id = fields.IntegerField()
+    removal_type = fields.ChoiceField(ShippingNoticeItemRemovalType.choices)
+
+
+class ShippingNoticeMoveItemSerializer(serializers.Serializer):
+    item_id = fields.IntegerField()
+    source_id = fields.IntegerField()
+    target_id = fields.IntegerField()
 
 
 @extend_schema_view(
@@ -39,7 +55,7 @@ from protos.logistics.shipping_notice.shipping_notice_pb2 import ShippingNoticeR
     ),
     retrieve=extend_schema(
         parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
-        responses=ShippingNoticeRetrieveSerializer
+        responses=ShippingNoticeRetrieveSerializer,
     ),
 )
 class ShippingNoticeViewSet(PaginationListMixin, viewsets.ViewSet):
@@ -96,6 +112,59 @@ class ShippingNoticeViewSet(PaginationListMixin, viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @extend_schema(
+        responses=ShippingNoticeRetrieveSerializer,
+        request=ShippingNoticeRemoveItemSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def remove_item(self, request: Request, pk=None):
+        serializer = ShippingNoticeRemoveItemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        service = ShippingNoticeService()
+        notice = service.remove_item(
+            int(pk),
+            serializer.validated_data.get("item_id"),
+            serializer.validated_data.get("removal_type"),
+        )
+        return Response(
+            ShippingNoticeRetrieveSerializer(notice).data, status=status.HTTP_200_OK
+        )
+
+    @extend_schema(
+        responses=ShippingNoticeRetrieveSerializer,
+        request=ShippingNoticeMoveItemSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    def move_item(self, request: Request, pk=None):
+        service = ShippingNoticeService()
+        serializer = ShippingNoticeMoveItemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        notice = service.move_item(
+            int(pk),
+            serializer.validated_data.get("item_id"),
+            serializer.validated_data.get("source_id"),
+            serializer.validated_data.get("target_id"),
+        )
+        return Response(
+            ShippingNoticeRetrieveSerializer(notice).data, status=status.HTTP_200_OK
+        )
+
+    @extend_schema(
+        request=None,
+        responses=ShippingNoticeRetrieveSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def lock_and_package(self, request: Request, pk=None):
+        service = ShippingNoticeService()
+        notice = service.lock_and_package(int(pk))
+        for package in notice.packages:
+            print_package_labels(package)
+        return Response(
+            ShippingNoticeRetrieveSerializer(notice).data, status=status.HTTP_200_OK
+        )
+
     # def list(self, request: Request):
     #     received_items = ShippingNoticeService.list(
     #         **self.get_pagination_params(request),
@@ -104,14 +173,33 @@ class ShippingNoticeViewSet(PaginationListMixin, viewsets.ViewSet):
     #     serializer = PaginatedShippingNoticeSerializer(received_items)
     #     return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    # @action(detail=True, url_path="make-upload-template", methods=["POST"])
-    # def make_upload_template(self, request: Request, pk=None):
-    #     return Response({"message": "ok"}, status=status.HTTP_200_OK)
+    @extend_schema(
+        request=None,
+        responses=ShippingNoticeRetrieveSerializer,
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def make_upload_template(self, request: Request, pk=None):
+        notice = ShippingNoticeService.retrieve(int(pk))
+        wb = make_cj_workbook(notice)
+
+        filename = f"CJ_TEMPLATE_{notice.code}_{int(datetime.now().timestamp())}.xls"
+        s3_path = f"cj-templates/{filename}"
+
+        with default_storage.open(s3_path, "wb") as f:
+            wb.save(f)
+
+        template_url = f"https://alloff.s3.ap-northeast-2.amazonaws.com/{s3_path}"
+
+        service = ShippingNoticeService()
+
+        return Response(
+            ShippingNoticeRetrieveSerializer(
+                service.record_shipping_template(int(pk), template_url)
+            ).data,
+            status=status.HTTP_200_OK,
+        )
 
     # @action(detail=True, url_path="seal", methods=["POST"])
     # def seal(self, request: Request, pk=None):
-    #     return Response({"message": "ok"}, status=status.HTTP_200_OK)
-
-    # @action(detail=True, url_path="package", methods=["POST"])
-    # def package(self, request: Request, pk=None):
     #     return Response({"message": "ok"}, status=status.HTTP_200_OK)

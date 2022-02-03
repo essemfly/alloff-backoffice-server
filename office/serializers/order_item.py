@@ -48,8 +48,8 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     quantity = fields.IntegerField()
 
     # tracking
-    tracking_url = fields.CharField(allow_null=True)
-    tracking_number = fields.CharField(allow_null=True)
+    tracking_url = fields.ListField(fields.CharField())
+    tracking_number = fields.ListField(fields.CharField())
 
     created_at = fields.DateTimeField()
     updated_at = fields.DateTimeField()

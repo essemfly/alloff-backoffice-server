@@ -14,6 +14,11 @@ service ShippingNoticeController {
     rpc Update(ShippingNotice) returns (ShippingNotice) {}
     rpc Destroy(ShippingNotice) returns (google.protobuf.Empty) {}
     
+    rpc RemoveItem(ShippingNoticeRemoveItemRequest) returns (ShippingNotice) {}
+    rpc MoveItem(ShippingNoticeMoveItemRequest) returns (ShippingNotice) {}
+    rpc LockAndPackage(ShippingNoticeRetrieveRequest) returns (ShippingNotice) {}
+    rpc RecordShippingTemplate(RecordShippingTemplateRequest) returns (ShippingNotice) {}
+    rpc SubmitTrackingExcel(SubmitTrackingExcelRequest) returns (ShippingNotice) {}
     rpc GetCandidates(google.protobuf.Empty) returns (stream shippingcandidate.ShippingCandidate) {}
     rpc SubmitCandidates(ShippingNoticeCandidateSubmitRequest) returns (ShippingNotice) {}
 }
@@ -64,4 +69,37 @@ message ShippingNoticeCandidateSubmitItem {
 
 message ShippingNoticeCandidateSubmitRequest {
     repeated ShippingNoticeCandidateSubmitItem candidates = 1;
+}
+
+enum ShippingNoticeItemRemovalType {
+    REMOVE_AND_RESET = 0;
+    SPLIT_PACKAGE = 1;
+    SPLIT_NOTICE = 2;
+}
+
+message ShippingNoticeRemoveItemRequest {
+    int64 id = 1;
+    int64 item_id = 2;
+    ShippingNoticeItemRemovalType removal_type = 3;
+}
+
+message ShippingNoticeMoveItemRequest {
+    int64 id = 1;
+    int64 item_id = 2;
+    int64 source_id = 3;
+    int64 target_id = 4;
+}
+
+message RecordShippingTemplateRequest {
+    int64 id = 1;
+    string template_url = 2;
+}
+
+message PackageTrackingPair {
+    string package_code = 1;
+    string tracking_number = 2;
+}
+
+message SubmitTrackingExcelRequest {
+    repeated PackageTrackingPair tracking_pairs = 1;
 }
