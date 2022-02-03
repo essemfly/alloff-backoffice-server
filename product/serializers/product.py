@@ -1,3 +1,4 @@
+from numpy import require
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.product_pb2 import (
@@ -57,9 +58,9 @@ class ProductQuerySerializer(proto_serializers.ProtoSerializer):
 
 
 class ListProductSerializer(proto_serializers.ProtoSerializer):
-    query = ProductQuerySerializer()
-    offset = serializers.IntegerField()
-    limit = serializers.IntegerField()
+    query = ProductQuerySerializer(allow_null=True, required=False)
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListProductsRequest

@@ -38,7 +38,7 @@ class ProductViewSet(
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 100)
+        limit = request.query_params.get("limit", 1000)
         search_query = request.query_params.get("query", "")
         brand_id = request.query_params.get("brand_id", "")
         category_id = request.query_params.get("category_id", "")
