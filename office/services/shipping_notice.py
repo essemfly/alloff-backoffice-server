@@ -1,6 +1,5 @@
-import queue
 from typing import List, Optional, TypedDict
-
+from django.contrib.auth.models import User
 from alloff_backoffice_server.settings import (
     GRPC_LOGISTICS_SERVER_URL,
     GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
@@ -95,13 +94,19 @@ class ShippingNoticeService(GrpcService):
             ).RecordShippingTemplate(request)
 
     @classmethod
-    def submit_tracking_excel(cls, tracking_pairs: List[PackageTrackingPair]):
+    def submit_tracking_excel(
+        cls,
+        id: int = None,
+        tracking_pairs: List[PackageTrackingPair] = None,
+        user: User = None,
+    ):
         request = shipping_notice_pb2.SubmitTrackingExcelRequest(
             id=id,
             tracking_pairs=[
                 shipping_notice_pb2.PackageTrackingPair(**pair)
                 for pair in tracking_pairs
             ],
+            **cls.get_userinfo(user)
         )
         with cls.channel:
             return shipping_notice_pb2_grpc.ShippingNoticeControllerStub(

@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import List
 
 import pandas as pd
@@ -9,7 +8,6 @@ from office.serializers.shipping_notice import (
     ShippingNoticeStatus,
 )
 from office.services.shipping_notice import PackageTrackingPair, ShippingNoticeService
-from office.viewsets.image import ImageUploaderRequestSerializer
 from rest_framework import fields, parsers, serializers, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import APIException
@@ -30,12 +28,12 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
     ]
 
     @extend_schema(
-        request=ImageUploaderRequestSerializer,
+        request=ExcelUploaderRequestSerializer,
         responses=ShippingNoticeRetrieveSerializer,
     )
     @action(methods=["POST"], detail=False)
     def upload(self, request):
-        serializer = ImageUploaderRequestSerializer(data=request.data)
+        serializer = ExcelUploaderRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         file = serializer.validated_data.get("file")
@@ -45,20 +43,31 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
 
         if notice is None:
             raise APIException(f"No shipping notice found with id {notice_id}")
-        if notice.status != ShippingNoticeStatus.SEALED:
-            raise APIException("Only SEALED shipping notice can be shipped")
+        if notice.status == ShippingNoticeStatus.SHIPPED:
+            raise APIException("Shipped notices cannot be altered!")
 
         try:
             df = pd.read_html(file, match="주소", header=0)[0]
         except ValueError:
+            pass
+        
+        try:
+            df = pd.read_excel(file)
+        except Exception:
             raise APIException("Malformed Excel!")
+
+        df = df.dropna(subset=["주문번호", "상태"]).astype(str)
 
         pairs: List[PackageTrackingPair] = [
             {"package_code": row["주문번호"], "tracking_number": row["송장번호"]}
-            for row in df.iterrows()
+            for (_, row) in df.iterrows()
         ]
 
-        notice = ShippingNoticeService.submit_tracking_excel(pairs)
+        notice = ShippingNoticeService.submit_tracking_excel(
+            id=notice_id,
+            tracking_pairs=pairs,
+            user=request.user,
+        )
 
         return Response(
             ShippingNoticeListSerializer(notice).data, status=status.HTTP_200_OK
