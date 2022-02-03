@@ -55,7 +55,7 @@ class ProductViewSet(
         )
 
         res = ProductService.list(req)
-        serializer = ProductSerializer(res.products, many=True)
+        serializer = ListProductResultSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk, *args, **kwargs):

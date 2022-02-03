@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.product_pb2 import (
     EditProductRequest,
+    ListProductsResponse,
     ProductInventoryMessage,
     ListProductsRequest,
     ProductMessage,
@@ -70,6 +71,9 @@ class ListProductResultSerializer(proto_serializers.ProtoSerializer):
     limit = serializers.IntegerField()
     total_counts = serializers.IntegerField()
     list_query = ProductQuerySerializer()
+
+    class Meta:
+        proto_class = ListProductsResponse
 
 
 class CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
