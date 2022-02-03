@@ -16,8 +16,8 @@ message OrderItemRefundUpdateLog {
     int64 id = 1;
     string user_uuid = 2;
     string user_username = 3;
-    int32 refund_delivery_price = 4;
-    int32 refund_amount = 5;
+    int64 refund_fee = 4;
+    int64 refund_amount = 5;
     string created_at = 6;
     int64 order_item = 7;
     int64 action_log = 8;

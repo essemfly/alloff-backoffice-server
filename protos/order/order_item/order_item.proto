@@ -7,6 +7,7 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
 import "protos/order/order_item_memo/order_item_memo.proto";
 import "protos/order/order_item_action_log/order_item_action_log.proto";
+import "protos/order/refund_item/refund_item.proto";
 
 service OrderItemController {
     rpc List(OrderItemListRequest) returns (OrderItemListResponse) {}
@@ -19,6 +20,7 @@ service OrderItemController {
     rpc AddMemo(OrderItemAddMemoRequest) returns (OrderItem) {}
     rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
     rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
+    rpc UpdateRefund(UpdateRefundRequest) returns (OrderItem) {}
 }
 
 message OrderItem {
@@ -67,6 +69,7 @@ message OrderItem {
     repeated orderitemmemo.OrderItemMemo memos = 43;
     int64 shipped_items_count = 44;
     int64 fulfillable_items_count = 45;
+    optional refunditem.RefundItem refund_item = 46;
 }
 
 message OrderItemListRequest {
@@ -115,4 +118,12 @@ message OrderItemForceReceiveRequest {
     int64 id = 1;
     string user_uuid = 2;
     string user_username = 3;
+}
+
+message UpdateRefundRequest {
+    int64 id = 1;
+    string user_uuid = 2;
+    string user_username = 3;
+    int64 refund_amount = 4;
+    int64 refund_fee = 5;
 }
