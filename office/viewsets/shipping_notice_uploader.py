@@ -47,13 +47,8 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
             raise APIException("Shipped notices cannot be altered!")
 
         try:
-            df = pd.read_html(file, match="주소", header=0)[0]
+            df = pd.read_html(file, header=0)[0]
         except ValueError:
-            pass
-        
-        try:
-            df = pd.read_excel(file)
-        except Exception:
             raise APIException("Malformed Excel!")
 
         df = df.dropna(subset=["주문번호", "상태"]).astype(str)

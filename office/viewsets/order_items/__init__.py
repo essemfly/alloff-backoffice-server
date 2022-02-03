@@ -205,7 +205,7 @@ class OrderItemViewSet(
         serializer = UpdateRefundSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         item = OrderItemService.update_refund(
-            ind=int(pk),
+            id=int(pk),
             user=request.user,
             refund_amount=serializer.validated_data.get("refund_amount"),
             refund_fee=serializer.validated_data.get("refund_fee"),
