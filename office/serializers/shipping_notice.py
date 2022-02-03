@@ -9,7 +9,8 @@ from rest_framework import serializers
 
 class ShippingNoticeStatus(models.TextChoices):
     CREATED = "CREATED"
-    LOCKED = "LOCKED"
+    LOCKED = "LOCKED"  # inventory 등 모든 상태변경을 여기서 변경하도록 수정 (현재 sealed에서 변경됨)
+    PARTIALLY_SHIPPED = "PARTIALLY_SHIPPED"
     SHIPPED = "SHIPPED"
 
 
@@ -27,6 +28,7 @@ class ShippingNoticeListSerializer(proto_serializers.ProtoSerializer):
 
     class Meta:
         proto_class = shipping_notice_pb2.ShippingNotice
+
 
 class ShippingNoticeRetrieveSerializer(ShippingNoticeListSerializer):
     packages = PackageSerializer(many=True)

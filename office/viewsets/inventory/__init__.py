@@ -10,10 +10,13 @@ from rest_framework import mixins, response, status, viewsets, request
 from drf_spectacular.types import OpenApiTypes
 from rest_framework.exceptions import APIException
 
+from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
+
 
 @extend_schema_view(
     list=extend_schema(
-        parameters=[
+        parameters=PROTO_PAGINATION_QUERY_PARAMS
+        + [
             OpenApiParameter(
                 "statuses",
                 {
@@ -22,14 +25,6 @@ from rest_framework.exceptions import APIException
                 },
                 OpenApiParameter.QUERY,
                 explode=True,
-            ),
-            OpenApiParameter("code", OpenApiTypes.STR, OpenApiParameter.QUERY),
-            OpenApiParameter("product_name", OpenApiTypes.STR, OpenApiParameter.QUERY),
-            OpenApiParameter(
-                "product_brand_name", OpenApiTypes.STR, OpenApiParameter.QUERY
-            ),
-            OpenApiParameter(
-                "product_brand_key_name", OpenApiTypes.STR, OpenApiParameter.QUERY
             ),
         ],
     ),
@@ -47,10 +42,9 @@ class InventoryViewSet(
 
     def list(self, request: request.Request):
         inventories = InventoryService.list(
-            code=request.query_params.get("code"),
-            product_name=request.query_params.get("product_name"),
-            product_brand_name=request.query_params.get("product_brand_name"),
-            product_brand_key_name=request.query_params.get("product_brand_key_name"),
+            page=int(request.query_params.get("page")),
+            size=int(request.query_params.get("size")),
+            search=request.query_params.get("search"),
             statuses=request.query_params.getlist("statuses"),
         )
         serializer = PaginatedInventorySerializer(inventories)

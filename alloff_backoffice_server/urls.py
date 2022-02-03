@@ -25,12 +25,13 @@ from office.viewsets.admin_user import AdminUserViewSet
 
 from office.viewsets.image import ImageUploaderViewSet
 from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
-from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
+# from office.viewsets.courier import CourierViewSet
 from product.viewsets.product_group import ProductGroupViewSet
 from product.viewsets.product import ProductViewSet
 from product.viewsets.brand import BrandViewSet
 from product.viewsets.notification import NotificationViewSet
+from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
 
 from office.viewsets.package import PackageViewSet

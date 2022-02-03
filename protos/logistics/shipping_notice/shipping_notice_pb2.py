@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n6protos/logistics/shipping_notice/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x1a&protos/logistics/package/package.proto\x1a<protos/logistics/shipping_candidate/shipping_candidate.proto\"\xdf\x02\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x37\n\x05items\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\x12\"\n\x08packages\x18\x0b \x03(\x0b\x32\x10.package.PackageB\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"i\n\x19ShippingNoticeListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\tB\t\n\x07_search\"\x9d\x01\n\x1aShippingNoticeListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12\x30\n\x07results\x18\x04 \x03(\x0b\x32\x1f.shipping_notice.ShippingNoticeB\x07\n\x05_nextB\x0b\n\t_previous\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"Q\n!ShippingNoticeCandidateSubmitItem\x12\x15\n\rorder_item_id\x18\x01 \x01(\x03\x12\x15\n\rinventory_ids\x18\x02 \x03(\x03\"n\n$ShippingNoticeCandidateSubmitRequest\x12\x46\n\ncandidates\x18\x01 \x03(\x0b\x32\x32.shipping_notice.ShippingNoticeCandidateSubmitItem\"\x84\x01\n\x1fShippingNoticeRemoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x44\n\x0cremoval_type\x18\x03 \x01(\x0e\x32..shipping_notice.ShippingNoticeItemRemovalType\"b\n\x1dShippingNoticeMoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x11\n\tsource_id\x18\x03 \x01(\x03\x12\x11\n\ttarget_id\x18\x04 \x01(\x03\"A\n\x1dRecordShippingTemplateRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x14\n\x0ctemplate_url\x18\x02 \x01(\t\"D\n\x13PackageTrackingPair\x12\x14\n\x0cpackage_code\x18\x01 \x01(\t\x12\x17\n\x0ftracking_number\x18\x02 \x01(\t\"Z\n\x1aSubmitTrackingExcelRequest\x12<\n\x0etracking_pairs\x18\x01 \x03(\x0b\x32$.shipping_notice.PackageTrackingPair*H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03*Z\n\x1dShippingNoticeItemRemovalType\x12\x14\n\x10REMOVE_AND_RESET\x10\x00\x12\x11\n\rSPLIT_PACKAGE\x10\x01\x12\x10\n\x0cSPLIT_NOTICE\x10\x02\x32\xfa\x08\n\x18ShippingNoticeController\x12\x61\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a+.shipping_notice.ShippingNoticeListResponse\"\x00\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x12\x61\n\nRemoveItem\x12\x30.shipping_notice.ShippingNoticeRemoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08MoveItem\x12..shipping_notice.ShippingNoticeMoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x63\n\x0eLockAndPackage\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12k\n\x16RecordShippingTemplate\x12..shipping_notice.RecordShippingTemplateRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x65\n\x13SubmitTrackingExcel\x12+.shipping_notice.SubmitTrackingExcelRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12Q\n\rGetCandidates\x12\x16.google.protobuf.Empty\x1a$.shippingcandidate.ShippingCandidate\"\x00\x30\x01\x12l\n\x10SubmitCandidates\x12\x35.shipping_notice.ShippingNoticeCandidateSubmitRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x62\x06proto3'
+  serialized_pb=b'\n6protos/logistics/shipping_notice/shipping_notice.proto\x12\x0fshipping_notice\x1a\x1bgoogle/protobuf/empty.proto\x1a@protos/logistics/shipping_notice_item/shipping_notice_item.proto\x1a&protos/logistics/package/package.proto\x1a<protos/logistics/shipping_candidate/shipping_candidate.proto\"\xdf\x02\n\x0eShippingNotice\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x19\n\x0ctemplate_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tlocked_at\x18\x05 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tsealed_at\x18\x06 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nshipped_at\x18\x07 \x01(\tH\x03\x88\x01\x01\x12\x12\n\ncreated_at\x18\x08 \x01(\t\x12\x12\n\nupdated_at\x18\t \x01(\t\x12\x37\n\x05items\x18\n \x03(\x0b\x32(.shipping_notice_item.ShippingNoticeItem\x12\"\n\x08packages\x18\x0b \x03(\x0b\x32\x10.package.PackageB\x0f\n\r_template_urlB\x0c\n\n_locked_atB\x0c\n\n_sealed_atB\r\n\x0b_shipped_at\"i\n\x19ShippingNoticeListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x03\x12\x0c\n\x04size\x18\x02 \x01(\x03\x12\x13\n\x06search\x18\x03 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08statuses\x18\x04 \x03(\tB\t\n\x07_search\"\x9d\x01\n\x1aShippingNoticeListResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x12\x11\n\x04next\x18\x02 \x01(\x03H\x00\x88\x01\x01\x12\x15\n\x08previous\x18\x03 \x01(\x03H\x01\x88\x01\x01\x12\x30\n\x07results\x18\x04 \x03(\x0b\x32\x1f.shipping_notice.ShippingNoticeB\x07\n\x05_nextB\x0b\n\t_previous\"+\n\x1dShippingNoticeRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"Q\n!ShippingNoticeCandidateSubmitItem\x12\x15\n\rorder_item_id\x18\x01 \x01(\x03\x12\x15\n\rinventory_ids\x18\x02 \x03(\x03\"n\n$ShippingNoticeCandidateSubmitRequest\x12\x46\n\ncandidates\x18\x01 \x03(\x0b\x32\x32.shipping_notice.ShippingNoticeCandidateSubmitItem\"\x84\x01\n\x1fShippingNoticeRemoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x44\n\x0cremoval_type\x18\x03 \x01(\x0e\x32..shipping_notice.ShippingNoticeItemRemovalType\"b\n\x1dShippingNoticeMoveItemRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07item_id\x18\x02 \x01(\x03\x12\x11\n\tsource_id\x18\x03 \x01(\x03\x12\x11\n\ttarget_id\x18\x04 \x01(\x03\"A\n\x1dRecordShippingTemplateRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x14\n\x0ctemplate_url\x18\x02 \x01(\t\"D\n\x13PackageTrackingPair\x12\x14\n\x0cpackage_code\x18\x01 \x01(\t\x12\x17\n\x0ftracking_number\x18\x02 \x01(\t\"\x90\x01\n\x1aSubmitTrackingExcelRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12<\n\x0etracking_pairs\x18\x02 \x03(\x0b\x32$.shipping_notice.PackageTrackingPair\x12\x11\n\tuser_uuid\x18\x03 \x01(\t\x12\x15\n\ruser_username\x18\x04 \x01(\t*H\n\x14ShippingNoticeStatus\x12\x0b\n\x07\x43REATED\x10\x00\x12\n\n\x06LOCKED\x10\x01\x12\n\n\x06SEALED\x10\x02\x12\x0b\n\x07SHIPPED\x10\x03*Z\n\x1dShippingNoticeItemRemovalType\x12\x14\n\x10REMOVE_AND_RESET\x10\x00\x12\x11\n\rSPLIT_PACKAGE\x10\x01\x12\x10\n\x0cSPLIT_NOTICE\x10\x02\x32\xfa\x08\n\x18ShippingNoticeController\x12\x61\n\x04List\x12*.shipping_notice.ShippingNoticeListRequest\x1a+.shipping_notice.ShippingNoticeListResponse\"\x00\x12L\n\x06\x43reate\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08Retrieve\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12L\n\x06Update\x12\x1f.shipping_notice.ShippingNotice\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x44\n\x07\x44\x65stroy\x12\x1f.shipping_notice.ShippingNotice\x1a\x16.google.protobuf.Empty\"\x00\x12\x61\n\nRemoveItem\x12\x30.shipping_notice.ShippingNoticeRemoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12]\n\x08MoveItem\x12..shipping_notice.ShippingNoticeMoveItemRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x63\n\x0eLockAndPackage\x12..shipping_notice.ShippingNoticeRetrieveRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12k\n\x16RecordShippingTemplate\x12..shipping_notice.RecordShippingTemplateRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12\x65\n\x13SubmitTrackingExcel\x12+.shipping_notice.SubmitTrackingExcelRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x12Q\n\rGetCandidates\x12\x16.google.protobuf.Empty\x1a$.shippingcandidate.ShippingCandidate\"\x00\x30\x01\x12l\n\x10SubmitCandidates\x12\x35.shipping_notice.ShippingNoticeCandidateSubmitRequest\x1a\x1f.shipping_notice.ShippingNotice\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,protos_dot_logistics_dot_shipping__notice__item_dot_shipping__notice__item__pb2.DESCRIPTOR,protos_dot_logistics_dot_package_dot_package__pb2.DESCRIPTOR,protos_dot_logistics_dot_shipping__candidate_dot_shipping__candidate__pb2.DESCRIPTOR,])
 
@@ -58,8 +58,8 @@ _SHIPPINGNOTICESTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1597,
-  serialized_end=1669,
+  serialized_start=1652,
+  serialized_end=1724,
 )
 _sym_db.RegisterEnumDescriptor(_SHIPPINGNOTICESTATUS)
 
@@ -89,8 +89,8 @@ _SHIPPINGNOTICEITEMREMOVALTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1671,
-  serialized_end=1761,
+  serialized_start=1726,
+  serialized_end=1816,
 )
 _sym_db.RegisterEnumDescriptor(_SHIPPINGNOTICEITEMREMOVALTYPE)
 
@@ -637,9 +637,30 @@ _SUBMITTRACKINGEXCELREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='tracking_pairs', full_name='shipping_notice.SubmitTrackingExcelRequest.tracking_pairs', index=0,
-      number=1, type=11, cpp_type=10, label=3,
+      name='id', full_name='shipping_notice.SubmitTrackingExcelRequest.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='tracking_pairs', full_name='shipping_notice.SubmitTrackingExcelRequest.tracking_pairs', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_uuid', full_name='shipping_notice.SubmitTrackingExcelRequest.user_uuid', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_username', full_name='shipping_notice.SubmitTrackingExcelRequest.user_username', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -655,8 +676,8 @@ _SUBMITTRACKINGEXCELREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1505,
-  serialized_end=1595,
+  serialized_start=1506,
+  serialized_end=1650,
 )
 
 _SHIPPINGNOTICE.fields_by_name['items'].message_type = protos_dot_logistics_dot_shipping__notice__item_dot_shipping__notice__item__pb2._SHIPPINGNOTICEITEM
@@ -787,8 +808,8 @@ _SHIPPINGNOTICECONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1764,
-  serialized_end=2910,
+  serialized_start=1819,
+  serialized_end=2965,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',

@@ -101,5 +101,8 @@ message PackageTrackingPair {
 }
 
 message SubmitTrackingExcelRequest {
-    repeated PackageTrackingPair tracking_pairs = 1;
+    int64 id = 1;
+    repeated PackageTrackingPair tracking_pairs = 2;
+    string user_uuid = 3;
+    string user_username = 4;
 }
