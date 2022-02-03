@@ -75,7 +75,7 @@ class ProductViewSet(
         request=EditProductRequestSerializer,
         responses={status.HTTP_200_OK: ProductSerializer},
     )
-    def update(self, request, alloff_product_id, *args, **kwargs):
+    def update(self, request, pk, *args, **kwargs):
         serializer = EditProductRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductService.edit(serializer.message)
