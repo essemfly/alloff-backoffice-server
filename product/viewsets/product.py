@@ -6,6 +6,7 @@ from product.serializers.product import (
     EditProductRequestSerializer,
     ListProductResultSerializer,
     ListProductSerializer,
+    ProductQuerySerializer,
     ProductSerializer,
 )
 from product.services.product import ProductService
@@ -29,6 +30,9 @@ class ProductViewSet(
     serializer_class = ProductSerializer
 
     @extend_schema(
+        parameters=[
+            ListProductSerializer,
+        ],
         request=ListProductSerializer,
         responses={status.HTTP_200_OK: ListProductResultSerializer},
     )
