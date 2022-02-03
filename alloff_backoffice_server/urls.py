@@ -24,7 +24,6 @@ from drf_spectacular.views import (
 from office.viewsets.admin_user import AdminUserViewSet
 
 from office.viewsets.image import ImageUploaderViewSet
-# from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
 from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
 # from office.viewsets.courier import CourierViewSet
