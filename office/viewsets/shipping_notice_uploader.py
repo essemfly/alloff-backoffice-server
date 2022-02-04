@@ -53,10 +53,18 @@ class ShippingNoticeResultUploaderViewSet(viewsets.GenericViewSet):
 
         df = df.dropna(subset=["주문번호", "상태"]).astype(str)
 
-        pairs: List[PackageTrackingPair] = [
-            {"package_code": row["주문번호"], "tracking_number": row["송장번호"]}
-            for (_, row) in df.iterrows()
-        ]
+        pairs: List[PackageTrackingPair] = []
+        for (_, row) in df.iterrows():
+            package_code = row["주문번호"]
+            tracking_number = str(row["송장번호"])
+            if "." in tracking_number:
+                tracking_number = tracking_number.split(".")[0]
+            pairs.append(
+                {
+                    "package_code": package_code,
+                    "tracking_number": tracking_number,
+                }
+            )
 
         notice = ShippingNoticeService.submit_tracking_excel(
             id=notice_id,
