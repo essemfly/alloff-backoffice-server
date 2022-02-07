@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from product.serializers.notification import (
     CreateNotiSerializer,
+    ListNotiRequestSerializer,
     ListNotiSerializer,
     NotiSerializer,
     SendNotiSerializer,
@@ -18,9 +19,14 @@ class NotificationViewSet(
 ):
     serializer_class = NotiSerializer
 
+    @extend_schema(
+        parameters=[ListNotiRequestSerializer],
+        request=ListNotiRequestSerializer,
+        responses={status.HTTP_200_OK: ListNotiSerializer},
+    )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 100)
+        limit = request.query_params.get("limit", 1000)
 
         req = ListNotiRequest(offset=int(offset), limit=int(limit))
         notis = NotificationService.list(req)

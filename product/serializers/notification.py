@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.notification_pb2 import (
     CreateNotiRequest,
+    ListNotiRequest,
     NotificationMessage,
     ListNotiResponse,
     SendNotiRequest,
@@ -19,6 +20,14 @@ class NotiSerializer(proto_serializers.ProtoSerializer):
 
     class Meta:
         proto_class = NotificationMessage
+
+
+class ListNotiRequestSerializer(proto_serializers.ProtoSerializer):
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
+
+    class Meta:
+        proto_class = ListNotiRequest
 
 
 class ListNotiSerializer(proto_serializers.ProtoSerializer):
