@@ -50,7 +50,7 @@ class NotificationViewSet(
     def send(self, request, *args, **kwargs):
         serializer = SendNotiSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        res = NotificationService.create(serializer.message)
+        res = NotificationService.send(serializer.message)
         if res:
             return Response(res, status=status.HTTP_200_OK)
         return Response(res, status=status.HTTP_200_OK)
