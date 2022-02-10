@@ -1,25 +1,23 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import (
-    GRPC_LOGISTICS_SERVER_URL,
-    GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
-)
-from office.serializers.order_item import OrderItemStatus
+    GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
 from django.contrib.auth.models import User
+from office.serializers.order_item import OrderItemStatus
 from office.serializers.order_payment_adjustment import PaymentAdjustmentType
-from protos.order.order_item import (
-    order_item_pb2,
-    order_item_pb2_grpc,
-)
 from office.services.base import GrpcService
+from protos.order.order_item import order_item_pb2, order_item_pb2_grpc
 
 
 class OrderItemService(GrpcService):
     url = GRPC_LOGISTICS_SERVER_URL
 
     @classmethod
-    def retrieve(cls, id):
-        request = order_item_pb2.OrderItemRetrieveRequest(id=id)
+    def retrieve(cls, id: str = None, user: User = None):
+        request = order_item_pb2.OrderItemRetrieveRequest(
+            id=id,
+            **cls.get_companyinfo(user),
+        )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).Retrieve(
                 request
@@ -34,6 +32,7 @@ class OrderItemService(GrpcService):
         statuses: Optional[List[str]] = None,
         user_id: Optional[str] = None,
         alloff_order_id: Optional[str] = None,
+        user: User = None,
     ):
         request = order_item_pb2.OrderItemListRequest(
             size=size,
@@ -42,6 +41,7 @@ class OrderItemService(GrpcService):
             statuses=statuses,
             user_id=user_id,
             alloff_order_id=alloff_order_id,
+            **cls.get_companyinfo(user),
         )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).List(
@@ -63,6 +63,27 @@ class OrderItemService(GrpcService):
             tracking_number=tracking_number,
             tracking_url=tracking_url,
             **cls.get_userinfo(user),
+        )
+        with cls.channel:
+            return order_item_pb2_grpc.OrderItemControllerStub(
+                cls.channel
+            ).ChangeStatus(request)
+
+    @classmethod
+    def set_tracking_info(
+        cls,
+        id: int = None,
+        courier_id: int = None,
+        user: User = None,
+        tracking_number: Optional[str] = None,
+        company_keyname: Optional[str] = None,
+    ) -> dict:
+        request = order_item_pb2.OrderItemSetTrackingInfoRequest(
+            id=id,
+            courier_id=courier_id,
+            tracking_number=tracking_number,
+            company_keyname=company_keyname,
+            **cls.get_userinfo(user, with_company=True),
         )
         with cls.channel:
             return order_item_pb2_grpc.OrderItemControllerStub(

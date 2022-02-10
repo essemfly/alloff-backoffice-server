@@ -18,6 +18,7 @@ service OrderItemController {
     rpc Destroy(OrderItem) returns (google.protobuf.Empty) {}
 
     rpc ChangeStatus(OrderItemStatusChangeRequest) returns (OrderItem) {}
+    rpc SetTrackingInfo(OrderItemSetTrackingInfoRequest) returns (OrderItem) {}
     rpc AddMemo(OrderItemAddMemoRequest) returns (OrderItem) {}
     rpc DeleteMemo(OrderItemDeleteMemoRequest) returns (OrderItem) {}
     rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
@@ -73,6 +74,7 @@ message OrderItem {
     int64 fulfillable_items_count = 45;
     optional refunditem.RefundItem refund_item = 46;
     repeated orderitempaymentadjustment.OrderItemPaymentAdjustment payment_adjustments = 47;
+    optional string company_keyname = 48;
 }
 
 message OrderItemListRequest {
@@ -82,6 +84,7 @@ message OrderItemListRequest {
     repeated string statuses = 4;
     optional string user_id = 5;
     optional string alloff_order_id = 6;
+    string company_keyname = 7;
 }
 
 message OrderItemListResponse {
@@ -93,6 +96,7 @@ message OrderItemListResponse {
 
 message OrderItemRetrieveRequest {
     string id = 1;
+    string company_keyname = 2;
 }
 
 message OrderItemStatusChangeRequest {
@@ -102,6 +106,15 @@ message OrderItemStatusChangeRequest {
     optional string tracking_url = 4;
     string user_uuid = 5;
     string user_username = 6;
+}
+
+message OrderItemSetTrackingInfoRequest {
+    int64 id = 1;
+    int64 courier_id = 2;
+    string tracking_number = 3;
+    string user_uuid = 4;
+    string user_username = 5;
+    string company_keyname = 6;
 }
 
 message OrderItemAddMemoRequest {
