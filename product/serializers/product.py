@@ -58,10 +58,10 @@ class ProductQuerySerializer(proto_serializers.ProtoSerializer):
 
 
 class ListProductSerializer(proto_serializers.ProtoSerializer):
-    search_query = serializers.CharField()
-    brand_id = serializers.CharField()
-    category_id = serializers.CharField()
-    alloff_category_id = serializers.CharField()
+    search_query = serializers.CharField(allow_null=True, required=False)
+    brand_id = serializers.CharField(allow_null=True, required=False)
+    category_id = serializers.CharField(allow_null=True, required=False)
+    alloff_category_id = serializers.CharField(allow_null=True, required=False)
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
 
