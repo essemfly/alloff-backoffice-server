@@ -27,3 +27,15 @@ python -m grpc_tools.protoc \
   --proto_path=. \
   --python_out=. --grpc_python_out=. \
   $PROTO_DIR/$NEW_FILE_NAME.proto
+
+NEW_FILE_NAME="exhibition"
+python -m grpc_tools.protoc \
+  --proto_path=. \
+  --python_out=. --grpc_python_out=. \
+  $PROTO_DIR/$NEW_FILE_NAME.proto
+
+NEW_FILE_NAME="hometab"
+python -m grpc_tools.protoc \
+  --proto_path=. \
+  --python_out=. --grpc_python_out=. \
+  $PROTO_DIR/$NEW_FILE_NAME.proto
