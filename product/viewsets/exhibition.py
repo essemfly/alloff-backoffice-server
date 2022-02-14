@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import mixins, status, viewsets
 
+from alloff_backoffice_server.settings import PAGE_SIZE
 from product.serializers.exhibition import (
     CreateExhibitionSerializer,
     EditExhibitionSerializer,
@@ -16,7 +17,6 @@ from protos.product.exhibition_pb2 import (
     EditExhibitionResponse,
     GetExhibitionRequest,
     ListExhibitionsRequest,
-    ListExhibitionsResponse,
 )
 
 
@@ -36,7 +36,7 @@ class ExhibitionViewSet(
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 1000)
+        limit = request.query_params.get("limit", PAGE_SIZE)
 
         req = ListExhibitionsRequest(offset=int(offset), limit=int(limit))
         res = ExhibitionService.list(req)

@@ -1,5 +1,11 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from rest_framework import response, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
+from rest_framework.request import Request
+
+from alloff_backoffice_server.settings import PAGE_SIZE
 from office.label.print_label import print_label
 from office.label.receiving_label import make_receiving_label
 from office.serializers.received_item import (
@@ -8,12 +14,7 @@ from office.serializers.received_item import (
     ReceivedItemStatus,
 )
 from office.services.received_item import ReceivedItemService
-from rest_framework import response, status, viewsets
-from rest_framework.decorators import action
-from rest_framework.request import Request
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
-from rest_framework.exceptions import APIException
-
 from office.viewsets.pagination import PaginationListMixin
 
 
@@ -34,13 +35,16 @@ from office.viewsets.pagination import PaginationListMixin
         ],
     ),
     receive_inventory=extend_schema(
-        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter(
+            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
     cancel_receiving=extend_schema(
-        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter(
+            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
     revert_inventory=extend_schema(
-        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter(
+            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
 )
 class ReceivedItemViewSet(PaginationListMixin, viewsets.ViewSet):
@@ -52,9 +56,12 @@ class ReceivedItemViewSet(PaginationListMixin, viewsets.ViewSet):
         return ReceivedItemSerializer
 
     def list(self, request: Request, *args, **kwargs):
+        page = request.query_params.get("page", 1)
+        size = request.query_params.get("size", PAGE_SIZE)
+
         list_response = ReceivedItemService.list(
-            size=int(request.query_params.get("size")),
-            page=int(request.query_params.get("page")),
+            page=int(page),
+            size=int(size),
             search=request.query_params.get("search"),
             statuses=request.query_params.getlist("statuses"),
         )

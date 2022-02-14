@@ -4,6 +4,8 @@ from jmespath import search
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+
+from alloff_backoffice_server.settings import PAGE_SIZE
 from product.serializers.product_group import (
     EditProductGroupSerializer,
     ListProductGroupRequestSerializer,
@@ -38,7 +40,7 @@ class ProductGroupViewSet(
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 1000)
+        limit = request.query_params.get("limit", PAGE_SIZE)
         search_query = request.query_params.get("search_query", "")
         group_type = request.query_params.get("group_type", "")
 

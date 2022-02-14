@@ -167,6 +167,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+PAGE_SIZE = 20
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
@@ -174,7 +176,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "office.drf.pagination.CustomPageNumberPagination",
-    "PAGE_SIZE": 20,
+    "PAGE_SIZE": PAGE_SIZE,
 }
 STATIC_ROOT = "./static"
 CORS_ALLOW_ALL_ORIGINS = True
