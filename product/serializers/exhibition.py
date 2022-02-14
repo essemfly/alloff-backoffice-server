@@ -38,7 +38,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
 
 
 class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
-    exhibition_id = serializers.CharField()
+    # exhibition_id = serializers.CharField()
     banner_image = serializers.CharField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
     title = serializers.CharField(allow_null=True, required=False)
@@ -54,8 +54,8 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
 
 
 class ListExhibitionRequestSerializer(proto_serializers.ProtoSerializer):
-    offset = serializers.IntegerField()
-    limit = serializers.IntegerField()
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListExhibitionsRequest

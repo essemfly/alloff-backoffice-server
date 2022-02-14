@@ -108,15 +108,15 @@ class EditHomeTabSerializer(proto_serializers.ProtoSerializer):
 
 
 class ListHomeTabsRequestSerializer(proto_serializers.ProtoSerializer):
-    offset = serializers.IntegerField()
-    limit = serializers.IntegerField()
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListHomeTabItemsRequest
 
 
 class ListHomeTabsResponseSerializer(proto_serializers.ProtoSerializer):
-    HomeTabs = HomeTabSerializer(many=True)
+    hometabs = HomeTabSerializer(many=True)
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()
     total_counts = serializers.IntegerField()
