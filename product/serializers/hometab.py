@@ -11,7 +11,7 @@ from protos.product.hometab_pb2 import (
     EditHomeTabItemRequest,
     ItemRequester,
     ListHomeTabItemsRequest,
-    ListHomeTabsItemResponse,
+    ListHomeTabItemsResponse,
 )
 
 
@@ -116,10 +116,10 @@ class ListHomeTabsRequestSerializer(proto_serializers.ProtoSerializer):
 
 
 class ListHomeTabsResponseSerializer(proto_serializers.ProtoSerializer):
-    hometabs = HomeTabSerializer(many=True)
+    items = HomeTabSerializer(many=True)
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()
     total_counts = serializers.IntegerField()
 
     class Meta:
-        proto_class = ListHomeTabsItemResponse
+        proto_class = ListHomeTabItemsResponse

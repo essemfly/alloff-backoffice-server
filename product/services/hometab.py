@@ -8,7 +8,7 @@ from protos.product.hometab_pb2 import (
     GetHomeTabItemRequest,
     GetHomeTabItemResponse,
     ListHomeTabItemsRequest,
-    ListHomeTabsItemResponse,
+    ListHomeTabItemsResponse,
 )
 
 from protos.product.hometab_pb2_grpc import HomeTabItemStub
@@ -29,7 +29,7 @@ class HometabService(GrpcService):
     def list(cls, request: ListHomeTabItemsRequest):
         with cls.channel:
             stub = HomeTabItemStub(cls.channel)
-            response: ListHomeTabsItemResponse = stub.ListHomeTabItems(request)
+            response: ListHomeTabItemsResponse = stub.ListHomeTabItems(request)
 
             return response
 

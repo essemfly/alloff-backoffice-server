@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1cprotos/product/hometab.proto\x12\ngrpcServer\x1a\x1fprotos/product/exhibition.proto\x1a\x1cprotos/product/product.proto\x1a\x1aprotos/product/brand.proto\"(\n\x15GetHomeTabItemRequest\x12\x0f\n\x07item_id\x18\x01 \x01(\t\"8\n\x17ListHomeTabItemsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xb1\x02\n\x16\x45\x64itHomeTabItemRequest\x12\x12\n\nhometab_id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nstart_time\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x07 \x01(\tH\x04\x88\x01\x01\x12+\n\x08\x63ontents\x18\x08 \x01(\x0b\x32\x19.grpcServer.ItemRequesterB\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x11\n\x0f_back_image_urlB\r\n\x0b_start_timeB\x0e\n\x0c_finish_time\"\xba\x01\n\x18\x43reateHomeTabItemRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x04 \x01(\t\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\x12+\n\x08\x63ontents\x18\x07 \x01(\x0b\x32\x19.grpcServer.ItemRequester\"F\n\x16GetHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"~\n\x18ListHomeTabsItemResponse\x12-\n\x05items\x18\x01 \x03(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"G\n\x17\x45\x64itHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"I\n\x19\x43reateHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"\x89\x03\n\x12HomeTabItemMessage\x12\x0f\n\x07item_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\t\x12\'\n\titem_type\x18\x06 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x08products\x18\t \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12(\n\x06\x62rands\x18\n \x03(\x0b\x32\x18.grpcServer.BrandMessage\x12\x32\n\x0b\x65xhibitions\x18\x0b \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12:\n\treference\x18\x0c \x01(\x0b\x32\'.grpcServer.HomeTabItemReferenceMessage\"h\n\x1bHomeTabItemReferenceMessage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0e\n\x06params\x18\x02 \x01(\t\x12+\n\x07options\x18\x03 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\"\xcb\x01\n\rItemRequester\x12\'\n\titem_type\x18\x01 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x16\n\x0e\x62rand_keynames\x18\x02 \x03(\t\x12\x16\n\x0e\x65xhibition_ids\x18\x03 \x03(\t\x12\x1e\n\x11\x61lloffcategory_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x12+\n\x07options\x18\x05 \x03(\x0e\x32\x1a.grpcServer.SortingOptionsB\x14\n\x12_alloffcategory_id*\xbb\x01\n\x08ItemType\x12\x17\n\x13HOMETAB_ITEM_BRANDS\x10\x00\x12!\n\x1dHOMETAB_ITEM_BRAND_EXHIBITION\x10\x01\x12\x1c\n\x18HOMETAB_ITEM_EXHIBITIONS\x10\x02\x12\x1b\n\x17HOMETAB_ITEM_EXHIBITION\x10\x03\x12\x1b\n\x17HOMETAB_ITEM_PRODUCTS_A\x10\x04\x12\x1b\n\x17HOMETAB_ITEM_PRODUCTS_B\x10\x05*\xc4\x01\n\x0eSortingOptions\x12\x13\n\x0fPRICE_ASCENDING\x10\x00\x12\x14\n\x10PRICE_DESCENDING\x10\x01\x12\x11\n\rDISCOUNT_0_30\x10\x02\x12\x12\n\x0e\x44ISCOUNT_30_50\x10\x03\x12\x12\n\x0e\x44ISCOUNT_50_70\x10\x04\x12\x13\n\x0f\x44ISCOUNT_70_100\x10\x05\x12\x1a\n\x16\x44ISCOUNTRATE_ASCENDING\x10\x06\x12\x1b\n\x17\x44ISCOUNTRATE_DESCENDING\x10\x07\x32\x83\x03\n\x0bHomeTabItem\x12W\n\x0eGetHomeTabItem\x12!.grpcServer.GetHomeTabItemRequest\x1a\".grpcServer.GetHomeTabItemResponse\x12]\n\x10ListHomeTabItems\x12#.grpcServer.ListHomeTabItemsRequest\x1a$.grpcServer.ListHomeTabsItemResponse\x12Z\n\x0f\x45\x64itHomeTabItem\x12\".grpcServer.EditHomeTabItemRequest\x1a#.grpcServer.EditHomeTabItemResponse\x12`\n\x11\x43reateHomeTabItem\x12$.grpcServer.CreateHomeTabItemRequest\x1a%.grpcServer.CreateHomeTabItemResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n\x1cprotos/product/hometab.proto\x12\ngrpcServer\x1a\x1fprotos/product/exhibition.proto\x1a\x1cprotos/product/product.proto\x1a\x1aprotos/product/brand.proto\"(\n\x15GetHomeTabItemRequest\x12\x0f\n\x07item_id\x18\x01 \x01(\t\"8\n\x17ListHomeTabItemsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xb1\x02\n\x16\x45\x64itHomeTabItemRequest\x12\x12\n\nhometab_id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nstart_time\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x07 \x01(\tH\x04\x88\x01\x01\x12+\n\x08\x63ontents\x18\x08 \x01(\x0b\x32\x19.grpcServer.ItemRequesterB\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x11\n\x0f_back_image_urlB\r\n\x0b_start_timeB\x0e\n\x0c_finish_time\"\xba\x01\n\x18\x43reateHomeTabItemRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x04 \x01(\t\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\x12+\n\x08\x63ontents\x18\x07 \x01(\x0b\x32\x19.grpcServer.ItemRequester\"F\n\x16GetHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"~\n\x18ListHomeTabItemsResponse\x12-\n\x05items\x18\x01 \x03(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"G\n\x17\x45\x64itHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"I\n\x19\x43reateHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"\x89\x03\n\x12HomeTabItemMessage\x12\x0f\n\x07item_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\t\x12\'\n\titem_type\x18\x06 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x08products\x18\t \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12(\n\x06\x62rands\x18\n \x03(\x0b\x32\x18.grpcServer.BrandMessage\x12\x32\n\x0b\x65xhibitions\x18\x0b \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12:\n\treference\x18\x0c \x01(\x0b\x32\'.grpcServer.HomeTabItemReferenceMessage\"h\n\x1bHomeTabItemReferenceMessage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0e\n\x06params\x18\x02 \x01(\t\x12+\n\x07options\x18\x03 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\"\xcb\x01\n\rItemRequester\x12\'\n\titem_type\x18\x01 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x16\n\x0e\x62rand_keynames\x18\x02 \x03(\t\x12\x16\n\x0e\x65xhibition_ids\x18\x03 \x03(\t\x12\x1e\n\x11\x61lloffcategory_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x12+\n\x07options\x18\x05 \x03(\x0e\x32\x1a.grpcServer.SortingOptionsB\x14\n\x12_alloffcategory_id*\xbb\x01\n\x08ItemType\x12\x17\n\x13HOMETAB_ITEM_BRANDS\x10\x00\x12!\n\x1dHOMETAB_ITEM_BRAND_EXHIBITION\x10\x01\x12\x1c\n\x18HOMETAB_ITEM_EXHIBITIONS\x10\x02\x12\x1b\n\x17HOMETAB_ITEM_EXHIBITION\x10\x03\x12\x1b\n\x17HOMETAB_ITEM_PRODUCTS_A\x10\x04\x12\x1b\n\x17HOMETAB_ITEM_PRODUCTS_B\x10\x05*\xc4\x01\n\x0eSortingOptions\x12\x13\n\x0fPRICE_ASCENDING\x10\x00\x12\x14\n\x10PRICE_DESCENDING\x10\x01\x12\x11\n\rDISCOUNT_0_30\x10\x02\x12\x12\n\x0e\x44ISCOUNT_30_50\x10\x03\x12\x12\n\x0e\x44ISCOUNT_50_70\x10\x04\x12\x13\n\x0f\x44ISCOUNT_70_100\x10\x05\x12\x1a\n\x16\x44ISCOUNTRATE_ASCENDING\x10\x06\x12\x1b\n\x17\x44ISCOUNTRATE_DESCENDING\x10\x07\x32\x83\x03\n\x0bHomeTabItem\x12W\n\x0eGetHomeTabItem\x12!.grpcServer.GetHomeTabItemRequest\x1a\".grpcServer.GetHomeTabItemResponse\x12]\n\x10ListHomeTabItems\x12#.grpcServer.ListHomeTabItemsRequest\x1a$.grpcServer.ListHomeTabItemsResponse\x12Z\n\x0f\x45\x64itHomeTabItem\x12\".grpcServer.EditHomeTabItemRequest\x1a#.grpcServer.EditHomeTabItemResponse\x12`\n\x11\x43reateHomeTabItem\x12$.grpcServer.CreateHomeTabItemRequest\x1a%.grpcServer.CreateHomeTabItemResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
   ,
   dependencies=[protos_dot_product_dot_exhibition__pb2.DESCRIPTOR,protos_dot_product_dot_product__pb2.DESCRIPTOR,protos_dot_product_dot_brand__pb2.DESCRIPTOR,])
 
@@ -429,37 +429,37 @@ _GETHOMETABITEMRESPONSE = _descriptor.Descriptor(
 )
 
 
-_LISTHOMETABSITEMRESPONSE = _descriptor.Descriptor(
-  name='ListHomeTabsItemResponse',
-  full_name='grpcServer.ListHomeTabsItemResponse',
+_LISTHOMETABITEMSRESPONSE = _descriptor.Descriptor(
+  name='ListHomeTabItemsResponse',
+  full_name='grpcServer.ListHomeTabItemsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='items', full_name='grpcServer.ListHomeTabsItemResponse.items', index=0,
+      name='items', full_name='grpcServer.ListHomeTabItemsResponse.items', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='offset', full_name='grpcServer.ListHomeTabsItemResponse.offset', index=1,
+      name='offset', full_name='grpcServer.ListHomeTabItemsResponse.offset', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='limit', full_name='grpcServer.ListHomeTabsItemResponse.limit', index=2,
+      name='limit', full_name='grpcServer.ListHomeTabItemsResponse.limit', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='total_counts', full_name='grpcServer.ListHomeTabsItemResponse.total_counts', index=3,
+      name='total_counts', full_name='grpcServer.ListHomeTabItemsResponse.total_counts', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -783,7 +783,7 @@ _EDITHOMETABITEMREQUEST.oneofs_by_name['_finish_time'].fields.append(
 _EDITHOMETABITEMREQUEST.fields_by_name['finish_time'].containing_oneof = _EDITHOMETABITEMREQUEST.oneofs_by_name['_finish_time']
 _CREATEHOMETABITEMREQUEST.fields_by_name['contents'].message_type = _ITEMREQUESTER
 _GETHOMETABITEMRESPONSE.fields_by_name['item'].message_type = _HOMETABITEMMESSAGE
-_LISTHOMETABSITEMRESPONSE.fields_by_name['items'].message_type = _HOMETABITEMMESSAGE
+_LISTHOMETABITEMSRESPONSE.fields_by_name['items'].message_type = _HOMETABITEMMESSAGE
 _EDITHOMETABITEMRESPONSE.fields_by_name['item'].message_type = _HOMETABITEMMESSAGE
 _CREATEHOMETABITEMRESPONSE.fields_by_name['item'].message_type = _HOMETABITEMMESSAGE
 _HOMETABITEMMESSAGE.fields_by_name['item_type'].enum_type = _ITEMTYPE
@@ -802,7 +802,7 @@ DESCRIPTOR.message_types_by_name['ListHomeTabItemsRequest'] = _LISTHOMETABITEMSR
 DESCRIPTOR.message_types_by_name['EditHomeTabItemRequest'] = _EDITHOMETABITEMREQUEST
 DESCRIPTOR.message_types_by_name['CreateHomeTabItemRequest'] = _CREATEHOMETABITEMREQUEST
 DESCRIPTOR.message_types_by_name['GetHomeTabItemResponse'] = _GETHOMETABITEMRESPONSE
-DESCRIPTOR.message_types_by_name['ListHomeTabsItemResponse'] = _LISTHOMETABSITEMRESPONSE
+DESCRIPTOR.message_types_by_name['ListHomeTabItemsResponse'] = _LISTHOMETABITEMSRESPONSE
 DESCRIPTOR.message_types_by_name['EditHomeTabItemResponse'] = _EDITHOMETABITEMRESPONSE
 DESCRIPTOR.message_types_by_name['CreateHomeTabItemResponse'] = _CREATEHOMETABITEMRESPONSE
 DESCRIPTOR.message_types_by_name['HomeTabItemMessage'] = _HOMETABITEMMESSAGE
@@ -847,12 +847,12 @@ GetHomeTabItemResponse = _reflection.GeneratedProtocolMessageType('GetHomeTabIte
   })
 _sym_db.RegisterMessage(GetHomeTabItemResponse)
 
-ListHomeTabsItemResponse = _reflection.GeneratedProtocolMessageType('ListHomeTabsItemResponse', (_message.Message,), {
-  'DESCRIPTOR' : _LISTHOMETABSITEMRESPONSE,
+ListHomeTabItemsResponse = _reflection.GeneratedProtocolMessageType('ListHomeTabItemsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTHOMETABITEMSRESPONSE,
   '__module__' : 'protos.product.hometab_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.ListHomeTabsItemResponse)
+  # @@protoc_insertion_point(class_scope:grpcServer.ListHomeTabItemsResponse)
   })
-_sym_db.RegisterMessage(ListHomeTabsItemResponse)
+_sym_db.RegisterMessage(ListHomeTabItemsResponse)
 
 EditHomeTabItemResponse = _reflection.GeneratedProtocolMessageType('EditHomeTabItemResponse', (_message.Message,), {
   'DESCRIPTOR' : _EDITHOMETABITEMRESPONSE,
@@ -918,7 +918,7 @@ _HOMETABITEM = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_LISTHOMETABITEMSREQUEST,
-    output_type=_LISTHOMETABSITEMRESPONSE,
+    output_type=_LISTHOMETABITEMSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

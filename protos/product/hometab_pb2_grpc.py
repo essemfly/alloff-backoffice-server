@@ -22,7 +22,7 @@ class HomeTabItemStub(object):
         self.ListHomeTabItems = channel.unary_unary(
                 '/grpcServer.HomeTabItem/ListHomeTabItems',
                 request_serializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsRequest.SerializeToString,
-                response_deserializer=protos_dot_product_dot_hometab__pb2.ListHomeTabsItemResponse.FromString,
+                response_deserializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsResponse.FromString,
                 )
         self.EditHomeTabItem = channel.unary_unary(
                 '/grpcServer.HomeTabItem/EditHomeTabItem',
@@ -74,7 +74,7 @@ def add_HomeTabItemServicer_to_server(servicer, server):
             'ListHomeTabItems': grpc.unary_unary_rpc_method_handler(
                     servicer.ListHomeTabItems,
                     request_deserializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsRequest.FromString,
-                    response_serializer=protos_dot_product_dot_hometab__pb2.ListHomeTabsItemResponse.SerializeToString,
+                    response_serializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsResponse.SerializeToString,
             ),
             'EditHomeTabItem': grpc.unary_unary_rpc_method_handler(
                     servicer.EditHomeTabItem,
@@ -126,7 +126,7 @@ class HomeTabItem(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/grpcServer.HomeTabItem/ListHomeTabItems',
             protos_dot_product_dot_hometab__pb2.ListHomeTabItemsRequest.SerializeToString,
-            protos_dot_product_dot_hometab__pb2.ListHomeTabsItemResponse.FromString,
+            protos_dot_product_dot_hometab__pb2.ListHomeTabItemsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
