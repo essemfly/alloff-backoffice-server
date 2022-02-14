@@ -42,17 +42,13 @@ class ProductGroupViewSet(
         search_query = request.query_params.get("search_query", "")
         group_type = request.query_params.get("group_type", "")
 
-        query = ProductGroupQuery(group_type="")
-        if group_type != "":
-            if search_query != "":
-                query = ProductGroupQuery(
-                    search_query=search_query, group_type=group_type
-                )
-            else:
-                query = ProductGroupQuery(group_type=group_type)
-        else:
-            if search_query != "":
-                query = ProductGroupQuery(search_query=search_query)
+        query = query = ProductGroupQuery(search_query=search_query)
+        if group_type != "" and search_query != "":
+            query = ProductGroupQuery(
+                search_query=search_query, group_type=group_type
+            )
+        elif group_type != "" and search_query == "":
+            query = ProductGroupQuery(group_type=group_type)
 
         req = ListProductGroupsRequest(
             offset=int(offset), limit=int(limit), query=query
