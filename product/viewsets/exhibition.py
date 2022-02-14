@@ -32,7 +32,7 @@ class ExhibitionViewSet(
     @extend_schema(
         parameters=[ListExhibitionRequestSerializer],
         request=ListExhibitionRequestSerializer,
-        responses={status.HTTP_200_OK: ListExhibitionsResponse},
+        responses={status.HTTP_200_OK: ListExhibitionsResponseSerializer},
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
