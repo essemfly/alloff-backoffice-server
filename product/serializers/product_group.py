@@ -75,8 +75,8 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
 
 
 class ListProductGroupRequestSerializer(proto_serializers.ProtoSerializer):
-    offset = serializers.IntegerField()
-    limit = serializers.IntegerField()
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
     search_query = serializers.CharField()
     group_type = serializers.ChoiceField(ProductGroupType.choices)
 
