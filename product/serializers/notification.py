@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_serializer
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.notification_pb2 import (
@@ -30,6 +31,7 @@ class ListNotiRequestSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListNotiRequest
 
 
+@extend_schema_serializer(many=False)
 class ListNotiSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()

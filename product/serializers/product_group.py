@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_serializer
 from django.db import models
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
@@ -84,6 +85,7 @@ class ListProductGroupRequestSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListProductGroupsRequest
 
 
+@extend_schema_serializer(many=False)
 class ListProductGroupResponseSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()

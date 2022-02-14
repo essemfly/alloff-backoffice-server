@@ -1,4 +1,5 @@
 from numpy import require
+from drf_spectacular.utils import extend_schema_serializer
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from protos.product.product_pb2 import (
@@ -69,6 +70,7 @@ class ListProductSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListProductsRequest
 
 
+@extend_schema_serializer(many=False)
 class ListProductResultSerializer(proto_serializers.ProtoSerializer):
     products = ProductSerializer(many=True)
     offset = serializers.IntegerField()

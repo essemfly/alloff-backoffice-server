@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_serializer
 from rest_framework import serializers
 from django.db import models
 from django_grpc_framework import proto_serializers
@@ -115,6 +116,7 @@ class ListHomeTabsRequestSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListHomeTabItemsRequest
 
 
+@extend_schema_serializer(many=False)
 class ListHomeTabsResponseSerializer(proto_serializers.ProtoSerializer):
     items = HomeTabSerializer(many=True)
     offset = serializers.IntegerField()
