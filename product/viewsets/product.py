@@ -8,7 +8,6 @@ from product.serializers.product import (
     EditProductRequestSerializer,
     ListProductResultSerializer,
     ListProductSerializer,
-    ProductQuerySerializer,
     ProductSerializer,
 )
 from product.services.product import ProductService

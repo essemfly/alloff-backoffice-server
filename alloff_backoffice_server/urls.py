@@ -34,6 +34,7 @@ from product.viewsets.brand import BrandViewSet
 from product.viewsets.notification import NotificationViewSet
 from product.viewsets.exhibition import ExhibitionViewSet
 from product.viewsets.hometab import HometabItemViewSet
+from product.viewsets.top_banner import TopBannerViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemViewSet
 
@@ -82,6 +83,7 @@ router.register(r"products", ProductViewSet, basename="products")
 router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
 router.register(r"exhibitions", ExhibitionViewSet, basename="exhibitions")
 router.register(r"hometabs", HometabItemViewSet, basename="hometabs")
+router.register(r"top-banners", HometabItemViewSet, basename="top-banner")
 router.register(r"notifications", NotificationViewSet, basename="notifiactions")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(
