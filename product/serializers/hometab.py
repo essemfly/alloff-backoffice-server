@@ -68,6 +68,7 @@ class HomeTabSerializer(proto_serializers.ProtoSerializer):
     description = serializers.CharField()
     tags = serializers.ListField(serializers.CharField())
     back_image_url = serializers.CharField()
+    item_type = serializers.ChoiceField(ItemTypes.choices)
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     products = ProductSerializer(many=True)
