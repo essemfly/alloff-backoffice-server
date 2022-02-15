@@ -75,6 +75,7 @@ class HomeTabSerializer(proto_serializers.ProtoSerializer):
     brands = BrandSerializer(many=True)
     exhibitions = ExhibitionSerializer(many=True)
     reference = HomeTabItemReferenceSerializer()
+    weight = serializers.IntegerField()
 
     class Meta:
         proto_class = HomeTabItemMessage
@@ -88,6 +89,7 @@ class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     contents = ItemRequesterSerializer()
+    weight = serializers.IntegerField()
 
     class Meta:
         proto_class = CreateHomeTabItemRequest
@@ -104,6 +106,7 @@ class EditHomeTabSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
     contents = ItemRequesterSerializer(allow_null=True, required=False)
+    weight = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditHomeTabItemRequest

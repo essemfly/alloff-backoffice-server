@@ -13,10 +13,6 @@ from product.serializers.hometab import (
     ListHomeTabsResponseSerializer,
 )
 from protos.product.hometab_pb2 import (
-    CreateHomeTabItemRequest,
-    CreateHomeTabItemResponse,
-    EditHomeTabItemRequest,
-    EditHomeTabItemResponse,
     GetHomeTabItemRequest,
     ListHomeTabItemsRequest,
 )
