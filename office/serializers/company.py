@@ -6,7 +6,10 @@ from rest_framework import serializers
 class CompanyBrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyBrand
-        fields = "__all__"
+        fields = [
+            "name",
+            "keyname",
+        ]
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -14,4 +17,4 @@ class CompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Company
-        fields = "__all__"
+        fields = ["company_brands", "keyname", "name"]

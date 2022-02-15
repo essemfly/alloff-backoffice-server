@@ -6,6 +6,7 @@ from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
 from office.viewsets.admin_user import AdminUserViewSet
 from office.viewsets.auth import (DecoratedTokenObtainPairView,
                                   DecoratedTokenRefreshView)
+from office.viewsets.courier import CourierViewSet
 from office.viewsets.image import ImageUploaderViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemBackofficeViewSet
@@ -24,9 +25,6 @@ from rest_framework import routers
 
 from alloff_backoffice_server.settings import API_TYPE_IS_COMPANY_API
 
-# from office.viewsets.courier import CourierViewSet
-# router.register(r"couriers", CourierViewSet, basename="couriers")
-
 router = routers.DefaultRouter()
 
 if API_TYPE_IS_COMPANY_API:
@@ -44,9 +42,7 @@ else:
     router.register(
         r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices"
     )
-    router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
     router.register(r"brands", BrandViewSet, basename="brands")
-    router.register(r"products", ProductViewSet, basename="products")
     router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
     router.register(r"notifications", NotificationViewSet, basename="notifiactions")
     router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
@@ -57,6 +53,9 @@ else:
     )
     router.register(r"users", UserViewSet, basename="users")
 
+router.register(r"products", ProductViewSet, basename="products")
+router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
+router.register(r"couriers", CourierViewSet, basename="couriers")
 
 urlpatterns = [
     path("", include(router.urls)),

@@ -27,9 +27,14 @@ class Profile(models.Model):
         unique=True,
     )
 
-    company = models.ForeignKey(
-        Company, on_delete=models.PROTECT, null=True, blank=True
-    )
+    company = models.ForeignKey(Company, on_delete=models.PROTECT)
+
+    @property
+    def is_admin(self):
+        return (
+            self.profile_type == ProfileType.ADMIN
+            and self.company.keyname == "LESSBUTTER"
+        )
 
     def __str__(self):
         return f"User Profile #{self.id} - [{self.profile_type}] {self.name}"

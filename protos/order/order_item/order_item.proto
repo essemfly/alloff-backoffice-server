@@ -85,6 +85,8 @@ message OrderItemListRequest {
     optional string user_id = 5;
     optional string alloff_order_id = 6;
     string company_keyname = 7;
+    optional string date_from = 8;
+    optional string date_to = 9;
 }
 
 message OrderItemListResponse {
@@ -106,6 +108,7 @@ message OrderItemStatusChangeRequest {
     optional string tracking_url = 4;
     string user_uuid = 5;
     string user_username = 6;
+    optional int64 courier_id = 7;
 }
 
 message OrderItemSetTrackingInfoRequest {
@@ -115,6 +118,7 @@ message OrderItemSetTrackingInfoRequest {
     string user_uuid = 4;
     string user_username = 5;
     string company_keyname = 6;
+    optional string tracking_url = 7;
 }
 
 message OrderItemAddMemoRequest {

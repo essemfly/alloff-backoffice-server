@@ -3,10 +3,12 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from office.serializers.order_item import (OrderItemListSerializer,
                                            OrderItemRetrieveSerializer)
 from office.services.order_item import OrderItemService
+from office.viewsets.order_items.api import OrderItemCompanyApiViewSet
 from office.viewsets.order_items.base import OrderItemViewSetBase
 from office.viewsets.order_items.logics.add_memo import \
     AddOrderItemMemoSerializer
-from office.viewsets.order_items.logics.change_status import ChangeStatusSerializer
+from office.viewsets.order_items.logics.change_status import \
+    ChangeStatusSerializer
 from office.viewsets.order_items.logics.delete_memo import \
     DeleteItemOrderMemoSerializer
 from office.viewsets.order_items.serializers import (
@@ -18,7 +20,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 
-class OrderItemBackofficeViewSet(OrderItemViewSetBase):
+class OrderItemBackofficeViewSet(OrderItemCompanyApiViewSet):
     # permission_classes = [IsAuthenticated]
 
     @extend_schema(
@@ -29,9 +31,10 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     def change_status(self, request: Request, pk=None):
         serializer = ChangeStatusSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        item = OrderItemService.change_status(
-            int(pk),
-            serializer.validated_data.get("status"),
+        item = OrderItemService.ChangeStatus(
+            id=int(pk),
+            status=serializer.validated_data.get("status"),
+            courier_id=serializer.validated_data.get("courier_id"),
             tracking_number=serializer.validated_data.get("tracking_number"),
             tracking_url=serializer.validated_data.get("tracking_url"),
             user=request.user,
@@ -48,7 +51,7 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     def add_memo(self, request: Request, pk=None):
         serializer = AddOrderItemMemoSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        item = OrderItemService.add_memo(
+        item = OrderItemService.AddMemo(
             int(pk),
             serializer.validated_data.get("body"),
             request.user,
@@ -65,7 +68,7 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     def delete_memo(self, request: Request, pk=None):
         serializer = DeleteItemOrderMemoSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        item = OrderItemService.delete_memo(
+        item = OrderItemService.DeleteMemo(
             int(pk),
             serializer.validated_data.get("memo_id"),
             request.user,
@@ -80,7 +83,7 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     )
     @action(detail=True, methods=["POST"])
     def force_receive(self, request: Request, pk=None):
-        item = OrderItemService.force_receive(int(pk), request.user)
+        item = OrderItemService.ForceReceive(int(pk), request.user)
         return Response(
             OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
         )
@@ -94,7 +97,7 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     def adjust_payment(self, request: Request, pk=None):
         serializer = OrderItemAdjustPaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        item = OrderItemService.adjust_payment(
+        item = OrderItemService.AdjustPayment(
             id=int(pk),
             user=request.user,
             amount=serializer.validated_data.get("amount"),
@@ -114,7 +117,7 @@ class OrderItemBackofficeViewSet(OrderItemViewSetBase):
     def update_refund(self, request: Request, pk=None):
         serializer = UpdateRefundSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        item = OrderItemService.update_refund(
+        item = OrderItemService.UpdateRefund(
             id=int(pk),
             user=request.user,
             refund_amount=serializer.validated_data.get("refund_amount"),

@@ -5,15 +5,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from office.models.api import ApiKey, ApiKeyStatus
-from office.models.company import Company
+from office.models.api import ApiKey
 from office.models.profile import Profile, ProfileType
-
-
-@receiver(pre_save, sender=Company)
-def make_api_key(sender, instance, **kwargs):
-    if instance.api_key_id is None:
-        instance.api_key = ApiKey.objects.create(status=ApiKeyStatus.INACTIVE)
 
 
 @receiver(pre_save, sender=ApiKey)
