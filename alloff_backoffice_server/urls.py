@@ -83,8 +83,8 @@ router.register(r"products", ProductViewSet, basename="products")
 router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
 router.register(r"exhibitions", ExhibitionViewSet, basename="exhibitions")
 router.register(r"hometabs", HometabItemViewSet, basename="hometabs")
-router.register(r"top-banners", HometabItemViewSet, basename="top-banner")
 router.register(r"notifications", NotificationViewSet, basename="notifiactions")
+router.register(r"top-banners", TopBannerViewSet, basename="top-banner")
 router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
 router.register(
     r"shipping-notices-result-upload",
