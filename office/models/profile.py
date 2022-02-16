@@ -2,6 +2,7 @@ from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import models
+from alloff_backoffice_server.settings import SUPERCOMPANY_KEYNAME
 from office.models.company import Company
 
 
@@ -33,7 +34,7 @@ class Profile(models.Model):
     def is_admin(self):
         return (
             self.profile_type == ProfileType.ADMIN
-            and self.company.keyname == "LESSBUTTER"
+            and self.company.keyname == SUPERCOMPANY_KEYNAME
         )
 
     def __str__(self):

@@ -1,12 +1,9 @@
-from drf_spectacular.utils import extend_schema_serializer
 from django.db import models
-from rest_framework import serializers
 from django_grpc_framework import proto_serializers
-
-from protos.product.alloffcategory_pb2 import (
-    AlloffCategoryMessage,
-    ListAlloffCategoryRequest,
-)
+from drf_spectacular.utils import extend_schema_serializer
+from protos.product.alloffcategory_pb2 import (AlloffCategoryMessage,
+                                               ListAlloffCategoryRequest)
+from rest_framework import serializers
 
 
 class AlloffCategorySerializer(proto_serializers.ProtoSerializer):
@@ -22,7 +19,7 @@ class AlloffCategorySerializer(proto_serializers.ProtoSerializer):
 
 
 class ListAlloffCateogoryRequestSerializer(proto_serializers.ProtoSerializer):
-    parent_id = serializers.CharField()
+    parent_id = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListAlloffCategoryRequest

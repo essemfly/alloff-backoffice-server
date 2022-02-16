@@ -1,36 +1,26 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 from office.viewsets.admin_user import AdminUserViewSet
-from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
+from office.viewsets.auth import (DecoratedTokenObtainPairView,
+                                  DecoratedTokenRefreshView)
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.image import ImageUploaderViewSet
-from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
-from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
-from product.viewsets.alloff_category import AlloffCategoryViewSet
-
-# from office.viewsets.courier import CourierViewSet
-from product.viewsets.product_group import ProductGroupViewSet
-from product.viewsets.product import ProductViewSet
-from product.viewsets.brand import BrandViewSet
-from product.viewsets.notification import NotificationViewSet
-from product.viewsets.exhibition import ExhibitionViewSet
-from product.viewsets.hometab import HometabItemViewSet
-from product.viewsets.top_banner import TopBannerViewSet
 from office.viewsets.inventory import InventoryViewSet
 from office.viewsets.order_items import OrderItemBackofficeViewSet
 from office.viewsets.order_items.api import OrderItemCompanyApiViewSet
 from office.viewsets.package import PackageViewSet
+from office.viewsets.product_inquiry import ProductInquiryViewSet
 from office.viewsets.received_item import ReceivedItemViewSet
 from office.viewsets.shipping_notice import ShippingNoticeViewSet
-from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
-from office.viewsets.user import UserViewSet
+from office.viewsets.shipping_notice_uploader import \
+    ShippingNoticeResultUploaderViewSet
+from product.viewsets.alloff_category import AlloffCategoryViewSet
 from product.viewsets.brand import BrandViewSet
+from product.viewsets.exhibition import ExhibitionViewSet
+from product.viewsets.hometab import HometabItemViewSet
 from product.viewsets.notification import NotificationViewSet
 from product.viewsets.product import ProductViewSet
 from product.viewsets.product_group import ProductGroupViewSet
@@ -54,31 +44,31 @@ else:
     router.register(
         r"shipping-notices", ShippingNoticeViewSet, basename="shipping-notices"
     )
-    router.register(r"brands", BrandViewSet, basename="brands")
-    router.register(r"products", ProductViewSet, basename="products")
     router.register(r"admin-user", AdminUserViewSet, basename="admin-user")
-    router.register(r"couriers", CourierViewSet, basename="couriers")
     router.register(r"product-groups", ProductGroupViewSet, basename="product-groups")
     router.register(r"exhibitions", ExhibitionViewSet, basename="exhibitions")
     router.register(r"hometabs", HometabItemViewSet, basename="hometabs")
     router.register(r"top-banners", HometabItemViewSet, basename="top-banner")
     router.register(r"notifications", NotificationViewSet, basename="notifiactions")
-    router.register(
-        r"alloff-categories", AlloffCategoryViewSet, basename="alloff-category"
-    )
+
     router.register(
         r"shipping-notices-result-upload",
         ShippingNoticeResultUploaderViewSet,
         basename="shipping-notices-result-upload",
     )
-    router.register(r"users", UserViewSet, basename="users")
+    router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
+    router.register(
+        r"shipping-notices-result-upload",
+        ShippingNoticeResultUploaderViewSet,
+        basename="shipping-notices-result-upload",
+    )
 
-router.register(r"image-upload", ImageUploaderViewSet, basename="image-upload")
-router.register(
-    r"shipping-notices-result-upload",
-    ShippingNoticeResultUploaderViewSet,
-    basename="shipping-notices-result-upload",
-)
+router.register(r"alloff-categories", AlloffCategoryViewSet, basename="alloff-category")
+router.register(r"brands", BrandViewSet, basename="brands")
+router.register(r"couriers", CourierViewSet, basename="couriers")
+router.register(r"products", ProductViewSet, basename="products")
+router.register(r"inquiries", ProductInquiryViewSet, basename="inquiries")
+
 
 urlpatterns = [
     path("", include(router.urls)),

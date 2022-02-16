@@ -1,20 +1,14 @@
+from core.company_auth_viewset import with_company_api
 from drf_spectacular.utils import extend_schema
-from rest_framework.response import Response
-from rest_framework import status
+from protos.product.alloffcategory_pb2 import (ListAlloffCategoryRequest,
+                                               ListAlloffCategoryResponse)
 from rest_framework import mixins, status, viewsets
-
-from alloff_backoffice_server.settings import PAGE_SIZE
+from rest_framework.response import Response
 
 from product.serializers.alloff_category import (
-    AlloffCategorySerializer,
-    ListAlloffCategoryResponseSerializer,
-)
-
+    AlloffCategorySerializer, ListAlloffCategoryResponseSerializer,
+    ListAlloffCateogoryRequestSerializer)
 from product.services.alloff_category import AlloffCategoryService
-from protos.product.alloffcategory_pb2 import (
-    ListAlloffCategoryRequest,
-    ListAlloffCategoryResponse,
-)
 
 
 class AlloffCategoryViewSet(
@@ -24,10 +18,10 @@ class AlloffCategoryViewSet(
     serializer_class = AlloffCategorySerializer
 
     @extend_schema(
-        parameters=[ListAlloffCategoryRequest],
-        request=ListAlloffCategoryRequest,
-        responses={status.HTTP_200_OK: ListAlloffCategoryResponse},
+        parameters=[ListAlloffCateogoryRequestSerializer],
+        responses=ListAlloffCategoryResponseSerializer,
     )
+    @with_company_api
     def list(self, request, *args, **kwargs):
         parent_id = request.query_params.get("parent_id", "")
 
