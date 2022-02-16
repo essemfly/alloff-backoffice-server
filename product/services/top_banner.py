@@ -23,7 +23,7 @@ class TopBannerService(GrpcService):
             stub = TopBannerStub(cls.channel)
             response: GetTopBannerResponse = stub.GetTopBanner(request)
 
-            return response
+            return response.banner
 
     @classmethod
     def list(cls, request: ListTopBannersRequest):
@@ -39,7 +39,7 @@ class TopBannerService(GrpcService):
             stub = TopBannerStub(cls.channel)
             response: EditTopBannerResponse = stub.EditTopBanner(request)
 
-            return response
+            return response.banner
 
     @classmethod
     def create(cls, request: CreateTopBannerRequest):
@@ -47,4 +47,4 @@ class TopBannerService(GrpcService):
             stub = TopBannerStub(cls.channel)
             response: CreateTopBannerResponse = stub.CreateTopBanner(request)
 
-            return response
+            return response.banner

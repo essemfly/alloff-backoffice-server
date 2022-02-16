@@ -23,7 +23,7 @@ class HometabService(GrpcService):
             stub = HomeTabItemStub(cls.channel)
             response: GetHomeTabItemResponse = stub.GetHomeTabItem(request)
 
-            return response
+            return response.item
 
     @classmethod
     def list(cls, request: ListHomeTabItemsRequest):
@@ -39,7 +39,7 @@ class HometabService(GrpcService):
             stub = HomeTabItemStub(cls.channel)
             response: EditHomeTabItemResponse = stub.EditHomeTabItem(request)
 
-            return response
+            return response.item
 
     @classmethod
     def create(cls, request: CreateHomeTabItemRequest):
@@ -47,4 +47,4 @@ class HometabService(GrpcService):
             stub = HomeTabItemStub(cls.channel)
             response: CreateHomeTabItemResponse = stub.CreateHomeTabItem(request)
 
-            return response
+            return response.item

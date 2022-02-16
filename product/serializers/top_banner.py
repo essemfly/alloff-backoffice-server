@@ -36,6 +36,7 @@ class CreateTopBannerSerializer(proto_serializers.ProtoSerializer):
 
 
 class EditTopBannerSerializer(proto_serializers.ProtoSerializer):
+    banner_id = serializers.CharField()
     banner_image = serializers.CharField(allow_null=True, required=False)
     exhibition_id = serializers.CharField(allow_null=True, required=False)
     title = serializers.CharField(allow_null=True, required=False)
