@@ -1,9 +1,15 @@
+from tokenize import group
 from drf_spectacular.utils import extend_schema
+from jmespath import search
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+
+from alloff_backoffice_server.settings import PAGE_SIZE
 from product.serializers.product_group import (
     EditProductGroupSerializer,
+    ListProductGroupRequestSerializer,
+    ListProductGroupResponseSerializer,
     ProductGroupSerializer,
     PushProductsSerializer,
     CreateProductGroupSeriazlier,
@@ -12,6 +18,8 @@ from product.serializers.product_group import (
 from product.services.product_group import ProductGroupService
 from protos.product.productGroup_pb2 import (
     GetProductGroupRequest,
+    ListProductGroupsRequest,
+    ProductGroupQuery,
 )
 from rest_framework import mixins, status, viewsets
 
@@ -25,7 +33,28 @@ class ProductGroupViewSet(
 ):
     serializer_class = ProductGroupSerializer
 
+    @extend_schema(
+        parameters=[ListProductGroupRequestSerializer],
+        request=ListProductGroupRequestSerializer,
+        responses={status.HTTP_200_OK: ListProductGroupResponseSerializer},
+    )
     def list(self, request, *args, **kwargs):
+        offset = request.query_params.get("offset", 0)
+        limit = request.query_params.get("limit", PAGE_SIZE)
+        search_query = request.query_params.get("search_query", "")
+        group_type = request.query_params.get("group_type", "")
+
+        query = query = ProductGroupQuery(search_query=search_query)
+        if group_type != "" and search_query != "":
+            query = ProductGroupQuery(
+                search_query=search_query, group_type=group_type
+            )
+        elif group_type != "" and search_query == "":
+            query = ProductGroupQuery(group_type=group_type)
+
+        req = ListProductGroupsRequest(
+            offset=int(offset), limit=int(limit), query=query
+        )
         pgs = ProductGroupService.list()
         serializer = ProductGroupSerializer(pgs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

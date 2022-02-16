@@ -1,9 +1,13 @@
+from drf_spectacular.utils import extend_schema_serializer
+from django.db import models
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 
 from protos.product.productGroup_pb2 import (
     CreateProductGroupRequest,
     EditProductGroupRequest,
+    ListProductGroupsRequest,
+    ListProductGroupsResponse,
     ProductGroupMessage,
     ProductInGroupMessage,
     ProductPriorityMessage,
@@ -11,6 +15,11 @@ from protos.product.productGroup_pb2 import (
     RemoveProductInPgRequest,
 )
 from product.serializers.product import ProductSerializer
+
+
+class ProductGroupType(models.TextChoices):
+    PRODUCT_GROUP_TIMEDEAL = "PRODUCT_GROUP_TIMEDEAL"
+    PRODUCT_GROUP_EXHIBITION = "PRODUCT_GROUP_EXHIBITION"
 
 
 class ProductInGroupSerializer(proto_serializers.ProtoSerializer):
@@ -29,6 +38,7 @@ class ProductGroupSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     products = ProductInGroupSerializer(many=True)
+    group_type = serializers.ChoiceField(ProductGroupType.choices)
     product_group_id = serializers.CharField()
 
     class Meta:
@@ -42,6 +52,7 @@ class CreateProductGroupSeriazlier(proto_serializers.ProtoSerializer):
     image_url = serializers.URLField()
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
+    group_type = serializers.ChoiceField(ProductGroupType.choices)
 
     class Meta:
         proto_class = CreateProductGroupRequest
@@ -55,10 +66,34 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
     products = ProductInGroupSerializer(many=True, allow_null=True, required=False)
+    group_type = serializers.ChoiceField(
+        ProductGroupType.choices, allow_null=True, required=False
+    )
     product_group_id = serializers.CharField()
 
     class Meta:
         proto_class = EditProductGroupRequest
+
+
+class ListProductGroupRequestSerializer(proto_serializers.ProtoSerializer):
+    offset = serializers.IntegerField(allow_null=True, required=False)
+    limit = serializers.IntegerField(allow_null=True, required=False)
+    search_query = serializers.CharField()
+    group_type = serializers.ChoiceField(ProductGroupType.choices)
+
+    class Meta:
+        proto_class = ListProductGroupsRequest
+
+
+@extend_schema_serializer(many=False)
+class ListProductGroupResponseSerializer(proto_serializers.ProtoSerializer):
+    offset = serializers.IntegerField()
+    limit = serializers.IntegerField()
+    total_counts = serializers.IntegerField()
+    pgs = ProductGroupSerializer(many=True)
+
+    class Meta:
+        proto_class = ListProductGroupsResponse
 
 
 class ProductPrioritySerializer(proto_serializers.ProtoSerializer):

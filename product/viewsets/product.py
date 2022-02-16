@@ -1,12 +1,13 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
+
+from alloff_backoffice_server.settings import PAGE_SIZE
 from product.serializers.product import (
     CreateProductRequestSerializer,
     EditProductRequestSerializer,
     ListProductResultSerializer,
     ListProductSerializer,
-    ProductQuerySerializer,
     ProductSerializer,
 )
 from product.services.product import ProductService
@@ -38,11 +39,12 @@ class ProductViewSet(
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 1000)
-        search_query = request.query_params.get("query", "")
+        limit = request.query_params.get("limit", PAGE_SIZE)
+        search_query = request.query_params.get("search_query", "")
         brand_id = request.query_params.get("brand_id", "")
         category_id = request.query_params.get("category_id", "")
         alloff_category_id = request.query_params.get("alloff_category_id", "")
+        module_name = request.query_params.get("module_name", "")
 
         query: ProductQuery = ProductQuery(
             search_query=search_query,
@@ -51,7 +53,7 @@ class ProductViewSet(
             alloff_category_id=alloff_category_id,
         )
         req: ListProductsRequest = ListProductsRequest(
-            offset=int(offset), limit=int(limit), query=query
+            offset=int(offset), limit=int(limit), query=query, module_name=module_name
         )
 
         res = ProductService.list(req)

@@ -1,7 +1,11 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
-from product.serializers.brand import BrandSerializer, EditBrandSerializer
+from product.serializers.brand import (
+    BrandSerializer,
+    CreateBrandSerializer,
+    EditBrandSerializer,
+)
 from product.serializers.product import EditProductRequestSerializer
 from product.services.brand import BrandService
 
@@ -17,11 +21,16 @@ class BrandViewSet(
 ):
     serializer_class = BrandSerializer
 
+    @extend_schema(responses={status.HTTP_200_OK: BrandSerializer})
     def list(self, request, *args, **kwargs):
         brands = BrandService.list()
         serializer = BrandSerializer(brands, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @extend_schema(
+        request=CreateBrandSerializer,
+        responses={status.HTTP_201_CREATED: BrandSerializer},
+    )
     def create(self, request, *args, **kwargs):
         serializer = BrandSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
