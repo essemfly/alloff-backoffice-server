@@ -7,15 +7,14 @@ class ProductGroupService(GrpcService):
     url = PRODUCT_SERVER_URL
 
     @classmethod
-    def list(cls):
-        request = productGroup_pb2.ListProductGroupsRequest()
+    def list(cls, request: productGroup_pb2.ListProductGroupsRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
             response: productGroup_pb2.ListProductGroupsResponse = (
                 stub.ListProductGroups(request)
             )
 
-            return response.pgs
+            return response
 
     @classmethod
     def create(cls, request: productGroup_pb2.CreateProductGroupRequest):

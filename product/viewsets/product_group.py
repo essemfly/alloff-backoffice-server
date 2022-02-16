@@ -17,6 +17,8 @@ from product.serializers.product_group import (
 )
 from product.services.product_group import ProductGroupService
 from protos.product.productGroup_pb2 import (
+    PRODUCT_GROUP_EXHIBITION,
+    PRODUCT_GROUP_TIMEDEAL,
     GetProductGroupRequest,
     ListProductGroupsRequest,
     ProductGroupQuery,
@@ -44,19 +46,22 @@ class ProductGroupViewSet(
         search_query = request.query_params.get("search_query", "")
         group_type = request.query_params.get("group_type", "")
 
-        query = query = ProductGroupQuery(search_query=search_query)
-        if group_type != "" and search_query != "":
+        if group_type == "PRODUCT_GROUP_TIMEDEAL":
             query = ProductGroupQuery(
-                search_query=search_query, group_type=group_type
+                search_query=search_query, group_type=PRODUCT_GROUP_TIMEDEAL
             )
-        elif group_type != "" and search_query == "":
-            query = ProductGroupQuery(group_type=group_type)
+        elif group_type == "PRODUCT_GROUP_EXHIBITION":
+            query = ProductGroupQuery(
+                search_query=search_query, group_type=PRODUCT_GROUP_EXHIBITION
+            )
+        else:
+            query = ProductGroupQuery(search_query=search_query)
 
         req = ListProductGroupsRequest(
             offset=int(offset), limit=int(limit), query=query
         )
-        pgs = ProductGroupService.list()
-        serializer = ProductGroupSerializer(pgs, many=True)
+        resp = ProductGroupService.list(req)
+        serializer = ListProductGroupResponseSerializer(resp)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk, *args, **kwargs):
