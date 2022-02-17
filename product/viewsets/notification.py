@@ -2,6 +2,8 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+
+from alloff_backoffice_server.settings import PAGE_SIZE
 from product.serializers.notification import (
     CreateNotiSerializer,
     ListNotiRequestSerializer,
@@ -26,7 +28,7 @@ class NotificationViewSet(
     )
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
-        limit = request.query_params.get("limit", 1000)
+        limit = request.query_params.get("limit", PAGE_SIZE)
 
         req = ListNotiRequest(offset=int(offset), limit=int(limit))
         notis = NotificationService.list(req)

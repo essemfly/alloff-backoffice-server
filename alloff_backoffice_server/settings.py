@@ -1,13 +1,14 @@
-from pathlib import Path
-from mongoengine.connection import connect
-from datetime import timedelta
-from django.contrib.staticfiles import handlers
 import os
-from dotenv import load_dotenv, dotenv_values
+from datetime import timedelta
+from pathlib import Path
+
+from django.contrib.staticfiles import handlers
+from dotenv import dotenv_values, load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
 SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
+API_TYPE_IS_COMPANY_API = env.get("API_TYPE") == "company"
 
 
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
@@ -68,9 +69,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "django_grpc_framework",
     "office",
-    # "order",
     "product",
-    # "logistics"
 ]
 
 MIDDLEWARE = [
@@ -82,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "office.middlewares.api_auth.SimpleMiddleware",
 ]
 
 ROOT_URLCONF = "alloff_backoffice_server.urls"
@@ -118,7 +118,7 @@ DATABASES = {
     else {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": env.get("DB_HOST"),
-        "NAME": f"backoffice_{'dev' if SERVICE_ENV_IS_DEV else 'prod'}",
+        "NAME": f"backoffice_{'dev2' if SERVICE_ENV_IS_DEV else 'prod'}",
         "PASSWORD": env.get("DB_PASSWORD"),
         "USER": env.get("DB_USER"),
         "PORT": 5432,
@@ -167,6 +167,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+PAGE_SIZE = 20
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
@@ -174,7 +176,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "office.drf.pagination.CustomPageNumberPagination",
-    "PAGE_SIZE": 20,
+    "PAGE_SIZE": PAGE_SIZE,
 }
 STATIC_ROOT = "./static"
 CORS_ALLOW_ALL_ORIGINS = True
@@ -201,14 +203,6 @@ PUSHSERVER = {
     "URL": env.get("PUSH_SERVER_URL"),
     "NAVIGATE_URL": env.get("PUSH_NAVIGATE_URL"),
 }
-
-connect(
-    "outlet_dev" if SERVICE_ENV_IS_DEV else "outlet",
-    host="mongodb://db.lessbutter.co",
-    username=env.get("SERVICE_DB_USERNAME"),
-    password=env.get("SERVICE_DB_PASSWORD"),
-    authentication_source="admin",
-)
 
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_ACCESS_KEY_ID = env.get("AWS_ACCESS_KEY_ID")
@@ -240,3 +234,7 @@ GRPC_LOGISTICS_SERVER_URL = env.get("GRPC_LOGISTICS_SERVER_URL")
 # GRPC_LOGISTICS_SERVER_URL = "ec2-13-209-64-30.ap-northeast-2.compute.amazonaws.com:9000"
 
 GRPC_PAGINATION_DEFAULT_PAGE_SIZE = 20
+
+COMPANY_API_HEADER = "Company-Api-Key"
+COMPANY_GRPC_REQUEST_KEY = "company_keyname"
+SUPERCOMPANY_KEYNAME = "LESSBUTTER"

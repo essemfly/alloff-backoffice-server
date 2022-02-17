@@ -45,6 +45,11 @@ class OrderItemControllerStub(object):
                 request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.SerializeToString,
                 response_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
                 )
+        self.SetTrackingInfo = channel.unary_unary(
+                '/orderitem.OrderItemController/SetTrackingInfo',
+                request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemSetTrackingInfoRequest.SerializeToString,
+                response_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
+                )
         self.AddMemo = channel.unary_unary(
                 '/orderitem.OrderItemController/AddMemo',
                 request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemAddMemoRequest.SerializeToString,
@@ -111,6 +116,12 @@ class OrderItemControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetTrackingInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def AddMemo(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -172,6 +183,11 @@ def add_OrderItemControllerServicer_to_server(servicer, server):
             'ChangeStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.ChangeStatus,
                     request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.FromString,
+                    response_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
+            ),
+            'SetTrackingInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetTrackingInfo,
+                    request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemSetTrackingInfoRequest.FromString,
                     response_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
             ),
             'AddMemo': grpc.unary_unary_rpc_method_handler(
@@ -307,6 +323,23 @@ class OrderItemController(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/orderitem.OrderItemController/ChangeStatus',
             protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemStatusChangeRequest.SerializeToString,
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetTrackingInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/orderitem.OrderItemController/SetTrackingInfo',
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemSetTrackingInfoRequest.SerializeToString,
             protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

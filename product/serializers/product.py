@@ -1,15 +1,12 @@
-from numpy import require
-from rest_framework import serializers
 from django_grpc_framework import proto_serializers
-from protos.product.product_pb2 import (
-    EditProductRequest,
-    ListProductsResponse,
-    ProductInventoryMessage,
-    ListProductsRequest,
-    ProductMessage,
-    CreateProductRequest,
-    ProductQuery,
-)
+from drf_spectacular.utils import extend_schema_serializer
+from protos.product.product_pb2 import (CreateProductRequest,
+                                        EditProductRequest,
+                                        ListProductsRequest,
+                                        ListProductsResponse,
+                                        ProductInventoryMessage,
+                                        ProductMessage, ProductQuery)
+from rest_framework import serializers
 
 
 class ProductInventorySerializer(proto_serializers.ProtoSerializer):
@@ -42,6 +39,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     images = serializers.ListField(child=serializers.CharField())
     description_images = serializers.ListField(child=serializers.URLField())
     inventory = ProductInventorySerializer(many=True)
+    module_name = serializers.CharField()
 
     class Meta:
         proto_class = ProductMessage
@@ -69,18 +67,20 @@ class ListProductSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListProductsRequest
 
 
+@extend_schema_serializer(many=False)
 class ListProductResultSerializer(proto_serializers.ProtoSerializer):
     products = ProductSerializer(many=True)
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()
     total_counts = serializers.IntegerField()
     list_query = ProductQuerySerializer()
+    module_name = serializers.CharField()
 
     class Meta:
         proto_class = ListProductsResponse
 
 
-class CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
+class CreateProductRequestApiSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField()
     is_foreign_delivery = serializers.BooleanField()
     product_id = serializers.CharField(allow_null=True, required=False)
@@ -101,7 +101,11 @@ class CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
         proto_class = CreateProductRequest
 
 
-class EditProductRequestSerializer(proto_serializers.ProtoSerializer):
+class CreateProductRequestGrpcSerializer(CreateProductRequestApiSerializer):
+    module_name = serializers.CharField(allow_null=True, required=False)
+
+
+class EditProductRequestApiSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField(allow_null=True, required=False)
     is_foreign_delivery = serializers.BooleanField(allow_null=True, required=False)
     product_id = serializers.CharField(allow_null=True, required=False)
@@ -128,3 +132,7 @@ class EditProductRequestSerializer(proto_serializers.ProtoSerializer):
 
     class Meta:
         proto_class = EditProductRequest
+
+
+class EditProductRequestGrpcSerializer(EditProductRequestApiSerializer):
+    module_name = serializers.CharField(allow_null=True, required=False)

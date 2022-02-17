@@ -1,22 +1,25 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
+from drf_spectacular.utils import extend_schema_field
 from office.iamport import IMP
-from office.serializers.daos.cancel_description import CancelDescriptionDAOSerializer
-from office.serializers.daos.delivery_description import (
-    DeliveryDescriptionDAOSerializer,
-)
+from office.models.company import Company
+from office.serializers.company import CompanySerializer
+from office.serializers.daos.cancel_description import \
+    CancelDescriptionDAOSerializer
+from office.serializers.daos.delivery_description import \
+    DeliveryDescriptionDAOSerializer
 from office.serializers.order import OrderSerializer
-from office.serializers.order_item_action_log import OrderItemActionLogSerializer
+from office.serializers.order_item_action_log import \
+    OrderItemActionLogSerializer
+from office.serializers.order_item_status import OrderItemStatus
 from office.serializers.order_memo import OrderItemMemoSerializer
-from office.serializers.order_payment_adjustment import (
-    OrderItemPaymentAdjustmentSerializer,
-)
+from office.serializers.order_payment_adjustment import \
+    OrderItemPaymentAdjustmentSerializer
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.refund_item import RefundItemSerializer
 from protos.order.order_item import order_item_pb2
 from rest_framework import fields
-from office.serializers.order_item_status import OrderItemStatus
-from drf_spectacular.utils import extend_schema_field
+from rest_framework.exceptions import APIException
 
 
 class OrderItemType(models.TextChoices):
@@ -36,6 +39,19 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     # brand
     brand_keyname = fields.CharField()
     brand_korname = fields.CharField()
+
+    # company
+    company = fields.SerializerMethodField()
+
+    @extend_schema_field(CompanySerializer(allow_null=True))
+    def get_company(self, obj):
+        try:
+            company = Company.objects.get(keyname=obj.company_keyname)
+            return CompanySerializer(company).data
+        except:
+            # Object does not necessarily have a company
+            return None
+
 
     # product
     product_id = fields.CharField()
