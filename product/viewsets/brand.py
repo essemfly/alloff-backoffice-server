@@ -7,10 +7,12 @@ from office.models.company import CompanyStatus
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
-
-from product.serializers.brand import (BrandSerializer, CreateBrandSerializer,
-                                       EditBrandSerializer)
-from product.serializers.product import EditProductRequestApiSerializer
+from rest_framework import status
+from product.serializers.brand import (
+    BrandSerializer,
+    CreateBrandSerializer,
+    EditBrandSerializer,
+)
 from product.services.brand import BrandService
 
 
@@ -52,7 +54,7 @@ class BrandViewSet(
         return Response(new_brand, status=status.HTTP_201_CREATED)
 
     @extend_schema(
-        request=EditProductRequestApiSerializer,
+        request=EditBrandSerializer,
         responses={status.HTTP_200_OK: BrandSerializer},
     )
     def update(self, request, pk, *args, **kwargs):

@@ -2,12 +2,16 @@ from django.forms import CharField
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
 from numpy import require
+
 from protos.product.product_pb2 import (CreateProductRequest,
                                         EditProductRequest,
                                         ListProductsRequest,
                                         ListProductsResponse,
                                         ProductInventoryMessage,
                                         ProductMessage, ProductQuery)
+
+from drf_spectacular.utils import extend_schema_serializer
+
 from rest_framework import serializers
 
 

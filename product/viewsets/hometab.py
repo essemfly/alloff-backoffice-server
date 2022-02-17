@@ -42,7 +42,7 @@ class HometabItemViewSet(
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk, *args, **kwargs):
-        req = GetHomeTabItemRequest(exhibition_id=pk)
+        req = GetHomeTabItemRequest(item_id=pk)
         res = HometabService.get(req)
         serializer = HomeTabSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
