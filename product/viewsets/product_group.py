@@ -57,11 +57,14 @@ class ProductGroupViewSet(
         else:
             query = ProductGroupQuery(search_query=search_query)
 
+
         req = ListProductGroupsRequest(
             offset=int(offset), limit=int(limit), query=query
         )
+
         resp = ProductGroupService.list(req)
         serializer = ListProductGroupResponseSerializer(resp)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk, *args, **kwargs):

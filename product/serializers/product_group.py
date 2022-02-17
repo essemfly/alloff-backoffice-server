@@ -68,8 +68,7 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
     image_url = serializers.URLField(allow_null=True, required=False)
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
-    products = ProductInGroupSerializer(
-        many=True, allow_null=True, required=False)
+    products = ProductInGroupSerializer(many=True, allow_null=True, required=False)
     group_type = serializers.ChoiceField(
         ProductGroupType.choices, allow_null=True, required=False
     )
@@ -85,7 +84,6 @@ class ListProductGroupRequestSerializer(proto_serializers.ProtoSerializer):
     search_query = serializers.CharField(required=False)
     group_type = serializers.ChoiceField(
         ProductGroupType.choices, required=False)
-
     class Meta:
         proto_class = ListProductGroupsRequest
 

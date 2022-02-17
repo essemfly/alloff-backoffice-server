@@ -1,32 +1,36 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import (
-    GRPC_LOGISTICS_SERVER_URL,
-    GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
-)
-from office.serializers.order_item import OrderItemStatus
+    GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
 from django.contrib.auth.models import User
+from office.serializers.order_item import OrderItemStatus
 from office.serializers.order_payment_adjustment import PaymentAdjustmentType
-from protos.order.order_item import (
-    order_item_pb2,
-    order_item_pb2_grpc,
-)
-from office.services.base import GrpcService
+from office.services.base import GrpcAuthType, GrpcService, grpc_request
+from protos.order.order_item import order_item_pb2, order_item_pb2_grpc
 
 
 class OrderItemService(GrpcService):
     url = GRPC_LOGISTICS_SERVER_URL
+    stub = order_item_pb2_grpc.OrderItemControllerStub
 
     @classmethod
-    def retrieve(cls, id):
-        request = order_item_pb2.OrderItemRetrieveRequest(id=id)
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).Retrieve(
-                request
-            )
+    @grpc_request(
+        order_item_pb2.OrderItemRetrieveRequest,
+        auth_types=[GrpcAuthType.COMPANY],
+    )
+    def Retrieve(
+        cls,
+        id: str = None,
+        user: User = None,
+    ):
+        pass
 
     @classmethod
-    def list(
+    @grpc_request(
+        order_item_pb2.OrderItemListRequest,
+        auth_types=[GrpcAuthType.COMPANY],
+    )
+    def List(
         cls,
         page: int = 1,
         size: int = GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
@@ -34,101 +38,101 @@ class OrderItemService(GrpcService):
         statuses: Optional[List[str]] = None,
         user_id: Optional[str] = None,
         alloff_order_id: Optional[str] = None,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None,
+        user: User = None,
     ):
-        request = order_item_pb2.OrderItemListRequest(
-            size=size,
-            page=page,
-            search=search,
-            statuses=statuses,
-            user_id=user_id,
-            alloff_order_id=alloff_order_id,
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).List(
-                request
-            )
+        pass
 
     @classmethod
-    def change_status(
+    @grpc_request(
+        order_item_pb2.OrderItemStatusChangeRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def ChangeStatus(
         cls,
-        id: int,
-        status: OrderItemStatus,
-        user: User,
+        id: int = None,
+        status: OrderItemStatus = None,
+        user: User = None,
+        courier_id: Optional[int] = None,
         tracking_number: Optional[str] = None,
         tracking_url: Optional[str] = None,
     ) -> dict:
-        request = order_item_pb2.OrderItemStatusChangeRequest(
-            id=id,
-            status=status,
-            tracking_number=tracking_number,
-            tracking_url=tracking_url,
-            **cls.get_userinfo(user),
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(
-                cls.channel
-            ).ChangeStatus(request)
+        pass
 
     @classmethod
-    def add_memo(
+    @grpc_request(
+        order_item_pb2.OrderItemSetTrackingInfoRequest,
+        auth_types=[GrpcAuthType.COMPANY, GrpcAuthType.USER],
+    )
+    def SetTrackingInfo(
         cls,
-        id: int,
-        body: str,
-        user: User,
+        id: int = None,
+        courier_id: int = None,
+        tracking_number: Optional[str] = None,
+        tracking_url: Optional[str] = None,
+        user: User = None,
     ) -> dict:
-        request = order_item_pb2.OrderItemAddMemoRequest(
-            id=id,
-            body=body,
-            **cls.get_userinfo(user),
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).AddMemo(
-                request
-            )
+        pass
 
     @classmethod
-    def delete_memo(cls, id: int, memo_id: int, user: User) -> dict:
-        request = order_item_pb2.OrderItemDeleteMemoRequest(
-            id=id,
-            memo_id=memo_id,
-            **cls.get_userinfo(user),
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(cls.channel).DeleteMemo(
-                request
-            )
+    @grpc_request(
+        order_item_pb2.OrderItemAddMemoRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def AddMemo(
+        cls,
+        id: int = None,
+        body: str = None,
+        user: User = None,
+    ) -> dict:
+        pass
 
     @classmethod
-    def force_receive(cls, id, user: User):
-        request = order_item_pb2.OrderItemForceReceiveRequest(
-            id=id, **cls.get_userinfo(user)
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(
-                cls.channel
-            ).ForceReceive(request)
+    @grpc_request(
+        order_item_pb2.OrderItemDeleteMemoRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def DeleteMemo(
+        cls,
+        id: int = None,
+        memo_id: int = None,
+        user: User = None,
+    ) -> dict:
+        pass
 
     @classmethod
-    def update_refund(
+    @grpc_request(
+        order_item_pb2.OrderItemForceReceiveRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def ForceReceive(
+        cls,
+        id: int = None,
+        user: User = None,
+    ):
+        pass
+
+    @classmethod
+    @grpc_request(
+        order_item_pb2.UpdateRefundRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def UpdateRefund(
         cls,
         id: int = None,
         refund_amount: int = None,
         refund_fee: int = None,
         user: User = None,
     ):
-        request = order_item_pb2.UpdateRefundRequest(
-            id=id,
-            refund_amount=refund_amount,
-            refund_fee=refund_fee,
-            **cls.get_userinfo(user),
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(
-                cls.channel
-            ).UpdateRefund(request)
+        pass
 
     @classmethod
-    def adjust_payment(
+    @grpc_request(
+        order_item_pb2.OrderItemAdjustPaymentRequest,
+        auth_types=[GrpcAuthType.USER],
+    )
+    def AdjustPayment(
         cls,
         id: int = None,
         user: User = None,
@@ -137,15 +141,4 @@ class OrderItemService(GrpcService):
         bank_account_info: Optional[str] = None,
         reason: Optional[str] = None,
     ):
-        request = order_item_pb2.OrderItemAdjustPaymentRequest(
-            id=id,
-            method=method,
-            amount=amount,
-            bank_account_info=bank_account_info,
-            reason=reason,
-            **cls.get_userinfo(user),
-        )
-        with cls.channel:
-            return order_item_pb2_grpc.OrderItemControllerStub(
-                cls.channel
-            ).AdjustPayment(request)
+        pass

@@ -21,7 +21,6 @@ class ExhibitionService(GrpcService):
         with cls.channel:
             stub = ExhibitionStub(cls.channel)
             response: GetExhibitionResponse = stub.GetExhibition(request)
-
             return response.exhibition
 
     @classmethod
@@ -37,7 +36,6 @@ class ExhibitionService(GrpcService):
         with cls.channel:
             stub = ExhibitionStub(cls.channel)
             response: EditExhibitionResponse = stub.EditExhibition(request)
-
             return response.exhibition
 
     @classmethod
@@ -45,5 +43,4 @@ class ExhibitionService(GrpcService):
         with cls.channel:
             stub = ExhibitionStub(cls.channel)
             response: CreateExhibitionResponse = stub.CreateExhibition(request)
-
             return response.exhibition
