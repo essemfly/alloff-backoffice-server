@@ -24,7 +24,6 @@ class AdminSerializer(serializers.ModelSerializer):
             "is_superuser",
             "is_active",
             "date_joined",
-            "username",
             "first_name",
             "last_name",
             "groups",
