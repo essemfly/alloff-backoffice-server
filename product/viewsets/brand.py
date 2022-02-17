@@ -7,17 +7,16 @@ from office.models.company import CompanyStatus
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
-from rest_framework import status
-from product.serializers.brand import (
-    BrandSerializer,
-    CreateBrandSerializer,
-    EditBrandSerializer,
-)
+
+from product.serializers.brand import (BrandSerializer, CreateBrandSerializer,
+                                       EditBrandSerializer)
 from product.services.brand import BrandService
 
 
 def get_usable_brand_keynames(user: User) -> Optional[List[str]]:
-    if user.profile.is_admin:
+    if user.is_anonymous:
+        raise PermissionDenied("Anonymous user is not allowed to access this endpoint.")
+    elif user.profile.is_admin:
         # Catch None and do not filter
         return None
     elif user.profile.company.status != CompanyStatus.ACTIVE:
