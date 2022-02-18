@@ -135,4 +135,4 @@ class EditProductRequestApiSerializer(proto_serializers.ProtoSerializer):
 
 
 class EditProductRequestGrpcSerializer(EditProductRequestApiSerializer):
-    module_name = serializers.CharField(allow_null=True, required=False)
+    module_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
