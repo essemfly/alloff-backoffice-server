@@ -36,7 +36,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     finish_time = serializers.DateTimeField()
     pg_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False)
-
+    
     class Meta:
         proto_class = CreateExhibitionRequest
 

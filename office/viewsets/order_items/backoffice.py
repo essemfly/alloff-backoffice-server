@@ -52,9 +52,9 @@ class OrderItemBackofficeViewSet(OrderItemCompanyApiViewSet):
         serializer = AddOrderItemMemoSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         item = OrderItemService.AddMemo(
-            int(pk),
-            serializer.validated_data.get("body"),
-            request.user,
+            id=int(pk),
+            body=serializer.validated_data.get("body"),
+            user=request.user,
         )
         return Response(
             OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
@@ -69,9 +69,9 @@ class OrderItemBackofficeViewSet(OrderItemCompanyApiViewSet):
         serializer = DeleteItemOrderMemoSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         item = OrderItemService.DeleteMemo(
-            int(pk),
-            serializer.validated_data.get("memo_id"),
-            request.user,
+            id=int(pk),
+            memo_id=serializer.validated_data.get("memo_id"),
+            user=request.user,
         )
         return Response(
             OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
