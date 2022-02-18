@@ -67,9 +67,6 @@ router.register(r"products", ProductViewSet, basename="products")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("admin/", admin.site.urls),
-    path("token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",
@@ -82,3 +79,15 @@ urlpatterns = [
         name="redoc",
     ),
 ]
+
+
+if not API_TYPE_IS_COMPANY_API:
+    urlpatterns += [
+        path("admin/", admin.site.urls),
+        path(
+            "token/", DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"
+        ),
+        path(
+            "token/refresh/", DecoratedTokenRefreshView.as_view(), name="token_refresh"
+        ),
+    ]
