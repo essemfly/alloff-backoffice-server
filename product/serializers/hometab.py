@@ -42,9 +42,7 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     exhibition_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    alloffcategory_id = serializers.ListField(
-        child=serializers.CharField(), allow_null=True, required=False
-    )
+    alloffcategory_id = serializers.CharField(allow_null=True, required=False)
     options = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
