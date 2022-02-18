@@ -87,7 +87,7 @@ class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
     description = serializers.CharField()
     tags = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False)
-    back_image_url = serializers.CharField()
+    back_image_url = serializers.CharField(allow_null=True, required=False)
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     contents = ItemRequesterSerializer()
