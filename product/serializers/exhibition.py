@@ -34,14 +34,15 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     description = serializers.CharField()
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
-    pg_ids = serializers.ListField(serializers.CharField())
-
+    pg_ids = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False)
+    
     class Meta:
         proto_class = CreateExhibitionRequest
 
 
 class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
-    # exhibition_id = serializers.CharField()
+    exhibition_id = serializers.CharField()
     banner_image = serializers.CharField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
     title = serializers.CharField(allow_null=True, required=False)
@@ -50,7 +51,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
     pg_ids = serializers.ListField(
-        serializers.CharField(), allow_null=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
 
     class Meta:
