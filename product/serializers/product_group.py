@@ -33,7 +33,7 @@ class ProductInGroupSerializer(proto_serializers.ProtoSerializer):
 class ProductGroupSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField(max_length=50)
     short_title = serializers.CharField(max_length=20)
-    instruction = serializers.ListField(serializers.CharField())
+    instruction = serializers.ListField(child=serializers.CharField())
     image_url = serializers.URLField()
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()

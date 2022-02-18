@@ -39,15 +39,16 @@ class SortingOptions(models.TextChoices):
 class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     item_type = serializers.ChoiceField(ItemTypes.choices)
     brand_keynames = serializers.ListField(
-        serializers.CharField(), allow_null=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
     exhibition_ids = serializers.ListField(
-        serializers.CharField(), allow_null=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
     alloffcategory_id = serializers.ListField(
-        serializers.CharField(), allow_null=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
-    options = serializers.MultipleChoiceField(SortingOptions.choices)
+    options = serializers.MultipleChoiceField(
+        SortingOptions.choices, allow_null=True, required=False)
 
     class Meta:
         proto_class = ItemRequester
@@ -66,7 +67,7 @@ class HomeTabSerializer(proto_serializers.ProtoSerializer):
     item_id = serializers.CharField()
     title = serializers.CharField()
     description = serializers.CharField()
-    tags = serializers.ListField(serializers.CharField())
+    tags = serializers.ListField(child=serializers.CharField())
     back_image_url = serializers.CharField()
     item_type = serializers.ChoiceField(ItemTypes.choices)
     start_time = serializers.DateTimeField()
@@ -84,8 +85,9 @@ class HomeTabSerializer(proto_serializers.ProtoSerializer):
 class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField()
     description = serializers.CharField()
-    tags = serializers.ListField(serializers.CharField())
-    back_image_url = serializers.CharField()
+    tags = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False)
+    back_image_url = serializers.CharField(allow_null=True, required=False)
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     contents = ItemRequesterSerializer()
@@ -100,7 +102,7 @@ class EditHomeTabSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField(allow_null=True, required=False)
     description = serializers.CharField(allow_null=True, required=False)
     tags = serializers.ListField(
-        serializers.CharField(), allow_null=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
     back_image_url = serializers.CharField(allow_null=True, required=False)
     start_time = serializers.DateTimeField(allow_null=True, required=False)

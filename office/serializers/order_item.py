@@ -68,8 +68,8 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     quantity = fields.IntegerField()
 
     # tracking
-    tracking_url = fields.ListField(fields.CharField())
-    tracking_number = fields.ListField(fields.CharField())
+    tracking_url = fields.ListField(child=fields.CharField())
+    tracking_number = fields.ListField(child=fields.CharField())
 
     created_at = fields.DateTimeField()
     updated_at = fields.DateTimeField()
@@ -107,7 +107,6 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
     is_foreign = fields.BooleanField()
     shipped_items_count = fields.IntegerField()
     fulfillable_items_count = fields.IntegerField()
-
 
     class Meta:
         proto_class = order_item_pb2.OrderItem
