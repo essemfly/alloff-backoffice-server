@@ -37,7 +37,7 @@ class IMP(_Singleton):
 
     def cancel_payment(self, uid: str, amount: int, checksum: int, reason: str):
         res = self.__iamport.cancel_by_imp_uid(
-            uid, reason, amount=amount, checksum=checksum
+            uid, reason, amount=amount, checksum=None
         )
         return res
 
