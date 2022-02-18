@@ -47,7 +47,8 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     alloffcategory_id = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    options = serializers.MultipleChoiceField(SortingOptions.choices)
+    options = serializers.MultipleChoiceField(
+        SortingOptions.choices, allow_null=True, required=False)
 
     class Meta:
         proto_class = ItemRequester
