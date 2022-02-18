@@ -12,4 +12,4 @@ class DeliveryDescriptionDAOSerializer(serializers.Serializer):
     DeliveryFee = serializers.IntegerField()
     EarliestDeliveryDays = serializers.IntegerField()
     LatestDeliveryDays = serializers.IntegerField()
-    Texts = serializers.ListField(serializers.CharField())
+    Texts = serializers.ListField(child=serializers.CharField())
