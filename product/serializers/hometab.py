@@ -1,19 +1,17 @@
-from drf_spectacular.utils import extend_schema_serializer
-from rest_framework import serializers
 from django.db import models
 from django_grpc_framework import proto_serializers
+from drf_spectacular.utils import extend_schema_serializer
+from protos.product.hometab_pb2 import (CreateHomeTabItemRequest,
+                                        EditHomeTabItemRequest,
+                                        HomeTabItemMessage,
+                                        HomeTabItemReferenceMessage,
+                                        ItemRequester, ListHomeTabItemsRequest,
+                                        ListHomeTabItemsResponse)
+from rest_framework import serializers
+
 from product.serializers.brand import BrandSerializer
 from product.serializers.exhibition import ExhibitionSerializer
 from product.serializers.product import ProductSerializer
-from protos.product.hometab_pb2 import (
-    HomeTabItemReferenceMessage,
-    HomeTabItemMessage,
-    CreateHomeTabItemRequest,
-    EditHomeTabItemRequest,
-    ItemRequester,
-    ListHomeTabItemsRequest,
-    ListHomeTabItemsResponse,
-)
 
 
 class ItemTypes(models.TextChoices):
@@ -47,8 +45,9 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     alloffcategory_id = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    options = serializers.MultipleChoiceField(
-        SortingOptions.choices, allow_null=True, required=False)
+    options = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False
+    )
 
     class Meta:
         proto_class = ItemRequester
@@ -86,7 +85,8 @@ class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField()
     description = serializers.CharField()
     tags = serializers.ListField(
-        child=serializers.CharField(), allow_null=True, required=False)
+        child=serializers.CharField(), allow_null=True, required=False
+    )
     back_image_url = serializers.CharField(allow_null=True, required=False)
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
