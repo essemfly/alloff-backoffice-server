@@ -47,9 +47,11 @@ class ProductGroupSerializer(proto_serializers.ProtoSerializer):
 
 class CreateProductGroupSeriazlier(proto_serializers.ProtoSerializer):
     title = serializers.CharField(max_length=50)
-    short_title = serializers.CharField(max_length=20, allow_null=True, required=False)
+    short_title = serializers.CharField(
+        max_length=20, allow_null=True, required=False)
     instruction = serializers.ListField(child=serializers.CharField())
-    image_url = serializers.CharField(allow_null=True, required=False)
+    image_url = serializers.CharField(
+        allow_blank=True, allow_null=True, required=False)
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     group_type = serializers.ChoiceField(ProductGroupType.choices)
@@ -59,13 +61,18 @@ class CreateProductGroupSeriazlier(proto_serializers.ProtoSerializer):
 
 
 class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
-    title = serializers.CharField(max_length=50, allow_null=True, required=False)
-    short_title = serializers.CharField(max_length=20, allow_null=True, required=False)
-    instruction = serializers.ListField(child=serializers.CharField(), required=False)
-    image_url = serializers.CharField(allow_null=True, required=False)
+    title = serializers.CharField(
+        max_length=50, allow_null=True, required=False)
+    short_title = serializers.CharField(
+        max_length=20, allow_null=True, required=False)
+    instruction = serializers.ListField(
+        child=serializers.CharField(), required=False)
+    image_url = serializers.CharField(
+        allow_blank=True, allow_null=True, required=False)
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
-    products = ProductInGroupSerializer(many=True, allow_null=True, required=False)
+    products = ProductInGroupSerializer(
+        many=True, allow_null=True, required=False)
     group_type = serializers.ChoiceField(
         ProductGroupType.choices, allow_null=True, required=False
     )
@@ -79,7 +86,8 @@ class ListProductGroupRequestSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
     search_query = serializers.CharField(required=False)
-    group_type = serializers.ChoiceField(ProductGroupType.choices, required=False)
+    group_type = serializers.ChoiceField(
+        ProductGroupType.choices, required=False)
 
     class Meta:
         proto_class = ListProductGroupsRequest
