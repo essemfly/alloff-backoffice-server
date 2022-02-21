@@ -83,7 +83,7 @@ class OrderItemBackofficeViewSet(OrderItemCompanyApiViewSet):
     )
     @action(detail=True, methods=["POST"])
     def force_receive(self, request: Request, pk=None):
-        item = OrderItemService.ForceReceive(int(pk), request.user)
+        item = OrderItemService.ForceReceive(id=int(pk), user=request.user)
         return Response(
             OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
         )
