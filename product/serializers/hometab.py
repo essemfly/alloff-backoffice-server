@@ -49,6 +49,9 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     options = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
+    product_ids = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False
+    )
 
     class Meta:
         proto_class = ItemRequester
