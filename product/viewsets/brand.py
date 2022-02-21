@@ -50,8 +50,9 @@ class BrandViewSet(
     def create(self, request, *args, **kwargs):
         serializer = CreateBrandSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        new_brand = BrandService.create(serializer.message)
-        return Response(new_brand, status=status.HTTP_201_CREATED)
+        res = BrandService.create(serializer.message)
+        serializer = BrandSerializer(res)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
         request=EditBrandSerializer,
