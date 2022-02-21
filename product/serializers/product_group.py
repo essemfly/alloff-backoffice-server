@@ -48,7 +48,7 @@ class ProductGroupSerializer(proto_serializers.ProtoSerializer):
 class CreateProductGroupSeriazlier(proto_serializers.ProtoSerializer):
     title = serializers.CharField(max_length=50)
     short_title = serializers.CharField(
-        max_length=20, allow_null=True, required=False)
+        max_length=20, allow_blank=True, allow_null=True, required=False)
     instruction = serializers.ListField(child=serializers.CharField())
     image_url = serializers.CharField(
         allow_blank=True, allow_null=True, required=False)
@@ -64,7 +64,7 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField(
         max_length=50, allow_null=True, required=False)
     short_title = serializers.CharField(
-        max_length=20, allow_null=True, required=False)
+        max_length=20, allow_blank=True, allow_null=True, required=False)
     instruction = serializers.ListField(
         child=serializers.CharField(), required=False)
     image_url = serializers.CharField(
