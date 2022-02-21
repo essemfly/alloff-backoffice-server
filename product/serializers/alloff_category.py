@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema_serializer
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
@@ -25,5 +26,6 @@ class ListAlloffCateogoryRequestSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListAlloffCategoryRequest
 
 
+@extend_schema_serializer(many=False)
 class ListAlloffCategoryResponseSerializer(proto_serializers.ProtoSerializer):
     categories = AlloffCategorySerializer(many=True)

@@ -41,7 +41,7 @@ message CreateHomeTabItemRequest {
     string title = 1;
     string description = 2;
     repeated string tags = 3;
-    string back_image_url = 4;
+    optional string back_image_url = 4;
     string start_time = 5;
     string finish_time = 6;
     ItemRequester contents = 7;
@@ -103,8 +103,8 @@ enum ItemType {
     HOMETAB_ITEM_BRAND_EXHIBITION = 1;
     HOMETAB_ITEM_EXHIBITIONS = 2;
     HOMETAB_ITEM_EXHIBITION = 3;
-    HOMETAB_ITEM_PRODUCTS_A = 4;
-    HOMETAB_ITEM_PRODUCTS_B = 5;
+    HOMETAB_ITEM_PRODUCTS_BRANDS = 4;
+    HOMETAB_ITEM_PRODUCTS_CATEGORIES = 5;
 }
 
 enum SortingOptions {
