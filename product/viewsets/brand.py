@@ -15,7 +15,8 @@ from product.services.brand import BrandService
 
 def get_usable_brand_keynames(user: User) -> Optional[List[str]]:
     if user.is_anonymous:
-        raise PermissionDenied("Anonymous user is not allowed to access this endpoint.")
+        raise PermissionDenied(
+            "Anonymous user is not allowed to access this endpoint.")
     elif user.profile.is_admin:
         # Catch None and do not filter
         return None
@@ -47,7 +48,7 @@ class BrandViewSet(
         responses={status.HTTP_201_CREATED: BrandSerializer},
     )
     def create(self, request, *args, **kwargs):
-        serializer = BrandSerializer(data=request.data)
+        serializer = CreateBrandSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         new_brand = BrandService.create(serializer.message)
         return Response(new_brand, status=status.HTTP_201_CREATED)
