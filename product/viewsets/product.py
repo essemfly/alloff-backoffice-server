@@ -6,7 +6,7 @@ from office.models.html_product_info import HtmlProductInfo
 from protos.product.product_pb2 import (GetProductRequest, ListProductsRequest,
                                         ProductQuery)
 from rest_framework import mixins, status, viewsets
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.response import Response
 
 from product.helpers.get_module_name import get_module_name
@@ -18,25 +18,6 @@ from product.serializers.product import (CreateProductRequestApiSerializer,
                                          ListProductSerializer,
                                          ProductSerializer)
 from product.services.product import ProductService
-
-
-def separate_html_from_request(request):
-    raw_html = request.data.get("raw_html")
-    if raw_html is not None:
-        del request.data["raw_html"]
-    return raw_html, request
-
-
-def parse_html(raw_html):
-    soup = BeautifulSoup(raw_html)
-    text_nodes = [
-        t for x in soup.find_all(text=True) if (t := " ".join(x.split())) != ""
-    ]
-    images = [x["src"] for x in soup.find_all("img")]
-    return text_nodes, images
-
-def populate_grpc_request():
-    pass
 
 
 class ProductViewSet(
@@ -110,20 +91,9 @@ class ProductViewSet(
     )
     @with_company_api
     def create(self, request, *args, **kwargs):
-        module_name = get_module_name(request)
-        raw_html, request = separate_html_from_request(request)
-
-        request_serializer = CreateProductRequestGrpcSerializer(
-            data={**request.data, "module_name": module_name}
+        return Response(
+            _upsert_product(request, is_update=False), status=status.HTTP_201_CREATED
         )
-        request_serializer.is_valid(raise_exception=True)
-
-        res = ProductService.create(request_serializer.message)
-        result_serializer = ProductSerializer(res)
-
-        HtmlProductInfo.objects.create(res.id, raw_html)
-
-        return Response(result_serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
         request=EditProductRequestApiSerializer,
@@ -131,19 +101,70 @@ class ProductViewSet(
     )
     @with_company_api
     def update(self, request, pk, *args, **kwargs):
-        module_name = get_module_name(request)
-        raw_html, request = separate_html_from_request(request)
-
-        request_serializer = EditProductRequestGrpcSerializer(
-            data={**request.data, "module_name": module_name}
-        )
-        request_serializer.is_valid(raise_exception=True)
-
-        res = ProductService.edit(request_serializer.message)
-        result_serializer = ProductSerializer(res)
-
-        HtmlProductInfo.objects.update_or_create(
-            product_id=pk, defaults={"raw_html": raw_html}
+        return Response(
+            _upsert_product(request, is_update=True, pk=pk), status=status.HTTP_200_OK
         )
 
-        return Response(result_serializer.data, status=status.HTTP_200_OK)
+
+def _upsert_product(request, is_update: bool = None, pk=None):
+    if is_update is None:
+        raise APIException("is_update should be explicitly set.")
+    if is_update and pk is None:
+        raise APIException("pk should be explicitly set when is_update is True.")
+
+    RequestSerializer = (
+        CreateProductRequestGrpcSerializer
+        if not is_update
+        else EditProductRequestGrpcSerializer
+    )
+    grpc_call = ProductService.create if not is_update else ProductService.edit
+
+    data, raw_html = _make_grpc_request_data(request)
+    request_serializer = RequestSerializer(data=data)
+    request_serializer.is_valid(raise_exception=True)
+
+    res = grpc_call(request_serializer.message)
+    result_serializer = ProductSerializer(res)
+
+    if raw_html is not None and raw_html != "":
+        if is_update:
+            HtmlProductInfo.objects.update_or_create(
+                product_id=pk, defaults={"raw_html": raw_html}
+            )
+        else:
+            HtmlProductInfo.objects.create(product_id=res.alloff_product_id, raw_html=raw_html)
+    return result_serializer.data
+
+
+def _make_grpc_request_data(request):
+    """
+    Convert request data to grpc request data.
+    1. Gets module_name for authorization purposes.
+    2. Gets raw_html from request for company API spec purposes.
+    3. Parses raw_html to get text_nodes and images.
+    4. Returns grpc request data and raw_html for saving.
+    """
+    module_name = get_module_name(request)
+    raw_html, new_request = _separate_html_from_request(request)
+    data = {**new_request.data, "module_name": module_name}
+    if raw_html is not None and raw_html != "":
+        text_nodes, images = _parse_html(raw_html)
+        data["description"] = text_nodes
+        data["description_images"] = images
+    return data, raw_html
+
+
+def _separate_html_from_request(request):
+    raw_html = request.data.get("raw_html")
+    if raw_html is not None:
+        del request.data["raw_html"]    
+    return raw_html, request
+
+
+def _parse_html(raw_html):
+    soup = BeautifulSoup(raw_html)
+    text_nodes = [
+        t for x in soup.find_all(text=True) if (t := " ".join(x.split())) != ""
+    ]
+    images = [x["src"] for x in soup.find_all("img") if "src" in x.attrs] 
+    return text_nodes, images

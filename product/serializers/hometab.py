@@ -19,7 +19,7 @@ from product.serializers.product import ProductSerializer
 
 class ItemTypes(models.TextChoices):
     HOMETAB_ITEM_BRANDS = "HOMETAB_ITEM_BRANDS"
-    HOMETAB_ITEM_BRAND_EXHIBITION = "HOMETAB_ITEM_BRAND_EXHIBITION"
+    HOMETAB_ITEM_EXHIBITION_A = "HOMETAB_ITEM_EXHIBITION_A"
     HOMETAB_ITEM_EXHIBITIONS = "HOMETAB_ITEM_EXHIBITIONS"
     HOMETAB_ITEM_EXHIBITION = "HOMETAB_ITEM_EXHIBITION"
     HOMETAB_ITEM_PRODUCTS_BRANDS = "HOMETAB_ITEM_PRODUCTS_BRANDS"
@@ -47,6 +47,9 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
     )
     alloffcategory_id = serializers.CharField(allow_null=True, required=False)
     options = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False
+    )
+    product_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
 
@@ -88,7 +91,9 @@ class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
     tags = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    back_image_url = serializers.CharField(allow_null=True, required=False)
+    back_image_url = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     contents = ItemRequesterSerializer()
@@ -100,12 +105,16 @@ class CreateHomeTabSerializer(proto_serializers.ProtoSerializer):
 
 class EditHomeTabSerializer(proto_serializers.ProtoSerializer):
     hometab_id = serializers.CharField()
-    title = serializers.CharField(allow_null=True, required=False)
-    description = serializers.CharField(allow_null=True, required=False)
+    title = serializers.CharField(allow_null=True, required=False, allow_blank=True)
+    description = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     tags = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    back_image_url = serializers.CharField(allow_null=True, required=False)
+    back_image_url = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
     contents = ItemRequesterSerializer(allow_null=True, required=False)

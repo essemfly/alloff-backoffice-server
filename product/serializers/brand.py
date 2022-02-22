@@ -51,20 +51,25 @@ class CreateBrandSerializer(proto_serializers.ProtoSerializer):
 
 class EditBrandSerializer(proto_serializers.ProtoSerializer):
     keyname = serializers.CharField(max_length=50)
-    korname = serializers.CharField(max_length=50, allow_null=True, required=False)
-    engname = serializers.CharField(max_length=50, allow_null=True, required=False)
+    korname = serializers.CharField(
+        max_length=50, allow_null=True, required=False)
+    engname = serializers.CharField(
+        max_length=50, allow_null=True, required=False)
     logo_image_url = serializers.CharField(allow_null=True, required=False)
-    description = serializers.CharField(max_length=50, allow_null=True, required=False)
+    description = serializers.CharField(
+        max_length=50, allow_null=True, required=False)
     is_popular = serializers.BooleanField(
         default=False, allow_null=True, required=False
     )
-    is_open = serializers.BooleanField(default=True, allow_null=True, required=False)
+    is_open = serializers.BooleanField(
+        default=True, allow_null=True, required=False)
     in_maintenance = serializers.BooleanField(
         default=False, allow_null=True, required=False
     )
-    size_guide = SizeGuideSerializer(many=True, allow_null=True, required=False)
+    size_guide = SizeGuideSerializer(
+        many=True, allow_null=True, required=False)
     back_image_url = serializers.CharField(
-        max_length=50, allow_null=True, required=False
+        allow_null=True, required=False
     )
 
     class Meta:
