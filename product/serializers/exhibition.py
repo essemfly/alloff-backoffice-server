@@ -21,6 +21,7 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     pgs = ProductGroupSerializer(many=True)
+    is_live = serializers.BooleanField()
 
     class Meta:
         proto_class = ExhibitionMessage
@@ -35,8 +36,9 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     pg_ids = serializers.ListField(
-        child=serializers.CharField(), allow_null=True, required=False)
-    
+        child=serializers.CharField(), allow_null=True, required=False
+    )
+
     class Meta:
         proto_class = CreateExhibitionRequest
 
@@ -53,6 +55,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     pg_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
+    is_live = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditExhibitionRequest

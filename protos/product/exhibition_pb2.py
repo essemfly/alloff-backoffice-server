@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1fprotos/product/exhibition.proto\x12\ngrpcServer\x1a!protos/product/productGroup.proto\"-\n\x14GetExhibitionRequest\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\"7\n\x16ListExhibitionsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xda\x02\n\x15\x45\x64itExhibitionRequest\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\x12\x19\n\x0c\x62\x61nner_image\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0fthumbnail_image\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x12\n\x05title\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x15\n\x08subtitle\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x06 \x01(\tH\x04\x88\x01\x01\x12\x17\n\nstart_time\x18\x07 \x01(\tH\x05\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x08 \x01(\tH\x06\x88\x01\x01\x12\x0e\n\x06pg_ids\x18\t \x03(\tB\x0f\n\r_banner_imageB\x12\n\x10_thumbnail_imageB\x08\n\x06_titleB\x0b\n\t_subtitleB\x0e\n\x0c_descriptionB\r\n\x0b_start_timeB\x0e\n\x0c_finish_time\"\xb7\x01\n\x17\x43reateExhibitionRequest\x12\x14\n\x0c\x62\x61nner_image\x18\x01 \x01(\t\x12\x17\n\x0fthumbnail_image\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x10\n\x08subtitle\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x12\n\nstart_time\x18\x06 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x07 \x01(\t\x12\x0e\n\x06pg_ids\x18\x08 \x03(\t\"J\n\x15GetExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"\x82\x01\n\x17ListExhibitionsResponse\x12\x32\n\x0b\x65xhibitions\x18\x01 \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"K\n\x16\x45\x64itExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"M\n\x18\x43reateExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"\xe6\x01\n\x11\x45xhibitionMessage\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\x12\x14\n\x0c\x62\x61nner_image\x18\x02 \x01(\t\x12\x17\n\x0fthumbnail_image\x18\x03 \x01(\t\x12\r\n\x05title\x18\x04 \x01(\t\x12\x10\n\x08subtitle\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x03pgs\x18\t \x03(\x0b\x32\x1f.grpcServer.ProductGroupMessage2\xf6\x02\n\nExhibition\x12T\n\rGetExhibition\x12 .grpcServer.GetExhibitionRequest\x1a!.grpcServer.GetExhibitionResponse\x12Z\n\x0fListExhibitions\x12\".grpcServer.ListExhibitionsRequest\x1a#.grpcServer.ListExhibitionsResponse\x12W\n\x0e\x45\x64itExhibition\x12!.grpcServer.EditExhibitionRequest\x1a\".grpcServer.EditExhibitionResponse\x12]\n\x10\x43reateExhibition\x12#.grpcServer.CreateExhibitionRequest\x1a$.grpcServer.CreateExhibitionResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n\x1fprotos/product/exhibition.proto\x12\ngrpcServer\x1a!protos/product/productGroup.proto\"-\n\x14GetExhibitionRequest\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\"7\n\x16ListExhibitionsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xfc\x02\n\x15\x45\x64itExhibitionRequest\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\x12\x19\n\x0c\x62\x61nner_image\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x1c\n\x0fthumbnail_image\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x12\n\x05title\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x15\n\x08subtitle\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x06 \x01(\tH\x04\x88\x01\x01\x12\x17\n\nstart_time\x18\x07 \x01(\tH\x05\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x08 \x01(\tH\x06\x88\x01\x01\x12\x0e\n\x06pg_ids\x18\t \x03(\t\x12\x14\n\x07is_live\x18\n \x01(\x08H\x07\x88\x01\x01\x42\x0f\n\r_banner_imageB\x12\n\x10_thumbnail_imageB\x08\n\x06_titleB\x0b\n\t_subtitleB\x0e\n\x0c_descriptionB\r\n\x0b_start_timeB\x0e\n\x0c_finish_timeB\n\n\x08_is_live\"\xb7\x01\n\x17\x43reateExhibitionRequest\x12\x14\n\x0c\x62\x61nner_image\x18\x01 \x01(\t\x12\x17\n\x0fthumbnail_image\x18\x02 \x01(\t\x12\r\n\x05title\x18\x03 \x01(\t\x12\x10\n\x08subtitle\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x12\n\nstart_time\x18\x06 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x07 \x01(\t\x12\x0e\n\x06pg_ids\x18\x08 \x03(\t\"J\n\x15GetExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"\x82\x01\n\x17ListExhibitionsResponse\x12\x32\n\x0b\x65xhibitions\x18\x01 \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"K\n\x16\x45\x64itExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"M\n\x18\x43reateExhibitionResponse\x12\x31\n\nexhibition\x18\x01 \x01(\x0b\x32\x1d.grpcServer.ExhibitionMessage\"\xf7\x01\n\x11\x45xhibitionMessage\x12\x15\n\rexhibition_id\x18\x01 \x01(\t\x12\x14\n\x0c\x62\x61nner_image\x18\x02 \x01(\t\x12\x17\n\x0fthumbnail_image\x18\x03 \x01(\t\x12\r\n\x05title\x18\x04 \x01(\t\x12\x10\n\x08subtitle\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x03pgs\x18\t \x03(\x0b\x32\x1f.grpcServer.ProductGroupMessage\x12\x0f\n\x07is_live\x18\n \x01(\x08\x32\xf6\x02\n\nExhibition\x12T\n\rGetExhibition\x12 .grpcServer.GetExhibitionRequest\x1a!.grpcServer.GetExhibitionResponse\x12Z\n\x0fListExhibitions\x12\".grpcServer.ListExhibitionsRequest\x1a#.grpcServer.ListExhibitionsResponse\x12W\n\x0e\x45\x64itExhibition\x12!.grpcServer.EditExhibitionRequest\x1a\".grpcServer.EditExhibitionResponse\x12]\n\x10\x43reateExhibition\x12#.grpcServer.CreateExhibitionRequest\x1a$.grpcServer.CreateExhibitionResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
   ,
   dependencies=[protos_dot_product_dot_productGroup__pb2.DESCRIPTOR,])
 
@@ -169,6 +169,13 @@ _EDITEXHIBITIONREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_live', full_name='grpcServer.EditExhibitionRequest.is_live', index=9,
+      number=10, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -215,9 +222,14 @@ _EDITEXHIBITIONREQUEST = _descriptor.Descriptor(
       index=6, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_is_live', full_name='grpcServer.EditExhibitionRequest._is_live',
+      index=7, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=187,
-  serialized_end=533,
+  serialized_end=567,
 )
 
 
@@ -297,8 +309,8 @@ _CREATEEXHIBITIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=536,
-  serialized_end=719,
+  serialized_start=570,
+  serialized_end=753,
 )
 
 
@@ -329,8 +341,8 @@ _GETEXHIBITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=721,
-  serialized_end=795,
+  serialized_start=755,
+  serialized_end=829,
 )
 
 
@@ -382,8 +394,8 @@ _LISTEXHIBITIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=798,
-  serialized_end=928,
+  serialized_start=832,
+  serialized_end=962,
 )
 
 
@@ -414,8 +426,8 @@ _EDITEXHIBITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=930,
-  serialized_end=1005,
+  serialized_start=964,
+  serialized_end=1039,
 )
 
 
@@ -446,8 +458,8 @@ _CREATEEXHIBITIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1007,
-  serialized_end=1084,
+  serialized_start=1041,
+  serialized_end=1118,
 )
 
 
@@ -522,6 +534,13 @@ _EXHIBITIONMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_live', full_name='grpcServer.ExhibitionMessage.is_live', index=9,
+      number=10, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -534,8 +553,8 @@ _EXHIBITIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1087,
-  serialized_end=1317,
+  serialized_start=1121,
+  serialized_end=1368,
 )
 
 _EDITEXHIBITIONREQUEST.oneofs_by_name['_banner_image'].fields.append(
@@ -559,6 +578,9 @@ _EDITEXHIBITIONREQUEST.fields_by_name['start_time'].containing_oneof = _EDITEXHI
 _EDITEXHIBITIONREQUEST.oneofs_by_name['_finish_time'].fields.append(
   _EDITEXHIBITIONREQUEST.fields_by_name['finish_time'])
 _EDITEXHIBITIONREQUEST.fields_by_name['finish_time'].containing_oneof = _EDITEXHIBITIONREQUEST.oneofs_by_name['_finish_time']
+_EDITEXHIBITIONREQUEST.oneofs_by_name['_is_live'].fields.append(
+  _EDITEXHIBITIONREQUEST.fields_by_name['is_live'])
+_EDITEXHIBITIONREQUEST.fields_by_name['is_live'].containing_oneof = _EDITEXHIBITIONREQUEST.oneofs_by_name['_is_live']
 _GETEXHIBITIONRESPONSE.fields_by_name['exhibition'].message_type = _EXHIBITIONMESSAGE
 _LISTEXHIBITIONSRESPONSE.fields_by_name['exhibitions'].message_type = _EXHIBITIONMESSAGE
 _EDITEXHIBITIONRESPONSE.fields_by_name['exhibition'].message_type = _EXHIBITIONMESSAGE
@@ -648,8 +670,8 @@ _EXHIBITION = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1320,
-  serialized_end=1694,
+  serialized_start=1371,
+  serialized_end=1745,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetExhibition',
