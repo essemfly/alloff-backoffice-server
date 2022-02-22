@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1cprotos/product/hometab.proto\x12\ngrpcServer\x1a\x1fprotos/product/exhibition.proto\x1a\x1cprotos/product/product.proto\x1a\x1aprotos/product/brand.proto\"(\n\x15GetHomeTabItemRequest\x12\x0f\n\x07item_id\x18\x01 \x01(\t\"8\n\x17ListHomeTabItemsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xd1\x02\n\x16\x45\x64itHomeTabItemRequest\x12\x12\n\nhometab_id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nstart_time\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x07 \x01(\tH\x04\x88\x01\x01\x12+\n\x08\x63ontents\x18\x08 \x01(\x0b\x32\x19.grpcServer.ItemRequester\x12\x13\n\x06weight\x18\t \x01(\x05H\x05\x88\x01\x01\x42\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x11\n\x0f_back_image_urlB\r\n\x0b_start_timeB\x0e\n\x0c_finish_timeB\t\n\x07_weight\"\xe2\x01\n\x18\x43reateHomeTabItemRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\x12+\n\x08\x63ontents\x18\x07 \x01(\x0b\x32\x19.grpcServer.ItemRequester\x12\x0e\n\x06weight\x18\x08 \x01(\x05\x42\x11\n\x0f_back_image_url\"F\n\x16GetHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"~\n\x18ListHomeTabItemsResponse\x12-\n\x05items\x18\x01 \x03(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"G\n\x17\x45\x64itHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"I\n\x19\x43reateHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"\x99\x03\n\x12HomeTabItemMessage\x12\x0f\n\x07item_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\t\x12\'\n\titem_type\x18\x06 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x08products\x18\t \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12(\n\x06\x62rands\x18\n \x03(\x0b\x32\x18.grpcServer.BrandMessage\x12\x32\n\x0b\x65xhibitions\x18\x0b \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12:\n\treference\x18\x0c \x01(\x0b\x32\'.grpcServer.HomeTabItemReferenceMessage\x12\x0e\n\x06weight\x18\r \x01(\x05\"h\n\x1bHomeTabItemReferenceMessage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0e\n\x06params\x18\x02 \x01(\t\x12+\n\x07options\x18\x03 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\"\xe0\x01\n\rItemRequester\x12\'\n\titem_type\x18\x01 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x16\n\x0e\x62rand_keynames\x18\x02 \x03(\t\x12\x16\n\x0e\x65xhibition_ids\x18\x03 \x03(\t\x12\x1e\n\x11\x61lloffcategory_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x12+\n\x07options\x18\x05 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\x12\x13\n\x0bproduct_ids\x18\x06 \x03(\tB\x14\n\x12_alloffcategory_id*\xc5\x01\n\x08ItemType\x12\x17\n\x13HOMETAB_ITEM_BRANDS\x10\x00\x12\x1d\n\x19HOMETAB_ITEM_EXHIBITION_A\x10\x01\x12\x1c\n\x18HOMETAB_ITEM_EXHIBITIONS\x10\x02\x12\x1b\n\x17HOMETAB_ITEM_EXHIBITION\x10\x03\x12 \n\x1cHOMETAB_ITEM_PRODUCTS_BRANDS\x10\x04\x12$\n HOMETAB_ITEM_PRODUCTS_CATEGORIES\x10\x05*\xc4\x01\n\x0eSortingOptions\x12\x13\n\x0fPRICE_ASCENDING\x10\x00\x12\x14\n\x10PRICE_DESCENDING\x10\x01\x12\x11\n\rDISCOUNT_0_30\x10\x02\x12\x12\n\x0e\x44ISCOUNT_30_50\x10\x03\x12\x12\n\x0e\x44ISCOUNT_50_70\x10\x04\x12\x13\n\x0f\x44ISCOUNT_70_100\x10\x05\x12\x1a\n\x16\x44ISCOUNTRATE_ASCENDING\x10\x06\x12\x1b\n\x17\x44ISCOUNTRATE_DESCENDING\x10\x07\x32\x83\x03\n\x0bHomeTabItem\x12W\n\x0eGetHomeTabItem\x12!.grpcServer.GetHomeTabItemRequest\x1a\".grpcServer.GetHomeTabItemResponse\x12]\n\x10ListHomeTabItems\x12#.grpcServer.ListHomeTabItemsRequest\x1a$.grpcServer.ListHomeTabItemsResponse\x12Z\n\x0f\x45\x64itHomeTabItem\x12\".grpcServer.EditHomeTabItemRequest\x1a#.grpcServer.EditHomeTabItemResponse\x12`\n\x11\x43reateHomeTabItem\x12$.grpcServer.CreateHomeTabItemRequest\x1a%.grpcServer.CreateHomeTabItemResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
+  serialized_pb=b'\n\x1cprotos/product/hometab.proto\x12\ngrpcServer\x1a\x1fprotos/product/exhibition.proto\x1a\x1cprotos/product/product.proto\x1a\x1aprotos/product/brand.proto\"(\n\x15GetHomeTabItemRequest\x12\x0f\n\x07item_id\x18\x01 \x01(\t\"8\n\x17ListHomeTabItemsRequest\x12\x0e\n\x06offset\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\xf3\x02\n\x16\x45\x64itHomeTabItemRequest\x12\x12\n\nhometab_id\x18\x01 \x01(\t\x12\x12\n\x05title\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nstart_time\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x66inish_time\x18\x07 \x01(\tH\x04\x88\x01\x01\x12+\n\x08\x63ontents\x18\x08 \x01(\x0b\x32\x19.grpcServer.ItemRequester\x12\x13\n\x06weight\x18\t \x01(\x05H\x05\x88\x01\x01\x12\x14\n\x07is_live\x18\n \x01(\x08H\x06\x88\x01\x01\x42\x08\n\x06_titleB\x0e\n\x0c_descriptionB\x11\n\x0f_back_image_urlB\r\n\x0b_start_timeB\x0e\n\x0c_finish_timeB\t\n\x07_weightB\n\n\x08_is_live\"\xe2\x01\n\x18\x43reateHomeTabItemRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x12\n\nstart_time\x18\x05 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x06 \x01(\t\x12+\n\x08\x63ontents\x18\x07 \x01(\x0b\x32\x19.grpcServer.ItemRequester\x12\x0e\n\x06weight\x18\x08 \x01(\x05\x42\x11\n\x0f_back_image_url\"F\n\x16GetHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"~\n\x18ListHomeTabItemsResponse\x12-\n\x05items\x18\x01 \x03(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\x12\x0e\n\x06offset\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x14\n\x0ctotal_counts\x18\x04 \x01(\x05\"G\n\x17\x45\x64itHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"I\n\x19\x43reateHomeTabItemResponse\x12,\n\x04item\x18\x01 \x01(\x0b\x32\x1e.grpcServer.HomeTabItemMessage\"\xaa\x03\n\x12HomeTabItemMessage\x12\x0f\n\x07item_id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x05 \x01(\t\x12\'\n\titem_type\x18\x06 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x12\n\nstart_time\x18\x07 \x01(\t\x12\x13\n\x0b\x66inish_time\x18\x08 \x01(\t\x12,\n\x08products\x18\t \x03(\x0b\x32\x1a.grpcServer.ProductMessage\x12(\n\x06\x62rands\x18\n \x03(\x0b\x32\x18.grpcServer.BrandMessage\x12\x32\n\x0b\x65xhibitions\x18\x0b \x03(\x0b\x32\x1d.grpcServer.ExhibitionMessage\x12:\n\treference\x18\x0c \x01(\x0b\x32\'.grpcServer.HomeTabItemReferenceMessage\x12\x0e\n\x06weight\x18\r \x01(\x05\x12\x0f\n\x07is_live\x18\x0e \x01(\x08\"h\n\x1bHomeTabItemReferenceMessage\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0e\n\x06params\x18\x02 \x01(\t\x12+\n\x07options\x18\x03 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\"\xe0\x01\n\rItemRequester\x12\'\n\titem_type\x18\x01 \x01(\x0e\x32\x14.grpcServer.ItemType\x12\x16\n\x0e\x62rand_keynames\x18\x02 \x03(\t\x12\x16\n\x0e\x65xhibition_ids\x18\x03 \x03(\t\x12\x1e\n\x11\x61lloffcategory_id\x18\x04 \x01(\tH\x00\x88\x01\x01\x12+\n\x07options\x18\x05 \x03(\x0e\x32\x1a.grpcServer.SortingOptions\x12\x13\n\x0bproduct_ids\x18\x06 \x03(\tB\x14\n\x12_alloffcategory_id*\xc5\x01\n\x08ItemType\x12\x17\n\x13HOMETAB_ITEM_BRANDS\x10\x00\x12\x1d\n\x19HOMETAB_ITEM_EXHIBITION_A\x10\x01\x12\x1c\n\x18HOMETAB_ITEM_EXHIBITIONS\x10\x02\x12\x1b\n\x17HOMETAB_ITEM_EXHIBITION\x10\x03\x12 \n\x1cHOMETAB_ITEM_PRODUCTS_BRANDS\x10\x04\x12$\n HOMETAB_ITEM_PRODUCTS_CATEGORIES\x10\x05*\xc4\x01\n\x0eSortingOptions\x12\x13\n\x0fPRICE_ASCENDING\x10\x00\x12\x14\n\x10PRICE_DESCENDING\x10\x01\x12\x11\n\rDISCOUNT_0_30\x10\x02\x12\x12\n\x0e\x44ISCOUNT_30_50\x10\x03\x12\x12\n\x0e\x44ISCOUNT_50_70\x10\x04\x12\x13\n\x0f\x44ISCOUNT_70_100\x10\x05\x12\x1a\n\x16\x44ISCOUNTRATE_ASCENDING\x10\x06\x12\x1b\n\x17\x44ISCOUNTRATE_DESCENDING\x10\x07\x32\x83\x03\n\x0bHomeTabItem\x12W\n\x0eGetHomeTabItem\x12!.grpcServer.GetHomeTabItemRequest\x1a\".grpcServer.GetHomeTabItemResponse\x12]\n\x10ListHomeTabItems\x12#.grpcServer.ListHomeTabItemsRequest\x1a$.grpcServer.ListHomeTabItemsResponse\x12Z\n\x0f\x45\x64itHomeTabItem\x12\".grpcServer.EditHomeTabItemRequest\x1a#.grpcServer.EditHomeTabItemResponse\x12`\n\x11\x43reateHomeTabItem\x12$.grpcServer.CreateHomeTabItemRequest\x1a%.grpcServer.CreateHomeTabItemResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
   ,
   dependencies=[protos_dot_product_dot_exhibition__pb2.DESCRIPTOR,protos_dot_product_dot_product__pb2.DESCRIPTOR,protos_dot_product_dot_brand__pb2.DESCRIPTOR,])
 
@@ -67,8 +67,8 @@ _ITEMTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1898,
-  serialized_end=2095,
+  serialized_start=1949,
+  serialized_end=2146,
 )
 _sym_db.RegisterEnumDescriptor(_ITEMTYPE)
 
@@ -123,8 +123,8 @@ _SORTINGOPTIONS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2098,
-  serialized_end=2294,
+  serialized_start=2149,
+  serialized_end=2345,
 )
 _sym_db.RegisterEnumDescriptor(_SORTINGOPTIONS)
 
@@ -288,6 +288,13 @@ _EDITHOMETABITEMREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_live', full_name='grpcServer.EditHomeTabItemRequest.is_live', index=9,
+      number=10, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -329,9 +336,14 @@ _EDITHOMETABITEMREQUEST = _descriptor.Descriptor(
       index=5, containing_type=None,
       create_key=_descriptor._internal_create_key,
     fields=[]),
+    _descriptor.OneofDescriptor(
+      name='_is_live', full_name='grpcServer.EditHomeTabItemRequest._is_live',
+      index=6, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=236,
-  serialized_end=573,
+  serialized_end=607,
 )
 
 
@@ -416,8 +428,8 @@ _CREATEHOMETABITEMREQUEST = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=576,
-  serialized_end=802,
+  serialized_start=610,
+  serialized_end=836,
 )
 
 
@@ -448,8 +460,8 @@ _GETHOMETABITEMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=804,
-  serialized_end=874,
+  serialized_start=838,
+  serialized_end=908,
 )
 
 
@@ -501,8 +513,8 @@ _LISTHOMETABITEMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=876,
-  serialized_end=1002,
+  serialized_start=910,
+  serialized_end=1036,
 )
 
 
@@ -533,8 +545,8 @@ _EDITHOMETABITEMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1004,
-  serialized_end=1075,
+  serialized_start=1038,
+  serialized_end=1109,
 )
 
 
@@ -565,8 +577,8 @@ _CREATEHOMETABITEMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1077,
-  serialized_end=1150,
+  serialized_start=1111,
+  serialized_end=1184,
 )
 
 
@@ -669,6 +681,13 @@ _HOMETABITEMMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='is_live', full_name='grpcServer.HomeTabItemMessage.is_live', index=13,
+      number=14, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -681,8 +700,8 @@ _HOMETABITEMMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1153,
-  serialized_end=1562,
+  serialized_start=1187,
+  serialized_end=1613,
 )
 
 
@@ -727,8 +746,8 @@ _HOMETABITEMREFERENCEMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1564,
-  serialized_end=1668,
+  serialized_start=1615,
+  serialized_end=1719,
 )
 
 
@@ -799,8 +818,8 @@ _ITEMREQUESTER = _descriptor.Descriptor(
       create_key=_descriptor._internal_create_key,
     fields=[]),
   ],
-  serialized_start=1671,
-  serialized_end=1895,
+  serialized_start=1722,
+  serialized_end=1946,
 )
 
 _EDITHOMETABITEMREQUEST.fields_by_name['contents'].message_type = _ITEMREQUESTER
@@ -822,6 +841,9 @@ _EDITHOMETABITEMREQUEST.fields_by_name['finish_time'].containing_oneof = _EDITHO
 _EDITHOMETABITEMREQUEST.oneofs_by_name['_weight'].fields.append(
   _EDITHOMETABITEMREQUEST.fields_by_name['weight'])
 _EDITHOMETABITEMREQUEST.fields_by_name['weight'].containing_oneof = _EDITHOMETABITEMREQUEST.oneofs_by_name['_weight']
+_EDITHOMETABITEMREQUEST.oneofs_by_name['_is_live'].fields.append(
+  _EDITHOMETABITEMREQUEST.fields_by_name['is_live'])
+_EDITHOMETABITEMREQUEST.fields_by_name['is_live'].containing_oneof = _EDITHOMETABITEMREQUEST.oneofs_by_name['_is_live']
 _CREATEHOMETABITEMREQUEST.fields_by_name['contents'].message_type = _ITEMREQUESTER
 _CREATEHOMETABITEMREQUEST.oneofs_by_name['_back_image_url'].fields.append(
   _CREATEHOMETABITEMREQUEST.fields_by_name['back_image_url'])
@@ -943,8 +965,8 @@ _HOMETABITEM = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2297,
-  serialized_end=2684,
+  serialized_start=2348,
+  serialized_end=2735,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetHomeTabItem',
