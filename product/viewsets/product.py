@@ -69,7 +69,7 @@ class ProductViewSet(
         pd = ProductService.get(req)
         serializer = ProductSerializer(pd)
         if (
-            module_name is not None
+            module_name != ""
             and serializer.data.get("module_name") != module_name
         ):
             # Raise a 404.
