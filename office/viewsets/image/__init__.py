@@ -3,10 +3,10 @@ from time import time
 import shortuuid
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from drf_spectacular.utils import extend_schema
 from rest_framework import (fields, parsers, response, serializers, status,
                             viewsets)
 from rest_framework.decorators import action
-from drf_spectacular.utils import extend_schema
 
 
 class ImageUploaderRequestSerializer(serializers.Serializer):
@@ -38,7 +38,7 @@ class ImageUploaderViewSet(viewsets.GenericViewSet):
         random_key = shortuuid.random(length=6)
         filename = f"{random_key}_{int(time())}_{file.name}"
         s3_folder = serializer.validated_data.get("path")
-        if s3_folder == "":
+        if s3_folder == "" or s3_folder is None:
             s3_path = f"images/{filename}"
         else:
             s3_path = f"{s3_folder}/{filename}"
