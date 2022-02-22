@@ -16,4 +16,4 @@ def get_module_name(request) -> str:
     ):
         raise PermissionDenied("User is not in an active company.")
 
-    return user.profile.company.name
+    return user.profile.company.keyname

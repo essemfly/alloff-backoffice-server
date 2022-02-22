@@ -1,6 +1,8 @@
 from alloff_backoffice_server.settings import PAGE_SIZE
+from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
 from drf_spectacular.utils import extend_schema
+from office.models.html_product_info import HtmlProductInfo
 from protos.product.product_pb2 import (GetProductRequest, ListProductsRequest,
                                         ProductQuery)
 from rest_framework import mixins, status, viewsets
@@ -16,6 +18,25 @@ from product.serializers.product import (CreateProductRequestApiSerializer,
                                          ListProductSerializer,
                                          ProductSerializer)
 from product.services.product import ProductService
+
+
+def separate_html_from_request(request):
+    raw_html = request.data.get("raw_html")
+    if raw_html is not None:
+        del request.data["raw_html"]
+    return raw_html, request
+
+
+def parse_html(raw_html):
+    soup = BeautifulSoup(raw_html)
+    text_nodes = [
+        t for x in soup.find_all(text=True) if (t := " ".join(x.split())) != ""
+    ]
+    images = [x["src"] for x in soup.find_all("img")]
+    return text_nodes, images
+
+def populate_grpc_request():
+    pass
 
 
 class ProductViewSet(
@@ -68,13 +89,20 @@ class ProductViewSet(
         req = GetProductRequest(alloff_product_id=pk)
         pd = ProductService.get(req)
         serializer = ProductSerializer(pd)
-        if (
-            module_name is not None
-            and serializer.data.get("module_name") != module_name
-        ):
+        if module_name != "" and serializer.data.get("module_name") != module_name:
             # Raise a 404.
             raise NotFound("Product not found.")
-        return Response(serializer.data, status=status.HTTP_200_OK)
+
+        raw_html = ""
+        try:
+            raw_html = HtmlProductInfo.objects.get(
+                product_id=pd.alloff_product_id
+            ).raw_html
+        except HtmlProductInfo.DoesNotExist:
+            pass
+        return Response(
+            {**serializer.data, "raw_html": raw_html}, status=status.HTTP_200_OK
+        )
 
     @extend_schema(
         request=CreateProductRequestApiSerializer,
@@ -83,13 +111,19 @@ class ProductViewSet(
     @with_company_api
     def create(self, request, *args, **kwargs):
         module_name = get_module_name(request)
-        serializer = CreateProductRequestGrpcSerializer(
+        raw_html, request = separate_html_from_request(request)
+
+        request_serializer = CreateProductRequestGrpcSerializer(
             data={**request.data, "module_name": module_name}
         )
-        serializer.is_valid(raise_exception=True)
-        res = ProductService.create(serializer.message)
-        serializer = ProductSerializer(res)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        request_serializer.is_valid(raise_exception=True)
+
+        res = ProductService.create(request_serializer.message)
+        result_serializer = ProductSerializer(res)
+
+        HtmlProductInfo.objects.create(res.id, raw_html)
+
+        return Response(result_serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(
         request=EditProductRequestApiSerializer,
@@ -98,10 +132,18 @@ class ProductViewSet(
     @with_company_api
     def update(self, request, pk, *args, **kwargs):
         module_name = get_module_name(request)
-        serializer = EditProductRequestGrpcSerializer(
+        raw_html, request = separate_html_from_request(request)
+
+        request_serializer = EditProductRequestGrpcSerializer(
             data={**request.data, "module_name": module_name}
         )
-        serializer.is_valid(raise_exception=True)
-        res = ProductService.edit(serializer.message)
-        serializer = ProductSerializer(res)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        request_serializer.is_valid(raise_exception=True)
+
+        res = ProductService.edit(request_serializer.message)
+        result_serializer = ProductSerializer(res)
+
+        HtmlProductInfo.objects.update_or_create(
+            product_id=pk, defaults={"raw_html": raw_html}
+        )
+
+        return Response(result_serializer.data, status=status.HTTP_200_OK)
