@@ -40,6 +40,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     description_images = serializers.ListField(child=serializers.URLField())
     inventory = ProductInventorySerializer(many=True)
     module_name = serializers.CharField()
+    raw_html = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ProductMessage
@@ -80,7 +81,7 @@ class ListProductResultSerializer(proto_serializers.ProtoSerializer):
         proto_class = ListProductsResponse
 
 
-class CreateProductRequestApiSerializer(proto_serializers.ProtoSerializer):
+class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField()
     is_foreign_delivery = serializers.BooleanField()
     product_id = serializers.CharField(allow_null=True, required=False)
@@ -101,11 +102,15 @@ class CreateProductRequestApiSerializer(proto_serializers.ProtoSerializer):
         proto_class = CreateProductRequest
 
 
-class CreateProductRequestGrpcSerializer(CreateProductRequestApiSerializer):
+class CreateProductRequestApiSerializer(_CreateProductRequestSerializer):
+    raw_html = serializers.CharField(allow_null=True, required=False)
+
+
+class CreateProductRequestGrpcSerializer(_CreateProductRequestSerializer):
     module_name = serializers.CharField(allow_null=True, required=False)
 
 
-class EditProductRequestApiSerializer(proto_serializers.ProtoSerializer):
+class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField(allow_null=True, required=False)
     is_foreign_delivery = serializers.BooleanField(allow_null=True, required=False)
     product_id = serializers.CharField(allow_null=True, required=False)
@@ -134,5 +139,14 @@ class EditProductRequestApiSerializer(proto_serializers.ProtoSerializer):
         proto_class = EditProductRequest
 
 
-class EditProductRequestGrpcSerializer(EditProductRequestApiSerializer):
-    module_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+class EditProductRequestApiSerializer(_EditProductRequestSerializer):
+    raw_html = serializers.CharField(allow_null=True, required=False)
+
+    class Meta:
+        proto_class = EditProductRequest
+
+
+class EditProductRequestGrpcSerializer(_EditProductRequestSerializer):
+    module_name = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
