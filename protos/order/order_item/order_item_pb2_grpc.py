@@ -75,6 +75,11 @@ class OrderItemControllerStub(object):
                 request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemAdjustPaymentRequest.SerializeToString,
                 response_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
                 )
+        self.GetOrderItemExcelData = channel.unary_stream(
+                '/orderitem.OrderItemController/GetOrderItemExcelData',
+                request_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemExcelDataRequest.SerializeToString,
+                response_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
+                )
 
 
 class OrderItemControllerServicer(object):
@@ -152,6 +157,12 @@ class OrderItemControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetOrderItemExcelData(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OrderItemControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -213,6 +224,11 @@ def add_OrderItemControllerServicer_to_server(servicer, server):
             'AdjustPayment': grpc.unary_unary_rpc_method_handler(
                     servicer.AdjustPayment,
                     request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemAdjustPaymentRequest.FromString,
+                    response_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
+            ),
+            'GetOrderItemExcelData': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetOrderItemExcelData,
+                    request_deserializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemExcelDataRequest.FromString,
                     response_serializer=protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.SerializeToString,
             ),
     }
@@ -425,6 +441,23 @@ class OrderItemController(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/orderitem.OrderItemController/AdjustPayment',
             protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemAdjustPaymentRequest.SerializeToString,
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetOrderItemExcelData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/orderitem.OrderItemController/GetOrderItemExcelData',
+            protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItemExcelDataRequest.SerializeToString,
             protos_dot_order_dot_order__item_dot_order__item__pb2.OrderItem.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
