@@ -24,6 +24,7 @@ service OrderItemController {
     rpc ForceReceive(OrderItemForceReceiveRequest) returns (OrderItem) {}
     rpc UpdateRefund(UpdateRefundRequest) returns (OrderItem) {}
     rpc AdjustPayment(OrderItemAdjustPaymentRequest) returns (OrderItem) {}
+    rpc GetOrderItemExcelData(OrderItemExcelDataRequest) returns (stream OrderItem) {}
 }
 
 message OrderItem {
@@ -158,4 +159,10 @@ message OrderItemAdjustPaymentRequest {
     optional string bank_account_info = 6;
     optional string reason = 7;
     int64 order_item_id = 8;
+}
+
+message OrderItemExcelDataRequest {
+    string company_keyname = 1;
+    string date_from = 2;
+    string date_to = 3;
 }

@@ -13,7 +13,7 @@ class CourierService(GrpcService):
     @grpc_request(
         courier_pb2.CourierListRequest,
         auth_types=[GrpcAuthType.ANONYMOUS],
-        is_stream=True,
+        stream_to_list=True,
     )
     def List(cls) -> List[dict]:
         pass

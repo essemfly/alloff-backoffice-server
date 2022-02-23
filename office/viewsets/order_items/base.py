@@ -1,5 +1,6 @@
 from core.company_auth_viewset import with_company_api
 from core.grpc_exception import grpc_exception
+from django.http import HttpResponse
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import (OpenApiParameter, extend_schema,
                                    extend_schema_view)
@@ -9,11 +10,15 @@ from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.order_items.logics.add_memo import \
     AddOrderItemMemoSerializer
 from office.viewsets.order_items.logics.change_status import (
-    ApiTrackingInfoSerializer, ChangeStatusSerializer)
+    ApiTrackingInfoSerializer, ChangeStatusSerializer,
+    OrderItemExcelDataRequestSerializer)
 from office.viewsets.order_items.logics.delete_memo import \
     DeleteItemOrderMemoSerializer
+from office.viewsets.order_items.logics.make_excel import make_order_item_excel
 from office.viewsets.pagination import PaginationListMixin
 from rest_framework import mixins, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -79,6 +84,8 @@ class OrderItemViewSetBase(
             return None
         elif self.action == "tracking_info":
             return ApiTrackingInfoSerializer
+        elif self.action == "get_order_item_excel":
+            return OrderItemExcelDataRequestSerializer
         return OrderItemListSerializer
 
     @with_company_api
@@ -105,3 +112,35 @@ class OrderItemViewSetBase(
         )
         serializer = PaginatedOrderItemSerializer(list_response)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "date_from", OpenApiTypes.DATE, OpenApiParameter.QUERY, required=True
+            ),
+            OpenApiParameter(
+                "date_to", OpenApiTypes.DATE, OpenApiParameter.QUERY, required=True
+            ),
+        ],
+        request=OrderItemExcelDataRequestSerializer,
+    )
+    @action(detail=False, methods=["GET"])
+    @with_company_api
+    @grpc_exception
+    def get_order_item_excel(self, request: Request, *args, **kwargs):
+        if "date_from" not in request.query_params:
+            raise ValidationError("date_from is required")
+        if "date_to" not in request.query_params:
+            raise ValidationError("date_to is required")
+        date_from = request.query_params.get("date_from")
+        date_to = request.query_params.get("date_to")
+        channel, stream = OrderItemService.GetOrderItemExcelData(
+            date_from=date_from,
+            date_to=date_to,
+            user=request.user,
+        )
+        with channel:
+            response = HttpResponse(content=make_order_item_excel(stream))
+            response["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            response["Content-Disposition"] = f"attachment; filename=order_items_{date_from}-{date_to}.xlsx"
+            return response
