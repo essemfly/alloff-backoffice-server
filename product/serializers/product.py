@@ -1,11 +1,14 @@
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.product_pb2 import (CreateProductRequest,
-                                        EditProductRequest,
-                                        ListProductsRequest,
-                                        ListProductsResponse,
-                                        ProductInventoryMessage,
-                                        ProductMessage, ProductQuery)
+from protos.product.product_pb2 import (
+    CreateProductRequest,
+    EditProductRequest,
+    ListProductsRequest,
+    ListProductsResponse,
+    ProductInventoryMessage,
+    ProductMessage,
+    ProductQuery,
+)
 from rest_framework import serializers
 
 
@@ -41,6 +44,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     inventory = ProductInventorySerializer(many=True)
     module_name = serializers.CharField()
     raw_html = serializers.CharField(allow_null=True, required=False)
+    alloff_category_id = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ProductMessage
@@ -84,7 +88,9 @@ class ListProductResultSerializer(proto_serializers.ProtoSerializer):
 class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField()
     is_foreign_delivery = serializers.BooleanField()
-    product_id = serializers.CharField(allow_null=True, required=False, allow_blank=True)
+    product_id = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     original_price = serializers.IntegerField(allow_null=True, required=False)
     discounted_price = serializers.IntegerField()
     special_price = serializers.IntegerField(allow_null=True, required=False)
@@ -114,7 +120,9 @@ class CreateProductRequestGrpcSerializer(_CreateProductRequestSerializer):
 class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_name = serializers.CharField(allow_null=True, required=False)
     is_foreign_delivery = serializers.BooleanField(allow_null=True, required=False)
-    product_id = serializers.CharField(allow_null=True, required=False, allow_blank=True)
+    product_id = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     original_price = serializers.IntegerField(allow_null=True, required=False)
     discounted_price = serializers.IntegerField(allow_null=True, required=False)
     special_price = serializers.IntegerField(allow_null=True, required=False)
