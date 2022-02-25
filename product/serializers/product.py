@@ -114,7 +114,9 @@ class CreateProductRequestApiSerializer(_CreateProductRequestSerializer):
 
 
 class CreateProductRequestGrpcSerializer(_CreateProductRequestSerializer):
-    module_name = serializers.CharField(allow_null=True, required=False)
+    module_name = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
 
 
 class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
