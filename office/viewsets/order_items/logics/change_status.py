@@ -13,3 +13,8 @@ class ApiTrackingInfoSerializer(serializers.Serializer):
     tracking_number = fields.CharField()
     tracking_url = fields.CharField(required=False, allow_null=True)
     courier_id = fields.IntegerField()
+
+
+class OrderItemExcelDataRequestSerializer(serializers.Serializer):
+    date_from = fields.DateField()
+    date_to = fields.DateField()

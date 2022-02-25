@@ -142,3 +142,17 @@ class OrderItemService(GrpcService):
         reason: Optional[str] = None,
     ):
         pass
+
+    @classmethod
+    @grpc_request(
+        order_item_pb2.OrderItemExcelDataRequest,
+        auth_types=[GrpcAuthType.COMPANY],
+        keep_channel=True
+    )
+    def GetOrderItemExcelData(
+        cls,
+        user: User = None,
+        date_from: str = None,
+        date_to: str = None,
+    ):
+        pass

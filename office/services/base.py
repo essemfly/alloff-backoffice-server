@@ -24,14 +24,16 @@ class GrpcAuthType(enum.Enum):
 def grpc_request(
     GrpcRequestClass,
     auth_types: List[GrpcAuthType] = [],
-    is_stream: bool = False,
+    stream_to_list: bool = False,
+    keep_channel: bool = False,
 ):
     def decorator(original_func):
         method_name = original_func.__name__
 
         def wrapper_func(cls, *args, **kwargs):
-            with cls.channel as channel:
+            def _(channel):
                 stub = cls.stub(channel)
+                new_kwargs = {}
                 try:
                     stub_function = getattr(stub, method_name)
                 except AttributeError:
@@ -49,7 +51,7 @@ def grpc_request(
                             f"A user should be given to {original_func.__name__} in order to use company / user info."
                         )
                     if GrpcAuthType.COMPANY in auth_types:
-                        kwargs = {
+                        new_kwargs = {
                             **kwargs,
                             **cls.get_companyinfo(
                                 kwargs["user"],
@@ -57,21 +59,27 @@ def grpc_request(
                             ),
                         }
                     if GrpcAuthType.USER in auth_types:
-                        kwargs = {
+                        new_kwargs = {
                             **kwargs,
                             **cls.get_userinfo(
                                 kwargs["user"],
                                 allow_anonymous=allow_anonymous,
                             ),
                         }
-                if "user" in kwargs:
-                    del kwargs["user"]
+                if "user" in new_kwargs:
+                    del new_kwargs["user"]
 
-                request = GrpcRequestClass(**kwargs)
-
-                if is_stream:
+                request = GrpcRequestClass(**new_kwargs)
+                if stream_to_list:
                     return list(stub_function(request))
                 return stub_function(request)
+
+            if keep_channel:
+                return cls.channel, _(cls.channel)
+
+            else:
+                with cls.channel as channel:
+                    return _(channel)
 
         return wrapper_func
 

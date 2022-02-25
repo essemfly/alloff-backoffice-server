@@ -119,7 +119,7 @@ def _upsert_product(request, is_update: bool = None, pk=None):
     )
     grpc_call = ProductService.create if not is_update else ProductService.edit
 
-    data, raw_html = _make_grpc_request_data(request)
+    data, raw_html = _make_grpc_request_data(request, pk)
     request_serializer = RequestSerializer(data=data)
     request_serializer.is_valid(raise_exception=True)
 
@@ -132,11 +132,13 @@ def _upsert_product(request, is_update: bool = None, pk=None):
                 product_id=pk, defaults={"raw_html": raw_html}
             )
         else:
-            HtmlProductInfo.objects.create(product_id=res.alloff_product_id, raw_html=raw_html)
+            HtmlProductInfo.objects.create(
+                product_id=res.alloff_product_id, raw_html=raw_html
+            )
     return result_serializer.data
 
 
-def _make_grpc_request_data(request):
+def _make_grpc_request_data(request, alloff_product_id=None):
     """
     Convert request data to grpc request data.
     1. Gets module_name for authorization purposes.
@@ -147,6 +149,8 @@ def _make_grpc_request_data(request):
     module_name = get_module_name(request)
     raw_html, new_request = _separate_html_from_request(request)
     data = {**new_request.data, "module_name": module_name}
+    if alloff_product_id is not None:
+        data["alloff_product_id"] = alloff_product_id
     if raw_html is not None and raw_html != "":
         text_nodes, images = _parse_html(raw_html)
         data["description"] = text_nodes
@@ -157,7 +161,7 @@ def _make_grpc_request_data(request):
 def _separate_html_from_request(request):
     raw_html = request.data.get("raw_html")
     if raw_html is not None:
-        del request.data["raw_html"]    
+        del request.data["raw_html"]
     return raw_html, request
 
 
@@ -166,5 +170,5 @@ def _parse_html(raw_html):
     text_nodes = [
         t for x in soup.find_all(text=True) if (t := " ".join(x.split())) != ""
     ]
-    images = [x["src"] for x in soup.find_all("img") if "src" in x.attrs] 
+    images = [x["src"] for x in soup.find_all("img") if "src" in x.attrs]
     return text_nodes, images
