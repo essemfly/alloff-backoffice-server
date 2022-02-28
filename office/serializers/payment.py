@@ -30,5 +30,8 @@ class PaymentSerializer(proto_serializers.ProtoSerializer):
     created_at = fields.DateTimeField()
     updated_at = fields.DateTimeField()
 
+    personal_customs_number = fields.CharField(
+        max_length=13, allow_null=True, allow_blank=True)
+
     class Meta:
         proto_class = payment_pb2.Payment
