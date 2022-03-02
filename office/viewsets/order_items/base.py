@@ -141,6 +141,30 @@ class OrderItemViewSetBase(
         )
         with channel:
             response = HttpResponse(content=make_order_item_excel(stream))
-            response["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            response["Content-Disposition"] = f"attachment; filename=order_items_{date_from}-{date_to}.xlsx"
+            response[
+                "Content-Type"
+            ] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            response[
+                "Content-Disposition"
+            ] = f"attachment; filename=order_items_{date_from}-{date_to}.xlsx"
             return response
+
+    @extend_schema(
+        responses={status.HTTP_200_OK: OrderItemListSerializer},
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
+    )
+    @action(detail=True, methods=["POST"])
+    def change_status(self, request: Request, pk=None):
+        serializer = ChangeStatusSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        item = OrderItemService.ChangeStatus(
+            id=int(pk),
+            status=serializer.validated_data.get("status"),
+            courier_id=serializer.validated_data.get("courier_id"),
+            tracking_number=serializer.validated_data.get("tracking_number"),
+            tracking_url=serializer.validated_data.get("tracking_url"),
+            user=request.user,
+        )
+        return Response(
+            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
+        )

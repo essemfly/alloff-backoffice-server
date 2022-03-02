@@ -3,8 +3,8 @@ from openpyxl.writer.excel import save_virtual_workbook
 
 _HEADER = [
     "주문번호",
+    "주문순번(단건코드)",
     "주문일자",
-    "부주문번호",
     "쇼핑몰 상품코드",
     "상품명",
     "옵션명",
@@ -35,9 +35,9 @@ def make_order_item_excel(grpc_order_item_stream):
 
 def _make_row(order_item):
     return [
-        order_item.id,  # 주문번호*
-        order_item.ordered_at,  # 주문일자
+        order_item.order.alloff_order_id,  # 주문번호*
         order_item.order_item_code,  # 부주문번호
+        order_item.ordered_at,  # 주문일자
         order_item.product_id,  # 쇼핑몰 상품코드*
         order_item.product_name,  # 상품명*
         f"size: {order_item.size} / color: {order_item.color}",  # 옵션명*
