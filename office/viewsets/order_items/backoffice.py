@@ -4,7 +4,6 @@ from office.serializers.order_item import (OrderItemListSerializer,
                                            OrderItemRetrieveSerializer)
 from office.services.order_item import OrderItemService
 from office.viewsets.order_items.api import OrderItemCompanyApiViewSet
-from office.viewsets.order_items.base import OrderItemViewSetBase
 from office.viewsets.order_items.logics.add_memo import \
     AddOrderItemMemoSerializer
 from office.viewsets.order_items.logics.change_status import \
@@ -22,26 +21,6 @@ from rest_framework.response import Response
 
 class OrderItemBackofficeViewSet(OrderItemCompanyApiViewSet):
     # permission_classes = [IsAuthenticated]
-
-    @extend_schema(
-        responses={status.HTTP_200_OK: OrderItemListSerializer},
-        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
-    )
-    @action(detail=True, methods=["POST"])
-    def change_status(self, request: Request, pk=None):
-        serializer = ChangeStatusSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        item = OrderItemService.ChangeStatus(
-            id=int(pk),
-            status=serializer.validated_data.get("status"),
-            courier_id=serializer.validated_data.get("courier_id"),
-            tracking_number=serializer.validated_data.get("tracking_number"),
-            tracking_url=serializer.validated_data.get("tracking_url"),
-            user=request.user,
-        )
-        return Response(
-            OrderItemRetrieveSerializer(item).data, status=status.HTTP_200_OK
-        )
 
     @extend_schema(
         responses={status.HTTP_200_OK: OrderItemListSerializer},

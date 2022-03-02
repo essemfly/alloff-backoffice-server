@@ -31,9 +31,8 @@ def grpc_request(
         method_name = original_func.__name__
 
         def wrapper_func(cls, *args, **kwargs):
-            def _(channel):
+            def _(channel, new_kwargs):
                 stub = cls.stub(channel)
-                new_kwargs = {}
                 try:
                     stub_function = getattr(stub, method_name)
                 except AttributeError:
@@ -46,23 +45,23 @@ def grpc_request(
                 ):
                     allow_anonymous = GrpcAuthType.ANONYMOUS in auth_types
 
-                    if kwargs.get("user") is None:
+                    if new_kwargs.get("user") is None:
                         raise APIException(
                             f"A user should be given to {original_func.__name__} in order to use company / user info."
                         )
                     if GrpcAuthType.COMPANY in auth_types:
                         new_kwargs = {
-                            **kwargs,
+                            **new_kwargs,
                             **cls.get_companyinfo(
-                                kwargs["user"],
+                                new_kwargs["user"],
                                 allow_anonymous=allow_anonymous,
                             ),
                         }
                     if GrpcAuthType.USER in auth_types:
                         new_kwargs = {
-                            **kwargs,
+                            **new_kwargs,
                             **cls.get_userinfo(
-                                kwargs["user"],
+                                new_kwargs["user"],
                                 allow_anonymous=allow_anonymous,
                             ),
                         }
@@ -75,11 +74,11 @@ def grpc_request(
                 return stub_function(request)
 
             if keep_channel:
-                return cls.channel, _(cls.channel)
+                return cls.channel, _(cls.channel, kwargs)
 
             else:
                 with cls.channel as channel:
-                    return _(channel)
+                    return _(channel, kwargs)
 
         return wrapper_func
 
