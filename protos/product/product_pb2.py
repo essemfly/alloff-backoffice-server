@@ -6,6 +6,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -832,6 +833,13 @@ _PRODUCTMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='alloff_category_id', full_name='grpcServer.ProductMessage.alloff_category_id', index=22,
+      number=23, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -843,9 +851,14 @@ _PRODUCTMESSAGE = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_alloff_category_id', full_name='grpcServer.ProductMessage._alloff_category_id',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=2057,
-  serialized_end=2633,
+  serialized_end=2689,
 )
 
 
@@ -1026,6 +1039,9 @@ _EDITPRODUCTREQUEST.oneofs_by_name['_alloff_category_id'].fields.append(
 _EDITPRODUCTREQUEST.fields_by_name['alloff_category_id'].containing_oneof = _EDITPRODUCTREQUEST.oneofs_by_name['_alloff_category_id']
 _EDITPRODUCTRESPONSE.fields_by_name['product'].message_type = _PRODUCTMESSAGE
 _PRODUCTMESSAGE.fields_by_name['inventory'].message_type = _PRODUCTINVENTORYMESSAGE
+_PRODUCTMESSAGE.oneofs_by_name['_alloff_category_id'].fields.append(
+  _PRODUCTMESSAGE.fields_by_name['alloff_category_id'])
+_PRODUCTMESSAGE.fields_by_name['alloff_category_id'].containing_oneof = _PRODUCTMESSAGE.oneofs_by_name['_alloff_category_id']
 _PRODUCTQUERY.oneofs_by_name['_search_query'].fields.append(
   _PRODUCTQUERY.fields_by_name['search_query'])
 _PRODUCTQUERY.fields_by_name['search_query'].containing_oneof = _PRODUCTQUERY.oneofs_by_name['_search_query']

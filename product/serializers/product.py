@@ -1,11 +1,14 @@
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.product_pb2 import (CreateProductRequest,
-                                        EditProductRequest,
-                                        ListProductsRequest,
-                                        ListProductsResponse,
-                                        ProductInventoryMessage,
-                                        ProductMessage, ProductQuery)
+from protos.product.product_pb2 import (
+    CreateProductRequest,
+    EditProductRequest,
+    ListProductsRequest,
+    ListProductsResponse,
+    ProductInventoryMessage,
+    ProductMessage,
+    ProductQuery,
+)
 from rest_framework import serializers
 
 
@@ -41,6 +44,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     inventory = ProductInventorySerializer(many=True)
     module_name = serializers.CharField()
     raw_html = serializers.CharField(allow_null=True, required=False)
+    alloff_category_id = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ProductMessage
