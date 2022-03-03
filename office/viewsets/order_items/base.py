@@ -123,6 +123,7 @@ class OrderItemViewSetBase(
             ),
         ],
         request=OrderItemExcelDataRequestSerializer,
+        responses=OpenApiTypes.BINARY,
     )
     @action(detail=False, methods=["GET"])
     @with_company_api
