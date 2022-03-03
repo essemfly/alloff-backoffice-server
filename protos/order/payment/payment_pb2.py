@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\"protos/order/payment/payment.proto\x12\x07payment\x1a\x1bgoogle/protobuf/empty.proto\"\xb9\x02\n\x07Payment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07imp_uid\x18\x02 \x01(\t\x12\x16\n\x0epayment_status\x18\x03 \x01(\t\x12\n\n\x02pg\x18\x04 \x01(\t\x12\x12\n\npay_method\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x14\n\x0cmerchant_uid\x18\x07 \x01(\t\x12\x0e\n\x06\x61mount\x18\x08 \x01(\x05\x12\x12\n\nbuyer_name\x18\t \x01(\t\x12\x14\n\x0c\x62uyer_mobile\x18\n \x01(\t\x12\x15\n\rbuyer_address\x18\x0b \x01(\t\x12\x17\n\x0f\x62uyer_post_code\x18\x0c \x01(\t\x12\x0f\n\x07\x63ompany\x18\r \x01(\t\x12\x12\n\napp_scheme\x18\x0e \x01(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\"\x14\n\x12PaymentListRequest\"$\n\x16PaymentRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PaymentController\x12\x39\n\x04List\x12\x1b.payment.PaymentListRequest\x1a\x10.payment.Payment\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.payment.Payment\x1a\x10.payment.Payment\"\x00\x12?\n\x08Retrieve\x12\x1f.payment.PaymentRetrieveRequest\x1a\x10.payment.Payment\"\x00\x12.\n\x06Update\x12\x10.payment.Payment\x1a\x10.payment.Payment\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.payment.Payment\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\"protos/order/payment/payment.proto\x12\x07payment\x1a\x1bgoogle/protobuf/empty.proto\"\xfb\x02\n\x07Payment\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07imp_uid\x18\x02 \x01(\t\x12\x16\n\x0epayment_status\x18\x03 \x01(\t\x12\n\n\x02pg\x18\x04 \x01(\t\x12\x12\n\npay_method\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x14\n\x0cmerchant_uid\x18\x07 \x01(\t\x12\x0e\n\x06\x61mount\x18\x08 \x01(\x05\x12\x12\n\nbuyer_name\x18\t \x01(\t\x12\x14\n\x0c\x62uyer_mobile\x18\n \x01(\t\x12\x15\n\rbuyer_address\x18\x0b \x01(\t\x12\x17\n\x0f\x62uyer_post_code\x18\x0c \x01(\t\x12\x0f\n\x07\x63ompany\x18\r \x01(\t\x12\x12\n\napp_scheme\x18\x0e \x01(\t\x12\x12\n\ncreated_at\x18\x0f \x01(\t\x12\x12\n\nupdated_at\x18\x10 \x01(\t\x12$\n\x17personal_customs_number\x18\x11 \x01(\tH\x00\x88\x01\x01\x42\x1a\n\x18_personal_customs_number\"\x14\n\x12PaymentListRequest\"$\n\x16PaymentRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa6\x02\n\x11PaymentController\x12\x39\n\x04List\x12\x1b.payment.PaymentListRequest\x1a\x10.payment.Payment\"\x00\x30\x01\x12.\n\x06\x43reate\x12\x10.payment.Payment\x1a\x10.payment.Payment\"\x00\x12?\n\x08Retrieve\x12\x1f.payment.PaymentRetrieveRequest\x1a\x10.payment.Payment\"\x00\x12.\n\x06Update\x12\x10.payment.Payment\x1a\x10.payment.Payment\"\x00\x12\x35\n\x07\x44\x65stroy\x12\x10.payment.Payment\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -147,6 +147,13 @@ _PAYMENT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='personal_customs_number', full_name='payment.Payment.personal_customs_number', index=16,
+      number=17, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -158,9 +165,14 @@ _PAYMENT = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='_personal_customs_number', full_name='payment.Payment._personal_customs_number',
+      index=0, containing_type=None,
+      create_key=_descriptor._internal_create_key,
+    fields=[]),
   ],
   serialized_start=77,
-  serialized_end=390,
+  serialized_end=456,
 )
 
 
@@ -184,8 +196,8 @@ _PAYMENTLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=392,
-  serialized_end=412,
+  serialized_start=458,
+  serialized_end=478,
 )
 
 
@@ -216,10 +228,13 @@ _PAYMENTRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=414,
-  serialized_end=450,
+  serialized_start=480,
+  serialized_end=516,
 )
 
+_PAYMENT.oneofs_by_name['_personal_customs_number'].fields.append(
+  _PAYMENT.fields_by_name['personal_customs_number'])
+_PAYMENT.fields_by_name['personal_customs_number'].containing_oneof = _PAYMENT.oneofs_by_name['_personal_customs_number']
 DESCRIPTOR.message_types_by_name['Payment'] = _PAYMENT
 DESCRIPTOR.message_types_by_name['PaymentListRequest'] = _PAYMENTLISTREQUEST
 DESCRIPTOR.message_types_by_name['PaymentRetrieveRequest'] = _PAYMENTRETRIEVEREQUEST
@@ -255,8 +270,8 @@ _PAYMENTCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=453,
-  serialized_end=747,
+  serialized_start=519,
+  serialized_end=813,
   methods=[
   _descriptor.MethodDescriptor(
     name='List',
