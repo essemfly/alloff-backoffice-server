@@ -29,6 +29,7 @@ message Payment {
     string app_scheme = 14;
     string created_at = 15;
     string updated_at = 16;
+    optional string personal_customs_number = 17;
 }
 
 message PaymentListRequest {
