@@ -6,6 +6,7 @@ _HEADER = [
     "주문순번(단건코드)",
     "주문일자",
     "쇼핑몰 상품코드",
+    "상태",
     "상품명",
     "옵션명",
     "주문수량",
@@ -39,6 +40,7 @@ def _make_row(order_item):
         order_item.order_item_code,  # 부주문번호
         order_item.ordered_at,  # 주문일자
         order_item.product_id,  # 쇼핑몰 상품코드*
+        order_item.order_item_status,  # 상태
         order_item.product_name,  # 상품명*
         f"size: {order_item.size} / color: {order_item.color}",  # 옵션명*
         order_item.quantity,  # 주문수량*
