@@ -1,6 +1,11 @@
+import io
+
+import requests
+import shortuuid
 from alloff_backoffice_server.settings import PAGE_SIZE
 from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
+from django.core.files.storage import default_storage
 from drf_spectacular.utils import extend_schema
 from office.models.html_product_info import HtmlProductInfo
 from protos.product.product_pb2 import (GetProductRequest, ListProductsRequest,
@@ -170,5 +175,33 @@ def _parse_html(raw_html):
     text_nodes = [
         t for x in soup.find_all(text=True) if (t := " ".join(x.split())) != ""
     ]
-    images = [x["src"] for x in soup.find_all("img") if "src" in x.attrs]
-    return text_nodes, images
+
+    images = [
+        x["src"]
+        for x in soup.find_all("img")
+        if "src" in x.attrs and x["src"][:4] == "http"
+    ]
+    downloaded_images = []
+    for img in images:
+        try:
+            res = requests.get(img)
+            if res.status_code != 200:
+                downloaded_images.append(img)
+                continue
+
+            random_key = shortuuid.random(length=24)
+            original_filename_nodes = img.split("/")[-1].split(".")
+            ext = original_filename_nodes[-1].split("?")[0]
+            filename = f"{random_key}.{ext}"
+            s3_path = f"html_product_images/{filename}"
+
+            with default_storage.open(s3_path, "wb") as f:
+                f.write(res.content)
+
+            downloaded_images.append(
+                f"https://alloff.s3.ap-northeast-2.amazonaws.com/{s3_path}"
+            )
+        except:
+            downloaded_images.append(img)
+
+    return text_nodes, downloaded_images
