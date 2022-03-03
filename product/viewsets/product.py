@@ -157,7 +157,7 @@ def _make_grpc_request_data(request, alloff_product_id=None):
     if alloff_product_id is not None:
         data["alloff_product_id"] = alloff_product_id
     if raw_html is not None and raw_html != "":
-        text_nodes, images = _parse_html(raw_html)
+        text_nodes, images = _parse_html(f"<div>{raw_html}</div>")
         data["description"] = text_nodes
         data["description_images"] = images
     return data, raw_html
