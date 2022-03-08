@@ -238,3 +238,4 @@ GRPC_PAGINATION_DEFAULT_PAGE_SIZE = 20
 COMPANY_API_HEADER = "Company-Api-Key"
 COMPANY_GRPC_REQUEST_KEY = "company_keyname"
 SUPERCOMPANY_KEYNAME = "LESSBUTTER"
+S3_IMAGES_HOST = "https://alloff.s3.ap-northeast-2.amazonaws.com"
