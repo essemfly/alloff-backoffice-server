@@ -149,11 +149,15 @@ def _check_and_download_images_to_s3(data):
     for image in data.get("images", []):
         if S3_IMAGES_HOST not in image:
             new_images.append(download_image_to_s3(image))
+        else:
+            new_images.append(image)
 
     new_description_images = []
     for image in data.get("description_images", []):
         if S3_IMAGES_HOST not in image:
             new_description_images.append(download_image_to_s3(image))
+        else:
+            new_description_images.append(image)
 
     return {**data, "images": new_images, "description_images": new_description_images}
 
