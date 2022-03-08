@@ -1,11 +1,7 @@
-import io
-
-import requests
-import shortuuid
-from alloff_backoffice_server.settings import PAGE_SIZE
+from alloff_backoffice_server.settings import PAGE_SIZE, S3_IMAGES_HOST
 from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
-from django.core.files.storage import default_storage
+from core.download_image_to_s3 import download_image_to_s3
 from drf_spectacular.utils import extend_schema
 from office.models.html_product_info import HtmlProductInfo
 from protos.product.product_pb2 import (GetProductRequest, ListProductsRequest,
@@ -125,7 +121,8 @@ def _upsert_product(request, is_update: bool = None, pk=None):
     grpc_call = ProductService.create if not is_update else ProductService.edit
 
     data, raw_html = _make_grpc_request_data(request, pk)
-    request_serializer = RequestSerializer(data=data)
+    image_downloaded_data = _check_and_download_images_to_s3(data)
+    request_serializer = RequestSerializer(data=image_downloaded_data)
     request_serializer.is_valid(raise_exception=True)
 
     res = grpc_call(request_serializer.message)
@@ -141,6 +138,24 @@ def _upsert_product(request, is_update: bool = None, pk=None):
                 product_id=res.alloff_product_id, raw_html=raw_html
             )
     return result_serializer.data
+
+
+def _check_and_download_images_to_s3(data):
+    """
+    Check if images are external (i.e., not hosted on S3) and download them to S3,
+    and update the data with the new image URLs.
+    """
+    new_images = []
+    for image in data.get("images", []):
+        if S3_IMAGES_HOST not in image:
+            new_images.append(download_image_to_s3(image))
+
+    new_description_images = []
+    for image in data.get("description_images", []):
+        if S3_IMAGES_HOST not in image:
+            new_description_images.append(download_image_to_s3(image))
+
+    return {**data, "images": new_images, "description_images": new_description_images}
 
 
 def _make_grpc_request_data(request, alloff_product_id=None):
@@ -183,25 +198,6 @@ def _parse_html(raw_html):
     ]
     downloaded_images = []
     for img in images:
-        try:
-            res = requests.get(img)
-            if res.status_code != 200:
-                downloaded_images.append(img)
-                continue
-
-            random_key = shortuuid.random(length=24)
-            original_filename_nodes = img.split("/")[-1].split(".")
-            ext = original_filename_nodes[-1].split("?")[0]
-            filename = f"{random_key}.{ext}"
-            s3_path = f"html_product_images/{filename}"
-
-            with default_storage.open(s3_path, "wb") as f:
-                f.write(res.content)
-
-            downloaded_images.append(
-                f"https://alloff.s3.ap-northeast-2.amazonaws.com/{s3_path}"
-            )
-        except:
-            downloaded_images.append(img)
+        downloaded_images.append(download_image_to_s3(img))
 
     return text_nodes, downloaded_images
