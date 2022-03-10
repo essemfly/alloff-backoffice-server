@@ -18,6 +18,7 @@ class ImageUploaderRequestSerializer(serializers.Serializer):
 
 class ImageUploaderResponseSerializer(serializers.Serializer):
     url = fields.URLField(required=True)
+    origin_image_url = fields.URLField(required=False)
     random_key = fields.CharField(required=True)
 
 
