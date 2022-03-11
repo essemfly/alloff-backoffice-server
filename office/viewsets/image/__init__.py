@@ -6,9 +6,10 @@ import shortuuid
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from drf_spectacular.utils import extend_schema
-from rest_framework import fields, parsers, response, serializers, status, viewsets
+from PIL import Image, ImageOps
+from rest_framework import (fields, parsers, response, serializers, status,
+                            viewsets)
 from rest_framework.decorators import action
-from PIL import Image
 
 
 class ImageUploaderRequestSerializer(serializers.Serializer):
@@ -80,7 +81,7 @@ class ImageUploaderViewSet(viewsets.GenericViewSet):
         )
 
     def convert_to_webp(self, file):
-        image = Image.open(file).convert("RGB")
+        image = ImageOps.exif_transpose(Image.open(file)).convert("RGB")
         image_bytes = BytesIO()
         image.save(fp=image_bytes, format="WEBP")
         image_bytes = image_bytes.getvalue()
