@@ -1,4 +1,6 @@
-from alloff_backoffice_server.settings import PAGE_SIZE, S3_IMAGES_HOST
+from alloff_backoffice_server.settings import (CLOUDFRONT_HOST,
+                                               DO_NOT_CACHE_IMAGES_TO_S3_HOSTS,
+                                               PAGE_SIZE, S3_IMAGES_HOST)
 from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
 from core.download_image_to_s3 import download_image_to_s3
@@ -147,18 +149,28 @@ def _check_and_download_images_to_s3(data):
     """
     new_images = []
     for image in data.get("images", []):
-        if S3_IMAGES_HOST not in image:
+        can_cache = S3_IMAGES_HOST not in image and CLOUDFRONT_HOST not in image
+        for h in DO_NOT_CACHE_IMAGES_TO_S3_HOSTS:
+            if h in image:
+                can_cache = False
+                break
+        if can_cache:
             new_images.append(download_image_to_s3(image))
         else:
             new_images.append(image)
 
     new_description_images = []
     for image in data.get("description_images", []):
-        if S3_IMAGES_HOST not in image:
+        can_cache = S3_IMAGES_HOST not in image and CLOUDFRONT_HOST not in image
+        for h in DO_NOT_CACHE_IMAGES_TO_S3_HOSTS:
+            if h in image:
+                can_cache = False
+                break
+        if can_cache:
             new_description_images.append(download_image_to_s3(image))
         else:
             new_description_images.append(image)
-
+            
     return {**data, "images": new_images, "description_images": new_description_images}
 
 
