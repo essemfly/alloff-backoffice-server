@@ -81,7 +81,7 @@ class ImageUploaderViewSet(viewsets.GenericViewSet):
         )
 
     def convert_to_webp(self, file):
-        image = ImageOps.exif_transpose(Image.open(file)).convert("RGB")
+        image = ImageOps.exif_transpose(Image.open(file))
         image_bytes = BytesIO()
         image.save(fp=image_bytes, format="WEBP")
         image_bytes = image_bytes.getvalue()

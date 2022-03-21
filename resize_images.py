@@ -27,7 +27,7 @@ def get_cursor():
     return client.alloff_prod.products.find(
         {
             "removed": False,
-            "productinfo.brand.keyname": "TIME",
+            "productinfo.brand.keyname": "LATT",
         }
     )
 
@@ -35,7 +35,7 @@ def get_cursor():
 def get_resized_image(url, basewidth):
     res = requests.get(url)
     image = Image.open(BytesIO(res.content))
-    image = ImageOps.exif_transpose(image).convert("RGB")
+    image = ImageOps.exif_transpose(image)
     wpercent = basewidth / float(image.size[0])
     hsize = int((float(image.size[1]) * float(wpercent)))
     resized_image = image.resize((basewidth, hsize), Image.LANCZOS)
