@@ -10,7 +10,7 @@ def download_image_to_s3(image_url: str) -> str:
     Returns the original image url if image is not properly downloaded.
     """
     try:
-        res = requests.get(image_url)
+        res = requests.get(image_url, timeout=3)
         if res.status_code != 200:
             return image_url
 
