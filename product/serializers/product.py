@@ -45,6 +45,9 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     module_name = serializers.CharField()
     raw_html = serializers.CharField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
+    product_url = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
 
     class Meta:
         proto_class = ProductMessage
