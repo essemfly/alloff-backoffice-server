@@ -91,6 +91,9 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     product_id = serializers.CharField(
         allow_null=True, required=False, allow_blank=True
     )
+    product_url = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     original_price = serializers.IntegerField(allow_null=True, required=False)
     discounted_price = serializers.IntegerField()
     special_price = serializers.IntegerField(allow_null=True, required=False)
@@ -125,6 +128,9 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     product_id = serializers.CharField(
         allow_null=True, required=False, allow_blank=True
     )
+    product_url = serializers.CharField(
+        allow_null=True, required=False, allow_blank=True
+    )
     original_price = serializers.IntegerField(allow_null=True, required=False)
     discounted_price = serializers.IntegerField(allow_null=True, required=False)
     special_price = serializers.IntegerField(allow_null=True, required=False)
@@ -144,6 +150,7 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     latest_delivery_days = serializers.IntegerField(allow_null=True, required=False)
     refund_fee = serializers.IntegerField(allow_null=True, required=False)
     is_removed = serializers.BooleanField(allow_null=True, required=False)
+    is_soldout = serializers.BooleanField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
