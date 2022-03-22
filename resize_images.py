@@ -56,7 +56,7 @@ def resize(url):
     return f"{S3_IMAGES_HOST}/{new_path}"
 
 
-async def resize_document(doc):
+def resize_document(doc):
     if "images" not in doc:
         return
     images = doc["images"]
@@ -94,7 +94,7 @@ def get_docs(cursor):
 
 def process_images(brand_keyname):
     start = time.time()
-    cursor = get_cursor()
+    cursor = get_cursor(brand_keyname)
     count = cursor.count()
     counter = 0
     for doc in get_docs(cursor):
