@@ -1,5 +1,3 @@
-import asyncio
-
 import pymongo
 
 client = pymongo.MongoClient(
@@ -17,17 +15,13 @@ from PIL import Image, ImageOps
 from alloff_backoffice_server.settings import S3_IMAGES_HOST
 
 BASEWIDTH = 1280
-# def get_cursor():
-#     return client.alloff_prod.products.find(
-#         {"removed": False, "images": {"$elemMatch": {"$regex": "https://alloff\.s3.*webp"}, "$not": {"$regex": ".*__RESIZED.*"}}}
-#     )
 
 
-def get_cursor():
+def get_cursor(brand_keyname):
     return client.alloff_prod.products.find(
         {
             "removed": False,
-            "productinfo.brand.keyname": "LATT",
+            "productinfo.brand.keyname": brand_keyname,
         }
     )
 
@@ -62,19 +56,19 @@ def resize(url):
     return f"{S3_IMAGES_HOST}/{new_path}"
 
 
-async def resize_document(doc):
+def resize_document(doc):
     if "images" not in doc:
         return
     images = doc["images"]
     if images is None:
         return
-        
+
     should_resize = False
     for image in images:
         if "__RESIZED" not in image:
             should_resize = True
             break
-    
+
     if not should_resize:
         return
 
@@ -93,13 +87,19 @@ async def resize_document(doc):
     )
     return
 
+
 def get_docs(cursor):
     return list(cursor)
 
-async def process_async():
+
+def process_images(brand_keyname):
     start = time.time()
-    cursor = get_cursor()
-    print(cursor.count())
-    await asyncio.wait([resize_document(doc) for doc in get_docs(cursor)])
+    cursor = get_cursor(brand_keyname)
+    count = cursor.count()
+    counter = 0
+    for doc in get_docs(cursor):
+        counter += 1
+        resize_document(doc)
+        print(f"{counter}/{count} DONE")
     end = time.time()
-    print(f">>> 비동기 처리 총 소요 시간: {end - start}")
+    print(f">>> 처리 총 소요 시간: {end - start}")
