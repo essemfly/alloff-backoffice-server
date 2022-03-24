@@ -154,8 +154,8 @@ class OrderItemViewSetBase(
         responses={status.HTTP_200_OK: OrderItemListSerializer},
         parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
     )
-    @with_company_api
     @action(detail=True, methods=["POST"])
+    @with_company_api
     def change_status(self, request: Request, pk=None):
         serializer = ChangeStatusSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
