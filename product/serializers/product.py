@@ -1,3 +1,4 @@
+from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
 from protos.product.product_pb2 import (
@@ -11,6 +12,15 @@ from protos.product.product_pb2 import (
 )
 from rest_framework import serializers
 
+class SortingOptions(models.TextChoices):
+    PRICE_ASCENDING = "PRICE_ASCENDING"
+    PRICE_DESCENDING = "PRICE_DESCENDING"
+    DISCOUNT_0_30 = "DISCOUNT_0_30"
+    DISCOUNT_30_50 = "DISCOUNT_30_50"
+    DISCOUNT_50_70 = "DISCOUNT_50_70"
+    DISCOUNT_70_100 = "DISCOUNT_70_100"
+    DISCOUNTRATE_ASCENDING = "DISCOUNTRATE_ASCENDING"
+    DISCOUNTRATE_DESCENDING = "DISCOUNTRATE_DESCENDING"
 
 class ProductInventorySerializer(proto_serializers.ProtoSerializer):
     size = serializers.CharField()
@@ -48,6 +58,8 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     product_url = serializers.CharField(
         allow_null=True, required=False, allow_blank=True
     )
+    is_classified_done = serializers.BooleanField()
+    is_classified_touched = serializers.BooleanField()
 
     class Meta:
         proto_class = ProductMessage
@@ -58,6 +70,8 @@ class ProductQuerySerializer(proto_serializers.ProtoSerializer):
     brand_id = serializers.CharField()
     category_id = serializers.CharField()
     alloff_category_id = serializers.CharField()
+    options = serializers.ListField(child=serializers.ChoiceField(SortingOptions.choices))
+    is_classified_done = serializers.BooleanField()
 
     class Meta:
         proto_class = ProductQuery
