@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-package grpcServer;
-
+package protos;
 
 option go_package = "github.com/lessbutter/alloff-api/api/grpcServer";
-
 
 service TopBanner {
     rpc GetTopBanner(GetTopBannerRequest) returns (GetTopBannerResponse);

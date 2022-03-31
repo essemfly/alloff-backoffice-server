@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package grpcServer;
+package protos;
 
 import "protos/product/productGroup.proto";
 

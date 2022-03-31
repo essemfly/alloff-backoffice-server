@@ -15,32 +15,32 @@ class ProductGroupStub(object):
             channel: A grpc.Channel.
         """
         self.GetProductGroup = channel.unary_unary(
-                '/grpcServer.ProductGroup/GetProductGroup',
+                '/protos.ProductGroup/GetProductGroup',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.GetProductGroupRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.GetProductGroupResponse.FromString,
                 )
         self.CreateProductGroup = channel.unary_unary(
-                '/grpcServer.ProductGroup/CreateProductGroup',
+                '/protos.ProductGroup/CreateProductGroup',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.CreateProductGroupRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.CreateProductGroupResponse.FromString,
                 )
         self.ListProductGroups = channel.unary_unary(
-                '/grpcServer.ProductGroup/ListProductGroups',
+                '/protos.ProductGroup/ListProductGroups',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.ListProductGroupsResponse.FromString,
                 )
         self.EditProductGroup = channel.unary_unary(
-                '/grpcServer.ProductGroup/EditProductGroup',
+                '/protos.ProductGroup/EditProductGroup',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.FromString,
                 )
         self.PushProductsInProductGroup = channel.unary_unary(
-                '/grpcServer.ProductGroup/PushProductsInProductGroup',
+                '/protos.ProductGroup/PushProductsInProductGroup',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.PushProductsInPgResponse.FromString,
                 )
         self.RemoveProductInProductGroup = channel.unary_unary(
-                '/grpcServer.ProductGroup/RemoveProductInProductGroup',
+                '/protos.ProductGroup/RemoveProductInProductGroup',
                 request_serializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_productGroup__pb2.RemoveProductInPgResponse.FromString,
                 )
@@ -120,7 +120,7 @@ def add_ProductGroupServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.ProductGroup', rpc_method_handlers)
+            'protos.ProductGroup', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -139,7 +139,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/GetProductGroup',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/GetProductGroup',
             protos_dot_product_dot_productGroup__pb2.GetProductGroupRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.GetProductGroupResponse.FromString,
             options, channel_credentials,
@@ -156,7 +156,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/CreateProductGroup',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/CreateProductGroup',
             protos_dot_product_dot_productGroup__pb2.CreateProductGroupRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.CreateProductGroupResponse.FromString,
             options, channel_credentials,
@@ -173,7 +173,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/ListProductGroups',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/ListProductGroups',
             protos_dot_product_dot_productGroup__pb2.ListProductGroupsRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.ListProductGroupsResponse.FromString,
             options, channel_credentials,
@@ -190,7 +190,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/EditProductGroup',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/EditProductGroup',
             protos_dot_product_dot_productGroup__pb2.EditProductGroupRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.EditProductGroupResponse.FromString,
             options, channel_credentials,
@@ -207,7 +207,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/PushProductsInProductGroup',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/PushProductsInProductGroup',
             protos_dot_product_dot_productGroup__pb2.PushProductsInPgRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.PushProductsInPgResponse.FromString,
             options, channel_credentials,
@@ -224,7 +224,7 @@ class ProductGroup(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.ProductGroup/RemoveProductInProductGroup',
+        return grpc.experimental.unary_unary(request, target, '/protos.ProductGroup/RemoveProductInProductGroup',
             protos_dot_product_dot_productGroup__pb2.RemoveProductInPgRequest.SerializeToString,
             protos_dot_product_dot_productGroup__pb2.RemoveProductInPgResponse.FromString,
             options, channel_credentials,

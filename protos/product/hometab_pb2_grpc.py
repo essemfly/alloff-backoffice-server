@@ -15,22 +15,22 @@ class HomeTabItemStub(object):
             channel: A grpc.Channel.
         """
         self.GetHomeTabItem = channel.unary_unary(
-                '/grpcServer.HomeTabItem/GetHomeTabItem',
+                '/protos.HomeTabItem/GetHomeTabItem',
                 request_serializer=protos_dot_product_dot_hometab__pb2.GetHomeTabItemRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_hometab__pb2.GetHomeTabItemResponse.FromString,
                 )
         self.ListHomeTabItems = channel.unary_unary(
-                '/grpcServer.HomeTabItem/ListHomeTabItems',
+                '/protos.HomeTabItem/ListHomeTabItems',
                 request_serializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_hometab__pb2.ListHomeTabItemsResponse.FromString,
                 )
         self.EditHomeTabItem = channel.unary_unary(
-                '/grpcServer.HomeTabItem/EditHomeTabItem',
+                '/protos.HomeTabItem/EditHomeTabItem',
                 request_serializer=protos_dot_product_dot_hometab__pb2.EditHomeTabItemRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_hometab__pb2.EditHomeTabItemResponse.FromString,
                 )
         self.CreateHomeTabItem = channel.unary_unary(
-                '/grpcServer.HomeTabItem/CreateHomeTabItem',
+                '/protos.HomeTabItem/CreateHomeTabItem',
                 request_serializer=protos_dot_product_dot_hometab__pb2.CreateHomeTabItemRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_hometab__pb2.CreateHomeTabItemResponse.FromString,
                 )
@@ -88,7 +88,7 @@ def add_HomeTabItemServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.HomeTabItem', rpc_method_handlers)
+            'protos.HomeTabItem', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -107,7 +107,7 @@ class HomeTabItem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.HomeTabItem/GetHomeTabItem',
+        return grpc.experimental.unary_unary(request, target, '/protos.HomeTabItem/GetHomeTabItem',
             protos_dot_product_dot_hometab__pb2.GetHomeTabItemRequest.SerializeToString,
             protos_dot_product_dot_hometab__pb2.GetHomeTabItemResponse.FromString,
             options, channel_credentials,
@@ -124,7 +124,7 @@ class HomeTabItem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.HomeTabItem/ListHomeTabItems',
+        return grpc.experimental.unary_unary(request, target, '/protos.HomeTabItem/ListHomeTabItems',
             protos_dot_product_dot_hometab__pb2.ListHomeTabItemsRequest.SerializeToString,
             protos_dot_product_dot_hometab__pb2.ListHomeTabItemsResponse.FromString,
             options, channel_credentials,
@@ -141,7 +141,7 @@ class HomeTabItem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.HomeTabItem/EditHomeTabItem',
+        return grpc.experimental.unary_unary(request, target, '/protos.HomeTabItem/EditHomeTabItem',
             protos_dot_product_dot_hometab__pb2.EditHomeTabItemRequest.SerializeToString,
             protos_dot_product_dot_hometab__pb2.EditHomeTabItemResponse.FromString,
             options, channel_credentials,
@@ -158,7 +158,7 @@ class HomeTabItem(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.HomeTabItem/CreateHomeTabItem',
+        return grpc.experimental.unary_unary(request, target, '/protos.HomeTabItem/CreateHomeTabItem',
             protos_dot_product_dot_hometab__pb2.CreateHomeTabItemRequest.SerializeToString,
             protos_dot_product_dot_hometab__pb2.CreateHomeTabItemResponse.FromString,
             options, channel_credentials,
