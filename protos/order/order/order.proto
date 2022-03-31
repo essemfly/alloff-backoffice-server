@@ -29,6 +29,12 @@ message Order {
     string updated_at = 12;
     string ordered_at = 13;
     payment.Payment payment = 14;
+    string recipient_name = 15;
+    string recipient_mobile = 16;
+    string recipient_postcode = 17;
+    string recipient_address = 18;
+    string orderer_name = 19;
+    string orderer_mobile = 20;
 }
 
 message OrderListRequest {

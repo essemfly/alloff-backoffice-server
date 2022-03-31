@@ -47,13 +47,13 @@ def _make_row(order_item):
         order_item.total_amount,  # 결제금액
         order_item.sales_price,  # 판매가*
         order_item.order.user_id,  # 주문자 ID*
-        order_item.order.payment.buyer_name,  # 주문자명*
-        order_item.order.payment.buyer_mobile,  # 주문자 연락처
-        order_item.order.payment.buyer_name,  # 수취인명*
-        order_item.order.payment.buyer_mobile,  # 수취인 전화번호*
-        order_item.order.payment.buyer_mobile,  # 수취인 핸드폰번호*
-        order_item.order.payment.buyer_address,  # 수취인 주소*
-        order_item.order.payment.buyer_post_code,  # 수취인 우편번호*
+        order_item.order.orderer_name,  # 주문자명*
+        order_item.order.orderer_mobile,  # 주문자 연락처
+        order_item.order.recipient_name,  # 수취인명*
+        order_item.order.recipient_mobile,  # 수취인 전화번호*
+        order_item.order.recipient_mobile,  # 수취인 핸드폰번호*
+        order_item.order.recipient_address,  # 수취인 주소*
+        order_item.order.recipient_postcode,  # 수취인 우편번호*
         0,  # 배송비
         order_item.order.user_memo,  # 배송메세지
     ]
