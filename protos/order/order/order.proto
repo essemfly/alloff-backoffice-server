@@ -35,7 +35,6 @@ message Order {
     string recipient_address = 18;
     string orderer_name = 19;
     string orderer_mobile = 20;
-    string orderer_id = 21;
 }
 
 message OrderListRequest {

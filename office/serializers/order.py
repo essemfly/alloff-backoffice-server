@@ -43,7 +43,6 @@ class OrderSerializer(proto_serializers.ProtoSerializer):
     ordered_at = fields.DateTimeField(allow_null=True)
 
     # property fields
-    orderer_id = fields.CharField()
     orderer_name = fields.CharField()
     orderer_mobile = fields.CharField()
     recipient_name = fields.CharField()
