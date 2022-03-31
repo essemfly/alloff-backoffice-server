@@ -23,30 +23,6 @@ class OrderSerializer(proto_serializers.ProtoSerializer):
     # payment_adjustments = OrderPaymentAdjustmentSerializer(many=True)
     user = UserDAOSerializer()
 
-    recipient_name = fields.SerializerMethodField()
-
-    @extend_schema_field(fields.CharField)
-    def get_recipient_name(self, obj):
-        return obj.payment.buyer_name
-
-    orderer_name = fields.SerializerMethodField()
-
-    @extend_schema_field(fields.CharField)
-    def get_orderer_name(self, obj):
-        return obj.payment.buyer_name
-
-    recipient_mobile = fields.SerializerMethodField()
-
-    @extend_schema_field(fields.CharField)
-    def get_recipient_mobile(self, obj):
-        return obj.payment.buyer_mobile
-
-    orderer_mobile = fields.SerializerMethodField()
-
-    @extend_schema_field(fields.CharField)
-    def get_orderer_mobile(self, obj):
-        return "" if "mobile" not in obj.user else obj.user["mobile"]
-
     alloff_order_id = fields.CharField()
     order_status = fields.ChoiceField(OrderStatus.choices)
 
@@ -65,6 +41,14 @@ class OrderSerializer(proto_serializers.ProtoSerializer):
     created_at = fields.DateTimeField()
     updated_at = fields.DateTimeField()
     ordered_at = fields.DateTimeField(allow_null=True)
+
+    # property fields
+    orderer_name = fields.CharField()
+    orderer_mobile = fields.CharField()
+    recipient_name = fields.CharField()
+    recipient_mobile = fields.CharField()
+    recipient_postcode = fields.CharField()
+    recipient_address = fields.CharField()
 
     class Meta:
         proto_class = order_pb2.Order
