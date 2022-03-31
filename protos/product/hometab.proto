@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package grpcServer;
+package protos;
 
 import "protos/product/exhibition.proto";
 import "protos/product/product.proto";
@@ -83,6 +83,7 @@ message HomeTabItemMessage {
     HomeTabItemReferenceMessage reference = 12;
     int32 weight = 13;
     bool is_live = 14;
+
 }
 
 message HomeTabItemReferenceMessage {

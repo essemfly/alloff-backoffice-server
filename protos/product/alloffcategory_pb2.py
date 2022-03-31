@@ -3,6 +3,7 @@
 # source: protos/product/alloffcategory.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -13,201 +14,45 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='protos/product/alloffcategory.proto',
-  package='grpcServer',
-  syntax='proto3',
-  serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n#protos/product/alloffcategory.proto\x12\ngrpcServer\"~\n\x15\x41lloffCategoryMessage\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07keyname\x18\x03 \x01(\t\x12\r\n\x05level\x18\x04 \x01(\x05\x12\x11\n\tparent_id\x18\x05 \x01(\t\x12\x0f\n\x07img_url\x18\x06 \x01(\t\".\n\x19ListAlloffCategoryRequest\x12\x11\n\tparent_id\x18\x01 \x01(\t\"S\n\x1aListAlloffCategoryResponse\x12\x35\n\ncategories\x18\x01 \x03(\x0b\x32!.grpcServer.AlloffCategoryMessage2u\n\x0e\x41lloffCategory\x12\x63\n\x12ListAlloffCategory\x12%.grpcServer.ListAlloffCategoryRequest\x1a&.grpcServer.ListAlloffCategoryResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
-)
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n#protos/product/alloffcategory.proto\x12\x06protos\"~\n\x15\x41lloffCategoryMessage\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07keyname\x18\x03 \x01(\t\x12\r\n\x05level\x18\x04 \x01(\x05\x12\x11\n\tparent_id\x18\x05 \x01(\t\x12\x0f\n\x07img_url\x18\x06 \x01(\t\".\n\x19ListAlloffCategoryRequest\x12\x11\n\tparent_id\x18\x01 \x01(\t\"O\n\x1aListAlloffCategoryResponse\x12\x31\n\ncategories\x18\x01 \x03(\x0b\x32\x1d.protos.AlloffCategoryMessage2m\n\x0e\x41lloffCategory\x12[\n\x12ListAlloffCategory\x12!.protos.ListAlloffCategoryRequest\x1a\".protos.ListAlloffCategoryResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3')
 
 
 
-
-_ALLOFFCATEGORYMESSAGE = _descriptor.Descriptor(
-  name='AlloffCategoryMessage',
-  full_name='grpcServer.AlloffCategoryMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='category_id', full_name='grpcServer.AlloffCategoryMessage.category_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='grpcServer.AlloffCategoryMessage.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='keyname', full_name='grpcServer.AlloffCategoryMessage.keyname', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='level', full_name='grpcServer.AlloffCategoryMessage.level', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='parent_id', full_name='grpcServer.AlloffCategoryMessage.parent_id', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='img_url', full_name='grpcServer.AlloffCategoryMessage.img_url', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=51,
-  serialized_end=177,
-)
-
-
-_LISTALLOFFCATEGORYREQUEST = _descriptor.Descriptor(
-  name='ListAlloffCategoryRequest',
-  full_name='grpcServer.ListAlloffCategoryRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='parent_id', full_name='grpcServer.ListAlloffCategoryRequest.parent_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=179,
-  serialized_end=225,
-)
-
-
-_LISTALLOFFCATEGORYRESPONSE = _descriptor.Descriptor(
-  name='ListAlloffCategoryResponse',
-  full_name='grpcServer.ListAlloffCategoryResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='categories', full_name='grpcServer.ListAlloffCategoryResponse.categories', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=227,
-  serialized_end=310,
-)
-
-_LISTALLOFFCATEGORYRESPONSE.fields_by_name['categories'].message_type = _ALLOFFCATEGORYMESSAGE
-DESCRIPTOR.message_types_by_name['AlloffCategoryMessage'] = _ALLOFFCATEGORYMESSAGE
-DESCRIPTOR.message_types_by_name['ListAlloffCategoryRequest'] = _LISTALLOFFCATEGORYREQUEST
-DESCRIPTOR.message_types_by_name['ListAlloffCategoryResponse'] = _LISTALLOFFCATEGORYRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_ALLOFFCATEGORYMESSAGE = DESCRIPTOR.message_types_by_name['AlloffCategoryMessage']
+_LISTALLOFFCATEGORYREQUEST = DESCRIPTOR.message_types_by_name['ListAlloffCategoryRequest']
+_LISTALLOFFCATEGORYRESPONSE = DESCRIPTOR.message_types_by_name['ListAlloffCategoryResponse']
 AlloffCategoryMessage = _reflection.GeneratedProtocolMessageType('AlloffCategoryMessage', (_message.Message,), {
   'DESCRIPTOR' : _ALLOFFCATEGORYMESSAGE,
   '__module__' : 'protos.product.alloffcategory_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.AlloffCategoryMessage)
+  # @@protoc_insertion_point(class_scope:protos.AlloffCategoryMessage)
   })
 _sym_db.RegisterMessage(AlloffCategoryMessage)
 
 ListAlloffCategoryRequest = _reflection.GeneratedProtocolMessageType('ListAlloffCategoryRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTALLOFFCATEGORYREQUEST,
   '__module__' : 'protos.product.alloffcategory_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.ListAlloffCategoryRequest)
+  # @@protoc_insertion_point(class_scope:protos.ListAlloffCategoryRequest)
   })
 _sym_db.RegisterMessage(ListAlloffCategoryRequest)
 
 ListAlloffCategoryResponse = _reflection.GeneratedProtocolMessageType('ListAlloffCategoryResponse', (_message.Message,), {
   'DESCRIPTOR' : _LISTALLOFFCATEGORYRESPONSE,
   '__module__' : 'protos.product.alloffcategory_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.ListAlloffCategoryResponse)
+  # @@protoc_insertion_point(class_scope:protos.ListAlloffCategoryResponse)
   })
 _sym_db.RegisterMessage(ListAlloffCategoryResponse)
 
+_ALLOFFCATEGORY = DESCRIPTOR.services_by_name['AlloffCategory']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-
-_ALLOFFCATEGORY = _descriptor.ServiceDescriptor(
-  name='AlloffCategory',
-  full_name='grpcServer.AlloffCategory',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=312,
-  serialized_end=429,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ListAlloffCategory',
-    full_name='grpcServer.AlloffCategory.ListAlloffCategory',
-    index=0,
-    containing_service=None,
-    input_type=_LISTALLOFFCATEGORYREQUEST,
-    output_type=_LISTALLOFFCATEGORYRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_ALLOFFCATEGORY)
-
-DESCRIPTOR.services_by_name['AlloffCategory'] = _ALLOFFCATEGORY
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'Z/github.com/lessbutter/alloff-api/api/grpcServer'
+  _ALLOFFCATEGORYMESSAGE._serialized_start=47
+  _ALLOFFCATEGORYMESSAGE._serialized_end=173
+  _LISTALLOFFCATEGORYREQUEST._serialized_start=175
+  _LISTALLOFFCATEGORYREQUEST._serialized_end=221
+  _LISTALLOFFCATEGORYRESPONSE._serialized_start=223
+  _LISTALLOFFCATEGORYRESPONSE._serialized_end=302
+  _ALLOFFCATEGORY._serialized_start=304
+  _ALLOFFCATEGORY._serialized_end=413
 # @@protoc_insertion_point(module_scope)

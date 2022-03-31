@@ -15,22 +15,22 @@ class ExhibitionStub(object):
             channel: A grpc.Channel.
         """
         self.GetExhibition = channel.unary_unary(
-                '/grpcServer.Exhibition/GetExhibition',
+                '/protos.Exhibition/GetExhibition',
                 request_serializer=protos_dot_product_dot_exhibition__pb2.GetExhibitionRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_exhibition__pb2.GetExhibitionResponse.FromString,
                 )
         self.ListExhibitions = channel.unary_unary(
-                '/grpcServer.Exhibition/ListExhibitions',
+                '/protos.Exhibition/ListExhibitions',
                 request_serializer=protos_dot_product_dot_exhibition__pb2.ListExhibitionsRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_exhibition__pb2.ListExhibitionsResponse.FromString,
                 )
         self.EditExhibition = channel.unary_unary(
-                '/grpcServer.Exhibition/EditExhibition',
+                '/protos.Exhibition/EditExhibition',
                 request_serializer=protos_dot_product_dot_exhibition__pb2.EditExhibitionRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_exhibition__pb2.EditExhibitionResponse.FromString,
                 )
         self.CreateExhibition = channel.unary_unary(
-                '/grpcServer.Exhibition/CreateExhibition',
+                '/protos.Exhibition/CreateExhibition',
                 request_serializer=protos_dot_product_dot_exhibition__pb2.CreateExhibitionRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_exhibition__pb2.CreateExhibitionResponse.FromString,
                 )
@@ -88,7 +88,7 @@ def add_ExhibitionServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.Exhibition', rpc_method_handlers)
+            'protos.Exhibition', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -107,7 +107,7 @@ class Exhibition(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Exhibition/GetExhibition',
+        return grpc.experimental.unary_unary(request, target, '/protos.Exhibition/GetExhibition',
             protos_dot_product_dot_exhibition__pb2.GetExhibitionRequest.SerializeToString,
             protos_dot_product_dot_exhibition__pb2.GetExhibitionResponse.FromString,
             options, channel_credentials,
@@ -124,7 +124,7 @@ class Exhibition(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Exhibition/ListExhibitions',
+        return grpc.experimental.unary_unary(request, target, '/protos.Exhibition/ListExhibitions',
             protos_dot_product_dot_exhibition__pb2.ListExhibitionsRequest.SerializeToString,
             protos_dot_product_dot_exhibition__pb2.ListExhibitionsResponse.FromString,
             options, channel_credentials,
@@ -141,7 +141,7 @@ class Exhibition(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Exhibition/EditExhibition',
+        return grpc.experimental.unary_unary(request, target, '/protos.Exhibition/EditExhibition',
             protos_dot_product_dot_exhibition__pb2.EditExhibitionRequest.SerializeToString,
             protos_dot_product_dot_exhibition__pb2.EditExhibitionResponse.FromString,
             options, channel_credentials,
@@ -158,7 +158,7 @@ class Exhibition(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Exhibition/CreateExhibition',
+        return grpc.experimental.unary_unary(request, target, '/protos.Exhibition/CreateExhibition',
             protos_dot_product_dot_exhibition__pb2.CreateExhibitionRequest.SerializeToString,
             protos_dot_product_dot_exhibition__pb2.CreateExhibitionResponse.FromString,
             options, channel_credentials,

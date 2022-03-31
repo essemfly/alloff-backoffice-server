@@ -15,7 +15,7 @@ class AlloffCategoryStub(object):
             channel: A grpc.Channel.
         """
         self.ListAlloffCategory = channel.unary_unary(
-                '/grpcServer.AlloffCategory/ListAlloffCategory',
+                '/protos.AlloffCategory/ListAlloffCategory',
                 request_serializer=protos_dot_product_dot_alloffcategory__pb2.ListAlloffCategoryRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_alloffcategory__pb2.ListAlloffCategoryResponse.FromString,
                 )
@@ -40,7 +40,7 @@ def add_AlloffCategoryServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.AlloffCategory', rpc_method_handlers)
+            'protos.AlloffCategory', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,7 +59,7 @@ class AlloffCategory(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.AlloffCategory/ListAlloffCategory',
+        return grpc.experimental.unary_unary(request, target, '/protos.AlloffCategory/ListAlloffCategory',
             protos_dot_product_dot_alloffcategory__pb2.ListAlloffCategoryRequest.SerializeToString,
             protos_dot_product_dot_alloffcategory__pb2.ListAlloffCategoryResponse.FromString,
             options, channel_credentials,

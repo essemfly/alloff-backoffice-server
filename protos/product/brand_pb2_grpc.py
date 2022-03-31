@@ -15,17 +15,17 @@ class BrandStub(object):
             channel: A grpc.Channel.
         """
         self.ListBrand = channel.unary_unary(
-                '/grpcServer.Brand/ListBrand',
+                '/protos.Brand/ListBrand',
                 request_serializer=protos_dot_product_dot_brand__pb2.ListBrandRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_brand__pb2.ListBrandResponse.FromString,
                 )
         self.EditBrand = channel.unary_unary(
-                '/grpcServer.Brand/EditBrand',
+                '/protos.Brand/EditBrand',
                 request_serializer=protos_dot_product_dot_brand__pb2.EditBrandRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_brand__pb2.EditBrandResponse.FromString,
                 )
         self.CreateBrand = channel.unary_unary(
-                '/grpcServer.Brand/CreateBrand',
+                '/protos.Brand/CreateBrand',
                 request_serializer=protos_dot_product_dot_brand__pb2.CreateBrandRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_brand__pb2.CreateBrandResponse.FromString,
                 )
@@ -72,7 +72,7 @@ def add_BrandServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.Brand', rpc_method_handlers)
+            'protos.Brand', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -91,7 +91,7 @@ class Brand(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Brand/ListBrand',
+        return grpc.experimental.unary_unary(request, target, '/protos.Brand/ListBrand',
             protos_dot_product_dot_brand__pb2.ListBrandRequest.SerializeToString,
             protos_dot_product_dot_brand__pb2.ListBrandResponse.FromString,
             options, channel_credentials,
@@ -108,7 +108,7 @@ class Brand(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Brand/EditBrand',
+        return grpc.experimental.unary_unary(request, target, '/protos.Brand/EditBrand',
             protos_dot_product_dot_brand__pb2.EditBrandRequest.SerializeToString,
             protos_dot_product_dot_brand__pb2.EditBrandResponse.FromString,
             options, channel_credentials,
@@ -125,7 +125,7 @@ class Brand(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Brand/CreateBrand',
+        return grpc.experimental.unary_unary(request, target, '/protos.Brand/CreateBrand',
             protos_dot_product_dot_brand__pb2.CreateBrandRequest.SerializeToString,
             protos_dot_product_dot_brand__pb2.CreateBrandResponse.FromString,
             options, channel_credentials,

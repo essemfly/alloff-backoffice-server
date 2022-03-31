@@ -15,17 +15,17 @@ class NotificationStub(object):
             channel: A grpc.Channel.
         """
         self.ListNoti = channel.unary_unary(
-                '/grpcServer.Notification/ListNoti',
+                '/protos.Notification/ListNoti',
                 request_serializer=protos_dot_product_dot_notification__pb2.ListNotiRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_notification__pb2.ListNotiResponse.FromString,
                 )
         self.CreateNoti = channel.unary_unary(
-                '/grpcServer.Notification/CreateNoti',
+                '/protos.Notification/CreateNoti',
                 request_serializer=protos_dot_product_dot_notification__pb2.CreateNotiRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_notification__pb2.CreateNotiResponse.FromString,
                 )
         self.SendNoti = channel.unary_unary(
-                '/grpcServer.Notification/SendNoti',
+                '/protos.Notification/SendNoti',
                 request_serializer=protos_dot_product_dot_notification__pb2.SendNotiRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_notification__pb2.SendNotiResponse.FromString,
                 )
@@ -72,7 +72,7 @@ def add_NotificationServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.Notification', rpc_method_handlers)
+            'protos.Notification', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -91,7 +91,7 @@ class Notification(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Notification/ListNoti',
+        return grpc.experimental.unary_unary(request, target, '/protos.Notification/ListNoti',
             protos_dot_product_dot_notification__pb2.ListNotiRequest.SerializeToString,
             protos_dot_product_dot_notification__pb2.ListNotiResponse.FromString,
             options, channel_credentials,
@@ -108,7 +108,7 @@ class Notification(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Notification/CreateNoti',
+        return grpc.experimental.unary_unary(request, target, '/protos.Notification/CreateNoti',
             protos_dot_product_dot_notification__pb2.CreateNotiRequest.SerializeToString,
             protos_dot_product_dot_notification__pb2.CreateNotiResponse.FromString,
             options, channel_credentials,
@@ -125,7 +125,7 @@ class Notification(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Notification/SendNoti',
+        return grpc.experimental.unary_unary(request, target, '/protos.Notification/SendNoti',
             protos_dot_product_dot_notification__pb2.SendNotiRequest.SerializeToString,
             protos_dot_product_dot_notification__pb2.SendNotiResponse.FromString,
             options, channel_credentials,
