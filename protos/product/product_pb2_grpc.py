@@ -15,22 +15,22 @@ class ProductStub(object):
             channel: A grpc.Channel.
         """
         self.GetProduct = channel.unary_unary(
-                '/grpcServer.Product/GetProduct',
+                '/protos.Product/GetProduct',
                 request_serializer=protos_dot_product_dot_product__pb2.GetProductRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_product__pb2.GetProductResponse.FromString,
                 )
         self.ListProducts = channel.unary_unary(
-                '/grpcServer.Product/ListProducts',
+                '/protos.Product/ListProducts',
                 request_serializer=protos_dot_product_dot_product__pb2.ListProductsRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_product__pb2.ListProductsResponse.FromString,
                 )
         self.CreateProduct = channel.unary_unary(
-                '/grpcServer.Product/CreateProduct',
+                '/protos.Product/CreateProduct',
                 request_serializer=protos_dot_product_dot_product__pb2.CreateProductRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_product__pb2.CreateProductResponse.FromString,
                 )
         self.EditProduct = channel.unary_unary(
-                '/grpcServer.Product/EditProduct',
+                '/protos.Product/EditProduct',
                 request_serializer=protos_dot_product_dot_product__pb2.EditProductRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_product__pb2.EditProductResponse.FromString,
                 )
@@ -88,7 +88,7 @@ def add_ProductServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.Product', rpc_method_handlers)
+            'protos.Product', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -107,7 +107,7 @@ class Product(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/GetProduct',
+        return grpc.experimental.unary_unary(request, target, '/protos.Product/GetProduct',
             protos_dot_product_dot_product__pb2.GetProductRequest.SerializeToString,
             protos_dot_product_dot_product__pb2.GetProductResponse.FromString,
             options, channel_credentials,
@@ -124,7 +124,7 @@ class Product(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/ListProducts',
+        return grpc.experimental.unary_unary(request, target, '/protos.Product/ListProducts',
             protos_dot_product_dot_product__pb2.ListProductsRequest.SerializeToString,
             protos_dot_product_dot_product__pb2.ListProductsResponse.FromString,
             options, channel_credentials,
@@ -141,7 +141,7 @@ class Product(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/CreateProduct',
+        return grpc.experimental.unary_unary(request, target, '/protos.Product/CreateProduct',
             protos_dot_product_dot_product__pb2.CreateProductRequest.SerializeToString,
             protos_dot_product_dot_product__pb2.CreateProductResponse.FromString,
             options, channel_credentials,
@@ -158,7 +158,7 @@ class Product(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.Product/EditProduct',
+        return grpc.experimental.unary_unary(request, target, '/protos.Product/EditProduct',
             protos_dot_product_dot_product__pb2.EditProductRequest.SerializeToString,
             protos_dot_product_dot_product__pb2.EditProductResponse.FromString,
             options, channel_credentials,

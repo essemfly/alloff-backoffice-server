@@ -15,22 +15,22 @@ class TopBannerStub(object):
             channel: A grpc.Channel.
         """
         self.GetTopBanner = channel.unary_unary(
-                '/grpcServer.TopBanner/GetTopBanner',
+                '/protos.TopBanner/GetTopBanner',
                 request_serializer=protos_dot_product_dot_topbanner__pb2.GetTopBannerRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_topbanner__pb2.GetTopBannerResponse.FromString,
                 )
         self.ListTopBanners = channel.unary_unary(
-                '/grpcServer.TopBanner/ListTopBanners',
+                '/protos.TopBanner/ListTopBanners',
                 request_serializer=protos_dot_product_dot_topbanner__pb2.ListTopBannersRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_topbanner__pb2.ListTopBannersResponse.FromString,
                 )
         self.EditTopBanner = channel.unary_unary(
-                '/grpcServer.TopBanner/EditTopBanner',
+                '/protos.TopBanner/EditTopBanner',
                 request_serializer=protos_dot_product_dot_topbanner__pb2.EditTopBannerRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_topbanner__pb2.EditTopBannerResponse.FromString,
                 )
         self.CreateTopBanner = channel.unary_unary(
-                '/grpcServer.TopBanner/CreateTopBanner',
+                '/protos.TopBanner/CreateTopBanner',
                 request_serializer=protos_dot_product_dot_topbanner__pb2.CreateTopBannerRequest.SerializeToString,
                 response_deserializer=protos_dot_product_dot_topbanner__pb2.CreateTopBannerResponse.FromString,
                 )
@@ -88,7 +88,7 @@ def add_TopBannerServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'grpcServer.TopBanner', rpc_method_handlers)
+            'protos.TopBanner', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -107,7 +107,7 @@ class TopBanner(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.TopBanner/GetTopBanner',
+        return grpc.experimental.unary_unary(request, target, '/protos.TopBanner/GetTopBanner',
             protos_dot_product_dot_topbanner__pb2.GetTopBannerRequest.SerializeToString,
             protos_dot_product_dot_topbanner__pb2.GetTopBannerResponse.FromString,
             options, channel_credentials,
@@ -124,7 +124,7 @@ class TopBanner(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.TopBanner/ListTopBanners',
+        return grpc.experimental.unary_unary(request, target, '/protos.TopBanner/ListTopBanners',
             protos_dot_product_dot_topbanner__pb2.ListTopBannersRequest.SerializeToString,
             protos_dot_product_dot_topbanner__pb2.ListTopBannersResponse.FromString,
             options, channel_credentials,
@@ -141,7 +141,7 @@ class TopBanner(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.TopBanner/EditTopBanner',
+        return grpc.experimental.unary_unary(request, target, '/protos.TopBanner/EditTopBanner',
             protos_dot_product_dot_topbanner__pb2.EditTopBannerRequest.SerializeToString,
             protos_dot_product_dot_topbanner__pb2.EditTopBannerResponse.FromString,
             options, channel_credentials,
@@ -158,7 +158,7 @@ class TopBanner(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpcServer.TopBanner/CreateTopBanner',
+        return grpc.experimental.unary_unary(request, target, '/protos.TopBanner/CreateTopBanner',
             protos_dot_product_dot_topbanner__pb2.CreateTopBannerRequest.SerializeToString,
             protos_dot_product_dot_topbanner__pb2.CreateTopBannerResponse.FromString,
             options, channel_credentials,

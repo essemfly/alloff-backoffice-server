@@ -3,6 +3,7 @@
 # source: protos/product/brand.proto
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
@@ -13,651 +14,95 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor.FileDescriptor(
-  name='protos/product/brand.proto',
-  package='grpcServer',
-  syntax='proto3',
-  serialized_options=b'Z/github.com/lessbutter/alloff-api/api/grpcServer',
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x1aprotos/product/brand.proto\x12\ngrpcServer\"\x12\n\x10ListBrandRequest\"=\n\x11ListBrandResponse\x12(\n\x06\x62rands\x18\x01 \x03(\x0b\x32\x18.grpcServer.BrandMessage\"\x9d\x03\n\x10\x45\x64itBrandRequest\x12\x0f\n\x07keyname\x18\x01 \x01(\t\x12\x14\n\x07korname\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07\x65ngname\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1b\n\x0elogo_image_url\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x17\n\nis_popular\x18\x06 \x01(\x08H\x04\x88\x01\x01\x12\x14\n\x07is_open\x18\x07 \x01(\x08H\x05\x88\x01\x01\x12\x1b\n\x0ein_maintenance\x18\x08 \x01(\x08H\x06\x88\x01\x01\x12\x30\n\nsize_guide\x18\t \x03(\x0b\x32\x1c.grpcServer.SizeGuideMessage\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\n \x01(\tH\x07\x88\x01\x01\x42\n\n\x08_kornameB\n\n\x08_engnameB\x11\n\x0f_logo_image_urlB\x0e\n\x0c_descriptionB\r\n\x0b_is_popularB\n\n\x08_is_openB\x11\n\x0f_in_maintenanceB\x11\n\x0f_back_image_url\"<\n\x11\x45\x64itBrandResponse\x12\'\n\x05\x62rand\x18\x01 \x01(\x0b\x32\x18.grpcServer.BrandMessage\"\xfb\x01\n\x12\x43reateBrandRequest\x12\x0f\n\x07keyname\x18\x01 \x01(\t\x12\x0f\n\x07korname\x18\x02 \x01(\t\x12\x0f\n\x07\x65ngname\x18\x03 \x01(\t\x12\x16\n\x0elogo_image_url\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x12\n\nis_popular\x18\x06 \x01(\x08\x12\x0f\n\x07is_open\x18\x07 \x01(\x08\x12\x16\n\x0ein_maintenance\x18\x08 \x01(\x08\x12\x30\n\nsize_guide\x18\t \x03(\x0b\x32\x1c.grpcServer.SizeGuideMessage\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\n \x01(\t\">\n\x13\x43reateBrandResponse\x12\'\n\x05\x62rand\x18\x01 \x01(\x0b\x32\x18.grpcServer.BrandMessage\"\x87\x02\n\x0c\x42randMessage\x12\x10\n\x08\x62rand_id\x18\x01 \x01(\t\x12\x0f\n\x07korname\x18\x02 \x01(\t\x12\x0f\n\x07keyname\x18\x03 \x01(\t\x12\x0f\n\x07\x65ngname\x18\x04 \x01(\t\x12\x16\n\x0elogo_image_url\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x12\n\nis_popular\x18\x07 \x01(\x08\x12\x0f\n\x07is_open\x18\x08 \x01(\x08\x12\x16\n\x0ein_maintenance\x18\t \x01(\x08\x12\x30\n\nsize_guide\x18\n \x03(\x0b\x32\x1c.grpcServer.SizeGuideMessage\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x0b \x01(\t\"4\n\x10SizeGuideMessage\x12\r\n\x05label\x18\x01 \x01(\t\x12\x11\n\timage_url\x18\x02 \x01(\t2\xeb\x01\n\x05\x42rand\x12H\n\tListBrand\x12\x1c.grpcServer.ListBrandRequest\x1a\x1d.grpcServer.ListBrandResponse\x12H\n\tEditBrand\x12\x1c.grpcServer.EditBrandRequest\x1a\x1d.grpcServer.EditBrandResponse\x12N\n\x0b\x43reateBrand\x12\x1e.grpcServer.CreateBrandRequest\x1a\x1f.grpcServer.CreateBrandResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3'
-)
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1aprotos/product/brand.proto\x12\x06protos\"\x12\n\x10ListBrandRequest\"9\n\x11ListBrandResponse\x12$\n\x06\x62rands\x18\x01 \x03(\x0b\x32\x14.protos.BrandMessage\"\x99\x03\n\x10\x45\x64itBrandRequest\x12\x0f\n\x07keyname\x18\x01 \x01(\t\x12\x14\n\x07korname\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07\x65ngname\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1b\n\x0elogo_image_url\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x17\n\nis_popular\x18\x06 \x01(\x08H\x04\x88\x01\x01\x12\x14\n\x07is_open\x18\x07 \x01(\x08H\x05\x88\x01\x01\x12\x1b\n\x0ein_maintenance\x18\x08 \x01(\x08H\x06\x88\x01\x01\x12,\n\nsize_guide\x18\t \x03(\x0b\x32\x18.protos.SizeGuideMessage\x12\x1b\n\x0e\x62\x61\x63k_image_url\x18\n \x01(\tH\x07\x88\x01\x01\x42\n\n\x08_kornameB\n\n\x08_engnameB\x11\n\x0f_logo_image_urlB\x0e\n\x0c_descriptionB\r\n\x0b_is_popularB\n\n\x08_is_openB\x11\n\x0f_in_maintenanceB\x11\n\x0f_back_image_url\"8\n\x11\x45\x64itBrandResponse\x12#\n\x05\x62rand\x18\x01 \x01(\x0b\x32\x14.protos.BrandMessage\"\xf7\x01\n\x12\x43reateBrandRequest\x12\x0f\n\x07keyname\x18\x01 \x01(\t\x12\x0f\n\x07korname\x18\x02 \x01(\t\x12\x0f\n\x07\x65ngname\x18\x03 \x01(\t\x12\x16\n\x0elogo_image_url\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\x12\n\nis_popular\x18\x06 \x01(\x08\x12\x0f\n\x07is_open\x18\x07 \x01(\x08\x12\x16\n\x0ein_maintenance\x18\x08 \x01(\x08\x12,\n\nsize_guide\x18\t \x03(\x0b\x32\x18.protos.SizeGuideMessage\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\n \x01(\t\":\n\x13\x43reateBrandResponse\x12#\n\x05\x62rand\x18\x01 \x01(\x0b\x32\x14.protos.BrandMessage\"\x83\x02\n\x0c\x42randMessage\x12\x10\n\x08\x62rand_id\x18\x01 \x01(\t\x12\x0f\n\x07korname\x18\x02 \x01(\t\x12\x0f\n\x07keyname\x18\x03 \x01(\t\x12\x0f\n\x07\x65ngname\x18\x04 \x01(\t\x12\x16\n\x0elogo_image_url\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\x12\x12\n\nis_popular\x18\x07 \x01(\x08\x12\x0f\n\x07is_open\x18\x08 \x01(\x08\x12\x16\n\x0ein_maintenance\x18\t \x01(\x08\x12,\n\nsize_guide\x18\n \x03(\x0b\x32\x18.protos.SizeGuideMessage\x12\x16\n\x0e\x62\x61\x63k_image_url\x18\x0b \x01(\t\"4\n\x10SizeGuideMessage\x12\r\n\x05label\x18\x01 \x01(\t\x12\x11\n\timage_url\x18\x02 \x01(\t2\xd3\x01\n\x05\x42rand\x12@\n\tListBrand\x12\x18.protos.ListBrandRequest\x1a\x19.protos.ListBrandResponse\x12@\n\tEditBrand\x12\x18.protos.EditBrandRequest\x1a\x19.protos.EditBrandResponse\x12\x46\n\x0b\x43reateBrand\x12\x1a.protos.CreateBrandRequest\x1a\x1b.protos.CreateBrandResponseB1Z/github.com/lessbutter/alloff-api/api/grpcServerb\x06proto3')
 
 
 
-
-_LISTBRANDREQUEST = _descriptor.Descriptor(
-  name='ListBrandRequest',
-  full_name='grpcServer.ListBrandRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=42,
-  serialized_end=60,
-)
-
-
-_LISTBRANDRESPONSE = _descriptor.Descriptor(
-  name='ListBrandResponse',
-  full_name='grpcServer.ListBrandResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='brands', full_name='grpcServer.ListBrandResponse.brands', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=62,
-  serialized_end=123,
-)
-
-
-_EDITBRANDREQUEST = _descriptor.Descriptor(
-  name='EditBrandRequest',
-  full_name='grpcServer.EditBrandRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='keyname', full_name='grpcServer.EditBrandRequest.keyname', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='korname', full_name='grpcServer.EditBrandRequest.korname', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='engname', full_name='grpcServer.EditBrandRequest.engname', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='logo_image_url', full_name='grpcServer.EditBrandRequest.logo_image_url', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='grpcServer.EditBrandRequest.description', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_popular', full_name='grpcServer.EditBrandRequest.is_popular', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_open', full_name='grpcServer.EditBrandRequest.is_open', index=6,
-      number=7, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='in_maintenance', full_name='grpcServer.EditBrandRequest.in_maintenance', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='size_guide', full_name='grpcServer.EditBrandRequest.size_guide', index=8,
-      number=9, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='back_image_url', full_name='grpcServer.EditBrandRequest.back_image_url', index=9,
-      number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-    _descriptor.OneofDescriptor(
-      name='_korname', full_name='grpcServer.EditBrandRequest._korname',
-      index=0, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_engname', full_name='grpcServer.EditBrandRequest._engname',
-      index=1, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_logo_image_url', full_name='grpcServer.EditBrandRequest._logo_image_url',
-      index=2, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_description', full_name='grpcServer.EditBrandRequest._description',
-      index=3, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_is_popular', full_name='grpcServer.EditBrandRequest._is_popular',
-      index=4, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_is_open', full_name='grpcServer.EditBrandRequest._is_open',
-      index=5, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_in_maintenance', full_name='grpcServer.EditBrandRequest._in_maintenance',
-      index=6, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-    _descriptor.OneofDescriptor(
-      name='_back_image_url', full_name='grpcServer.EditBrandRequest._back_image_url',
-      index=7, containing_type=None,
-      create_key=_descriptor._internal_create_key,
-    fields=[]),
-  ],
-  serialized_start=126,
-  serialized_end=539,
-)
-
-
-_EDITBRANDRESPONSE = _descriptor.Descriptor(
-  name='EditBrandResponse',
-  full_name='grpcServer.EditBrandResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='brand', full_name='grpcServer.EditBrandResponse.brand', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=541,
-  serialized_end=601,
-)
-
-
-_CREATEBRANDREQUEST = _descriptor.Descriptor(
-  name='CreateBrandRequest',
-  full_name='grpcServer.CreateBrandRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='keyname', full_name='grpcServer.CreateBrandRequest.keyname', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='korname', full_name='grpcServer.CreateBrandRequest.korname', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='engname', full_name='grpcServer.CreateBrandRequest.engname', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='logo_image_url', full_name='grpcServer.CreateBrandRequest.logo_image_url', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='grpcServer.CreateBrandRequest.description', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_popular', full_name='grpcServer.CreateBrandRequest.is_popular', index=5,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_open', full_name='grpcServer.CreateBrandRequest.is_open', index=6,
-      number=7, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='in_maintenance', full_name='grpcServer.CreateBrandRequest.in_maintenance', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='size_guide', full_name='grpcServer.CreateBrandRequest.size_guide', index=8,
-      number=9, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='back_image_url', full_name='grpcServer.CreateBrandRequest.back_image_url', index=9,
-      number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=604,
-  serialized_end=855,
-)
-
-
-_CREATEBRANDRESPONSE = _descriptor.Descriptor(
-  name='CreateBrandResponse',
-  full_name='grpcServer.CreateBrandResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='brand', full_name='grpcServer.CreateBrandResponse.brand', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=857,
-  serialized_end=919,
-)
-
-
-_BRANDMESSAGE = _descriptor.Descriptor(
-  name='BrandMessage',
-  full_name='grpcServer.BrandMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='brand_id', full_name='grpcServer.BrandMessage.brand_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='korname', full_name='grpcServer.BrandMessage.korname', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='keyname', full_name='grpcServer.BrandMessage.keyname', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='engname', full_name='grpcServer.BrandMessage.engname', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='logo_image_url', full_name='grpcServer.BrandMessage.logo_image_url', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='grpcServer.BrandMessage.description', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_popular', full_name='grpcServer.BrandMessage.is_popular', index=6,
-      number=7, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='is_open', full_name='grpcServer.BrandMessage.is_open', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='in_maintenance', full_name='grpcServer.BrandMessage.in_maintenance', index=8,
-      number=9, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='size_guide', full_name='grpcServer.BrandMessage.size_guide', index=9,
-      number=10, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='back_image_url', full_name='grpcServer.BrandMessage.back_image_url', index=10,
-      number=11, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=922,
-  serialized_end=1185,
-)
-
-
-_SIZEGUIDEMESSAGE = _descriptor.Descriptor(
-  name='SizeGuideMessage',
-  full_name='grpcServer.SizeGuideMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='label', full_name='grpcServer.SizeGuideMessage.label', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='image_url', full_name='grpcServer.SizeGuideMessage.image_url', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1187,
-  serialized_end=1239,
-)
-
-_LISTBRANDRESPONSE.fields_by_name['brands'].message_type = _BRANDMESSAGE
-_EDITBRANDREQUEST.fields_by_name['size_guide'].message_type = _SIZEGUIDEMESSAGE
-_EDITBRANDREQUEST.oneofs_by_name['_korname'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['korname'])
-_EDITBRANDREQUEST.fields_by_name['korname'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_korname']
-_EDITBRANDREQUEST.oneofs_by_name['_engname'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['engname'])
-_EDITBRANDREQUEST.fields_by_name['engname'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_engname']
-_EDITBRANDREQUEST.oneofs_by_name['_logo_image_url'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['logo_image_url'])
-_EDITBRANDREQUEST.fields_by_name['logo_image_url'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_logo_image_url']
-_EDITBRANDREQUEST.oneofs_by_name['_description'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['description'])
-_EDITBRANDREQUEST.fields_by_name['description'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_description']
-_EDITBRANDREQUEST.oneofs_by_name['_is_popular'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['is_popular'])
-_EDITBRANDREQUEST.fields_by_name['is_popular'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_is_popular']
-_EDITBRANDREQUEST.oneofs_by_name['_is_open'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['is_open'])
-_EDITBRANDREQUEST.fields_by_name['is_open'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_is_open']
-_EDITBRANDREQUEST.oneofs_by_name['_in_maintenance'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['in_maintenance'])
-_EDITBRANDREQUEST.fields_by_name['in_maintenance'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_in_maintenance']
-_EDITBRANDREQUEST.oneofs_by_name['_back_image_url'].fields.append(
-  _EDITBRANDREQUEST.fields_by_name['back_image_url'])
-_EDITBRANDREQUEST.fields_by_name['back_image_url'].containing_oneof = _EDITBRANDREQUEST.oneofs_by_name['_back_image_url']
-_EDITBRANDRESPONSE.fields_by_name['brand'].message_type = _BRANDMESSAGE
-_CREATEBRANDREQUEST.fields_by_name['size_guide'].message_type = _SIZEGUIDEMESSAGE
-_CREATEBRANDRESPONSE.fields_by_name['brand'].message_type = _BRANDMESSAGE
-_BRANDMESSAGE.fields_by_name['size_guide'].message_type = _SIZEGUIDEMESSAGE
-DESCRIPTOR.message_types_by_name['ListBrandRequest'] = _LISTBRANDREQUEST
-DESCRIPTOR.message_types_by_name['ListBrandResponse'] = _LISTBRANDRESPONSE
-DESCRIPTOR.message_types_by_name['EditBrandRequest'] = _EDITBRANDREQUEST
-DESCRIPTOR.message_types_by_name['EditBrandResponse'] = _EDITBRANDRESPONSE
-DESCRIPTOR.message_types_by_name['CreateBrandRequest'] = _CREATEBRANDREQUEST
-DESCRIPTOR.message_types_by_name['CreateBrandResponse'] = _CREATEBRANDRESPONSE
-DESCRIPTOR.message_types_by_name['BrandMessage'] = _BRANDMESSAGE
-DESCRIPTOR.message_types_by_name['SizeGuideMessage'] = _SIZEGUIDEMESSAGE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
+_LISTBRANDREQUEST = DESCRIPTOR.message_types_by_name['ListBrandRequest']
+_LISTBRANDRESPONSE = DESCRIPTOR.message_types_by_name['ListBrandResponse']
+_EDITBRANDREQUEST = DESCRIPTOR.message_types_by_name['EditBrandRequest']
+_EDITBRANDRESPONSE = DESCRIPTOR.message_types_by_name['EditBrandResponse']
+_CREATEBRANDREQUEST = DESCRIPTOR.message_types_by_name['CreateBrandRequest']
+_CREATEBRANDRESPONSE = DESCRIPTOR.message_types_by_name['CreateBrandResponse']
+_BRANDMESSAGE = DESCRIPTOR.message_types_by_name['BrandMessage']
+_SIZEGUIDEMESSAGE = DESCRIPTOR.message_types_by_name['SizeGuideMessage']
 ListBrandRequest = _reflection.GeneratedProtocolMessageType('ListBrandRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTBRANDREQUEST,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.ListBrandRequest)
+  # @@protoc_insertion_point(class_scope:protos.ListBrandRequest)
   })
 _sym_db.RegisterMessage(ListBrandRequest)
 
 ListBrandResponse = _reflection.GeneratedProtocolMessageType('ListBrandResponse', (_message.Message,), {
   'DESCRIPTOR' : _LISTBRANDRESPONSE,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.ListBrandResponse)
+  # @@protoc_insertion_point(class_scope:protos.ListBrandResponse)
   })
 _sym_db.RegisterMessage(ListBrandResponse)
 
 EditBrandRequest = _reflection.GeneratedProtocolMessageType('EditBrandRequest', (_message.Message,), {
   'DESCRIPTOR' : _EDITBRANDREQUEST,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.EditBrandRequest)
+  # @@protoc_insertion_point(class_scope:protos.EditBrandRequest)
   })
 _sym_db.RegisterMessage(EditBrandRequest)
 
 EditBrandResponse = _reflection.GeneratedProtocolMessageType('EditBrandResponse', (_message.Message,), {
   'DESCRIPTOR' : _EDITBRANDRESPONSE,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.EditBrandResponse)
+  # @@protoc_insertion_point(class_scope:protos.EditBrandResponse)
   })
 _sym_db.RegisterMessage(EditBrandResponse)
 
 CreateBrandRequest = _reflection.GeneratedProtocolMessageType('CreateBrandRequest', (_message.Message,), {
   'DESCRIPTOR' : _CREATEBRANDREQUEST,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.CreateBrandRequest)
+  # @@protoc_insertion_point(class_scope:protos.CreateBrandRequest)
   })
 _sym_db.RegisterMessage(CreateBrandRequest)
 
 CreateBrandResponse = _reflection.GeneratedProtocolMessageType('CreateBrandResponse', (_message.Message,), {
   'DESCRIPTOR' : _CREATEBRANDRESPONSE,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.CreateBrandResponse)
+  # @@protoc_insertion_point(class_scope:protos.CreateBrandResponse)
   })
 _sym_db.RegisterMessage(CreateBrandResponse)
 
 BrandMessage = _reflection.GeneratedProtocolMessageType('BrandMessage', (_message.Message,), {
   'DESCRIPTOR' : _BRANDMESSAGE,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.BrandMessage)
+  # @@protoc_insertion_point(class_scope:protos.BrandMessage)
   })
 _sym_db.RegisterMessage(BrandMessage)
 
 SizeGuideMessage = _reflection.GeneratedProtocolMessageType('SizeGuideMessage', (_message.Message,), {
   'DESCRIPTOR' : _SIZEGUIDEMESSAGE,
   '__module__' : 'protos.product.brand_pb2'
-  # @@protoc_insertion_point(class_scope:grpcServer.SizeGuideMessage)
+  # @@protoc_insertion_point(class_scope:protos.SizeGuideMessage)
   })
 _sym_db.RegisterMessage(SizeGuideMessage)
 
+_BRAND = DESCRIPTOR.services_by_name['Brand']
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-DESCRIPTOR._options = None
-
-_BRAND = _descriptor.ServiceDescriptor(
-  name='Brand',
-  full_name='grpcServer.Brand',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=1242,
-  serialized_end=1477,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ListBrand',
-    full_name='grpcServer.Brand.ListBrand',
-    index=0,
-    containing_service=None,
-    input_type=_LISTBRANDREQUEST,
-    output_type=_LISTBRANDRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='EditBrand',
-    full_name='grpcServer.Brand.EditBrand',
-    index=1,
-    containing_service=None,
-    input_type=_EDITBRANDREQUEST,
-    output_type=_EDITBRANDRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='CreateBrand',
-    full_name='grpcServer.Brand.CreateBrand',
-    index=2,
-    containing_service=None,
-    input_type=_CREATEBRANDREQUEST,
-    output_type=_CREATEBRANDRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_BRAND)
-
-DESCRIPTOR.services_by_name['Brand'] = _BRAND
-
+  DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'Z/github.com/lessbutter/alloff-api/api/grpcServer'
+  _LISTBRANDREQUEST._serialized_start=38
+  _LISTBRANDREQUEST._serialized_end=56
+  _LISTBRANDRESPONSE._serialized_start=58
+  _LISTBRANDRESPONSE._serialized_end=115
+  _EDITBRANDREQUEST._serialized_start=118
+  _EDITBRANDREQUEST._serialized_end=527
+  _EDITBRANDRESPONSE._serialized_start=529
+  _EDITBRANDRESPONSE._serialized_end=585
+  _CREATEBRANDREQUEST._serialized_start=588
+  _CREATEBRANDREQUEST._serialized_end=835
+  _CREATEBRANDRESPONSE._serialized_start=837
+  _CREATEBRANDRESPONSE._serialized_end=895
+  _BRANDMESSAGE._serialized_start=898
+  _BRANDMESSAGE._serialized_end=1157
+  _SIZEGUIDEMESSAGE._serialized_start=1159
+  _SIZEGUIDEMESSAGE._serialized_end=1211
+  _BRAND._serialized_start=1214
+  _BRAND._serialized_end=1425
 # @@protoc_insertion_point(module_scope)
