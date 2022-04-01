@@ -41,6 +41,7 @@ grpcio = "^1.43.0"
 grpcio-tools = "^1.43.0"
 python3-xid = "^1.0.5"
 django-rest-polymorphic = "^0.1.9"
+alloff-grpc-protos = {git = "https://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@github.com/lessbutter/alloff-grpc-protos.git", rev = "main"}
 
 
 [tool.poetry.dev-dependencies]

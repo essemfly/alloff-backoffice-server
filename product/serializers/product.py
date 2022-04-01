@@ -1,7 +1,7 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.product_pb2 import (
+from gen.pyalloff.product_pb2 import (
     CreateProductRequest,
     EditProductRequest,
     ListProductsRequest,
@@ -60,6 +60,8 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     )
     is_classified_done = serializers.BooleanField()
     is_classified_touched = serializers.BooleanField()
+    description_infos = serializers.DictField()
+    product_infos = serializers.DictField()
 
     class Meta:
         proto_class = ProductMessage
@@ -125,6 +127,8 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     latest_delivery_days = serializers.IntegerField()
     refund_fee = serializers.IntegerField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
+    description_infos = serializers.DictField()
+    product_infos = serializers.DictField()
 
     class Meta:
         proto_class = CreateProductRequest
@@ -170,6 +174,8 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     is_removed = serializers.BooleanField(allow_null=True, required=False)
     is_soldout = serializers.BooleanField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
+    description_infos = serializers.DictField()
+    product_infos = serializers.DictField()
 
     class Meta:
         proto_class = EditProductRequest

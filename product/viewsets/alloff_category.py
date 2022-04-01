@@ -1,6 +1,6 @@
 from core.company_auth_viewset import with_company_api
 from drf_spectacular.utils import extend_schema
-from protos.product.alloffcategory_pb2 import (ListAlloffCategoryRequest,
+from gen.pyalloff.alloffcategory_pb2 import (ListAlloffCategoryRequest,
                                                ListAlloffCategoryResponse)
 from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response

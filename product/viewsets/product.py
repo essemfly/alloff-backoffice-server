@@ -6,7 +6,7 @@ from core.company_auth_viewset import with_company_api
 from core.download_image_to_s3 import download_image_to_s3
 from drf_spectacular.utils import extend_schema
 from office.models.html_product_info import HtmlProductInfo
-from protos.product.product_pb2 import (GetProductRequest, ListProductsRequest,
+from gen.pyalloff.product_pb2 import (GetProductRequest, ListProductsRequest,
                                         ProductQuery)
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException, NotFound
@@ -46,17 +46,26 @@ class ProductViewSet(
         brand_id = request.query_params.get("brand_id", "")
         category_id = request.query_params.get("category_id", "")
         alloff_category_id = request.query_params.get("alloff_category_id", "")
-        is_classified_done = request.query_params.get("is_classified_done", False)
+        is_classified_done = request.query_params.get("is_classified_done", None)
 
         module_name = get_module_name(request)
 
-        query: ProductQuery = ProductQuery(
-            search_query=search_query,
-            brand_id=brand_id,
-            category_id=category_id,
-            alloff_category_id=alloff_category_id,
-            is_classified_done=is_classified_done
-        )
+        if is_classified_done is None:
+            query: ProductQuery = ProductQuery(
+                search_query=search_query,
+                brand_id=brand_id,
+                category_id=category_id,
+                alloff_category_id=alloff_category_id,
+            )
+        else:
+            query: ProductQuery = ProductQuery(
+                search_query=search_query,
+                brand_id=brand_id,
+                category_id=category_id,
+                alloff_category_id=alloff_category_id,
+                is_classified_done=is_classified_done
+            )
+
         req: ListProductsRequest = ListProductsRequest(
             offset=int(offset),
             limit=int(limit),
