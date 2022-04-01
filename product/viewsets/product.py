@@ -65,7 +65,7 @@ class ProductViewSet(
                 alloff_category_id=alloff_category_id,
                 is_classified_done=is_classified_done
             )
-            
+
         req: ListProductsRequest = ListProductsRequest(
             offset=int(offset),
             limit=int(limit),
