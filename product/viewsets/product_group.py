@@ -16,7 +16,7 @@ from product.serializers.product_group import (
     RemoveProductInProductGroupSerializer,
 )
 from product.services.product_group import ProductGroupService
-from protos.product.productGroup_pb2 import (
+from gen.python.protos.productGroup_pb2 import (
     PRODUCT_GROUP_EXHIBITION,
     PRODUCT_GROUP_TIMEDEAL,
     GetProductGroupRequest,

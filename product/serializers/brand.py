@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
-from protos.product.brand_pb2 import (
+from gen.python.protos.brand_pb2 import (
     BrandMessage,
     CreateBrandRequest,
     EditBrandRequest,

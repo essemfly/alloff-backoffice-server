@@ -12,7 +12,7 @@ from product.serializers.notification import (
     SendNotiSerializer,
 )
 from product.services.notification import NotificationService
-from protos.product.notification_pb2 import CreateNotiRequest, ListNotiRequest
+from gen.python.protos.notification_pb2 import CreateNotiRequest, ListNotiRequest
 from rest_framework import mixins, status, viewsets
 
 

@@ -12,7 +12,7 @@ from product.serializers.hometab import (
     ListHomeTabsRequestSerializer,
     ListHomeTabsResponseSerializer,
 )
-from protos.product.hometab_pb2 import (
+from gen.python.protos.hometab_pb2 import (
     GetHomeTabItemRequest,
     ListHomeTabItemsRequest,
 )

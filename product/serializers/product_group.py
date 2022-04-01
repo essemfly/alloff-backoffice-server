@@ -3,7 +3,7 @@ from django.db import models
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 
-from protos.product.productGroup_pb2 import (
+from gen.python.protos.productGroup_pb2 import (
     CreateProductGroupRequest,
     EditProductGroupRequest,
     ListProductGroupsRequest,

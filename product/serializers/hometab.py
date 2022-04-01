@@ -1,7 +1,7 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.hometab_pb2 import (
+from gen.python.protos.hometab_pb2 import (
     CreateHomeTabItemRequest,
     EditHomeTabItemRequest,
     HomeTabItemMessage,

@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from protos.product.topbanner_pb2 import (
+from gen.python.protos.topbanner_pb2 import (
     CreateTopBannerRequest,
     CreateTopBannerResponse,
     EditTopBannerRequest,
@@ -11,7 +11,7 @@ from protos.product.topbanner_pb2 import (
     ListTopBannersResponse,
 )
 
-from protos.product.topbanner_pb2_grpc import TopBannerStub
+from gen.python.protos.topbanner_pb2_grpc import TopBannerStub
 
 
 class TopBannerService(GrpcService):

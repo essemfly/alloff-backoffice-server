@@ -15,11 +15,11 @@ from product.serializers.top_banner import (
 
 from product.services.top_banner import TopBannerService
 
-from protos.product.topbanner_pb2 import (
+from gen.python.protos.topbanner_pb2 import (
     ListTopBannersRequest,
 )
 
-from protos.product.exhibition_pb2 import (
+from gen.python.protos.exhibition_pb2 import (
     CreateExhibitionResponse,
     EditExhibitionResponse,
     GetExhibitionRequest,

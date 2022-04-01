@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from protos.product.exhibition_pb2 import (
+from gen.python.protos.exhibition_pb2 import (
     CreateExhibitionRequest,
     CreateExhibitionResponse,
     EditExhibitionRequest,
@@ -10,7 +10,7 @@ from protos.product.exhibition_pb2 import (
     ListExhibitionsRequest,
     ListExhibitionsResponse,
 )
-from protos.product.exhibition_pb2_grpc import ExhibitionStub
+from gen.python.protos.exhibition_pb2_grpc import ExhibitionStub
 
 
 class ExhibitionService(GrpcService):

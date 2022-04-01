@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from protos.product import brand_pb2, brand_pb2_grpc
+from gen.python.protos import brand_pb2, brand_pb2_grpc
 
 from django_grpc_framework import generics
 
