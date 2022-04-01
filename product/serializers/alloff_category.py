@@ -2,7 +2,7 @@ from drf_spectacular.utils import extend_schema_serializer
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from gen.python.protos.alloffcategory_pb2 import (AlloffCategoryMessage,
+from gen.pyalloff.alloffcategory_pb2 import (AlloffCategoryMessage,
                                                ListAlloffCategoryRequest)
 
 from rest_framework import serializers

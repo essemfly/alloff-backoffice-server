@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from gen.python.protos import notification_pb2, notification_pb2_grpc
+from gen.pyalloff import notification_pb2, notification_pb2_grpc
 
 
 class NotificationService(GrpcService):

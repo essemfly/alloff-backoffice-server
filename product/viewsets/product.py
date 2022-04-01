@@ -6,7 +6,7 @@ from core.company_auth_viewset import with_company_api
 from core.download_image_to_s3 import download_image_to_s3
 from drf_spectacular.utils import extend_schema
 from office.models.html_product_info import HtmlProductInfo
-from gen.python.protos.product_pb2 import (GetProductRequest, ListProductsRequest,
+from gen.pyalloff.product_pb2 import (GetProductRequest, ListProductsRequest,
                                         ProductQuery)
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException, NotFound

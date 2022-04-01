@@ -11,12 +11,13 @@ from product.serializers.product_group import (
     ListProductGroupRequestSerializer,
     ListProductGroupResponseSerializer,
     ProductGroupSerializer,
-    PushProductsSerializer,
     CreateProductGroupSeriazlier,
-    RemoveProductInProductGroupSerializer,
+    PushProductsInPgSerializer,
+    UpdateProductsInPgSerializer,
+    RemoveProductInPgSerializer,
 )
 from product.services.product_group import ProductGroupService
-from gen.python.protos.productGroup_pb2 import (
+from gen.pyalloff.productGroup_pb2 import (
     PRODUCT_GROUP_EXHIBITION,
     PRODUCT_GROUP_TIMEDEAL,
     GetProductGroupRequest,
@@ -57,7 +58,6 @@ class ProductGroupViewSet(
         else:
             query = ProductGroupQuery(search_query=search_query)
 
-
         req = ListProductGroupsRequest(
             offset=int(offset), limit=int(limit), query=query
         )
@@ -96,24 +96,36 @@ class ProductGroupViewSet(
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        request=PushProductsSerializer,
+        request=PushProductsInPgSerializer,
         responses={status.HTTP_200_OK: ProductGroupSerializer},
     )
     @action(detail=True, methods=["POST"])
     def push_products(self, request, *args, **kwargs):
-        serializer = PushProductsSerializer(data=request.data)
+        serializer = PushProductsInPgSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductGroupService.push(serializer.message)
         serializer = ProductGroupSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        request=RemoveProductInProductGroupSerializer,
+        request=UpdateProductsInPgSerializer,
+        responses={status.HTTP_200_OK: ProductGroupSerializer},
+    )
+    @action(detail=True, methods=["POST"])
+    def update_products(self, request, *args, **kwargs):
+        serializer = UpdateProductsInPgSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        res = ProductGroupService.update(serializer.message)
+        serializer = ProductGroupSerializer(res)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @extend_schema(
+        request=RemoveProductInPgSerializer,
         responses={status.HTTP_200_OK: ProductGroupSerializer},
     )
     @action(detail=True, methods=["POST"])
     def remove_product(self, request, *args, **kwargs):
-        serializer = RemoveProductInProductGroupSerializer(data=request.data)
+        serializer = RemoveProductInPgSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductGroupService.remove(serializer.message)
         serializer = ProductGroupSerializer(res)

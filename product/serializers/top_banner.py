@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema_serializer
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
-from gen.python.protos.topbanner_pb2 import (
+from gen.pyalloff.topbanner_pb2 import (
     CreateTopBannerRequest,
     EditTopBannerRequest,
     ListTopBannersRequest,

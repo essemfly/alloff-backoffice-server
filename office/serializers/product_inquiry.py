@@ -6,7 +6,7 @@ from product.serializers.product import ProductSerializer
 from product.services.product import ProductService
 from protos.order.product_inquiry import product_inquiry_pb2
 from protos.order.product_inquiry_reply import product_inquiry_reply_pb2
-from gen.python.protos.product_pb2 import GetProductRequest
+from gen.pyalloff.product_pb2 import GetProductRequest
 from rest_framework import fields
 
 

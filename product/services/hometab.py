@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from gen.python.protos.hometab_pb2 import (
+from gen.pyalloff.hometab_pb2 import (
     CreateHomeTabItemRequest,
     CreateHomeTabItemResponse,
     EditHomeTabItemRequest,
@@ -11,7 +11,7 @@ from gen.python.protos.hometab_pb2 import (
     ListHomeTabItemsResponse,
 )
 
-from gen.python.protos.hometab_pb2_grpc import HomeTabItemStub
+from gen.pyalloff.hometab_pb2_grpc import HomeTabItemStub
 
 
 class HometabService(GrpcService):
