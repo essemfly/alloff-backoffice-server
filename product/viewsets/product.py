@@ -46,15 +46,26 @@ class ProductViewSet(
         brand_id = request.query_params.get("brand_id", "")
         category_id = request.query_params.get("category_id", "")
         alloff_category_id = request.query_params.get("alloff_category_id", "")
+        is_classified_done = request.query_params.get("is_classified_done", None)
 
         module_name = get_module_name(request)
 
-        query: ProductQuery = ProductQuery(
-            search_query=search_query,
-            brand_id=brand_id,
-            category_id=category_id,
-            alloff_category_id=alloff_category_id,
-        )
+        if is_classified_done is None:
+            query: ProductQuery = ProductQuery(
+                search_query=search_query,
+                brand_id=brand_id,
+                category_id=category_id,
+                alloff_category_id=alloff_category_id,
+            )
+        else:
+            query: ProductQuery = ProductQuery(
+                search_query=search_query,
+                brand_id=brand_id,
+                category_id=category_id,
+                alloff_category_id=alloff_category_id,
+                is_classified_done=is_classified_done
+            )
+            
         req: ListProductsRequest = ListProductsRequest(
             offset=int(offset),
             limit=int(limit),

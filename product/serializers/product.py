@@ -86,6 +86,7 @@ class ListProductSerializer(proto_serializers.ProtoSerializer):
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
+    is_classified_done = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListProductsRequest
