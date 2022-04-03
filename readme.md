@@ -1,11 +1,22 @@
 # Alloff Backoffice Server
 
-- [Installation](#installation)
-  - [Requirements](#requirements)
-  - [Install dependencies](#install-dependencies)
-- [Run server](#run-server)
+- [Alloff Backoffice Server](#alloff-backoffice-server)
+  - [Installation](#installation)
+    - [Before we begin...](#before-we-begin)
+    - [Requirements](#requirements)
+    - [Install dependencies](#install-dependencies)
+  - [Run server](#run-server)
 
 ## Installation
+
+### Before we begin...
+If you're developing on Apple silicons, and you encounter some error like the following ---
+`Error occurred during checks: ImportError("dlopen(/Users/some-user/Library/Caches/pypoetry/virtualenvs/alloff-backoffice-server-5VJGsauF-py3.10/lib/python3.10/site-packages/grpc/_cython/cygrpc.cpython-310-darwin.so, 0x0002): tried: '/Users/some-user/Library/Caches/pypoetry/virtualenvs/alloff-backoffice-server-5VJGsauF-py3.10/lib/python3.10/site-packages/grpc/_cython/cygrpc.cpython-310-darwin.so' (mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e')), '/usr/lib/cygrpc.cpython-310-darwin.so' (no such file)")`, 
+
+try installing grpcio-tools with the following command:
+```bash
+pip3 install --no-binary :all: grpcio-tools --ignore-installed
+```
 
 ### Requirements
 

@@ -1,11 +1,8 @@
 from django.db import models
-# from order.models.order import Order
 from django_grpc_framework import proto_serializers
-from drf_spectacular.utils import extend_schema_field
+from gen.pyalloff import order_pb2
 from office.serializers.daos.user import UserDAOSerializer
-# from office.serializers.order_payment_adjustment import OrderPaymentAdjustmentSerializer
 from office.serializers.payment import PaymentSerializer
-from protos.order.order import order_pb2
 from rest_framework import fields
 
 
