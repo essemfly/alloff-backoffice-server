@@ -24,7 +24,7 @@ grpcio-tools = "^1.45.0"
 type = "git"
 url = "https://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@github.com/lessbutter/alloff-grpc-protos.git"
 reference = "main"
-resolved_reference = "290bca36c467a8da6906a1d23fc069dbd4613b1a"
+resolved_reference = "4f3a8b32cf5d0314142e281006bb3537418a185f"
 
 [[package]]
 name = "anyio"
