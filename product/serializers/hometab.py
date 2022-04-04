@@ -1,15 +1,12 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.hometab_pb2 import (
-    CreateHomeTabItemRequest,
-    EditHomeTabItemRequest,
-    HomeTabItemMessage,
-    HomeTabItemReferenceMessage,
-    ItemRequester,
-    ListHomeTabItemsRequest,
-    ListHomeTabItemsResponse,
-)
+from gen.pyalloff.hometab_pb2 import (CreateHomeTabItemRequest,
+                                      EditHomeTabItemRequest,
+                                      HomeTabItemMessage,
+                                      HomeTabItemReferenceMessage,
+                                      ItemRequester, ListHomeTabItemsRequest,
+                                      ListHomeTabItemsResponse)
 from rest_framework import serializers
 
 from product.serializers.brand import BrandSerializer

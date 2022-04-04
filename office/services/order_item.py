@@ -3,10 +3,10 @@ from typing import List, Optional
 from alloff_backoffice_server.settings import (
     GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
 from django.contrib.auth.models import User
+from gen.pyalloff import order_item_pb2, order_item_pb2_grpc
 from office.serializers.order_item import OrderItemStatus
 from office.serializers.order_payment_adjustment import PaymentAdjustmentType
 from office.services.base import GrpcAuthType, GrpcService, grpc_request
-from protos.order.order_item import order_item_pb2, order_item_pb2_grpc
 
 
 class OrderItemService(GrpcService):

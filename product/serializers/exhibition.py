@@ -1,9 +1,10 @@
 from django.db import models
 from drf_spectacular.utils import extend_schema_serializer
+from numpy import require
 from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from product.serializers.product_group import ProductGroupSerializer
-from protos.product.exhibition_pb2 import (
+from gen.pyalloff.exhibition_pb2 import (
     CreateExhibitionRequest,
     EditExhibitionRequest,
     ExhibitionMessage,

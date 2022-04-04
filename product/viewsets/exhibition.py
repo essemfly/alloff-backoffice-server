@@ -12,7 +12,7 @@ from product.serializers.exhibition import (
     ListExhibitionsResponseSerializer,
 )
 from product.services.exhibition import ExhibitionService
-from protos.product.exhibition_pb2 import (
+from gen.pyalloff.exhibition_pb2 import (
     CreateExhibitionResponse,
     EditExhibitionResponse,
     GetExhibitionRequest,
