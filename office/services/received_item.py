@@ -1,15 +1,9 @@
 from typing import List, Optional
-from django.contrib.auth.models import User
 
 from alloff_backoffice_server.settings import (
-    GRPC_LOGISTICS_SERVER_URL,
-    GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
-)
-
-from protos.logistics.received_item import (
-    received_item_pb2,
-    received_item_pb2_grpc,
-)
+    GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
+from django.contrib.auth.models import User
+from gen.pyalloff import received_item_pb2, received_item_pb2_grpc
 from office.services.base import GrpcService
 
 

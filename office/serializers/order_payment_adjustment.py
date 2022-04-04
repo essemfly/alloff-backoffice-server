@@ -1,10 +1,9 @@
-from rest_framework import fields
-
-from django.db import models
 import simplejson
-from office.serializers.user_recorded_model import WithUserSerializer
-from protos.order.order_item_payment_adjustment import order_item_payment_adjustment_pb2
+from django.db import models
 from drf_spectacular.utils import extend_schema_field
+from gen.pyalloff import order_item_payment_adjustment_pb2
+from office.serializers.user_recorded_model import WithUserSerializer
+from rest_framework import fields
 
 
 class PaymentAdjustmentType(models.TextChoices):

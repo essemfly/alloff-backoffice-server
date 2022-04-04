@@ -1,6 +1,6 @@
+from gen.pyalloff.inventory_pb2 import Inventory
+from gen.pyalloff.package_pb2 import Package
 from office.label.escape_xml import escape_xml
-from protos.logistics.inventory.inventory_pb2 import Inventory
-from protos.logistics.package.package_pb2 import Package
 
 
 def make_item_shipping_label(

@@ -1,8 +1,8 @@
 from datetime import date
 
 import xlwt
-from protos.logistics.package.package_pb2 import Package
-from protos.logistics.shipping_notice.shipping_notice_pb2 import ShippingNotice
+from gen.pyalloff.package_pb2 import Package
+from gen.pyalloff.shipping_notice_pb2 import ShippingNotice
 
 CJ_COLUMNS = [
     "주문번호",
