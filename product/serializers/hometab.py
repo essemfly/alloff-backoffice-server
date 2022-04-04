@@ -1,20 +1,17 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_serializer
-from protos.product.hometab_pb2 import (
-    CreateHomeTabItemRequest,
-    EditHomeTabItemRequest,
-    HomeTabItemMessage,
-    HomeTabItemReferenceMessage,
-    ItemRequester,
-    ListHomeTabItemsRequest,
-    ListHomeTabItemsResponse,
-)
+from gen.pyalloff.hometab_pb2 import (CreateHomeTabItemRequest,
+                                      EditHomeTabItemRequest,
+                                      HomeTabItemMessage,
+                                      HomeTabItemReferenceMessage,
+                                      ItemRequester, ListHomeTabItemsRequest,
+                                      ListHomeTabItemsResponse)
 from rest_framework import serializers
 
 from product.serializers.brand import BrandSerializer
 from product.serializers.exhibition import ExhibitionSerializer
-from product.serializers.product import ProductSerializer
+from product.serializers.product import ProductSerializer, SortingOptions
 
 
 class ItemTypes(models.TextChoices):
@@ -24,17 +21,6 @@ class ItemTypes(models.TextChoices):
     HOMETAB_ITEM_EXHIBITION = "HOMETAB_ITEM_EXHIBITION"
     HOMETAB_ITEM_PRODUCTS_BRANDS = "HOMETAB_ITEM_PRODUCTS_BRANDS"
     HOMETAB_ITEM_PRODUCTS_CATEGORIES = "HOMETAB_ITEM_PRODUCTS_CATEGORIES"
-
-
-class SortingOptions(models.TextChoices):
-    PRICE_ASCENDING = "PRICE_ASCENDING"
-    PRICE_DESCENDING = "PRICE_DESCENDING"
-    DISCOUNT_0_30 = "DISCOUNT_0_30"
-    DISCOUNT_30_50 = "DISCOUNT_30_50"
-    DISCOUNT_50_70 = "DISCOUNT_50_70"
-    DISCOUNT_70_100 = "DISCOUNT_70_100"
-    DISCOUNTRATE_ASCENDING = "DISCOUNTRATE_ASCENDING"
-    DISCOUNTRATE_DESCENDING = "DISCOUNTRATE_DESCENDING"
 
 
 class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
@@ -60,7 +46,7 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
 class HomeTabItemReferenceSerializer(proto_serializers.ProtoSerializer):
     path = serializers.CharField()
     params = serializers.CharField()
-    options = serializers.MultipleChoiceField(SortingOptions.choices)
+    options = serializers.MultipleChoiceField(choices=SortingOptions.choices)
 
     class Meta:
         proto_class = HomeTabItemReferenceMessage

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from core.company_auth_viewset import with_company_api
 from core.grpc_exception import grpc_exception
 from django.http import HttpResponse
@@ -101,12 +103,20 @@ class OrderItemViewSetBase(
     @with_company_api
     @grpc_exception
     def list(self, request: Request, *args, **kwargs):
+        date_to_param = request.query_params.get("date_to")
+        date_to = None
+        if date_to_param is not None:
+            # Order server에서 ordered_at__lt로 쿼리하기 때문에, 다음날 0시 0분 0초로 만들어서 보내기 위해 1일을 더한다.
+            date_to: datetime = datetime.strptime(
+                date_to_param, "%Y-%m-%d"
+            ).date() + timedelta(days=1)
+
         list_response = OrderItemService.List(
             statuses=request.query_params.getlist("statuses"),
             user_id=request.query_params.get("user_id"),
             alloff_order_id=request.query_params.get("alloff_order_id"),
             date_from=request.query_params.get("date_from"),
-            date_to=request.query_params.get("date_to"),
+            date_to=None if date_to is None else date_to.isoformat(),
             user=request.user,
             **self.get_pagination_params(request),
         )
@@ -155,6 +165,7 @@ class OrderItemViewSetBase(
         parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)],
     )
     @action(detail=True, methods=["POST"])
+    @with_company_api
     def change_status(self, request: Request, pk=None):
         serializer = ChangeStatusSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

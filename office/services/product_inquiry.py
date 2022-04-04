@@ -3,9 +3,8 @@ from typing import Optional
 from alloff_backoffice_server.settings import (
     GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
 from django.contrib.auth.models import User
+from gen.pyalloff import product_inquiry_pb2, product_inquiry_pb2_grpc
 from office.services.base import GrpcAuthType, GrpcService, grpc_request
-from protos.order.product_inquiry import (product_inquiry_pb2,
-                                          product_inquiry_pb2_grpc)
 
 
 class ProductInquiryService(GrpcService):

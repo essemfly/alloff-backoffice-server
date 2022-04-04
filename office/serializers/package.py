@@ -3,7 +3,7 @@ from django_grpc_framework import proto_serializers
 from office.serializers.courier import CourierSerializer
 from rest_framework import serializers
 from office.serializers.inventory import InventorySerializer
-from protos.logistics.package import package_pb2
+from gen.pyalloff import package_pb2
 
 
 class PackageStatus(models.TextChoices):

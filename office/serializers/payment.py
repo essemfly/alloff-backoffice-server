@@ -1,6 +1,6 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
-from protos.order.payment import payment_pb2
+from gen.pyalloff import payment_pb2
 from rest_framework import fields
 
 
