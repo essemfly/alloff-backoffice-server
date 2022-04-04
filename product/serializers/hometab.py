@@ -49,7 +49,7 @@ class ItemRequesterSerializer(proto_serializers.ProtoSerializer):
 class HomeTabItemReferenceSerializer(proto_serializers.ProtoSerializer):
     path = serializers.CharField()
     params = serializers.CharField()
-    options = serializers.MultipleChoiceField(SortingOptions.choices)
+    options = serializers.MultipleChoiceField(choices=SortingOptions.choices)
 
     class Meta:
         proto_class = HomeTabItemReferenceMessage
