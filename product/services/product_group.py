@@ -43,7 +43,7 @@ class ProductGroupService(GrpcService):
             return response
 
     @classmethod
-    def push(cls, request: productGroup_pb2.PushProductInPgRequest):
+    def push(cls, request: productGroup_pb2.ProductsInPgRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
             response: productGroup_pb2.ProductGroupMessage = (
@@ -52,7 +52,7 @@ class ProductGroupService(GrpcService):
             return response
 
     @classmethod
-    def update(cls, request: productGroup_pb2.UpdateProductsInPgRequest):
+    def update(cls, request: productGroup_pb2.ProductsInPgRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
             response: productGroup_pb2.ProductGroupMessage = (
