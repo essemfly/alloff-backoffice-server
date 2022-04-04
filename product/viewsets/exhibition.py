@@ -17,6 +17,7 @@ from gen.pyalloff.exhibition_pb2 import (
     EditExhibitionResponse,
     GetExhibitionRequest,
     ListExhibitionsRequest,
+    ExhibitionType
 )
 
 
@@ -37,8 +38,9 @@ class ExhibitionViewSet(
     def list(self, request, *args, **kwargs):
         offset = request.query_params.get("offset", 0)
         limit = request.query_params.get("limit", PAGE_SIZE)
+        exhibition_type = request.query_params.get("exhibition_type", ExhibitionType.Name(0))
 
-        req = ListExhibitionsRequest(offset=int(offset), limit=int(limit))
+        req = ListExhibitionsRequest(offset=int(offset), limit=int(limit), group_type=ExhibitionType.Value(exhibition_type))
         res = ExhibitionService.list(req)
         serializer = ListExhibitionsResponseSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
