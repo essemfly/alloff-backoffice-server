@@ -48,7 +48,8 @@ class ProductViewSet(
         alloff_category_id = request.query_params.get("alloff_category_id", "")
         is_classified_done = request.query_params.get("is_classified_done", None)
 
-        is_classified_done = is_classified_done == 'true'
+        if is_classified_done is not None:
+            is_classified_done = is_classified_done == 'true'
 
         module_name = get_module_name(request)
 
