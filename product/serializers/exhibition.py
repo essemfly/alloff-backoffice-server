@@ -1,3 +1,4 @@
+from django.db import models
 from drf_spectacular.utils import extend_schema_serializer
 from numpy import require
 from rest_framework import serializers
@@ -14,7 +15,6 @@ from gen.pyalloff.exhibition_pb2 import (
 
 
 
-
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()
@@ -27,6 +27,8 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     pgs = ProductGroupSerializer(many=True)
     is_live = serializers.BooleanField()
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
+    target_sales = serializers.IntegerField()
+    current_sales = serializers.IntegerField()
 
     class Meta:
         proto_class = ExhibitionMessage
@@ -44,6 +46,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
         child=serializers.CharField(), allow_null=True, required=False
     )
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
+    target_sales = serializers.IntegerField()
 
     class Meta:
         proto_class = CreateExhibitionRequest
@@ -62,6 +65,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
         child=serializers.CharField(), allow_null=True, required=False
     )
     is_live = serializers.BooleanField(allow_null=True, required=False)
+    target_sales = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditExhibitionRequest

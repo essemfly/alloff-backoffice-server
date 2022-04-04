@@ -11,8 +11,7 @@ from gen.pyalloff.productGroup_pb2 import (
     ProductGroupMessage,
     ProductInGroupMessage,
     ProductPriorityMessage,
-    PushProductInPgRequest,
-    UpdateProductsInPgRequest,
+    ProductsInPgRequest,
     RemoveProductInPgRequest,
 )
 from product.serializers.product import ProductSerializer
@@ -107,20 +106,12 @@ class ProductPrioritySerializer(proto_serializers.ProtoSerializer):
     class Meta:
         proto_class = ProductPriorityMessage
 
-
-class PushProductsInPgSerializer(proto_serializers.ProtoSerializer):
-    product_group_id = serializers.CharField()
-    product_priority = ProductPrioritySerializer()
-
-    class Meta:
-        proto_class = PushProductInPgRequest
-
-class UpdateProductsInPgSerializer(proto_serializers.ProtoSerializer):
+class ProductsInPgSerializer(proto_serializers.ProtoSerializer):
     product_group_id = serializers.CharField()
     product_priorities = ProductPrioritySerializer(many=True)
 
     class Meta:
-        proto_class = UpdateProductsInPgRequest
+        proto_class = ProductsInPgRequest
 
 
 class RemoveProductInPgSerializer(proto_serializers.ProtoSerializer):
