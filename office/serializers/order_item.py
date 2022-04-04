@@ -1,6 +1,7 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_field
+from gen.pyalloff import order_item_pb2
 from office.iamport import IMP
 from office.models.company import Company
 from office.serializers.company import CompanySerializer
@@ -17,7 +18,6 @@ from office.serializers.order_payment_adjustment import \
     OrderItemPaymentAdjustmentSerializer
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.refund_item import RefundItemSerializer
-from protos.order.order_item import order_item_pb2
 from rest_framework import fields
 from rest_framework.exceptions import APIException
 

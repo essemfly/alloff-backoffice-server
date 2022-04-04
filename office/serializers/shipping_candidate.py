@@ -1,8 +1,7 @@
 from django_grpc_framework import proto_serializers
+from gen.pyalloff import shipping_candidate_pb2, shipping_notice_pb2
 from office.serializers.inventory import InventorySerializer
 from office.serializers.order_item import OrderItemRetrieveSerializer
-from protos.logistics.shipping_candidate import shipping_candidate_pb2
-from protos.logistics.shipping_notice import shipping_notice_pb2
 from rest_framework import fields
 
 

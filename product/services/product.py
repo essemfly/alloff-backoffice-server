@@ -1,6 +1,6 @@
 from alloff_backoffice_server.settings import PRODUCT_SERVER_URL
 from office.services.base import GrpcService
-from protos.product import product_pb2, product_pb2_grpc
+from gen.pyalloff import product_pb2, product_pb2_grpc
 
 
 class ProductService(GrpcService):

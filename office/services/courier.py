@@ -1,8 +1,8 @@
 from typing import List
 
 from alloff_backoffice_server.settings import GRPC_LOGISTICS_SERVER_URL
+from gen.pyalloff import courier_pb2, courier_pb2_grpc
 from office.services.base import GrpcAuthType, GrpcService, grpc_request
-from protos.logistics.courier import courier_pb2, courier_pb2_grpc
 
 
 class CourierService(GrpcService):

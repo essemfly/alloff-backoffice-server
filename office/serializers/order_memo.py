@@ -1,5 +1,5 @@
+from gen.pyalloff import order_item_memo_pb2
 from office.serializers.user_recorded_model import WithUserSerializer
-from protos.order.order_item_memo import order_item_memo_pb2
 from rest_framework import fields
 
 
