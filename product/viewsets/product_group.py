@@ -12,8 +12,7 @@ from product.serializers.product_group import (
     ListProductGroupResponseSerializer,
     ProductGroupSerializer,
     CreateProductGroupSeriazlier,
-    PushProductsInPgSerializer,
-    UpdateProductsInPgSerializer,
+    ProductsInPgSerializer,
     RemoveProductInPgSerializer,
 )
 from product.services.product_group import ProductGroupService
@@ -96,24 +95,24 @@ class ProductGroupViewSet(
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        request=PushProductsInPgSerializer,
+        request=ProductsInPgSerializer,
         responses={status.HTTP_200_OK: ProductGroupSerializer},
     )
     @action(detail=True, methods=["POST"])
     def push_products(self, request, *args, **kwargs):
-        serializer = PushProductsInPgSerializer(data=request.data)
+        serializer = ProductsInPgSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductGroupService.push(serializer.message)
         serializer = ProductGroupSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(
-        request=UpdateProductsInPgSerializer,
+        request=ProductsInPgSerializer,
         responses={status.HTTP_200_OK: ProductGroupSerializer},
     )
     @action(detail=True, methods=["POST"])
     def update_products(self, request, *args, **kwargs):
-        serializer = UpdateProductsInPgSerializer(data=request.data)
+        serializer = ProductsInPgSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         res = ProductGroupService.update(serializer.message)
         serializer = ProductGroupSerializer(res)
