@@ -1,3 +1,4 @@
+from django.db import models
 from drf_spectacular.utils import extend_schema_serializer
 from numpy import require
 from rest_framework import serializers
@@ -12,6 +13,12 @@ from gen.pyalloff.exhibition_pb2 import (
 )
 
 
+class ExhibitionType(models.TextChoices):
+    EXHIBITION_NORMAL = "EXHIBITION_NORMAL"
+    EXHIBITION_TIMEDEAL = "EXHIBITION_TIMEDEAL"
+    EXHIBITION_GROUPDEAL = "EXHIBITION_GROUPDEAL"
+
+
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()
@@ -23,7 +30,7 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     finish_time = serializers.DateTimeField()
     pgs = ProductGroupSerializer(many=True)
     is_live = serializers.BooleanField()
-    exhibition_type = serializers.IntegerField()
+    exhibition_type = serializers.ChoiceField(ExhibitionType.choices)
 
     class Meta:
         proto_class = ExhibitionMessage
@@ -40,7 +47,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     pg_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
-    exhibition_type = serializers.IntegerField()
+    exhibition_type = serializers.ChoiceField(ExhibitionType.choices)
 
     class Meta:
         proto_class = CreateExhibitionRequest
@@ -67,7 +74,9 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
 class ListExhibitionRequestSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
-    group_type = serializers.IntegerField(required=True, allow_null=False)
+    exhibition_type = serializers.ChoiceField(
+        choices=ExhibitionType.choices, allow_null=True, required=False
+    )
 
     class Meta:
         proto_class = ListExhibitionsRequest
