@@ -12,6 +12,7 @@ from gen.pyalloff.product_pb2 import (
 )
 from rest_framework import serializers
 
+
 class SortingOptions(models.TextChoices):
     PRICE_ASCENDING = "PRICE_ASCENDING"
     PRICE_DESCENDING = "PRICE_DESCENDING"
@@ -21,6 +22,7 @@ class SortingOptions(models.TextChoices):
     DISCOUNT_70_100 = "DISCOUNT_70_100"
     DISCOUNTRATE_ASCENDING = "DISCOUNTRATE_ASCENDING"
     DISCOUNTRATE_DESCENDING = "DISCOUNTRATE_DESCENDING"
+
 
 class ProductInventorySerializer(proto_serializers.ProtoSerializer):
     size = serializers.CharField()
@@ -72,7 +74,9 @@ class ProductQuerySerializer(proto_serializers.ProtoSerializer):
     brand_id = serializers.CharField()
     category_id = serializers.CharField()
     alloff_category_id = serializers.CharField()
-    options = serializers.ListField(child=serializers.ChoiceField(SortingOptions.choices))
+    options = serializers.ListField(
+        child=serializers.ChoiceField(SortingOptions.choices)
+    )
     is_classified_done = serializers.BooleanField()
 
     class Meta:
@@ -127,8 +131,8 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     latest_delivery_days = serializers.IntegerField()
     refund_fee = serializers.IntegerField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
-    description_infos = serializers.DictField()
-    product_infos = serializers.DictField()
+    description_infos = serializers.DictField(allow_null=True, required=False)
+    product_infos = serializers.DictField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductRequest
@@ -174,8 +178,8 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     is_removed = serializers.BooleanField(allow_null=True, required=False)
     is_soldout = serializers.BooleanField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
-    description_infos = serializers.DictField()
-    product_infos = serializers.DictField()
+    description_infos = serializers.DictField(allow_null=True, required=False)
+    product_infos = serializers.DictField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest
