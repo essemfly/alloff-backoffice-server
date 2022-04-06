@@ -1,7 +1,9 @@
 from typing import List, Optional
 
 from alloff_backoffice_server.settings import (
-    GRPC_LOGISTICS_SERVER_URL, GRPC_PAGINATION_DEFAULT_PAGE_SIZE)
+    GRPC_LOGISTICS_SERVER_URL,
+    GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
+)
 from django.contrib.auth.models import User
 from gen.pyalloff import order_item_pb2, order_item_pb2_grpc
 from office.serializers.order_item import OrderItemStatus
@@ -147,7 +149,7 @@ class OrderItemService(GrpcService):
     @grpc_request(
         order_item_pb2.OrderItemExcelDataRequest,
         auth_types=[GrpcAuthType.COMPANY],
-        keep_channel=True
+        keep_channel=True,
     )
     def GetOrderItemExcelData(
         cls,

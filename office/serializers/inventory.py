@@ -4,6 +4,7 @@ from rest_framework import serializers
 from office.serializers.pagination import PaginationSerializer
 from django_grpc_framework import proto_serializers
 
+
 class InventoryStatus(models.TextChoices):
     CREATED = "CREATED"
     IN_STOCK = "IN_STOCK"

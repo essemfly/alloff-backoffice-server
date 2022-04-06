@@ -21,9 +21,10 @@ class ProductInquiryReplySerializer(WithUserSerializer):
 
 class ProductInquirySerializer(proto_serializers.ProtoSerializer):
     id = fields.IntegerField()
-    
+
     # 현재는 DB에 저장하지 않고, 서버에서 고정값 내려줌
     title = fields.SerializerMethodField()
+
     def get_title(self, obj):
         return "상품 문의"
 

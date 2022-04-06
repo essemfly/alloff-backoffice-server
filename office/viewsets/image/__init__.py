@@ -7,8 +7,7 @@ from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from drf_spectacular.utils import extend_schema
 from PIL import Image, ImageOps
-from rest_framework import (fields, parsers, response, serializers, status,
-                            viewsets)
+from rest_framework import fields, parsers, response, serializers, status, viewsets
 from rest_framework.decorators import action
 
 

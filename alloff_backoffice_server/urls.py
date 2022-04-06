@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
-                                   SpectacularSwaggerView)
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 from office.viewsets.admin_user import AdminUserViewSet
-from office.viewsets.auth import (DecoratedTokenObtainPairView,
-                                  DecoratedTokenRefreshView)
+from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.image import ImageUploaderViewSet
 from office.viewsets.inventory import InventoryViewSet
@@ -15,8 +17,7 @@ from office.viewsets.package import PackageViewSet
 from office.viewsets.product_inquiry import ProductInquiryViewSet
 from office.viewsets.received_item import ReceivedItemViewSet
 from office.viewsets.shipping_notice import ShippingNoticeViewSet
-from office.viewsets.shipping_notice_uploader import \
-    ShippingNoticeResultUploaderViewSet
+from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
 from product.viewsets.alloff_category import AlloffCategoryViewSet
 from product.viewsets.brand import BrandViewSet
 from product.viewsets.exhibition import ExhibitionViewSet

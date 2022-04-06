@@ -14,7 +14,6 @@ from gen.pyalloff.exhibition_pb2 import (
 )
 
 
-
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()
@@ -75,7 +74,7 @@ class ListExhibitionRequestSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
-    is_live = serializers.BooleanField()
+    is_live = serializers.BooleanField(allow_null=True, required=False, default=False)
     query = serializers.CharField(max_length=30, allow_null=True, required=False)
 
     class Meta:

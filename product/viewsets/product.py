@@ -1,27 +1,33 @@
-from alloff_backoffice_server.settings import (CLOUDFRONT_HOST,
-                                               DO_NOT_CACHE_IMAGES_TO_S3_HOSTS,
-                                               PAGE_SIZE, S3_IMAGES_HOST)
+from alloff_backoffice_server.settings import (
+    CLOUDFRONT_HOST,
+    DO_NOT_CACHE_IMAGES_TO_S3_HOSTS,
+    PAGE_SIZE,
+    S3_IMAGES_HOST,
+)
 from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
 from core.download_image_to_s3 import download_image_to_s3
 from drf_spectacular.utils import extend_schema
-from functions.product.cache_image import check_and_download_images_to_s3
-from functions.product.thumbnail import check_and_make_thumbnail
-from gen.pyalloff.product_pb2 import (GetProductRequest, ListProductsRequest,
-                                      ProductQuery)
 from office.models.html_product_info import HtmlProductInfo
+from gen.pyalloff.product_pb2 import (
+    GetProductRequest,
+    ListProductsRequest,
+    ProductQuery,
+)
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException, NotFound
 from rest_framework.response import Response
 
 from product.helpers.get_module_name import get_module_name
-from product.serializers.product import (CreateProductRequestApiSerializer,
-                                         CreateProductRequestGrpcSerializer,
-                                         EditProductRequestApiSerializer,
-                                         EditProductRequestGrpcSerializer,
-                                         ListProductResultSerializer,
-                                         ListProductSerializer,
-                                         ProductSerializer)
+from product.serializers.product import (
+    CreateProductRequestApiSerializer,
+    CreateProductRequestGrpcSerializer,
+    EditProductRequestApiSerializer,
+    EditProductRequestGrpcSerializer,
+    ListProductResultSerializer,
+    ListProductSerializer,
+    ProductSerializer,
+)
 from product.services.product import ProductService
 
 
@@ -51,7 +57,7 @@ class ProductViewSet(
         is_classified_done = request.query_params.get("is_classified_done", None)
 
         if is_classified_done is not None:
-            is_classified_done = is_classified_done == 'true'
+            is_classified_done = is_classified_done == "true"
 
         module_name = get_module_name(request)
 
@@ -68,7 +74,7 @@ class ProductViewSet(
                 brand_id=brand_id,
                 category_id=category_id,
                 alloff_category_id=alloff_category_id,
-                is_classified_done=is_classified_done
+                is_classified_done=is_classified_done,
             )
 
         req: ListProductsRequest = ListProductsRequest(
@@ -157,6 +163,7 @@ def _upsert_product(request, is_update: bool = None, pk=None):
                 product_id=res.alloff_product_id, raw_html=raw_html
             )
     return result_serializer.data
+
 
 def _make_grpc_request_data(request, alloff_product_id=None):
     """

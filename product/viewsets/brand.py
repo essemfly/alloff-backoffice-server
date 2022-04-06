@@ -8,15 +8,17 @@ from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
-from product.serializers.brand import (BrandSerializer, CreateBrandSerializer,
-                                       EditBrandSerializer)
+from product.serializers.brand import (
+    BrandSerializer,
+    CreateBrandSerializer,
+    EditBrandSerializer,
+)
 from product.services.brand import BrandService
 
 
 def get_usable_brand_keynames(user: User) -> Optional[List[str]]:
     if user.is_anonymous:
-        raise PermissionDenied(
-            "Anonymous user is not allowed to access this endpoint.")
+        raise PermissionDenied("Anonymous user is not allowed to access this endpoint.")
     elif user.profile.is_admin:
         # Catch None and do not filter
         return None
