@@ -1,33 +1,25 @@
-from alloff_backoffice_server.settings import (
-    CLOUDFRONT_HOST,
-    DO_NOT_CACHE_IMAGES_TO_S3_HOSTS,
-    PAGE_SIZE,
-    S3_IMAGES_HOST,
-)
+from alloff_backoffice_server.settings import PAGE_SIZE
 from bs4 import BeautifulSoup
 from core.company_auth_viewset import with_company_api
 from core.download_image_to_s3 import download_image_to_s3
 from drf_spectacular.utils import extend_schema
+from functions.product.cache_image import check_and_download_images_to_s3
+from functions.product.thumbnail import check_and_make_thumbnail
+from gen.pyalloff.product_pb2 import (GetProductRequest, ListProductsRequest,
+                                      ProductQuery)
 from office.models.html_product_info import HtmlProductInfo
-from gen.pyalloff.product_pb2 import (
-    GetProductRequest,
-    ListProductsRequest,
-    ProductQuery,
-)
 from rest_framework import mixins, status, viewsets
 from rest_framework.exceptions import APIException, NotFound
 from rest_framework.response import Response
 
 from product.helpers.get_module_name import get_module_name
-from product.serializers.product import (
-    CreateProductRequestApiSerializer,
-    CreateProductRequestGrpcSerializer,
-    EditProductRequestApiSerializer,
-    EditProductRequestGrpcSerializer,
-    ListProductResultSerializer,
-    ListProductSerializer,
-    ProductSerializer,
-)
+from product.serializers.product import (CreateProductRequestApiSerializer,
+                                         CreateProductRequestGrpcSerializer,
+                                         EditProductRequestApiSerializer,
+                                         EditProductRequestGrpcSerializer,
+                                         ListProductResultSerializer,
+                                         ListProductSerializer,
+                                         ProductSerializer)
 from product.services.product import ProductService
 
 
@@ -145,8 +137,9 @@ def _upsert_product(request, is_update: bool = None, pk=None):
     grpc_call = ProductService.create if not is_update else ProductService.edit
 
     data, raw_html = _make_grpc_request_data(request, pk)
-    image_downloaded_data = _check_and_download_images_to_s3(data)
-    request_serializer = RequestSerializer(data=image_downloaded_data)
+    image_downloaded_data = check_and_download_images_to_s3(data)
+    thumbnail_processed_data = check_and_make_thumbnail(image_downloaded_data)
+    request_serializer = RequestSerializer(data=thumbnail_processed_data)
     request_serializer.is_valid(raise_exception=True)
 
     res = grpc_call(request_serializer.message)
@@ -162,38 +155,6 @@ def _upsert_product(request, is_update: bool = None, pk=None):
                 product_id=res.alloff_product_id, raw_html=raw_html
             )
     return result_serializer.data
-
-
-def _check_and_download_images_to_s3(data):
-    """
-    Check if images are external (i.e., not hosted on S3) and download them to S3,
-    and update the data with the new image URLs.
-    """
-    new_images = []
-    for image in data.get("images", []):
-        can_cache = S3_IMAGES_HOST not in image and CLOUDFRONT_HOST not in image
-        for h in DO_NOT_CACHE_IMAGES_TO_S3_HOSTS:
-            if h in image:
-                can_cache = False
-                break
-        if can_cache:
-            new_images.append(download_image_to_s3(image))
-        else:
-            new_images.append(image)
-
-    new_description_images = []
-    for image in data.get("description_images", []):
-        can_cache = S3_IMAGES_HOST not in image and CLOUDFRONT_HOST not in image
-        for h in DO_NOT_CACHE_IMAGES_TO_S3_HOSTS:
-            if h in image:
-                can_cache = False
-                break
-        if can_cache:
-            new_description_images.append(download_image_to_s3(image))
-        else:
-            new_description_images.append(image)
-
-    return {**data, "images": new_images, "description_images": new_description_images}
 
 
 def _make_grpc_request_data(request, alloff_product_id=None):
