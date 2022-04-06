@@ -39,8 +39,10 @@ class ExhibitionViewSet(
         offset = request.query_params.get("offset", 0)
         limit = request.query_params.get("limit", PAGE_SIZE)
         exhibition_type = request.query_params.get("exhibition_type", ExhibitionType.Name(0))
+        is_live = request.query_params.get("is_live", False)
+        query = request.query_params.get("query", "")
 
-        req = ListExhibitionsRequest(offset=int(offset), limit=int(limit), group_type=ExhibitionType.Value(exhibition_type))
+        req = ListExhibitionsRequest(offset=int(offset), limit=int(limit), group_type=ExhibitionType.Value(exhibition_type), is_live=is_live, query=query)
         res = ExhibitionService.list(req)
         serializer = ListExhibitionsResponseSerializer(res)
         return Response(serializer.data, status=status.HTTP_200_OK)
