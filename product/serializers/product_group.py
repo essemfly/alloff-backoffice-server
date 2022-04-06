@@ -106,6 +106,7 @@ class ProductPrioritySerializer(proto_serializers.ProtoSerializer):
     class Meta:
         proto_class = ProductPriorityMessage
 
+
 class ProductsInPgSerializer(proto_serializers.ProtoSerializer):
     product_group_id = serializers.CharField()
     product_priorities = ProductPrioritySerializer(many=True)

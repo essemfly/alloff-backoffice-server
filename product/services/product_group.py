@@ -19,8 +19,8 @@ class ProductGroupService(GrpcService):
     def create(cls, request: productGroup_pb2.CreateProductGroupRequest):
         with cls.channel:
             stub = productGroup_pb2_grpc.ProductGroupStub(cls.channel)
-            response: productGroup_pb2.ProductGroupMessage = (
-                stub.CreateProductGroup(request)
+            response: productGroup_pb2.ProductGroupMessage = stub.CreateProductGroup(
+                request
             )
             return response
 

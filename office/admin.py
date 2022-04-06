@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 # Register your models here.
 from django.contrib.admin.sites import AlreadyRegistered
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin

@@ -35,16 +35,13 @@ from office.viewsets.pagination import PaginationListMixin
         ],
     ),
     receive_inventory=extend_schema(
-        parameters=[OpenApiParameter(
-            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
     cancel_receiving=extend_schema(
-        parameters=[OpenApiParameter(
-            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
     revert_inventory=extend_schema(
-        parameters=[OpenApiParameter(
-            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
 )
 class ReceivedItemViewSet(PaginationListMixin, viewsets.ViewSet):

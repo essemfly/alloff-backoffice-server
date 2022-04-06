@@ -1,10 +1,13 @@
 from django.db import models
 from drf_spectacular.utils import extend_schema_field
-from gen.pyalloff import (inventory_receipt_log_pb2, order_item_action_log_pb2,
-                          order_item_alimtalk_log_pb2,
-                          order_item_refund_update_log_pb2,
-                          order_item_status_change_log_pb2,
-                          received_item_generation_log_pb2)
+from gen.pyalloff import (
+    inventory_receipt_log_pb2,
+    order_item_action_log_pb2,
+    order_item_alimtalk_log_pb2,
+    order_item_refund_update_log_pb2,
+    order_item_status_change_log_pb2,
+    received_item_generation_log_pb2,
+)
 from office.serializers.order_item_status import OrderItemStatus
 from office.serializers.user_recorded_model import WithUserSerializer
 from rest_framework import fields

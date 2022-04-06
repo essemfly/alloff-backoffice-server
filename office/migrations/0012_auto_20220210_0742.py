@@ -9,23 +9,32 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('office', '0011_auto_20220210_0739'),
+        ("office", "0011_auto_20220210_0739"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='company',
-            name='api_key',
+            model_name="company",
+            name="api_key",
         ),
         migrations.AddField(
-            model_name='apikey',
-            name='company',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='office.company'),
+            model_name="apikey",
+            name="company",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="office.company",
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='apikey',
-            name='api_user',
-            field=models.OneToOneField(blank=True, editable=False, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="apikey",
+            name="api_user",
+            field=models.OneToOneField(
+                blank=True,
+                editable=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

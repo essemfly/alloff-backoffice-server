@@ -3,11 +3,12 @@ import enum
 from core.company_auth_viewset import with_company_api
 from core.grpc_exception import grpc_exception
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import (OpenApiParameter, extend_schema,
-                                   extend_schema_view)
+from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from office.serializers.order_item import *
 from office.serializers.product_inquiry import (
-    PaginatedProductInquirySerializer, ProductInquirySerializer)
+    PaginatedProductInquirySerializer,
+    ProductInquirySerializer,
+)
 from office.services.product_inquiry import ProductInquiryService
 from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
 from office.viewsets.pagination import PaginationListMixin

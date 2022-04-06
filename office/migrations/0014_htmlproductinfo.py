@@ -6,16 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('office', '0013_alter_profile_company'),
+        ("office", "0013_alter_profile_company"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='HtmlProductInfo',
+            name="HtmlProductInfo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('product_id', models.CharField(db_index=True, max_length=24, unique=True)),
-                ('raw_html', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "product_id",
+                    models.CharField(db_index=True, max_length=24, unique=True),
+                ),
+                ("raw_html", models.TextField()),
             ],
         ),
     ]
