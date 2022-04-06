@@ -74,7 +74,9 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
 class ListExhibitionRequestSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
-    exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items(), allow_null=True, required=False)
+    exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
+    is_live = serializers.BooleanField()
+    query = serializers.CharField(max_length=30, allow_null=True, required=False)
 
     class Meta:
         proto_class = ListExhibitionsRequest
@@ -86,6 +88,9 @@ class ListExhibitionsResponseSerializer(proto_serializers.ProtoSerializer):
     offset = serializers.IntegerField()
     limit = serializers.IntegerField()
     total_counts = serializers.IntegerField()
+    group_type = serializers.ChoiceField(choices=ExhibitionType.items())
+    is_live = serializers.BooleanField()
+    query = serializers.CharField()
 
     class Meta:
         proto_class = ListExhibitionsResponse

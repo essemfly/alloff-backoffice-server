@@ -64,6 +64,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     is_classified_touched = serializers.BooleanField()
     description_infos = serializers.DictField()
     product_infos = serializers.DictField()
+    thumbnail_image = serializers.CharField()
 
     class Meta:
         proto_class = ProductMessage
@@ -133,6 +134,7 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductRequest
@@ -180,6 +182,7 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest
