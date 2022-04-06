@@ -77,7 +77,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
         def __get_filename_only(__url: str):
             __file = __url.split("/")[-1]
             __filename = __file.split("?")[0].split(".")[0]
-            return __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "").replace(THUMBNAIL_SETTINGS["SUFFIX"], "").replace(f"mw{THUMBNAIL_SETTINGS['SIZE']}", "").replace(f"mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
+            return __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "").replace(THUMBNAIL_SETTINGS["SUFFIX"], "").replace(f"_mw{THUMBNAIL_SETTINGS['SIZE']}", "").replace(f"_mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
 
         image_names = {__get_filename_only(__image): __image for __image in obj.images}
         thumbnail_image_name = __get_filename_only(obj.thumbnail_image)
