@@ -19,7 +19,6 @@ from office.serializers.order_payment_adjustment import \
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.refund_item import RefundItemSerializer
 from rest_framework import fields
-from rest_framework.exceptions import APIException
 
 
 class OrderItemType(models.TextChoices):
