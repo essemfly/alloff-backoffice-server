@@ -42,6 +42,7 @@ class ExhibitionViewSet(
             "exhibition_type", ExhibitionType.Name(0)
         )
         is_live = request.query_params.get("is_live", False)
+        is_live = is_live == "true"
         query = request.query_params.get("query", "")
 
         req = ListExhibitionsRequest(
