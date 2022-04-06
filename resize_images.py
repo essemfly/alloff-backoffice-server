@@ -1,5 +1,11 @@
 import pymongo
 
+from functions.image.download_image import download_image
+from functions.image.image_to_bytes import image_to_bytes
+from functions.image.processed_image_path import (image_path_to_s3_url,
+                                                  processed_image_path)
+from functions.image.resize_image import resize_image_by_max_width
+
 client = pymongo.MongoClient(
     "mongodb://alloff:2morebutter@localhost:27019/?retryWrites=false"
 )
@@ -27,16 +33,8 @@ def get_cursor(brand_keyname):
 
 
 def get_resized_image(url, basewidth):
-    res = requests.get(url)
-    image = Image.open(BytesIO(res.content))
-    image = ImageOps.exif_transpose(image)
-    wpercent = basewidth / float(image.size[0])
-    hsize = int((float(image.size[1]) * float(wpercent)))
-    resized_image = image.resize((basewidth, hsize), Image.LANCZOS)
-    image_bytes = BytesIO()
-    resized_image.save(fp=image_bytes, format="WEBP")
-    image_bytes = image_bytes.getvalue()
-    return image_bytes
+    image = download_image(url)
+    return image_to_bytes(resize_image_by_max_width(image, basewidth))
 
 
 def make_new_path(url, size):
@@ -52,10 +50,10 @@ def make_new_path(url, size):
 
 def resize(url):
     image_bytes = get_resized_image(url, BASEWIDTH)
-    new_path = make_new_path(url, f"mw{BASEWIDTH}")
+    new_path = processed_image_path(url, f"mw{BASEWIDTH}")
     with default_storage.open(new_path, "wb") as f:
         f.write(image_bytes)
-    return f"{S3_IMAGES_HOST}/{new_path}"
+    return image_path_to_s3_url(new_path)
 
 
 def resize_document(doc):
