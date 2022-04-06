@@ -14,7 +14,6 @@ from gen.pyalloff.exhibition_pb2 import (
 )
 
 
-
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()

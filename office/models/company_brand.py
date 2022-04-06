@@ -11,7 +11,10 @@ def _make_brand_key():
 class CompanyBrand(models.Model):
     class Meta:
         db_table = "company_brands"
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name="company_brands")
+
+    company = models.ForeignKey(
+        Company, on_delete=models.PROTECT, related_name="company_brands"
+    )
     name = models.CharField(max_length=100, null=False, blank=False)
     keyname = models.CharField(
         max_length=100,

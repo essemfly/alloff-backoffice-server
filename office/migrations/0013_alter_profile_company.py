@@ -7,14 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('office', '0012_auto_20220210_0742'),
+        ("office", "0012_auto_20220210_0742"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='company',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='office.company'),
+            model_name="profile",
+            name="company",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.PROTECT,
+                to="office.company",
+            ),
             preserve_default=False,
         ),
     ]

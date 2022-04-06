@@ -52,4 +52,6 @@ class ApiKey(models.Model):
         return f"__{self.channel.lower()}_{self.company.keyname}"
 
     def __str__(self):
-        return f"{self.channel} ApiKey #{self.id} for {self.company.name} ({self.status})"
+        return (
+            f"{self.channel} ApiKey #{self.id} for {self.company.name} ({self.status})"
+        )

@@ -29,8 +29,7 @@ from office.utils.openapi import PROTO_PAGINATION_QUERY_PARAMS
         ],
     ),
     destroy=extend_schema(
-        parameters=[OpenApiParameter(
-            "id", OpenApiTypes.INT, OpenApiParameter.PATH)]
+        parameters=[OpenApiParameter("id", OpenApiTypes.INT, OpenApiParameter.PATH)]
     ),
 )
 class InventoryViewSet(
