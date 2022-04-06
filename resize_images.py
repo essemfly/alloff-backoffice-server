@@ -42,7 +42,9 @@ def get_resized_image(url, basewidth):
 def make_new_path(url, size):
     path_nodes = url.split("/")
     original_filename = path_nodes[-1]
-    name, ext = original_filename.split(".")
+    nodes = original_filename.split(".")
+    name = ".".join(nodes[:-1])
+    ext = nodes[-1]
     filename = f"{name}__RESIZED-{size}.{ext}"
     s3_path = f"images/{filename}"
     return s3_path
