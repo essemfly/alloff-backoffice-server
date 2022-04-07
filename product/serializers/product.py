@@ -69,31 +69,28 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
 
     @extend_schema_field(serializers.CharField)
     def get_main_image_url(self, obj):
-        try:
-            if obj.thumbnail_image == "" or obj.thumbnail_image is None:
-                try:
-                    return obj.images[0]
-                except IndexError:
-                    return None
+        if obj.thumbnail_image == "" or obj.thumbnail_image is None:
+            try:
+                return obj.images[0]
+            except IndexError:
+                return None
 
-            def __get_filename_only(__url: str):
-                __file = __url.split("/")[-1]
-                __filename = __file.split("?")[0].split(".")[0]
-                return (
-                    __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "")
-                    .replace(THUMBNAIL_SETTINGS["SUFFIX"], "")
-                    .replace(f"-mw{THUMBNAIL_SETTINGS['SIZE']}", "")
-                    .replace(f"-mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
-                )
+        def __get_filename_only(__url: str):
+            __file = __url.split("/")[-1]
+            __filename = __file.split("?")[0].split(".")[0]
+            return (
+                __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "")
+                .replace(THUMBNAIL_SETTINGS["SUFFIX"], "")
+                .replace(f"-mw{THUMBNAIL_SETTINGS['SIZE']}", "")
+                .replace(f"-mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
+            )
 
-            image_names = {__get_filename_only(__image): __image for __image in obj.images}
-            thumbnail_image_name = __get_filename_only(obj.thumbnail_image)
-            for name, url in image_names.items():
-                if thumbnail_image_name == name:
-                    return url
-            return obj.images[0]
-        except AttributeError:
-            return obj.images[0]
+        image_names = {__get_filename_only(__image): __image for __image in obj.images}
+        thumbnail_image_name = __get_filename_only(obj.thumbnail_image)
+        for name, url in image_names.items():
+            if thumbnail_image_name == name:
+                return url
+        return obj.images[0]
 
     class Meta:
         proto_class = ProductMessage
