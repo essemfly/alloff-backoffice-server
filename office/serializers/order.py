@@ -1,12 +1,8 @@
-from office.serializers.daos.user import UserDAOSerializer
-
-# from office.serializers.order_payment_adjustment import OrderPaymentAdjustmentSerializer
-from office.serializers.payment import PaymentSerializer
 from django.db import models
-
-# from order.models.order import Order
 from django_grpc_framework import proto_serializers
-from protos.order.order import order_pb2
+from gen.pyalloff import order_pb2
+from office.serializers.daos.user import UserDAOSerializer
+from office.serializers.payment import PaymentSerializer
 from rest_framework import fields
 
 
@@ -42,6 +38,14 @@ class OrderSerializer(proto_serializers.ProtoSerializer):
     created_at = fields.DateTimeField()
     updated_at = fields.DateTimeField()
     ordered_at = fields.DateTimeField(allow_null=True)
+
+    # property fields
+    orderer_name = fields.CharField()
+    orderer_mobile = fields.CharField()
+    recipient_name = fields.CharField()
+    recipient_mobile = fields.CharField()
+    recipient_postcode = fields.CharField()
+    recipient_address = fields.CharField()
 
     class Meta:
         proto_class = order_pb2.Order

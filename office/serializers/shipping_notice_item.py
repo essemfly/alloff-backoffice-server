@@ -1,12 +1,11 @@
-from enum import Enum
-from office.serializers.inventory import InventorySerializer
-from rest_framework import fields
+from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_field
+from gen.pyalloff import shipping_notice_item_pb2
+from office.serializers.inventory import InventorySerializer
 from office.serializers.order_item import OrderItemListSerializer
 from office.serializers.package import PackageSerializer
-from protos.logistics.shipping_notice_item import shipping_notice_item_pb2
-from django.db import models
+from rest_framework import fields
 
 
 class ShippingNoticeItemRemovalType(models.TextChoices):

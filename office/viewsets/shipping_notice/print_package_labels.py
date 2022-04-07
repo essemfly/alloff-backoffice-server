@@ -1,9 +1,9 @@
+from gen.pyalloff.package_pb2 import Package
 from office.label.print_label import print_label
 from office.label.shipping_label import (
     make_box_shipping_label,
     make_item_shipping_label,
 )
-from protos.logistics.package.package_pb2 import Package
 
 
 def print_package_labels(package: Package):

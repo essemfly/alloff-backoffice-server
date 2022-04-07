@@ -1,15 +1,25 @@
+from alloff_backoffice_server.settings import (IMAGE_CACHING_SETTINGS,
+                                               THUMBNAIL_SETTINGS)
+from django.db import models
 from django_grpc_framework import proto_serializers
-from drf_spectacular.utils import extend_schema_serializer
-from protos.product.product_pb2 import (
-    CreateProductRequest,
-    EditProductRequest,
-    ListProductsRequest,
-    ListProductsResponse,
-    ProductInventoryMessage,
-    ProductMessage,
-    ProductQuery,
-)
+from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
+from gen.pyalloff.product_pb2 import (CreateProductRequest, EditProductRequest,
+                                      ListProductsRequest,
+                                      ListProductsResponse,
+                                      ProductInventoryMessage, ProductMessage,
+                                      ProductQuery)
 from rest_framework import serializers
+
+
+class SortingOptions(models.TextChoices):
+    PRICE_ASCENDING = "PRICE_ASCENDING"
+    PRICE_DESCENDING = "PRICE_DESCENDING"
+    DISCOUNT_0_30 = "DISCOUNT_0_30"
+    DISCOUNT_30_50 = "DISCOUNT_30_50"
+    DISCOUNT_50_70 = "DISCOUNT_50_70"
+    DISCOUNT_70_100 = "DISCOUNT_70_100"
+    DISCOUNTRATE_ASCENDING = "DISCOUNTRATE_ASCENDING"
+    DISCOUNTRATE_DESCENDING = "DISCOUNTRATE_DESCENDING"
 
 
 class ProductInventorySerializer(proto_serializers.ProtoSerializer):
@@ -48,6 +58,34 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     product_url = serializers.CharField(
         allow_null=True, required=False, allow_blank=True
     )
+    is_classified_done = serializers.BooleanField()
+    is_classified_touched = serializers.BooleanField()
+    description_infos = serializers.DictField()
+    product_infos = serializers.DictField()
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
+    
+    # Backoffice-only field (non-grpc)
+    main_image_url = serializers.SerializerMethodField()
+    @extend_schema_field(serializers.CharField)
+    def get_main_image_url(self, obj):
+        if obj.thumbnail_image == "" or obj.thumbnail_image is None:
+            try:
+                return obj.images[0]
+            except IndexError:
+                return None
+        
+        def __get_filename_only(__url: str):
+            __file = __url.split("/")[-1]
+            __filename = __file.split("?")[0].split(".")[0]
+            return __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "").replace(THUMBNAIL_SETTINGS["SUFFIX"], "").replace(f"-mw{THUMBNAIL_SETTINGS['SIZE']}", "").replace(f"-mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
+
+        image_names = {__get_filename_only(__image): __image for __image in obj.images}
+        thumbnail_image_name = __get_filename_only(obj.thumbnail_image)
+        for name, url in image_names.items():
+            if thumbnail_image_name == name:
+                return url
+        return obj.images[0]
+            
 
     class Meta:
         proto_class = ProductMessage
@@ -58,6 +96,10 @@ class ProductQuerySerializer(proto_serializers.ProtoSerializer):
     brand_id = serializers.CharField()
     category_id = serializers.CharField()
     alloff_category_id = serializers.CharField()
+    options = serializers.ListField(
+        child=serializers.ChoiceField(SortingOptions.choices)
+    )
+    is_classified_done = serializers.BooleanField()
 
     class Meta:
         proto_class = ProductQuery
@@ -70,6 +112,7 @@ class ListProductSerializer(proto_serializers.ProtoSerializer):
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
     offset = serializers.IntegerField(allow_null=True, required=False)
     limit = serializers.IntegerField(allow_null=True, required=False)
+    is_classified_done = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = ListProductsRequest
@@ -110,6 +153,9 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     latest_delivery_days = serializers.IntegerField()
     refund_fee = serializers.IntegerField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
+    description_infos = serializers.DictField(allow_null=True, required=False)
+    product_infos = serializers.DictField(allow_null=True, required=False)
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductRequest
@@ -155,6 +201,9 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     is_removed = serializers.BooleanField(allow_null=True, required=False)
     is_soldout = serializers.BooleanField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
+    description_infos = serializers.DictField(allow_null=True, required=False)
+    product_infos = serializers.DictField(allow_null=True, required=False)
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest

@@ -1,12 +1,11 @@
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_field
+from gen.pyalloff import product_inquiry_pb2, product_inquiry_reply_pb2
+from gen.pyalloff.product_pb2 import GetProductRequest
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.user_recorded_model import WithUserSerializer
 from product.serializers.product import ProductSerializer
 from product.services.product import ProductService
-from protos.order.product_inquiry import product_inquiry_pb2
-from protos.order.product_inquiry_reply import product_inquiry_reply_pb2
-from protos.product.product_pb2 import GetProductRequest
 from rest_framework import fields
 
 
@@ -22,9 +21,10 @@ class ProductInquiryReplySerializer(WithUserSerializer):
 
 class ProductInquirySerializer(proto_serializers.ProtoSerializer):
     id = fields.IntegerField()
-    
+
     # 현재는 DB에 저장하지 않고, 서버에서 고정값 내려줌
     title = fields.SerializerMethodField()
+
     def get_title(self, obj):
         return "상품 문의"
 

@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('office', '0004_companybrand_brand_key'),
+        ("office", "0004_companybrand_brand_key"),
     ]
 
     operations = [
         migrations.AlterModelTable(
-            name='companybrand',
-            table='company_brands',
+            name="companybrand",
+            table="company_brands",
         ),
     ]

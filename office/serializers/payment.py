@@ -1,6 +1,6 @@
 from django.db import models
 from django_grpc_framework import proto_serializers
-from protos.order.payment import payment_pb2
+from gen.pyalloff import payment_pb2
 from rest_framework import fields
 
 
@@ -31,7 +31,8 @@ class PaymentSerializer(proto_serializers.ProtoSerializer):
     updated_at = fields.DateTimeField()
 
     personal_customs_number = fields.CharField(
-        max_length=13, allow_null=True, allow_blank=True)
+        max_length=13, allow_null=True, allow_blank=True
+    )
 
     class Meta:
         proto_class = payment_pb2.Payment

@@ -1,16 +1,14 @@
 from typing import List, Optional, TypedDict
-from django.contrib.auth.models import User
+
 from alloff_backoffice_server.settings import (
     GRPC_LOGISTICS_SERVER_URL,
     GRPC_PAGINATION_DEFAULT_PAGE_SIZE,
 )
+from django.contrib.auth.models import User
+from gen.pyalloff import shipping_notice_pb2, shipping_notice_pb2_grpc
 from office.serializers.shipping_notice import ShippingNoticeStatus
 from office.serializers.shipping_notice_item import ShippingNoticeItemRemovalType
 from office.services.base import GrpcService
-from protos.logistics.shipping_notice import (
-    shipping_notice_pb2,
-    shipping_notice_pb2_grpc,
-)
 
 
 class PackageTrackingPair(TypedDict):

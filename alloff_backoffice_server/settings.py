@@ -241,3 +241,11 @@ SUPERCOMPANY_KEYNAME = "LESSBUTTER"
 S3_IMAGES_HOST = "https://alloff.s3.ap-northeast-2.amazonaws.com"
 CLOUDFRONT_HOST = "https://d2h457fhnw16mg.cloudfront.net"
 DO_NOT_CACHE_IMAGES_TO_S3_HOSTS = ["www.theoutnet.com"]
+THUMBNAIL_SETTINGS = {
+    "SUFFIX": "__THUMB",
+    "SIZE": 300,
+}
+IMAGE_CACHING_SETTINGS = {
+    "SUFFIX": "__RESIZE",
+    "SIZE": 1280,
+}

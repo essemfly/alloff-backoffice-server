@@ -13,5 +13,6 @@ def grpc_exception(original_func):
             }
             exception = NotFound if e.code() == StatusCode.NOT_FOUND else APIException
             raise exception(**exception_kwargs)
+
     wrapper_func.__name__ = original_func.__name__
     return wrapper_func
