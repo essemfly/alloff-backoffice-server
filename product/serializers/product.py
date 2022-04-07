@@ -71,7 +71,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     def get_main_image_url(self, obj):
         if obj.thumbnail_image == "" or obj.thumbnail_image is None:
             try:
-                    return obj.images[0]
+                return obj.images[0]
             except IndexError:
                 return None
 
