@@ -1,16 +1,13 @@
-from alloff_backoffice_server.settings import IMAGE_CACHING_SETTINGS, THUMBNAIL_SETTINGS
+from alloff_backoffice_server.settings import (IMAGE_CACHING_SETTINGS,
+                                               THUMBNAIL_SETTINGS)
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
-from gen.pyalloff.product_pb2 import (
-    CreateProductRequest,
-    EditProductRequest,
-    ListProductsRequest,
-    ListProductsResponse,
-    ProductInventoryMessage,
-    ProductMessage,
-    ProductQuery,
-)
+from gen.pyalloff.product_pb2 import (CreateProductRequest, EditProductRequest,
+                                      ListProductsRequest,
+                                      ListProductsResponse,
+                                      ProductInventoryMessage, ProductMessage,
+                                      ProductQuery)
 from rest_framework import serializers
 
 
@@ -72,11 +69,11 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
 
     @extend_schema_field(serializers.CharField)
     def get_main_image_url(self, obj):
-        try:
-            if obj.thumbnail_image == "" or obj.thumbnail_image is None:
-                return obj.images[0]
-        except IndexError:
-            return None
+        if obj.thumbnail_image == "" or obj.thumbnail_image is None:
+            try:
+                    return obj.images[0]
+            except IndexError:
+                return None
 
         def __get_filename_only(__url: str):
             __file = __url.split("/")[-1]
