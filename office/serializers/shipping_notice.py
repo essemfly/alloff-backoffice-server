@@ -3,8 +3,7 @@ from django_grpc_framework import proto_serializers
 from gen.pyalloff import shipping_notice_pb2
 from office.serializers.package import PackageSerializer
 from office.serializers.pagination import PaginationSerializer
-from office.serializers.shipping_notice_item import \
-    ShippingNoticeItemSerializer
+from office.serializers.shipping_notice_item import ShippingNoticeItemSerializer
 from rest_framework import serializers
 
 

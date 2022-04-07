@@ -5,21 +5,20 @@ from gen.pyalloff import order_item_pb2
 from office.iamport import IMP
 from office.models.company import Company
 from office.serializers.company import CompanySerializer
-from office.serializers.daos.cancel_description import \
-    CancelDescriptionDAOSerializer
-from office.serializers.daos.delivery_description import \
-    DeliveryDescriptionDAOSerializer
+from office.serializers.daos.cancel_description import CancelDescriptionDAOSerializer
+from office.serializers.daos.delivery_description import (
+    DeliveryDescriptionDAOSerializer,
+)
 from office.serializers.order import OrderSerializer
-from office.serializers.order_item_action_log import \
-    OrderItemActionLogSerializer
+from office.serializers.order_item_action_log import OrderItemActionLogSerializer
 from office.serializers.order_item_status import OrderItemStatus
 from office.serializers.order_memo import OrderItemMemoSerializer
-from office.serializers.order_payment_adjustment import \
-    OrderItemPaymentAdjustmentSerializer
+from office.serializers.order_payment_adjustment import (
+    OrderItemPaymentAdjustmentSerializer,
+)
 from office.serializers.pagination import PaginationSerializer
 from office.serializers.refund_item import RefundItemSerializer
 from rest_framework import fields
-from rest_framework.exceptions import APIException
 
 
 class OrderItemType(models.TextChoices):
@@ -51,7 +50,6 @@ class _OrderItemSerializer(proto_serializers.ProtoSerializer):
         except:
             # Object does not necessarily have a company
             return None
-
 
     # product
     product_id = fields.CharField()

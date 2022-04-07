@@ -10,6 +10,7 @@ _HEADER = [
     "상품명",
     "옵션명",
     "주문수량",
+    "주문금액",
     "결제금액",
     "판매가",
     "주문자 ID",
@@ -44,6 +45,7 @@ def _make_row(order_item):
         order_item.product_name,  # 상품명*
         f"size: {order_item.size} / color: {order_item.color}",  # 옵션명*
         order_item.quantity,  # 주문수량*
+        order_item.total_amount,  # 주문금액
         order_item.total_amount,  # 결제금액
         order_item.sales_price,  # 판매가*
         order_item.order.user_id,  # 주문자 ID*
