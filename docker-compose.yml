@@ -1,9 +1,0 @@
-services:
-  python:
-    build: .
-    ports:
-      - "8000:8000"
-    working_dir: /office
-    command: >
-      sh -c "poetry shell && poetry install &&
-      ./manage.py runserver 0.0.0.0:8000"

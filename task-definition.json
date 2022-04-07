@@ -1,0 +1,23 @@
+{
+    "family": "BackofficeTestFamily",
+    "executionRoleArn": "ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+      {
+        "name": "BackofficeTestContainer",
+        "image": "193142563486.dkr.ecr.ap-northeast-2.amazonaws.com/backoffice-server:latest",
+        "portMappings": [
+          {
+            "containerPort": 8000,
+            "protocol": "tcp"
+          }
+        ],
+        "essential": true
+      }
+    ],
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "1024"
+  }
