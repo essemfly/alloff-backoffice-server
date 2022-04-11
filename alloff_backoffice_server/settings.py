@@ -8,8 +8,7 @@ from dotenv import dotenv_values, load_dotenv
 load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
 SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
-API_TYPE_IS_COMPANY_API = env.get("API_TYPE") == "company"
-
+API_TYPE_IS_COMPANY_API = os.environ.get("API_TYPE", "office") == "company"
 
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
 class CORSStaticFilesHandler(handlers.StaticFilesHandler):
