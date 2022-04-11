@@ -7,14 +7,17 @@ on:
       - dockerize
 
 env:
-  AWS_REGION: ap-northeast-2                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: backoffice-server           # set this to your Amazon ECR repository name
-  ECS_SERVICE: backoffice-server-dev                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: backoffice-server                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/task-definition-dev.json # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: backoffice-server-dev           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  AWS_REGION: ap-northeast-2                          # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: backoffice-server-dev               # set this to your Amazon ECR repository name
+  ECS_SERVICE_OFFICE: backoffice-server-dev           # set this to your Amazon ECS service name
+  ECS_SERVICE_COMPANY: backoffice-server-dev-company
+  ECS_CLUSTER: backoffice-server                      # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION_OFFICE: .aws/task-definition-dev.json # set this to the path to your Amazon ECS task definition
+                                                            # file, e.g. .aws/task-definition.json
+  ECS_TASK_DEFINITION_COMPANY: .aws/task-definition-dev-company.json
+  CONTAINER_NAME_OFFICE: backoffice-server-dev        # set this to the name of the container in the
+                                                      # containerDefinitions section of your task definition
+  CONTAINER_NAME_COMPANY: backoffice-server-dev-company
 
 jobs:
   deploy:
@@ -54,18 +57,34 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
+    - name: Fill in the new image ID in the Amazon ECS task definition (Office)
+      id: task-def-office
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
+        task-definition: ${{ env.ECS_TASK_DEFINITION_OFFICE }}
+        container-name: ${{ env.CONTAINER_NAME_OFFICE }}
         image: ${{ steps.build-image.outputs.image }}
 
-    - name: Deploy Amazon ECS task definition
+    - name: Fill in the new image ID in the Amazon ECS task definition (Company API)
+      id: task-def-company
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ${{ env.ECS_TASK_DEFINITION_COMPANY }}
+        container-name: ${{ env.CONTAINER_NAME_COMPANY }}
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy Amazon ECS task definition (Office)
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
+        task-definition: ${{ steps.task-def-office.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE_OFFICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: false
+
+    - name: Deploy Amazon ECS task definition (Company API)
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def-company.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE_COMPANY }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
