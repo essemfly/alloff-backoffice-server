@@ -1,6 +1,7 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+from typing import TypedDict
 
 from django.contrib.staticfiles import handlers
 from dotenv import dotenv_values, load_dotenv
@@ -237,14 +238,24 @@ GRPC_PAGINATION_DEFAULT_PAGE_SIZE = 20
 COMPANY_API_HEADER = "Company-Api-Key"
 COMPANY_GRPC_REQUEST_KEY = "company_keyname"
 SUPERCOMPANY_KEYNAME = "LESSBUTTER"
+
+
 S3_IMAGES_HOST = "https://alloff.s3.ap-northeast-2.amazonaws.com"
 CLOUDFRONT_HOST = "https://d2h457fhnw16mg.cloudfront.net"
 DO_NOT_CACHE_IMAGES_TO_S3_HOSTS = ["www.theoutnet.com"]
-THUMBNAIL_SETTINGS = {
-    "SUFFIX": "__THUMB",
-    "SIZE": 300,
-}
-IMAGE_CACHING_SETTINGS = {
+
+
+class CachingSettings(TypedDict):
+    SUFFIX: str
+    SIZE: int
+
+
+DEFAULT_CACHING_SETTINGS: CachingSettings = {
     "SUFFIX": "__RESIZE",
     "SIZE": 1280,
+}
+
+THUMBNAIL_SETTINGS: CachingSettings = {
+    "SUFFIX": "__THUMB",
+    "SIZE": 300,
 }

@@ -1,10 +1,9 @@
 import pymongo
 
-from functions.image.download_image import download_image
-from functions.image.image_to_bytes import image_to_bytes
-from functions.image.processed_image_path import (image_path_to_s3_url,
-                                                  processed_image_path)
-from functions.image.resize_image import resize_image_by_max_width
+from core.image.download_image import download_image
+from core.image.image_to_bytes import image_to_bytes
+from core.image.processed_image_path import image_path_to_s3_url, processed_image_path
+from core.image.resize_image import resize_image_by_max_width
 
 client = pymongo.MongoClient(
     "mongodb://alloff:2morebutter@localhost:27019/?retryWrites=false"

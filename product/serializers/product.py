@@ -1,13 +1,19 @@
-from alloff_backoffice_server.settings import (IMAGE_CACHING_SETTINGS,
-                                               THUMBNAIL_SETTINGS)
+from alloff_backoffice_server.settings import (
+    DEFAULT_CACHING_SETTINGS,
+    THUMBNAIL_SETTINGS,
+)
 from django.db import models
 from django_grpc_framework import proto_serializers
 from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
-from gen.pyalloff.product_pb2 import (CreateProductRequest, EditProductRequest,
-                                      ListProductsRequest,
-                                      ListProductsResponse,
-                                      ProductInventoryMessage, ProductMessage,
-                                      ProductQuery)
+from gen.pyalloff.product_pb2 import (
+    CreateProductRequest,
+    EditProductRequest,
+    ListProductsRequest,
+    ListProductsResponse,
+    ProductInventoryMessage,
+    ProductMessage,
+    ProductQuery,
+)
 from rest_framework import serializers
 
 
@@ -79,10 +85,10 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
             __file = __url.split("/")[-1]
             __filename = __file.split("?")[0].split(".")[0]
             return (
-                __filename.replace(IMAGE_CACHING_SETTINGS["SUFFIX"], "")
+                __filename.replace(DEFAULT_CACHING_SETTINGS["SUFFIX"], "")
                 .replace(THUMBNAIL_SETTINGS["SUFFIX"], "")
                 .replace(f"-mw{THUMBNAIL_SETTINGS['SIZE']}", "")
-                .replace(f"-mw{IMAGE_CACHING_SETTINGS['SIZE']}", "")
+                .replace(f"-mw{DEFAULT_CACHING_SETTINGS['SIZE']}", "")
             )
 
         image_names = {__get_filename_only(__image): __image for __image in obj.images}
