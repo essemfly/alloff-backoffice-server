@@ -1,6 +1,7 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+from typing import TypedDict
 
 from django.contrib.staticfiles import handlers
 from dotenv import dotenv_values, load_dotenv
@@ -8,9 +9,8 @@ from dotenv import dotenv_values, load_dotenv
 load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
 SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
-API_TYPE_IS_COMPANY_API = env.get("API_TYPE") == "company"
-
-
+API_TYPE_IS_COMPANY_API = os.environ.get("API_TYPE", "office") == "company"
+COMMIT_SHA = env.get("COMMIT_SHA", "NO_VERSION_SPECIFIED")
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
 class CORSStaticFilesHandler(handlers.StaticFilesHandler):
     def serve(self, request):
@@ -81,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "middlewares.version.version_middleware",
     # "office.middlewares.api_auth.SimpleMiddleware",
 ]
 
@@ -238,14 +239,24 @@ GRPC_PAGINATION_DEFAULT_PAGE_SIZE = 20
 COMPANY_API_HEADER = "Company-Api-Key"
 COMPANY_GRPC_REQUEST_KEY = "company_keyname"
 SUPERCOMPANY_KEYNAME = "LESSBUTTER"
+
+
 S3_IMAGES_HOST = "https://alloff.s3.ap-northeast-2.amazonaws.com"
 CLOUDFRONT_HOST = "https://d2h457fhnw16mg.cloudfront.net"
 DO_NOT_CACHE_IMAGES_TO_S3_HOSTS = ["www.theoutnet.com"]
-THUMBNAIL_SETTINGS = {
-    "SUFFIX": "__THUMB",
-    "SIZE": 300,
-}
-IMAGE_CACHING_SETTINGS = {
+
+
+class CachingSettings(TypedDict):
+    SUFFIX: str
+    SIZE: int
+
+
+DEFAULT_CACHING_SETTINGS: CachingSettings = {
     "SUFFIX": "__RESIZE",
     "SIZE": 1280,
+}
+
+THUMBNAIL_SETTINGS: CachingSettings = {
+    "SUFFIX": "__THUMB",
+    "SIZE": 300,
 }
