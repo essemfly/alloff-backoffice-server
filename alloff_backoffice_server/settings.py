@@ -10,7 +10,7 @@ load_dotenv()  # take environment variables from .env.
 env = dotenv_values(".env")
 SERVICE_ENV_IS_DEV = env.get("SERVICE_ENV") != "prod"
 API_TYPE_IS_COMPANY_API = os.environ.get("API_TYPE", "office") == "company"
-
+COMMIT_SHA = os.environ.get("COMMIT_SHA", "NO_VERSION_SPECIFIED")
 # extend StaticFilesHandler to add "Access-Control-Allow-Origin" to every response
 class CORSStaticFilesHandler(handlers.StaticFilesHandler):
     def serve(self, request):
@@ -81,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "middlewares.version.version_middleware",
     # "office.middlewares.api_auth.SimpleMiddleware",
 ]
 
