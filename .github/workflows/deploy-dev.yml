@@ -28,7 +28,8 @@ jobs:
 
       - name: Configure ENV variables
         run: |
-          echo "COMMIT_SHA=${{ github.sha }}\n${{ secrets.ENV_PROD }}" > .env
+          echo "COMMIT_SHA=${{ github.sha }}
+          ${{ secrets.ENV_PROD }}" > .env
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -70,19 +71,19 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME_COMPANY }}
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy Amazon ECS task definition (Office)
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def-office.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE_OFFICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: false
-
       - name: Deploy Amazon ECS task definition (Company API)
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def-company.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_COMPANY }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: false
+
+      - name: Deploy Amazon ECS task definition (Office)
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-office.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_OFFICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
