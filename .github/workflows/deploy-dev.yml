@@ -18,7 +18,7 @@ env:
 
 jobs:
   deploy:
-    if: ${{ contains(github.event.label.name, 'Deploy') }}
+    if: ${{ github.event.pull_request.labels.*.name == 'Server Deployment' }}
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
@@ -99,7 +99,7 @@ jobs:
         if: always() # Pick up events even if the job fails or is canceled.
 
   dispatch:
-    if: ${{ contains(github.event.label.name, 'API') }}
+    if: ${{ github.event.pull_request.labels.*.name == 'API Update' }}
     name: Dispatch
     runs-on: ubuntu-latest
     environment: production
