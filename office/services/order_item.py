@@ -42,6 +42,7 @@ class OrderItemService(GrpcService):
         alloff_order_id: Optional[str] = None,
         date_from: Optional[str] = None,
         date_to: Optional[str] = None,
+        exhibition_id: Optional[str] = None,
         user: User = None,
     ):
         pass
