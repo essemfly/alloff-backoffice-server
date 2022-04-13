@@ -7,6 +7,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from office.viewsets.admin_user import AdminUserViewSet
+from office.viewsets.analytics import AnalyticsViewSet
 from office.viewsets.auth import DecoratedTokenObtainPairView, DecoratedTokenRefreshView
 from office.viewsets.courier import CourierViewSet
 from office.viewsets.image import ImageUploaderViewSet
@@ -59,6 +60,7 @@ else:
     router.register(r"hometabs", HometabItemViewSet, basename="hometabs")
     router.register(r"top-banners", TopBannerViewSet, basename="top-banner")
     router.register(r"notifications", NotificationViewSet, basename="notifications")
+    router.register(r"analytics", AnalyticsViewSet, basename="analytics")
 
 router.register(r"inquiries", ProductInquiryViewSet, basename="inquiries")
 router.register(r"alloff-categories", AlloffCategoryViewSet, basename="alloff-category")
