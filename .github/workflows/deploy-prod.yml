@@ -18,7 +18,6 @@ env:
 
 jobs:
   deploy:
-    if: ${{ contains(github.event.label.name, 'Deploy') }}
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
@@ -87,35 +86,6 @@ jobs:
           service: ${{ env.ECS_SERVICE_OFFICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
-
-      - name: action-slack
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          author_name: Github Action # default: 8398a7@action-slack
-          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
-
-  dispatch:
-    if: ${{ contains(github.event.label.name, 'API') }}
-    name: Dispatch
-    runs-on: ubuntu-latest
-    environment: production
-
-    steps:
-      - name: Trigger Alloff Backoffice API deployment
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.PAT_TOKEN }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: 'lessbutter',
-              repo: 'alloff-backoffice-api',
-              workflow_id: 'version_minor.yml',
-              ref: 'main'
-            })
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
