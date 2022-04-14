@@ -1,4 +1,3 @@
-from rest_framework import serializers
 from django_grpc_framework import proto_serializers
 from gen.pyalloff.brand_pb2 import (
     BrandMessage,
@@ -6,6 +5,7 @@ from gen.pyalloff.brand_pb2 import (
     EditBrandRequest,
     SizeGuideMessage,
 )
+from rest_framework import serializers
 
 
 class SizeGuideSerializer(proto_serializers.ProtoSerializer):
@@ -25,6 +25,7 @@ class BrandSerializer(proto_serializers.ProtoSerializer):
     description = serializers.CharField(max_length=50)
     is_popular = serializers.BooleanField(default=False)
     is_open = serializers.BooleanField(default=True)
+    is_hide = serializers.BooleanField(default=False)
     in_maintenance = serializers.BooleanField(default=False)
     size_guide = SizeGuideSerializer(many=True)
     back_image_url = serializers.CharField()
@@ -42,6 +43,7 @@ class CreateBrandSerializer(proto_serializers.ProtoSerializer):
     is_popular = serializers.BooleanField(default=False)
     is_open = serializers.BooleanField(default=True)
     in_maintenance = serializers.BooleanField(default=False)
+    is_hide = serializers.BooleanField(default=False)
     size_guide = SizeGuideSerializer(many=True)
     back_image_url = serializers.CharField()
 
@@ -62,6 +64,7 @@ class EditBrandSerializer(proto_serializers.ProtoSerializer):
     in_maintenance = serializers.BooleanField(
         default=False, allow_null=True, required=False
     )
+    is_hide = serializers.BooleanField(default=False, allow_null=True, required=False)
     size_guide = SizeGuideSerializer(many=True, allow_null=True, required=False)
     back_image_url = serializers.CharField(allow_null=True, required=False)
 
