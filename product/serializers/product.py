@@ -73,13 +73,16 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     # Backoffice-only field (non-grpc)
     main_image_url = serializers.SerializerMethodField()
 
-    @extend_schema_field(serializers.CharField)
+    @extend_schema_field(serializers.CharField(allow_null=True, required=False))
     def get_main_image_url(self, obj):
-        if obj.thumbnail_image == "" or obj.thumbnail_image is None:
+        def __return_default():
             try:
                 return obj.images[0]
             except IndexError:
                 return None
+
+        if obj.thumbnail_image == "" or obj.thumbnail_image is None:
+            return __return_default()
 
         def __get_filename_only(__url: str):
             __file = __url.split("/")[-1]
@@ -96,7 +99,8 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
         for name, url in image_names.items():
             if thumbnail_image_name == name:
                 return url
-        return obj.images[0]
+
+        return __return_default()
 
     class Meta:
         proto_class = ProductMessage
