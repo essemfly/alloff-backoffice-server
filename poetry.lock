@@ -8,7 +8,7 @@ python-versions = "*"
 
 [[package]]
 name = "alloff-grpc-protos"
-version = "0.2.8"
+version = "0.3.2"
 description = ""
 category = "main"
 optional = false
@@ -17,6 +17,8 @@ develop = false
 
 [package.dependencies]
 2to3 = "^1.0"
+djangogrpcframework = "^0.2.1"
+djangorestframework = "^3.13.1"
 grpcio = "^1.45.0"
 grpcio-tools = "^1.45.0"
 
@@ -24,7 +26,7 @@ grpcio-tools = "^1.45.0"
 type = "git"
 url = "https://essemfly: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@github.com/lessbutter/alloff-grpc-protos.git"
 reference = "main"
-resolved_reference = "0703d9341a37f8159b781e6d6fd62b5968835efe"
+resolved_reference = "3239b8810419453a0aee5858644216e177ef7da6"
 
 [[package]]
 name = "anyio"
