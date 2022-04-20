@@ -15,11 +15,14 @@ from gen.pyalloff.productGroup_pb2 import (
     RemoveProductInPgRequest,
 )
 from product.serializers.product import ProductSerializer
+from product.serializers.brand import BrandSerializer
 
 
 class ProductGroupType(models.TextChoices):
     PRODUCT_GROUP_TIMEDEAL = "PRODUCT_GROUP_TIMEDEAL"
     PRODUCT_GROUP_EXHIBITION = "PRODUCT_GROUP_EXHIBITION"
+    PRODUCT_GROUP_BRAND_TIMEDEAL = "PRODUCT_GROUP_BRAND_TIMEDEAL"
+    PRODUCT_GROUP_GROUPDEAL = "PRODUCT_GROUP_GROUPDEAL"
 
 
 class ProductInGroupSerializer(proto_serializers.ProtoSerializer):
@@ -40,6 +43,7 @@ class ProductGroupSerializer(proto_serializers.ProtoSerializer):
     products = ProductInGroupSerializer(many=True)
     group_type = serializers.ChoiceField(ProductGroupType.choices)
     product_group_id = serializers.CharField()
+    brand = BrandSerializer()
 
     class Meta:
         proto_class = ProductGroupMessage
@@ -55,6 +59,7 @@ class CreateProductGroupSeriazlier(proto_serializers.ProtoSerializer):
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     group_type = serializers.ChoiceField(ProductGroupType.choices)
+    brand_id = serializers.CharField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductGroupRequest
@@ -72,6 +77,7 @@ class EditProductGroupSerializer(proto_serializers.ProtoSerializer):
     group_type = serializers.ChoiceField(
         ProductGroupType.choices, allow_null=True, required=False
     )
+    brand_id = serializers.CharField(allow_null=True, required=False)
     product_group_id = serializers.CharField()
 
     class Meta:

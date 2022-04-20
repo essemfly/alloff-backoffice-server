@@ -14,6 +14,16 @@ from gen.pyalloff.exhibition_pb2 import (
 )
 
 
+class ExhibitionBannerSerializer(proto_serializers.ProtoSerializer):
+    img_url = serializers.CharField()
+    title = serializers.CharField()
+    subtitle = serializers.CharField()
+    product_group_id = serializers.CharField()
+
+    class Meta:
+        proto_class = ExhibitionMessage
+
+
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()
@@ -28,14 +38,15 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
     target_sales = serializers.IntegerField()
     current_sales = serializers.IntegerField()
+    banners = ExhibitionBannerSerializer(many=True)
 
     class Meta:
         proto_class = ExhibitionMessage
 
 
 class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
-    banner_image = serializers.CharField()
-    thumbnail_image = serializers.CharField()
+    banner_image = serializers.CharField(allow_null=True, required=False)
+    thumbnail_image = serializers.CharField(allow_null=True, required=False)
     title = serializers.CharField()
     subtitle = serializers.CharField()
     description = serializers.CharField()
@@ -46,6 +57,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     )
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
     target_sales = serializers.IntegerField()
+    banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateExhibitionRequest
@@ -65,6 +77,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     )
     is_live = serializers.BooleanField(allow_null=True, required=False)
     target_sales = serializers.IntegerField(allow_null=True, required=False)
+    banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
 
     class Meta:
         proto_class = EditExhibitionRequest
