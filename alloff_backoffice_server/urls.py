@@ -62,7 +62,7 @@ else:
     router.register(r"top-banners", TopBannerViewSet, basename="top-banner")
     router.register(r"notifications", NotificationViewSet, basename="notifications")
     router.register(r"analytics", AnalyticsViewSet, basename="analytics")
-    router.register(r"order-stat", OrderStatViewSet, basename="order-stat")
+    router.register(r"order-stats", OrderStatViewSet, basename="order-stats")
 
 router.register(r"inquiries", ProductInquiryViewSet, basename="inquiries")
 router.register(r"alloff-categories", AlloffCategoryViewSet, basename="alloff-category")
