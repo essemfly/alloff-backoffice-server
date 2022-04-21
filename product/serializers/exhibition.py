@@ -16,8 +16,8 @@ from gen.pyalloff.exhibition_pb2 import (
 
 class ExhibitionBannerSerializer(proto_serializers.ProtoSerializer):
     img_url = serializers.CharField()
-    title = serializers.CharField()
-    subtitle = serializers.CharField()
+    title = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    subtitle = serializers.CharField(allow_null=True, allow_blank=True, required=False)
     product_group_id = serializers.CharField()
 
     class Meta:
@@ -45,8 +45,12 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
 
 
 class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
-    banner_image = serializers.CharField(allow_null=True, required=False)
-    thumbnail_image = serializers.CharField(allow_null=True, required=False)
+    banner_image = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
+    thumbnail_image = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
     title = serializers.CharField()
     subtitle = serializers.CharField()
     description = serializers.CharField()
@@ -65,8 +69,12 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
 
 class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
-    banner_image = serializers.CharField(allow_null=True, required=False)
-    thumbnail_image = serializers.CharField(allow_null=True, required=False)
+    banner_image = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
+    thumbnail_image = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
     title = serializers.CharField(allow_null=True, required=False)
     subtitle = serializers.CharField(allow_null=True, required=False)
     description = serializers.CharField(allow_null=True, required=False)
