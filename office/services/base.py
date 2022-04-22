@@ -98,7 +98,7 @@ class GrpcService:
     def channel(cls) -> grpc.Channel:
         if cls.url == "":
             raise GrpcServiceUrlNotDefinedException
-        options = [("grpc.max_message_length", 10 * 1024 * 1024)]
+        options = [("grpc.max_receive_message_length", 10 * 1024 * 1024)]
         return grpc.insecure_channel(cls.url, options=options)
 
     @classmethod
