@@ -3,10 +3,12 @@ from io import BytesIO
 import requests
 from PIL import Image, ImageOps
 
+
 class CannotDownloadImageException(Exception):
     pass
 
-def download_image(url: str, exif_transpose: bool = True) -> Image:
+
+def download_image(url: str, exif_transpose: bool = True) -> Image.Image:
     """
     Downloads image from url and returns the in-memory image.
     Raises CannotDownloadImageException on non-200 response.

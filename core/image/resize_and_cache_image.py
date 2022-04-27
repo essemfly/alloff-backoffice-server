@@ -10,7 +10,8 @@ def resize_and_cache(url: str, size: int, suffix: str, resize_type: str = "mw") 
     Resizes and caches image from url.
     Returns the url to the cached image.
     """
-    resized_image = resize_image_by_max_width(download_image(url), size)
+    image = download_image(url)
+    resized_image = resize_image_by_max_width(image, size)
     path = processed_image_path(url, f"{resize_type}{size}", suffix=suffix, ext="webp")
     with default_storage.open(path, "wb") as f:
         f.write(image_to_bytes(resized_image))
