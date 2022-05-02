@@ -1,3 +1,5 @@
+# 2022-04-27 by @steve.c
+# 유저의 created 값이 일정 기간동안 들어가지 않고 있었던 문제를 ObjectId 파싱을 통해 고침.
 import pymongo
 from bson import ObjectId
 
