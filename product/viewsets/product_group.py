@@ -1,6 +1,5 @@
 from tokenize import group
 from drf_spectacular.utils import extend_schema
-from jmespath import search
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
@@ -19,6 +18,7 @@ from product.services.product_group import ProductGroupService
 from gen.pyalloff.productGroup_pb2 import (
     PRODUCT_GROUP_EXHIBITION,
     PRODUCT_GROUP_TIMEDEAL,
+    PRODUCT_GROUP_GROUPDEAL,
     GetProductGroupRequest,
     ListProductGroupsRequest,
     ProductGroupQuery,
@@ -53,6 +53,10 @@ class ProductGroupViewSet(
         elif group_type == "PRODUCT_GROUP_EXHIBITION":
             query = ProductGroupQuery(
                 search_query=search_query, group_type=PRODUCT_GROUP_EXHIBITION
+            )
+        elif group_type == "PRODUCT_GROUP_GROUPDEAL":
+            query = ProductGroupQuery(
+                search_query=search_query, group_type=PRODUCT_GROUP_GROUPDEAL
             )
         else:
             query = ProductGroupQuery(search_query=search_query)
