@@ -46,7 +46,7 @@ class ProductGroupViewSet(
         search_query = request.query_params.get("search_query", "")
         group_type = request.query_params.get("group_type", "")
 
-        if group_type == "PRODUCT_GROUP_TIMEDEAL":
+        if group_type == "PRODUCT_GROUP_BRAND_TIMEDEAL":
             query = ProductGroupQuery(
                 search_query=search_query, group_type=PRODUCT_GROUP_TIMEDEAL
             )
