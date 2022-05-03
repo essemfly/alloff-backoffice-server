@@ -72,6 +72,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
 
     # Backoffice-only field (non-grpc)
     main_image_url = serializers.SerializerMethodField()
+    is_special = serializers.BooleanField()
 
     @extend_schema_field(serializers.CharField(allow_null=True, required=False))
     def get_main_image_url(self, obj):
@@ -171,6 +172,7 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
+    is_special = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductRequest
@@ -219,6 +221,7 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
+    is_special = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest
