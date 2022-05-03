@@ -39,6 +39,9 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     target_sales = serializers.IntegerField()
     current_sales = serializers.IntegerField()
     banners = ExhibitionBannerSerializer(many=True)
+    num_users_required = serializers.IntegerField()
+    total_participants = serializers.IntegerField()
+    total_groups = serializers.IntegerField()
 
     class Meta:
         proto_class = ExhibitionMessage
@@ -62,6 +65,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
     target_sales = serializers.IntegerField()
     banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
+    num_users_required = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateExhibitionRequest
@@ -86,6 +90,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     is_live = serializers.BooleanField(allow_null=True, required=False)
     target_sales = serializers.IntegerField(allow_null=True, required=False)
     banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
+    num_users_required = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditExhibitionRequest
