@@ -21,6 +21,7 @@ from office.viewsets.received_item import ReceivedItemViewSet
 from office.viewsets.shipping_notice import ShippingNoticeViewSet
 from office.viewsets.shipping_notice_uploader import ShippingNoticeResultUploaderViewSet
 from product.viewsets.alloff_category import AlloffCategoryViewSet
+from product.viewsets.alloff_size import AlloffSizeViewSet
 from product.viewsets.brand import BrandViewSet
 from product.viewsets.exhibition import ExhibitionViewSet
 from product.viewsets.hometab import HometabItemViewSet
@@ -66,6 +67,7 @@ else:
 
 router.register(r"inquiries", ProductInquiryViewSet, basename="inquiries")
 router.register(r"alloff-categories", AlloffCategoryViewSet, basename="alloff-category")
+router.register(r"alloff-sizes", AlloffSizeViewSet, basename="alloff-size")
 router.register(r"brands", BrandViewSet, basename="brands")
 router.register(r"couriers", CourierViewSet, basename="couriers")
 router.register(r"products", ProductViewSet, basename="products")
