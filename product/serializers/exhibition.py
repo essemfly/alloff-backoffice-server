@@ -14,16 +14,6 @@ from gen.pyalloff.exhibition_pb2 import (
 )
 
 
-class ExhibitionBannerSerializer(proto_serializers.ProtoSerializer):
-    img_url = serializers.CharField()
-    title = serializers.CharField(allow_null=True, allow_blank=True, required=False)
-    subtitle = serializers.CharField(allow_null=True, allow_blank=True, required=False)
-    product_group_id = serializers.CharField()
-
-    class Meta:
-        proto_class = ExhibitionMessage
-
-
 class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     exhibition_id = serializers.CharField()
     banner_image = serializers.CharField()
@@ -31,17 +21,14 @@ class ExhibitionSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField()
     subtitle = serializers.CharField()
     description = serializers.CharField()
+    tags = serializers.ListField(
+        child=serializers.CharField()
+    )
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     pgs = ProductGroupSerializer(many=True)
     is_live = serializers.BooleanField()
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
-    target_sales = serializers.IntegerField()
-    current_sales = serializers.IntegerField()
-    banners = ExhibitionBannerSerializer(many=True)
-    num_users_required = serializers.IntegerField()
-    total_participants = serializers.IntegerField()
-    total_groups = serializers.IntegerField()
 
     class Meta:
         proto_class = ExhibitionMessage
@@ -56,16 +43,16 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     )
     title = serializers.CharField()
     subtitle = serializers.CharField()
-    description = serializers.CharField()
+    description = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    tags = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False
+    )
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
     pg_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
     exhibition_type = serializers.ChoiceField(choices=ExhibitionType.items())
-    target_sales = serializers.IntegerField()
-    banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
-    num_users_required = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateExhibitionRequest
@@ -82,15 +69,15 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     title = serializers.CharField(allow_null=True, required=False)
     subtitle = serializers.CharField(allow_null=True, required=False)
     description = serializers.CharField(allow_null=True, required=False)
+    tags = tags = serializers.ListField(
+        child=serializers.CharField(), allow_null=True, required=False
+    )
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)
     pg_ids = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
     is_live = serializers.BooleanField(allow_null=True, required=False)
-    target_sales = serializers.IntegerField(allow_null=True, required=False)
-    banners = ExhibitionBannerSerializer(many=True, allow_null=True, required=False)
-    num_users_required = serializers.IntegerField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditExhibitionRequest
