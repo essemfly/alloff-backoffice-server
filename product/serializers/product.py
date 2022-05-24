@@ -10,10 +10,14 @@ from gen.pyalloff.product_pb2 import (
     EditProductRequest,
     ListProductsRequest,
     ListProductsResponse,
-    ProductInventoryMessage,
+    AlloffInventoryMessage,
     ProductMessage,
     ProductQuery,
 )
+from gen.pyalloff.alloff_size_pb2 import (
+    AlloffSizeMessage
+)
+from product.serializers.alloff_size import AlloffSizeSerializer
 from rest_framework import serializers
 
 
@@ -28,38 +32,36 @@ class SortingOptions(models.TextChoices):
     DISCOUNTRATE_DESCENDING = "DISCOUNTRATE_DESCENDING"
 
 
-class ProductInventorySerializer(proto_serializers.ProtoSerializer):
-    size = serializers.CharField()
+class AlloffInventorySerializer(proto_serializers.ProtoSerializer):
+    alloff_size = AlloffSizeSerializer()
     quantity = serializers.IntegerField()
 
     class Meta:
-        proto_class = ProductInventoryMessage
+        proto_class = AlloffInventoryMessage
 
 
 class ProductSerializer(proto_serializers.ProtoSerializer):
     alloff_product_id = serializers.CharField()
     alloff_name = serializers.CharField()
-    product_id = serializers.CharField()
-    brand_kor_name = serializers.CharField()
-    category_name = serializers.CharField()
-    alloff_category_name = serializers.CharField()
     is_foreign_delivery = serializers.BooleanField()
-    is_refund_possible = serializers.BooleanField()
-    is_removed = serializers.BooleanField()
-    is_soldout = serializers.BooleanField()
+    product_id = serializers.CharField()
     original_price = serializers.IntegerField()
     discounted_price = serializers.IntegerField()
-    special_price = serializers.IntegerField()
+    
+    brand_kor_name = serializers.CharField()
+    inventory = AlloffInventorySerializer(many=True)
+    description = serializers.ListField(child=serializers.CharField())
     earliest_delivery_days = serializers.IntegerField()
     latest_delivery_days = serializers.IntegerField()
     refund_fee = serializers.IntegerField()
-    total_score = serializers.IntegerField()
-    description = serializers.ListField(child=serializers.CharField())
+    is_refund_possible = serializers.BooleanField()
     images = serializers.ListField(child=serializers.CharField())
     description_images = serializers.ListField(child=serializers.URLField())
-    inventory = ProductInventorySerializer(many=True)
+    category_name = serializers.CharField()
+    alloff_category_name = serializers.CharField()
+    is_removed = serializers.BooleanField()
+    is_soldout = serializers.BooleanField()
     module_name = serializers.CharField()
-    raw_html = serializers.CharField(allow_null=True, required=False)
     alloff_category_id = serializers.CharField(allow_null=True, required=False)
     product_url = serializers.CharField(
         allow_null=True, required=False, allow_blank=True
@@ -70,9 +72,13 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     product_infos = serializers.DictField()
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
 
+    # No more use 
+    total_score = serializers.IntegerField()
+    special_price = serializers.IntegerField()
+    
     # Backoffice-only field (non-grpc)
+    raw_html = serializers.CharField(allow_null=True, required=False)
     main_image_url = serializers.SerializerMethodField()
-    is_special = serializers.BooleanField()
 
     @extend_schema_field(serializers.CharField(allow_null=True, required=False))
     def get_main_image_url(self, obj):
@@ -160,7 +166,7 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     discounted_price = serializers.IntegerField()
     special_price = serializers.IntegerField(allow_null=True, required=False)
     brand_key_name = serializers.CharField()
-    inventory = ProductInventorySerializer(many=True)
+    inventory = AlloffInventorySerializer(many=True)
     description = serializers.ListField(child=serializers.CharField())
     is_refund_possible = serializers.BooleanField()
     images = serializers.ListField(child=serializers.CharField())
@@ -172,7 +178,6 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
-    is_special = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = CreateProductRequest
@@ -201,7 +206,7 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     discounted_price = serializers.IntegerField(allow_null=True, required=False)
     special_price = serializers.IntegerField(allow_null=True, required=False)
     brand_key_name = serializers.CharField(allow_null=True, required=False)
-    inventory = ProductInventorySerializer(many=True, allow_null=True, required=False)
+    inventory = AlloffInventorySerializer(many=True, allow_null=True, required=False)
     description = serializers.ListField(
         child=serializers.CharField(), allow_null=True, required=False
     )
@@ -221,7 +226,6 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
-    is_special = serializers.BooleanField(allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest
