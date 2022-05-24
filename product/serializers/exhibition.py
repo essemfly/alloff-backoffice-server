@@ -45,7 +45,7 @@ class CreateExhibitionSerializer(proto_serializers.ProtoSerializer):
     subtitle = serializers.CharField()
     description = serializers.CharField(allow_null=True, allow_blank=True, required=False)
     tags = serializers.ListField(
-        child=serializers.CharField(), allow_null=True, allow_blank=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
     start_time = serializers.DateTimeField()
     finish_time = serializers.DateTimeField()
@@ -70,7 +70,7 @@ class EditExhibitionSerializer(proto_serializers.ProtoSerializer):
     subtitle = serializers.CharField(allow_null=True, required=False)
     description = serializers.CharField(allow_null=True, required=False)
     tags = tags = serializers.ListField(
-        child=serializers.CharField(), allow_null=True, allow_blank=True, required=False
+        child=serializers.CharField(), allow_null=True, required=False
     )
     start_time = serializers.DateTimeField(allow_null=True, required=False)
     finish_time = serializers.DateTimeField(allow_null=True, required=False)

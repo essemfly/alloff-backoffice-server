@@ -5,11 +5,8 @@ from gen.pyalloff.alloff_size_pb2 import (
     ListAlloffSizeRequest,
     ListAlloffSizeResponse,
     CreateAlloffSizeRequest,
-    CreateAlloffSizeResponse,
     EditAlloffSizeRequest,
-    EditAlloffSizeResponse,
     GetAlloffSizeRequest,
-    GetAlloffSizeResponse,
 )
 from gen.pyalloff.alloff_size_pb2_grpc import AlloffSizeStub
 
@@ -21,7 +18,7 @@ class AlloffSizeService(GrpcService):
     def get(cls, request: GetAlloffSizeRequest):
         with cls.channel:
             stub = AlloffSizeStub(cls.channel)
-            response: GetAlloffSizeResponse = stub.GetAlloffSize(request)
+            response = stub.GetAlloffSize(request)
 
             return response
 
@@ -37,7 +34,7 @@ class AlloffSizeService(GrpcService):
     def create(cls, request: CreateAlloffSizeRequest):
         with cls.channel:
             stub = AlloffSizeStub(cls.channel)
-            response: CreateAlloffSizeResponse = stub.CreateAlloffSize(request)
+            response = stub.CreateAlloffSize(request)
 
             return response
 
@@ -45,6 +42,6 @@ class AlloffSizeService(GrpcService):
     def edit(cls, request: EditAlloffSizeRequest):
         with cls.channel:
             stub = AlloffSizeStub(cls.channel)
-            response: EditAlloffSizeResponse = stub.EditAlloffSize(request)
+            response = stub.EditAlloffSize(request)
 
             return response
