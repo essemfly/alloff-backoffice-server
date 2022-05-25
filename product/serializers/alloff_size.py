@@ -15,7 +15,6 @@ from gen.pyalloff.alloff_size_pb2 import (
 class AlloffSizeSerializer(proto_serializers.ProtoSerializer):
     alloff_size_id = serializers.CharField()
     alloff_size_name = serializers.CharField()
-    original_size_name = serializers.CharField()
     alloff_category = AlloffCategorySerializer()
 
     class Meta:
@@ -23,7 +22,6 @@ class AlloffSizeSerializer(proto_serializers.ProtoSerializer):
 
 
 class ListAlloffSizeRequestSerializer(proto_serializers.ProtoSerializer):
-
     class Meta:
         proto_class = ListAlloffSizeRequest
 
@@ -38,7 +36,6 @@ class ListAlloffSizeReponseSerializer(proto_serializers.ProtoSerializer):
 
 class CreateAlloffSizeSerializer(proto_serializers.ProtoSerializer):
     alloff_size_name = serializers.CharField()
-    original_size_name = serializers.CharField()
     alloff_category_id = serializers.CharField()
 
     class Meta:
@@ -47,9 +44,12 @@ class CreateAlloffSizeSerializer(proto_serializers.ProtoSerializer):
 
 class EditAlloffSizeSerializer(proto_serializers.ProtoSerializer):
     alloff_size_id = serializers.CharField()
-    alloff_size_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
-    original_size_name = serializers.CharField(allow_null=True, allow_blank=True, required=False)
-    alloff_category_id = serializers.CharField(allow_null=True, allow_blank=True, required=False)
+    alloff_size_name = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
+    alloff_category_id = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
 
     class Meta:
         proto_class = EditAlloffSizeRequest
