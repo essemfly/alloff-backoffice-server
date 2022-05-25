@@ -4,8 +4,6 @@ from gen.pyalloff.brand_pb2 import (
     CreateBrandRequest,
     EditBrandRequest,
     SizeGuideMessage,
-    InventoryMappingPolicyRequester,
-    InventoryMappingPolicyMessage,
 )
 from rest_framework import serializers
 
@@ -18,22 +16,6 @@ class SizeGuideSerializer(proto_serializers.ProtoSerializer):
 
     class Meta:
         proto_class = SizeGuideMessage
-
-
-class InventoryMappingPolicyRequesterSerializer(proto_serializers.ProtoSerializer):
-    brand_size = serializers.CharField()
-    alloff_size_id = serializers.CharField()
-
-    class Meta:
-        proto_class = InventoryMappingPolicyRequester
-
-
-class InventoryMappingPolicySerializer(proto_serializers.ProtoSerializer):
-    brand_size = serializers.CharField()
-    alloff_size = AlloffSizeSerializer()
-
-    class Meta:
-        proto_class = InventoryMappingPolicyMessage
 
 
 class BrandSerializer(proto_serializers.ProtoSerializer):
@@ -49,7 +31,6 @@ class BrandSerializer(proto_serializers.ProtoSerializer):
     in_maintenance = serializers.BooleanField(default=False)
     size_guide = SizeGuideSerializer(many=True)
     back_image_url = serializers.CharField()
-    inventory_mapping_policies = InventoryMappingPolicySerializer(many=True)
 
     class Meta:
         proto_class = BrandMessage
@@ -67,7 +48,6 @@ class CreateBrandSerializer(proto_serializers.ProtoSerializer):
     is_hide = serializers.BooleanField(default=False)
     size_guide = SizeGuideSerializer(many=True)
     back_image_url = serializers.CharField()
-    inventory_mapping_policies = InventoryMappingPolicyRequesterSerializer(many=True)
 
     class Meta:
         proto_class = CreateBrandRequest
@@ -89,7 +69,6 @@ class EditBrandSerializer(proto_serializers.ProtoSerializer):
     is_hide = serializers.BooleanField(default=False, allow_null=True, required=False)
     size_guide = SizeGuideSerializer(many=True, allow_null=True, required=False)
     back_image_url = serializers.CharField(allow_null=True, required=False)
-    inventory_mapping_policies = InventoryMappingPolicyRequesterSerializer(allow_null=True, required=False, many=True)
 
     class Meta:
         proto_class = EditBrandRequest
