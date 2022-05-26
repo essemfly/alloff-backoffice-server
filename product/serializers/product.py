@@ -33,7 +33,6 @@ class SortingOptions(models.TextChoices):
 class ProductInventorySerializer(proto_serializers.ProtoSerializer):
     size = serializers.CharField()
     quantity = serializers.IntegerField()
-    alloff_size = AlloffSizeSerializer(allow_null=True, required=False)
 
     class Meta:
         proto_class = ProductInventoryMessage
