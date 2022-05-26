@@ -68,9 +68,7 @@ class ProductSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField()
     product_infos = serializers.DictField()
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
-    product_types = serializers.ListField(
-        child=serializers.ChoiceField(choices=ProductType.items())
-    )
+    product_types = serializers.ListField(child=serializers.ChoiceField(choices=ProductType.items()))
 
     # No more use
     total_score = serializers.IntegerField()
@@ -178,9 +176,7 @@ class _CreateProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
-    product_types = serializers.ListField(
-        child=serializers.ChoiceField(choices=ProductType.items())
-    )
+    product_types = serializers.ListField(child=serializers.ChoiceField(choices=ProductType.items()))
 
     class Meta:
         proto_class = CreateProductRequest
@@ -229,11 +225,7 @@ class _EditProductRequestSerializer(proto_serializers.ProtoSerializer):
     description_infos = serializers.DictField(allow_null=True, required=False)
     product_infos = serializers.DictField(allow_null=True, required=False)
     thumbnail_image = serializers.CharField(allow_null=True, required=False)
-    product_types = serializers.ListField(
-        child=serializers.ChoiceField(choices=ProductType.items()),
-        allow_null=True,
-        required=False,
-    )
+    product_types = serializers.ListField(child=serializers.ChoiceField(choices=ProductType.items()), allow_null=True, required=False)
 
     class Meta:
         proto_class = EditProductRequest
